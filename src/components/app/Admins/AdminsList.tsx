@@ -16,7 +16,7 @@ import { useUsers } from "./useAdmins";
 
 export const AdminsList = () => {
   const dict = useDict();
-  const { users, pagination, isLoading } = useUsers();
+  const { admins, pagination, isLoading } = useUsers();
   const { deleteAdmin, busy } = useManageAdmin();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
@@ -62,21 +62,21 @@ export const AdminsList = () => {
 
   return isLoading ? (
     <AppTableSkeleton columns={columns.length} rows={10} />
-  ) : !users || users.length === 0 ? (
+  ) : !admins || admins.length === 0 ? (
     <NoData type={NoDataType.Admins} />
   ) : (
     <>
       <AppTable
         label="Requests"
         columns={columns}
-        rows={users.map((user) => ({
-          key: user.id,
-          name: user.fullName,
-          phone: user.phoneNumber,
-          email: user.email,
-          role: roleMap(dict)[user.permissionType],
-          status: user.status,
-          date: DateTimeHelpers.formatDate(user.createdAt),
+        rows={admins.map((admin) => ({
+          key: admin.id,
+          name: admin.fullName,
+          // phone: admin.phoneNumber,
+          email: admin.email,
+          role: roleMap(dict)[admin.permissionType],
+          status: admin.status,
+          date: DateTimeHelpers.formatDate(admin.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {
@@ -99,7 +99,7 @@ export const AdminsList = () => {
           })
         }
         pagination={{
-          page: pagination?.currentPage ?? 0,
+          page: pagination?.page ?? 0,
           total: pagination?.totalPages ?? 0,
           onChange: (p) => {
             setPage(p, { history: "push" });

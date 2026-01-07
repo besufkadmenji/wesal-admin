@@ -1,8 +1,5 @@
+import { AdminPermission, Permission } from "@/gql/graphql";
 import { PermissionService } from "@/services/permission.service";
-import {
-  AssignedPermissionsResponse,
-  PermissionsListResponse,
-} from "@/types/permission";
 import { useQuery } from "@tanstack/react-query";
 import { useLang } from "./useLang";
 
@@ -14,41 +11,31 @@ export const usePermissions = () => {
     isError,
     data: permissionsData,
     error,
-  } = useQuery<PermissionsListResponse | null>({
+  } = useQuery<Permission[] | null>({
     queryKey: ["permissions"],
-    queryFn: () =>
-      PermissionService.getPermissions(
-        {
-          page: 1,
-          limit: 100,
-        },
-        lang,
-      ),
+    queryFn: () => PermissionService.permissions(),
   });
 
   return {
-    permissions: permissionsData?.permissions || [],
-    pagination: permissionsData?.pagination,
+    permissions: permissionsData ?? [],
     isLoading,
     isError,
     error,
   };
 };
-export const useUserPermission = (userId: string) => {
-  const lang = useLang();
-
+export const useAdminPermission = (adminId: string) => {
   const {
     isLoading,
     isError,
     data: permissionsData,
     error,
-  } = useQuery<AssignedPermissionsResponse | null>({
-    queryKey: ["userPermissions", userId],
-    queryFn: () => PermissionService.getUserPermissions(userId, lang),
+  } = useQuery<AdminPermission[] | null>({
+    queryKey: ["adminPermissions", adminId],
+    queryFn: () => PermissionService.adminPermissions(adminId),
   });
 
   return {
-    permissions: permissionsData?.permissions || [],
+    permissions: permissionsData || [],
     isLoading,
     isError,
     error,

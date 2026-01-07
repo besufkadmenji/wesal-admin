@@ -1,77 +1,64 @@
-import axiosClient from "@/utils/axios.client";
-import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 import {
-  PermissionsListResponse,
-  GetPermissionsParams,
-  AssignPermissionsRequest,
-  AssignedPermissionsResponse,
-} from "@/types/permission";
+  AdminPermission,
+  BulkAssignPermissionsInput,
+  Permission,
+} from "@/gql/graphql";
+import { ADMIN_PERMISSIONS_QUERY } from "@/graphql/permission/adminPermissions";
+import { BULK_ASSIGN_PERMISSIONS_TO_ADMIN_MUTATION } from "@/graphql/permission/bulkAssignPermissionsToAdmin";
+import { PERMISSIONS_QUERY } from "@/graphql/permission/permissions";
+import client from "@/utils/apollo.client";
+import { parseGraphQLError } from "@/utils/parse-graphql-error";
 
 export class PermissionService {
-  /**
-   * Get list of permissions with pagination
-   */
-  static async getPermissions(
-    params?: GetPermissionsParams,
-    lang?: string,
-  ): Promise<PermissionsListResponse | null> {
+  static permissions = async (): Promise<Permission[] | null> => {
     try {
-      const response = await axiosClient.get("/permissions", {
-        params,
-        headers: lang ? { "Accept-Language": lang } : {},
+      const permissionsResult = await client().query({
+        query: PERMISSIONS_QUERY,
+        variables: {},
       });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      return permissionsResult.data?.permissions ?? [];
+    } catch (e) {
+      console.error("permissionsResult", e);
     }
-  }
+    return null;
+  };
 
   /**
    * Assign permissions to a user
    */
   static async assignPermissions(
-    data: AssignPermissionsRequest,
-    lang?: string,
-  ): Promise<AssignedPermissionsResponse | null> {
+    input: BulkAssignPermissionsInput,
+  ): Promise<AdminPermission[] | null> {
     try {
-      const response = await axiosClient.post("/permissions/assign", data, {
-        headers: lang ? { "Accept-Language": lang } : {},
+      const createResponse = await client().mutate({
+        mutation: BULK_ASSIGN_PERMISSIONS_TO_ADMIN_MUTATION,
+        variables: {
+          input,
+        },
       });
-      return unwrapAxiosResponse(response.data);
+      return createResponse.data?.bulkAssignPermissionsToAdmin ?? null;
     } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
     }
   }
 
   /**
    * Get user's assigned permissions
    */
-  static async getUserPermissions(
-    userId: string,
-    lang?: string,
-  ): Promise<AssignedPermissionsResponse | null> {
+  static async adminPermissions(
+    adminId: string,
+  ): Promise<AdminPermission[] | null> {
     try {
-      const response = await axiosClient.get(`/permissions/user/${userId}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
+      const permissionsResult = await client().query({
+        query: ADMIN_PERMISSIONS_QUERY,
+        variables: { adminId },
       });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      return permissionsResult.data?.adminPermissions ?? [];
+    } catch (e) {
+      console.error("permissionsResult", e);
     }
+    return null;
   }
 }

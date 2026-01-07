@@ -14,6 +14,7 @@ export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
       status
       updatedAt
       userType
+      phoneNumber
     }
   }
 `;

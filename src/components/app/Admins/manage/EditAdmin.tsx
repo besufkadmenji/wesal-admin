@@ -12,30 +12,29 @@ import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { UploadInput } from "../../shared/UploadInput";
-import { useUserById } from "../useAdmins";
+import { useAdminById } from "../useAdmins";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 import { useEffect } from "react";
 import { AppLoading } from "@/components/app/shared/AppLoading";
+import { AdminStatus } from "@/gql/graphql";
 
 export const EditAdmin = ({ id }: { id: string }) => {
-  const { user } = useUserById(id);
-  console.log("Edit Admin User:", user);
-  const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
-  const existingPicture = useForm((state) => state.existingPicture);
-  const setExistingPicture = useForm((state) => state.setExistingPicture);
+  const { admin } = useAdminById(id);
+  const { form, setForm, reset, permissionsReady } = useManageForm(id, admin);
+  const avatarFile = useForm((state) => state.avatarFile);
+  const setAvatarFile = useForm((state) => state.setAvatarFile);
   const dict = useDict();
   const router = useRouter();
   const { busy, updateAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form, "edit");
-  console.log("existingPicture:", existingPicture, user?.profileImagePath);
   useEffect(() => {
     return () => {
       reset();
     };
   }, [reset]);
-  return !user || !permissionsReady ? (
+  return !admin || !permissionsReady ? (
     <AppLoading className="h-[84vh]" />
   ) : (
     <div className="grid grid-cols-1">
@@ -77,14 +76,10 @@ export const EditAdmin = ({ id }: { id: string }) => {
             <FormSelect
               label={dict.add_new_admin_form.labels.status}
               placeholder={dict.add_new_admin_form.labels.status}
-              value={form.status}
+              value={form.status?.toString() || ""}
               onChange={(value: string): void => {
                 setForm({
-                  status: value as
-                    | "ACTIVE"
-                    | "INACTIVE"
-                    | "SUSPENDED"
-                    | "PENDING_APPROVAL",
+                  status: value as AdminStatus,
                 });
                 clearError("status");
               }}
@@ -115,18 +110,18 @@ export const EditAdmin = ({ id }: { id: string }) => {
             <UploadInput
               label={dict.edit_admin_form.image.attach}
               desc={dict.edit_admin_form.image.desc}
-              file={form.profileImage}
+              file={avatarFile}
               onChange={(file?: File): void => {
-                setForm({ profileImage: file });
+                setAvatarFile(file || null);
                 if (!file) {
-                  setExistingPicture(null);
+                  setAvatarFile(null);
                 }
               }}
               accept={{
                 "image/jpeg": [],
                 "image/png": [],
               }}
-              initUrl={existingPicture || undefined}
+              initUrl={form.avatarFilename || undefined}
             />
           </div>
         </FormSection>

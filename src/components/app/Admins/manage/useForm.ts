@@ -1,5 +1,11 @@
-import { useUserPermission } from "@/hooks/usePermissions";
-import { CreateUserWithFileDto, User } from "@/types/user";
+import {
+  Admin,
+  AdminPermissionType,
+  AdminStatus,
+  AdminUserType,
+  CreateAdminInput,
+} from "@/gql/graphql";
+import { useAdminPermission } from "@/hooks/usePermissions";
 import { useEffect } from "react";
 import { create } from "zustand";
 
@@ -8,13 +14,15 @@ interface FormState {
   permissionsReady: boolean;
   setReady: (ready: boolean) => void;
   setPermissionsReady: (ready: boolean) => void;
-  form: CreateUserWithFileDto;
-  setForm: (form: Partial<CreateUserWithFileDto>) => void;
+  form: CreateAdminInput;
+  setForm: (form: Partial<CreateAdminInput>) => void;
+  confirmPassword?: string;
+  setConfirmPassword?: (password: string) => void;
+  avatarFile?: File | null;
+  setAvatarFile: (file: File | null) => void;
   reset: () => void;
-  permissionIds: number[];
-  setPermissionIds: (ids: number[]) => void;
-  existingPicture: string | null;
-  setExistingPicture: (picture: string | null) => void;
+  permissionIds: string[];
+  setPermissionIds: (ids: string[]) => void;
 }
 
 export const useForm = create<FormState>((set) => ({
@@ -22,15 +30,27 @@ export const useForm = create<FormState>((set) => ({
   setReady: (ready) => set(() => ({ ready })),
   permissionsReady: false,
   setPermissionsReady: (ready) => set(() => ({ permissionsReady: ready })),
+  avatarFile: null,
+  setAvatarFile: (file) =>
+    set(() => ({
+      avatarFile: file,
+    })),
+  confirmPassword: undefined,
+  setConfirmPassword: (password) =>
+    set(() => ({
+      confirmPassword: password,
+    })),
   form: {
     fullName: "",
     email: "",
     phoneNumber: "",
-    countryCode: "+966",
     password: "",
-    confirmPassword: "",
-    permissionType: "ADMINISTRATOR",
-    status: "ACTIVE",
+    permissionType: AdminPermissionType.Administrator,
+    status: AdminStatus.Active,
+    organizationName: "Wesal",
+    roleName: "",
+    userType: AdminUserType.Organization,
+    avatarFilename: undefined,
   },
   setForm: (form) =>
     set((state) => ({
@@ -47,11 +67,13 @@ export const useForm = create<FormState>((set) => ({
         fullName: "",
         email: "",
         phoneNumber: "",
-        countryCode: "+966",
         password: "",
-        confirmPassword: "",
-        permissionType: "ADMINISTRATOR",
-        status: "ACTIVE",
+        permissionType: AdminPermissionType.Administrator,
+        status: AdminStatus.Active,
+        organizationName: "Wesal",
+        roleName: "",
+        userType: AdminUserType.Organization,
+        avatarFilename: undefined,
       },
       existingPicture: null,
       permissionIds: [],
@@ -61,18 +83,12 @@ export const useForm = create<FormState>((set) => ({
     set(() => ({
       permissionIds: ids,
     })),
-  existingPicture: null,
-  setExistingPicture: (picture) =>
-    set(() => ({
-      existingPicture: picture,
-    })),
 }));
 
-export const useManageForm = (id: string, admin?: User | null) => {
-  const { permissions } = useUserPermission(id);
+export const useManageForm = (id: string, admin?: Admin | null) => {
+  const { permissions } = useAdminPermission(id);
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
-  const setExistingPicture = useForm((state) => state.setExistingPicture);
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
@@ -88,19 +104,21 @@ export const useManageForm = (id: string, admin?: User | null) => {
         email: admin.email,
         phoneNumber: admin.phoneNumber,
         status: admin.status,
+        avatarFilename: admin.avatarFilename || undefined,
       });
-      setExistingPicture(admin.profileImagePath || null);
       setReady(true);
     }
-  }, [admin, ready, setExistingPicture, setForm, setReady]);
+  }, [admin, ready, setForm, setReady]);
 
   useEffect(() => {
     if (permissions && permissions.length > 0 && permissionIds.length === 0) {
-      const newPermissionIds = permissions.map((p) => p.id);
+      const newPermissionIds = permissions.map((p) => p.permissionId);
       setPermissionIds(newPermissionIds);
       setForm({
-        permissionType: "CUSTOM",
+        permissionType: AdminPermissionType.Custom,
       });
+    }
+    if (permissions) {
       setPermissionsReady(true);
     }
   }, [

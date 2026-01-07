@@ -26,6 +26,7 @@ export const ADMINS_QUERY: TypedDocumentNode<
         status
         updatedAt
         userType
+        phoneNumber
       }
     }
   }

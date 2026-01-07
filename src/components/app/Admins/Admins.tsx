@@ -17,7 +17,7 @@ export const Admins = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { users, pagination, isLoading } = useUsers();
+  const { admins, pagination, isLoading } = useUsers();
 
   return (
     <PageWrapper>
@@ -35,7 +35,7 @@ export const Admins = () => {
       ) : (
         <SummaryCard
           type={SummaryCardType.ADMINS}
-          value={pagination?.totalItems || 0}
+          value={pagination?.total || 0}
         />
       )}
 

@@ -15,6 +15,7 @@ export const ADMIN_QUERY: TypedDocumentNode<AdminQuery, AdminQueryVariables> =
         status
         updatedAt
         userType
+        phoneNumber
       }
     }
   `;

@@ -1,6 +1,6 @@
 import {
-    UpdateAdminMutation,
-    UpdateAdminMutationVariables,
+  UpdateAdminMutation,
+  UpdateAdminMutationVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -23,6 +23,7 @@ export const UPDATE_ADMIN_MUTATION: TypedDocumentNode<
       status
       updatedAt
       userType
+      phoneNumber
     }
   }
 `;

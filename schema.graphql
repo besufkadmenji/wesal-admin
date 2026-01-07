@@ -10,12 +10,15 @@ directive @specifiedBy(
 ) on SCALAR
 
 type Admin {
+  avatarFilename: String
   createdAt: DateTime!
+  deactivationReason: String
   email: String!
   fullName: String!
   id: ID!
   organizationName: String!
   permissionType: AdminPermissionType!
+  phoneNumber: String!
   roleName: String!
   status: AdminStatus!
   updatedAt: DateTime!
@@ -47,6 +50,7 @@ input AdminPaginationInput {
   """Page number (1-based)"""
   page: Int! = 1
   permissionType: AdminPermissionType
+  search: String
 
   """Sort field name"""
   sortBy: AdminSortField
@@ -69,7 +73,9 @@ type AdminPermission {
 """Admin permission types"""
 enum AdminPermissionType {
   ADMINISTRATOR
+  CUSTOM
   MODERATOR
+  SUPER_ADMIN
   VIEWER
 }
 
@@ -488,11 +494,13 @@ enum CountrySortField {
 }
 
 input CreateAdminInput {
+  avatarFilename: String
   email: String!
   fullName: String!
   organizationName: String!
   password: String!
   permissionType: AdminPermissionType!
+  phoneNumber: String!
   roleName: String!
   status: AdminStatus! = ACTIVE
   userType: AdminUserType!
@@ -607,6 +615,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeactivateAdminInput {
+  reason: String
+}
+
 type Favorite {
   advertisement: Advertisement!
   advertisementId: String!
@@ -685,6 +697,7 @@ enum MessageSortField {
 }
 
 type Mutation {
+  activateAdmin(id: ID!): Admin!
   adminChangePassword(input: AdminChangePasswordInput!): Boolean!
   adminForgotPassword(input: AdminForgotPasswordInput!): Boolean!
   adminLogin(input: AdminLoginInput!): AdminAuthResponse!
@@ -710,6 +723,7 @@ type Mutation {
   createPayment(input: CreatePaymentInput!): Payment!
   createPermission(createPermissionInput: CreatePermissionInput!): Permission!
   createRating(input: CreateRatingInput!): Rating!
+  deactivateAdmin(id: ID!, input: DeactivateAdminInput!): Admin!
 
   """Delete all notifications for a user"""
   deleteAllNotificationsForUser(userId: String!): Boolean!
@@ -1245,11 +1259,12 @@ enum SortOrder {
 }
 
 input UpdateAdminInput {
+  avatarFilename: String
   email: String
   fullName: String
   organizationName: String
-  password: String
   permissionType: AdminPermissionType
+  phoneNumber: String!
   roleName: String
   status: AdminStatus
   userType: AdminUserType

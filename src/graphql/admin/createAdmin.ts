@@ -20,6 +20,7 @@ export const CREATE_ADMIN_MUTATION: TypedDocumentNode<
       status
       updatedAt
       userType
+      phoneNumber
     }
   }
 `;

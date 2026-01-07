@@ -1,18 +1,22 @@
 import { useDict } from "@/hooks/useDict";
+import { useLang } from "@/hooks/useLang";
+import AdminService from "@/services/admin.service";
+import { PermissionService } from "@/services/permission.service";
+import { UserService } from "@/services/user.service";
+import { DeactivateUserDto } from "@/types/user";
+import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
-import { useQueryState } from "nuqs";
-import { UserService } from "@/services/user.service";
-import { PermissionService } from "@/services/permission.service";
-import { useLang } from "@/hooks/useLang";
-import { DeactivateUserDto } from "@/types/user";
+import { AdminPermissionType } from "@/gql/graphql";
 
 export const useManageAdmin = () => {
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
+  const avatarFile = useForm((state) => state.avatarFile);
   const resetForm = useForm((state) => state.reset);
   const permissionIds = useForm((state) => state.permissionIds);
   const router = useRouter();
@@ -28,22 +32,30 @@ export const useManageAdmin = () => {
   const createAdmin = async () => {
     setBusy(true);
     try {
-      const response = await UserService.createUser(form);
+      let avatarFilename: string | null = null;
+      if (avatarFile) {
+        const uploadResponse = await uploadFile(avatarFile);
+        if (uploadResponse?.filename) {
+          avatarFilename = uploadResponse.filename;
+        }
+      }
+      const response = await AdminService.createAdmin({
+        ...form,
+        roleName: form.permissionType.toString(),
+        avatarFilename: avatarFilename || undefined,
+      });
       if (response) {
-        if (form.permissionType === "CUSTOM") {
-          await PermissionService.assignPermissions(
-            {
-              userId: response.id,
-              permissionIds: permissionIds || [],
-            },
-            lang,
-          );
+        if (form.permissionType === AdminPermissionType.Custom) {
+          await PermissionService.assignPermissions({
+            adminId: response.id,
+            permissionIds: permissionIds || [],
+          });
         }
         queryClient.invalidateQueries({
-          queryKey: ["users"],
+          queryKey: ["admins"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["user"],
+          queryKey: ["admin", response.id],
         });
         setShowSuccess("true");
       }
@@ -60,14 +72,31 @@ export const useManageAdmin = () => {
   const updateAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const response = await UserService.updateUser(id, form);
+      const { password, ...rest } = form;
+      let avatarFilename: string | null = rest.avatarFilename || null;
+      if (avatarFile) {
+        const uploadResponse = await uploadFile(avatarFile);
+        if (uploadResponse?.filename) {
+          avatarFilename = uploadResponse.filename;
+        }
+      }
+      const response = await AdminService.updateAdmin(id, {
+        ...rest,
+        avatarFilename,
+      });
       if (response) {
+        if (form.permissionType === AdminPermissionType.Custom) {
+          await PermissionService.assignPermissions({
+            adminId: response.id,
+            permissionIds: permissionIds || [],
+          });
+        }
         showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
-          queryKey: ["user", id],
+          queryKey: ["admin", id],
         });
         queryClient.invalidateQueries({
-          queryKey: ["users"],
+          queryKey: ["admins"],
         });
         router.push("/admins");
       }
@@ -83,14 +112,14 @@ export const useManageAdmin = () => {
   const deleteAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const success = await UserService.deleteUser(id);
+      const success = await AdminService.removeAdmin(id);
       if (success) {
         showSuccessMessage(dict.system_managers_page.messages.deleteSuccess);
         queryClient.invalidateQueries({
-          queryKey: ["users"],
+          queryKey: ["admins"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["user", id],
+          queryKey: ["admin", id],
         });
         router.push("/admins");
       } else {
@@ -110,14 +139,14 @@ export const useManageAdmin = () => {
   const activateAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const success = await UserService.activateUser(id, lang);
+      const success = await AdminService.activateAdmin(id);
       if (success) {
-        showSuccessMessage(success);
+        showSuccessMessage(dict.system_managers_page.messages.activateSuccess);
         queryClient.invalidateQueries({
-          queryKey: ["users"],
+          queryKey: ["admins"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["user", id],
+          queryKey: ["admin", id],
         });
         setActivateAdmin(null);
       } else {
@@ -137,18 +166,16 @@ export const useManageAdmin = () => {
     setBusy(true);
     try {
       const deactivateData: DeactivateUserDto = reason ? { reason } : {};
-      const success = await UserService.deactivateUser(
-        id,
-        deactivateData,
-        lang,
-      );
+      const success = await AdminService.deactivateAdmin(id, deactivateData);
       if (success) {
-        showSuccessMessage(success);
+        showSuccessMessage(
+          dict.system_managers_page.messages.deactivateSuccess,
+        );
         queryClient.invalidateQueries({
-          queryKey: ["users"],
+          queryKey: ["admins"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["user", id],
+          queryKey: ["admin", id],
         });
         setDeactivateAdmin(null);
       } else {

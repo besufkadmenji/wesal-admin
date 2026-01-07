@@ -11,22 +11,34 @@ import {
   FormInput,
   PasswordInput,
 } from "@/components/app/shared/forms/FormInput";
+import { AdminStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { UploadInput } from "../../shared/UploadInput";
 import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
-import { useEffect } from "react";
 
 export const AddAdmin = () => {
-  const { form, setForm, reset } = useForm();
+  const {
+    form,
+    setForm,
+    reset,
+    confirmPassword,
+    setConfirmPassword,
+    avatarFile,
+    setAvatarFile,
+  } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createAdmin } = useManageAdmin();
-  const { errors, validateForm, clearError } = useFormValidation(form);
+  const { errors, validateForm, clearError } = useFormValidation(
+    { ...form, confirmPassword },
+    "add",
+  );
   useEffect(() => {
     return () => {
       reset();
@@ -75,14 +87,10 @@ export const AddAdmin = () => {
               <FormSelect
                 label={dict.add_new_admin_form.labels.status}
                 placeholder={dict.add_new_admin_form.labels.status}
-                value={form.status}
+                value={form.status?.toString() || ""}
                 onChange={(value: string): void => {
                   setForm({
-                    status: value as
-                      | "ACTIVE"
-                      | "INACTIVE"
-                      | "SUSPENDED"
-                      | "PENDING_APPROVAL",
+                    status: value as AdminStatus,
                   });
                   clearError("status");
                 }}
@@ -123,9 +131,9 @@ export const AddAdmin = () => {
               <PasswordInput
                 label={dict.add_new_admin_form.labels.confirm_password}
                 placeholder={"********"}
-                value={form.confirmPassword ?? ""}
+                value={confirmPassword ?? ""}
                 onChange={(value: string): void => {
-                  setForm({ confirmPassword: value });
+                  setConfirmPassword?.(value);
                   clearError("confirmPassword");
                 }}
                 errorMessage={errors.confirmPassword}
@@ -137,9 +145,9 @@ export const AddAdmin = () => {
               <UploadInput
                 label={dict.add_new_admin_form.image.attach}
                 desc={dict.add_new_admin_form.image.desc}
-                file={form.profileImage}
+                file={avatarFile}
                 onChange={(file?: File): void => {
-                  setForm({ profileImage: file });
+                  setAvatarFile(file || null);
                 }}
                 accept={{
                   "image/jpeg": [],

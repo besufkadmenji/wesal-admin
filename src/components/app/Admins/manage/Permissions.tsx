@@ -1,9 +1,9 @@
-import { useForm, useManageForm } from "@/components/app/Admins/manage/useForm";
+import { useForm } from "@/components/app/Admins/manage/useForm";
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
+import { AdminPermissionType, Permission } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { usePermissions } from "@/hooks/usePermissions";
-import { Permission } from "@/types/permission";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { AppCheckbox } from "../../shared/AppCheckbox";
 
 export const Permissions = ({
@@ -28,7 +28,7 @@ export const Permissions = ({
     return groups;
   }, [permissions]);
 
-  const handlePermissionToggle = (permissionId: number) => {
+  const handlePermissionToggle = (permissionId: string) => {
     setPermissionIds(
       permissionIds.includes(permissionId)
         ? permissionIds.filter((id) => id !== permissionId)
@@ -49,9 +49,7 @@ export const Permissions = ({
       );
     } else {
       setPermissionIds([
-        ...permissionIds.filter(
-          (id) => !modulePermissionIds.includes(Number(id)),
-        ),
+        ...permissionIds.filter((id) => !modulePermissionIds.includes(id)),
         ...modulePermissionIds.map((id) => id),
       ]);
     }
@@ -87,15 +85,21 @@ export const Permissions = ({
           </p>
           <div className="flex gap-2 md:gap-8">
             <AppCheckbox
-              isSelected={form.permissionType === "ADMINISTRATOR"}
-              onValueChange={() => setForm({ permissionType: "ADMINISTRATOR" })}
+              isSelected={
+                form.permissionType === AdminPermissionType.Administrator
+              }
+              onValueChange={() =>
+                setForm({ permissionType: AdminPermissionType.Administrator })
+              }
               isDisabled={readOnly}
             >
               {dict.add_new_admin_form.permissions.full_access}
             </AppCheckbox>
             <AppCheckbox
-              isSelected={form.permissionType === "CUSTOM"}
-              onValueChange={() => setForm({ permissionType: "CUSTOM" })}
+              isSelected={form.permissionType === AdminPermissionType.Custom}
+              onValueChange={() =>
+                setForm({ permissionType: AdminPermissionType.Custom })
+              }
               isDisabled={readOnly}
             >
               {dict.add_new_admin_form.permissions.limited_access}

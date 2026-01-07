@@ -2,12 +2,15 @@ import {
   Admin,
   AdminPaginationInput,
   CreateAdminInput,
+  DeactivateAdminInput,
   PaginatedAdminResponse,
   UpdateAdminInput,
 } from "@/gql/graphql";
+import { ACTIVATE_ADMIN_MUTATION } from "@/graphql/admin/activateAdmin";
 import { ADMIN_QUERY } from "@/graphql/admin/admin";
 import { ADMINS_QUERY } from "@/graphql/admin/admins";
 import { CREATE_ADMIN_MUTATION } from "@/graphql/admin/createAdmin";
+import { DEACTIVATE_ADMIN_MUTATION } from "@/graphql/admin/deactivateAdmin";
 import { ME_ADMIN_QUERY } from "@/graphql/admin/meAdmin";
 import { REMOVE_ADMIN_MUTATION } from "@/graphql/admin/removeAdmin";
 import { UPDATE_ADMIN_MUTATION } from "@/graphql/admin/updateAdmin";
@@ -85,6 +88,40 @@ class AdminService {
         },
       });
       return updateAdminResponse.data?.updateAdmin ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+  static activateAdmin = async (activateAdminId: string) => {
+    try {
+      const activateAdminResponse = await client().mutate({
+        mutation: ACTIVATE_ADMIN_MUTATION,
+        variables: {
+          activateAdminId,
+        },
+      });
+      return activateAdminResponse.data?.activateAdmin ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+  static deactivateAdmin = async (
+    deactivateAdminId: string,
+    input: DeactivateAdminInput,
+  ) => {
+    try {
+      const deactivateAdminResponse = await client().mutate({
+        mutation: DEACTIVATE_ADMIN_MUTATION,
+        variables: {
+          deactivateAdminId,
+          input,
+        },
+      });
+      return deactivateAdminResponse.data?.deactivateAdmin ?? null;
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

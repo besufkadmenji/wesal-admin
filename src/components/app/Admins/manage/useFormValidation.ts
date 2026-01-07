@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo } from "react";
-import { CreateUserDto } from "@/types/user";
+import { CreateAdminInput } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
+import { useCallback, useMemo, useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[0-9\-+\s()]+$/;
@@ -9,7 +9,7 @@ const PHONE_MAX_LENGTH = 20;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9@$!%*?&]{8,}$/;
 
-interface FormWithPassword extends CreateUserDto {
+interface FormWithPassword extends CreateAdminInput {
   confirmPassword?: string;
 }
 
@@ -119,9 +119,6 @@ export const useFormValidation = (
     const phoneError = validatePhoneNumber(form.phoneNumber);
     if (phoneError) newErrors.phoneNumber = phoneError;
 
-    const countryCodeError = validateCountryCode(form.countryCode);
-    if (countryCodeError) newErrors.countryCode = countryCodeError;
-
     // Only validate password in add mode
     if (mode === "add") {
       const passwordError = validatePassword(form.password);
@@ -141,14 +138,12 @@ export const useFormValidation = (
     form.fullName,
     form.email,
     form.phoneNumber,
-    form.countryCode,
     form.password,
     form.confirmPassword,
     mode,
     validateFullName,
     validateEmail,
     validatePhoneNumber,
-    validateCountryCode,
     validatePassword,
     validateConfirmPassword,
   ]);
@@ -157,11 +152,10 @@ export const useFormValidation = (
     const fullNameError = validateFullName(form.fullName);
     const emailError = validateEmail(form.email);
     const phoneError = validatePhoneNumber(form.phoneNumber);
-    const countryCodeError = validateCountryCode(form.countryCode);
 
     // Skip password validation in edit mode
     if (mode === "edit") {
-      return !fullNameError && !emailError && !phoneError && !countryCodeError;
+      return !fullNameError && !emailError && !phoneError;
     }
 
     const passwordError = validatePassword(form.password);
@@ -174,7 +168,6 @@ export const useFormValidation = (
       !fullNameError &&
       !emailError &&
       !phoneError &&
-      !countryCodeError &&
       !passwordError &&
       !confirmPasswordError
     );
@@ -182,14 +175,12 @@ export const useFormValidation = (
     form.fullName,
     form.email,
     form.phoneNumber,
-    form.countryCode,
     form.password,
     form.confirmPassword,
     mode,
     validateFullName,
     validateEmail,
     validatePhoneNumber,
-    validateCountryCode,
     validatePassword,
     validateConfirmPassword,
   ]);
@@ -207,9 +198,6 @@ export const useFormValidation = (
           break;
         case "phoneNumber":
           error = validatePhoneNumber(value) || "";
-          break;
-        case "countryCode":
-          error = validateCountryCode(value) || "";
           break;
         case "password":
           error = validatePassword(value) || "";
@@ -233,7 +221,6 @@ export const useFormValidation = (
       validateFullName,
       validateEmail,
       validatePhoneNumber,
-      validateCountryCode,
       validatePassword,
       validateConfirmPassword,
       form.password,
