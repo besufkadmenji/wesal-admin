@@ -3,6 +3,7 @@ import client from "@/utils/apollo.client";
 import acceptLanguage from "accept-language";
 import { NextRequest, NextResponse } from "next/server";
 import { fallbackLng, languages } from "./config/i18n/settings";
+
 acceptLanguage.languages(languages);
 
 export const config = {
@@ -11,15 +12,21 @@ export const config = {
   ],
 };
 
-function getLocale(req: NextRequest) {
+/**
+ * Resolve locale WITHOUT mutating cookies
+ */
+function resolveLocale(req: NextRequest): string {
   const { pathname } = req.nextUrl;
+
   if (pathname.startsWith("/en")) return "en";
   if (pathname.startsWith("/ar")) return "ar";
-  if (req.cookies.has("lang")) return req.cookies.get("lang")?.value;
-  const lng =
-    acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
-  req.cookies.set("lang", lng);
-  return lng;
+
+  const cookieLang = req.cookies.get("lang")?.value;
+  if (cookieLang) return cookieLang;
+
+  return (
+    acceptLanguage.get(req.headers.get("accept-language")) || fallbackLng
+  );
 }
 
 const preAuthPaths = (locale: string) => [
@@ -30,54 +37,65 @@ const preAuthPaths = (locale: string) => [
 ];
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const currentLocale = getLocale(request);
-  const pathnameHasLocale =
-    pathname.startsWith(`/${currentLocale}/`) ||
-    pathname === `/${currentLocale}`;
+  const { pathname, search } = request.nextUrl;
 
-  if (!pathnameHasLocale) {
-    return NextResponse.redirect(
-      new URL(
-        `/${currentLocale}${pathname}${request.nextUrl.search}`,
-        request.url,
-      ),
+  const locale = resolveLocale(request);
+  const hasLocale =
+    pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
+
+  let response: NextResponse;
+
+  // 1️⃣ Redirect to locale-prefixed URL if missing
+  if (!hasLocale) {
+    response = NextResponse.redirect(
+      new URL(`/${locale}${pathname}${search}`, request.url),
     );
+  } else {
+    response = NextResponse.next();
   }
-  const isPreAuthPath = preAuthPaths(currentLocale ?? "ar").some(
-    (path) => pathname === path,
-  );
+
+  // 2️⃣ Ensure lang cookie is set (ONLY on response)
+  const existingLang = request.cookies.get("lang")?.value;
+  if (existingLang !== locale) {
+    response.cookies.set("lang", locale, {
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+
+  // 3️⃣ Auth logic
+  const isPreAuthPath = preAuthPaths(locale).includes(pathname);
   const isLoggedIn = await getAdmin(request);
-  if (!isLoggedIn) {
-    if (!isPreAuthPath) {
-      return NextResponse.redirect(
-        new URL(`/${currentLocale}/login`, request.url),
-      );
-    }
-  }
 
-  if (isPreAuthPath && isLoggedIn) {
+  if (!isLoggedIn && !isPreAuthPath) {
     return NextResponse.redirect(
-      new URL(`/${currentLocale}/dashboard`, request.url),
+      new URL(`/${locale}/login`, request.url),
     );
   }
 
-  return NextResponse.next();
+  if (isLoggedIn && isPreAuthPath) {
+    return NextResponse.redirect(
+      new URL(`/${locale}/dashboard`, request.url),
+    );
+  }
+
+  return response;
 }
 
-const getAdmin = async (req: NextRequest) => {
+async function getAdmin(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   if (!token) return null;
+
   try {
-    const adminResult = await client(
+    const { data } = await client(
       token,
       `${process.env.API_BASE_URL}/graphql`,
     ).query({
       query: ME_ADMIN_QUERY,
     });
-    console.log("adminResult", token, adminResult.data);
-    return adminResult.data?.meAdmin ?? null;
-  } catch (error) {
+
+    return data?.meAdmin ?? null;
+  } catch {
     return null;
   }
-};
+}
