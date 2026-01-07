@@ -10,7 +10,7 @@ export async function changeLang(
 ) {
   const cookieStore = await cookies();
 
-  cookieStore.set("lng", lng);
+  cookieStore.set("lang", lng);
   if (!noRedirect) {
     redirect(`/${lng}${pathname}`, RedirectType.replace);
   }

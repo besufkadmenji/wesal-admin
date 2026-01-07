@@ -15,8 +15,11 @@ function getLocale(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (pathname.startsWith("/en")) return "en";
   if (pathname.startsWith("/ar")) return "ar";
-  if (req.cookies.has("lng")) return req.cookies.get("lng")?.value;
-  return acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
+  if (req.cookies.has("lang")) return req.cookies.get("lang")?.value;
+  const lng =
+    acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
+  req.cookies.set("lang", lng);
+  return lng;
 }
 
 const preAuthPaths = (locale: string) => [
