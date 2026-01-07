@@ -2,7 +2,6 @@ import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
-import { twMerge } from "tailwind-merge";
 import { AppSwitch } from "../shared/AppSwitch";
 export const statusMap = (
   dict: Dictionary,

@@ -847,6 +847,9 @@
     "buttons": {
       "cancel": "تراجع",
       "submit": "حفظ"
+    },
+    "messages": {
+      "passwordMismatch": "كلمتا المرور غير متطابقتين"
     }
   },
   "contact_messages_page": {

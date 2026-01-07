@@ -1,96 +1,60 @@
-import { useSetting } from "@/components/app/Settings/useSettings";
+import { UpdateAdminInput } from "@/gql/graphql";
 import { useMe } from "@/hooks/useMe";
-import { UpdateUserWithFileDto } from "@/types/user";
 import { useEffect } from "react";
 import { create } from "zustand";
 
 interface SettingsState {
-  trialPeriodDuration: string;
-  vatRate: string;
-  updateProfile: UpdateUserWithFileDto;
-  existingPicture?: string | null;
+  updateProfile: UpdateAdminInput;
+  avatarFile?: File | null;
 
-  setExistingPicture: (value: string | null) => void;
-  setUpdateProfile: (value: Partial<UpdateUserWithFileDto>) => void;
-  setTrialPeriodDuration: (value: string) => void;
-  setVatRate: (value: string) => void;
+  setAvatarFile: (value: File | null) => void;
+  setUpdateProfile: (value: Partial<UpdateAdminInput>) => void;
   reset: () => void;
 }
 
 export const useSettings = create<SettingsState>((set) => ({
-  trialPeriodDuration: "",
-  vatRate: "",
   updateProfile: { fullName: "", email: "", phoneNumber: "" },
-  existingPicture: null,
+  avatarFile: null,
 
-  setExistingPicture: (value) => set({ existingPicture: value }),
+  setAvatarFile: (value) => set({ avatarFile: value }),
   setUpdateProfile: (value) =>
     set((state) => ({ updateProfile: { ...state.updateProfile, ...value } })),
-  setTrialPeriodDuration: (value) => set({ trialPeriodDuration: value }),
-
-  setVatRate: (value) => set({ vatRate: value }),
 
   reset: () =>
     set({
-      trialPeriodDuration: "",
-      vatRate: "",
+      avatarFile: null,
     }),
 }));
 
 export const useManageSettingsForm = () => {
-  const {
-    setTrialPeriodDuration,
-    setVatRate,
-    vatRate,
-    trialPeriodDuration,
-    updateProfile,
-    setUpdateProfile,
-    existingPicture,
-    setExistingPicture,
-  } = useSettings();
-  const { setting: trialPeriodDurationData } = useSetting(
-    "trial_period_duration",
-  );
-  const { setting: vatRateData } = useSetting("vat_rate");
   const { me } = useMe();
+  const setUpdateProfile = useSettings((state) => state.setUpdateProfile);
+  const updateProfile = useSettings((state) => state.updateProfile);
+  const setAvatarFile = useSettings((state) => state.setAvatarFile);
+  const avatarFile = useSettings((state) => state.avatarFile);
 
   useEffect(() => {
-    if (trialPeriodDurationData) {
-      setTrialPeriodDuration(trialPeriodDurationData.value as string);
-    }
-    if (vatRateData) {
-      setVatRate(vatRateData.value as string);
-    }
     if (me) {
-      // setUpdateProfile({
-      //   fullName: me.fullName,
-      //   email: me.email,
-      //   phoneNumber: me.phoneNumber || "",
-      // });
-      // setExistingPicture(me.profileImagePath || null);
+      setUpdateProfile({
+        fullName: me.fullName,
+        email: me.email,
+        phoneNumber: me.phoneNumber || "",
+        avatarFilename: me.avatarFilename || "",
+        organizationName: me.organizationName || "Wesal",
+        roleName: me.permissionType.toString(),
+        permissionType: me.permissionType,
+        status: me.status,
+        userType: me.userType,
+      });
     }
 
     return () => {};
-  }, [
-    me,
-    setExistingPicture,
-    setTrialPeriodDuration,
-    setUpdateProfile,
-    setVatRate,
-    trialPeriodDurationData,
-    vatRateData,
-  ]);
+  }, [me, setUpdateProfile]);
 
   return {
-    trialPeriodDuration,
-    vatRate,
-    setTrialPeriodDuration,
-    setVatRate,
     updateProfile,
     setUpdateProfile,
-    existingPicture,
-    setExistingPicture,
-    vatRateReady: !!vatRateData,
-    trialPeriodDurationReady: !!trialPeriodDurationData,
+    avatarFile,
+    setAvatarFile,
   };
 };

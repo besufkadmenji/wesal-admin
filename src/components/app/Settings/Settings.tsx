@@ -10,23 +10,13 @@ import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { UploadInput } from "@/components/app/shared/UploadInput";
 import { useDict } from "@/hooks/useDict";
 import { useMe } from "@/hooks/useMe";
-import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { useQueryState } from "nuqs";
+import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
-  const {
-    vatRate,
-    setTrialPeriodDuration,
-    trialPeriodDuration,
-    setVatRate,
-    updateProfile,
-    setUpdateProfile,
-    existingPicture,
-    setExistingPicture,
-    vatRateReady,
-    trialPeriodDurationReady,
-  } = useManageSettingsForm();
+  const { updateProfile, setUpdateProfile, avatarFile, setAvatarFile } =
+    useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
 
@@ -44,33 +34,6 @@ export const Settings = () => {
           />
         </PageBar>
         <div className="grid grid-cols-1 gap-8 py-8">
-          <FormSection title={dict.settings_page.sections.general_settings}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {vatRateReady && (
-                <FormInput
-                  label={dict.settings_page.labels.vat_rate}
-                  placeholder={dict.settings_page.labels.vat_rate}
-                  value={vatRate}
-                  onChange={(value: string): void => {
-                    setVatRate(value);
-                  }}
-                  endContent={
-                    <div className="text-gray-4 text-sm font-semibold">%</div>
-                  }
-                />
-              )}
-              {trialPeriodDurationReady && (
-                <FormInput
-                  label={dict.settings_page.labels.trial_period_duration}
-                  placeholder={dict.settings_page.labels.trial_period_duration}
-                  value={trialPeriodDuration}
-                  onChange={(value: string): void => {
-                    setTrialPeriodDuration(value);
-                  }}
-                />
-              )}
-            </div>
-          </FormSection>
           <FormSection title={dict.settings_page.sections.personal_profile}>
             {me && (
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -115,18 +78,22 @@ export const Settings = () => {
                 <UploadInput
                   label={dict.edit_admin_form.image.attach}
                   desc={dict.edit_admin_form.image.desc}
-                  file={updateProfile.profileImage}
+                  file={avatarFile}
                   onChange={(file?: File): void => {
-                    setUpdateProfile({ profileImage: file });
+                    setAvatarFile(file || null);
                     if (!file) {
-                      setExistingPicture(null);
+                      setUpdateProfile({ avatarFilename: "" });
                     }
                   }}
                   accept={{
                     "image/jpeg": [],
                     "image/png": [],
                   }}
-                  initUrl={existingPicture || undefined}
+                  initUrl={
+                    updateProfile.avatarFilename
+                      ? `${process.env.NEXT_PUBLIC_DATA}/files/${updateProfile.avatarFilename}`
+                      : undefined
+                  }
                   className="md:col-span-2"
                 />
               </div>

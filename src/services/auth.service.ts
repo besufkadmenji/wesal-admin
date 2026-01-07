@@ -1,4 +1,5 @@
 import {
+  AdminChangePasswordInput,
   AdminForgotPasswordInput,
   AdminLoginInput,
   AdminResetPasswordInput,
@@ -10,6 +11,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { ADMIN_VERIFY_PASSWORD_RESET_OTP_MUTATION } from "@/graphql/auth/adminVerifyPasswordResetOtp";
 import { ADMIN_RESET_PASSWORD_MUTATION } from "@/graphql/auth/adminResetPassword";
+import { ADMIN_CHANGE_PASSWORD_MUTATION } from "@/graphql/auth/adminChangePassword";
 
 export class AuthService {
   static login = async (input: AdminLoginInput) => {
@@ -66,6 +68,21 @@ export class AuthService {
         },
       });
       return adminForgotResponse.data?.adminResetPassword ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+  static changePassword = async (input: AdminChangePasswordInput) => {
+    try {
+      const adminForgotResponse = await client().mutate({
+        mutation: ADMIN_CHANGE_PASSWORD_MUTATION,
+        variables: {
+          input,
+        },
+      });
+      return adminForgotResponse.data?.adminChangePassword ?? null;
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

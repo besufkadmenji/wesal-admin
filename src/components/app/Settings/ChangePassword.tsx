@@ -5,6 +5,7 @@ import { useChangePasswordForm } from "@/components/app/Settings/useChangePasswo
 import { PasswordInput } from "../shared/forms/FormInput";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { useManageSetting } from "@/components/app/Settings/useManageSetting";
+import { showErrorMessage } from "@/utils/show.message";
 
 export const ChangePassword = () => {
   const dict = useDict();
@@ -60,11 +61,18 @@ export const ChangePassword = () => {
             <PrimaryButton
               className="bg-[#E7515A]"
               onPress={() =>
-                handleChangePassword({
-                  currentPassword,
-                  newPassword,
-                  confirmPassword,
-                })
+                {
+                  if (newPassword !== confirmPassword) {
+                    showErrorMessage(
+                      dict.change_password_form.messages.passwordMismatch,
+                    );
+                    return;
+                  }
+                  return handleChangePassword({
+                    currentPassword,
+                    newPassword,
+                  });
+                }
               }
               isLoading={changingPassword}
               isDisabled={changingPassword}

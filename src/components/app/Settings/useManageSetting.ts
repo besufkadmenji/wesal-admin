@@ -1,15 +1,15 @@
+import { useChangePasswordForm } from "@/components/app/Settings/useChangePasswordForm";
 import { useManageSettingsForm } from "@/components/app/Settings/useForm";
+import { AdminChangePasswordInput } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
+import AdminService from "@/services/admin.service";
 import { AuthService } from "@/services/auth.service";
-import { SettingService } from "@/services/setting.service";
-import { UserService } from "@/services/user.service";
-import { ChangePasswordDto } from "@/types/admin.auth";
+import { uploadFile } from "@/utils/file.upload";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { useChangePasswordForm } from "@/components/app/Settings/useChangePasswordForm";
 
 export const useManageSetting = () => {
   const [busy, setBusy] = useState(false);
@@ -19,26 +19,19 @@ export const useManageSetting = () => {
   const [, setChangePassword] = useQueryState("changePassword");
   const { reset } = useChangePasswordForm();
   const { me } = useMe();
-  const { vatRate, trialPeriodDuration, updateProfile } =
-    useManageSettingsForm();
+  const { avatarFile, updateProfile } = useManageSettingsForm();
   const updateSetting = async () => {
     setBusy(true);
     try {
-      await SettingService.updateSetting(
-        "vat_rate",
-        {
-          value: vatRate,
-        },
-        lang,
-      );
-      await SettingService.updateSetting(
-        "trial_period_duration",
-        {
-          value: trialPeriodDuration,
-        },
-        lang,
-      );
-      await UserService.updateUser(me?.id ?? "", updateProfile, lang);
+      let avatarFilename = updateProfile.avatarFilename;
+      if (avatarFile) {
+        const uploadResult = await uploadFile(avatarFile);
+        avatarFilename = uploadResult.filename;
+      }
+      await AdminService.updateAdmin(me?.id ?? "", {
+        ...updateProfile,
+        avatarFilename,
+      });
       showSuccessMessage(dict.settings_page.messages.updateSuccess);
     } catch (error) {
       showErrorMessage(
@@ -48,10 +41,10 @@ export const useManageSetting = () => {
       setBusy(false);
     }
   };
-  const changePassword = async (data: ChangePasswordDto) => {
+  const changePassword = async (data: AdminChangePasswordInput) => {
     setChangingPassword(true);
     try {
-      // await AuthService.changePassword(data, lang);
+      await AuthService.changePassword(data);
 
       showSuccessMessage(dict.settings_page.messages.passwordChangeSuccess);
       setChangePassword(null);

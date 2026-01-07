@@ -848,6 +848,9 @@
     "buttons": {
       "cancel": "Cancel",
       "submit": "Save"
+    },
+    "messages": {
+      "passwordMismatch": "Passwords do not match"
     }
   },
   "contact_messages_page": {

@@ -15,6 +15,7 @@ export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
       updatedAt
       userType
       phoneNumber
+      avatarFilename
     }
   }
 `;
