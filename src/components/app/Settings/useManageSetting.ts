@@ -51,7 +51,7 @@ export const useManageSetting = () => {
   const changePassword = async (data: ChangePasswordDto) => {
     setChangingPassword(true);
     try {
-      await AuthService.changePassword(data, lang);
+      // await AuthService.changePassword(data, lang);
 
       showSuccessMessage(dict.settings_page.messages.passwordChangeSuccess);
       setChangePassword(null);

@@ -62,12 +62,12 @@ export const useManageSettingsForm = () => {
       setVatRate(vatRateData.value as string);
     }
     if (me) {
-      setUpdateProfile({
-        fullName: me.fullName,
-        email: me.email,
-        phoneNumber: me.phoneNumber || "",
-      });
-      setExistingPicture(me.profileImagePath || null);
+      // setUpdateProfile({
+      //   fullName: me.fullName,
+      //   email: me.email,
+      //   phoneNumber: me.phoneNumber || "",
+      // });
+      // setExistingPicture(me.profileImagePath || null);
     }
 
     return () => {};
