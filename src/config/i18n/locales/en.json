@@ -318,6 +318,9 @@
       "password": "Password",
       "confirm_password": "Confirm Password"
     },
+    "errors": {
+      "passwords_not_matching": "Passwords do not match"
+    },
     "buttons": {
       "sign_in": "Sign in"
     }

@@ -1,3 +1,5 @@
+import { ME_ADMIN_QUERY } from "@/graphql/admin/meAdmin";
+import client from "@/utils/apollo.client";
 import acceptLanguage from "accept-language";
 import { NextRequest, NextResponse } from "next/server";
 import { fallbackLng, languages } from "./config/i18n/settings";
@@ -42,7 +44,7 @@ export async function proxy(request: NextRequest) {
   const isPreAuthPath = preAuthPaths(currentLocale ?? "ar").some(
     (path) => pathname === path,
   );
-  const isLoggedIn = await getUser(request);
+  const isLoggedIn = await getAdmin(request);
   if (!isLoggedIn) {
     if (!isPreAuthPath) {
       return NextResponse.redirect(
@@ -60,25 +62,18 @@ export async function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
-const getUser = async (req: NextRequest) => {
-  const token = req.cookies.get("accessToken")?.value;
+const getAdmin = async (req: NextRequest) => {
+  const token = req.cookies.get("token")?.value;
   if (!token) return null;
-  const API_BASE_URL =
-    process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
-
   try {
-    const response = await fetch(`${API_BASE_URL}/admin/auth/profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Accept-Language": getLocale(req) || fallbackLng,
-      },
-      cache: "no-store",
+    const adminResult = await client(
+      token,
+      `${process.env.API_BASE_URL}/graphql`,
+    ).query({
+      query: ME_ADMIN_QUERY,
     });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    return data;
+    console.log("adminResult", token, adminResult.data);
+    return adminResult.data?.meAdmin ?? null;
   } catch (error) {
     return null;
   }

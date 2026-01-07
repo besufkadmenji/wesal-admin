@@ -1,14 +1,12 @@
 import { useDict } from "@/hooks/useDict";
-import { useLang } from "@/hooks/useLang";
 import { AuthService } from "@/services/auth.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export const useForgotPassword = () => {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
-  const lng = useLang();
   const dict = useDict();
   const searchParams = useSearchParams();
   const [resetSeconds, setResetSeconds] = useState(60);
@@ -27,16 +25,11 @@ export const useForgotPassword = () => {
   const forgotPassword = async (email: string) => {
     setBusy(true);
     try {
-      const response = await AuthService.forgotPassword(
-        {
-          email: email,
-        },
-        lng,
-      );
+      const response = await AuthService.forgotPassword({
+        email: email,
+      });
       if (response) {
-        router.replace(
-          `/verify-reset-code?email=${encodeURIComponent(email)}&sessionId=${encodeURIComponent(response.sessionId)}`,
-        );
+        router.replace(`/verify-reset-code?email=${encodeURIComponent(email)}`);
       }
     } catch (error) {
       showErrorMessage(
@@ -59,17 +52,13 @@ export const useForgotPassword = () => {
     setBusy(true);
     try {
       const email = searchParams.get("email") || "";
-      const response = await AuthService.verifyResetCode(
-        {
-          email: email,
-          verificationCode: code,
-          sessionId: searchParams.get("sessionId") || "",
-        },
-        lng,
-      );
+      const response = await AuthService.verifyResetCode({
+        email: email,
+        code,
+      });
       if (response) {
         router.replace(
-          `/reset-password?email=${encodeURIComponent(email)}&sessionId=${encodeURIComponent(response.verifiedSessionId)}`,
+          `/reset-password?email=${encodeURIComponent(email)}&resetToken=${encodeURIComponent(response.resetToken)}`,
         );
       }
     } catch (error) {
@@ -81,23 +70,13 @@ export const useForgotPassword = () => {
     }
     setBusy(false);
   };
-  const resetPassword = async (
-    newPassword: string,
-    confirmPassword: string,
-  ) => {
+  const resetPassword = async (newPassword: string, resetToken: string) => {
     setBusy(true);
     try {
-      const email = searchParams.get("email") || "";
-
-      const response = await AuthService.resetPassword(
-        {
-          email: email,
-          newPassword: newPassword,
-          confirmPassword: confirmPassword,
-          sessionId: searchParams.get("sessionId") || "",
-        },
-        lng,
-      );
+      const response = await AuthService.resetPassword({
+        newPassword,
+        resetToken,
+      });
       if (response) {
         showSuccessMessage(dict.auth.password_reset_success);
         router.replace(`/login`);

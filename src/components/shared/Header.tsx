@@ -1,4 +1,4 @@
-import LogoIcon from "@/assets/icons/logo.horizontal.svg";
+import LogoIcon from "@/assets/icons/main.logo.svg";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { SelectLanguage } from "@/components/app/shared/SelectLanguage";
 import { ThemeSwitcher } from "../app/shared/ThemeSwitcher";

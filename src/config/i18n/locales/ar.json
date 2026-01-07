@@ -316,6 +316,9 @@
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور"
     },
+    "errors": {
+      "passwords_not_matching": "كلمتا المرور غير متطابقتين"
+    },
     "buttons": {
       "sign_in": "تسجيل الدخول"
     }

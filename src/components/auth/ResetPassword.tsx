@@ -6,10 +6,13 @@ import { useDict } from "@/hooks/useDict";
 import { useState } from "react";
 import { PrimaryButton } from "../app/shared/button/PrimaryButton";
 import { SiteLayout } from "../shared/SiteLayout";
+import { useQueryState } from "nuqs";
+import { showErrorMessage } from "@/utils/show.message";
 export const ResetPassword = () => {
   const dict = useDict();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [resetToken, setResetToken] = useQueryState("resetToken");
   const { resetPassword, busy } = useForgotPassword();
   return (
     <SiteLayout>
@@ -45,7 +48,15 @@ export const ResetPassword = () => {
         </div>
         <PrimaryButton
           className="px-11"
-          onPress={() => resetPassword(newPassword, confirmPassword)}
+          onPress={() => {
+            if (newPassword !== confirmPassword) {
+              showErrorMessage(
+                dict.admin_reset_password_form.errors.passwords_not_matching,
+              );
+              return;
+            }
+            return resetPassword(newPassword, resetToken || "");
+          }}
           isLoading={busy}
           isDisabled={busy}
         >

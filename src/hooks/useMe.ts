@@ -1,9 +1,9 @@
+import { Admin } from "@/gql/graphql";
+import AdminService from "@/services/admin.service";
 import { useQuery } from "@tanstack/react-query";
 import Cookie from "js-cookie";
-import { AdminAuthPayload } from "@/types/admin.auth";
-import { AuthService } from "@/services/auth.service";
 export const useMe = (): {
-  me: AdminAuthPayload | null | undefined;
+  me: Admin | null | undefined;
   isLoading: boolean;
   isError: boolean;
   logout: () => Promise<void>;
@@ -14,14 +14,11 @@ export const useMe = (): {
     data: me,
   } = useQuery({
     queryKey: ["me"],
-    queryFn: () => AuthService.getAdminProfile(),
+    queryFn: () => AdminService.meAdmin(),
   });
 
   const logout = async (): Promise<void> => {
-    Cookie.remove("accessToken");
-    Cookie.remove("refreshToken");
-    Cookie.remove("accessTokenExpiry");
-    Cookie.remove("refreshTokenExpiry");
+    Cookie.remove("token");
     window.location.reload();
   };
 

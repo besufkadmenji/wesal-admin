@@ -25,7 +25,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import LogoIcon from "@/assets/icons/logo.horizontal.svg";
+import LogoIcon from "@/assets/icons/main.logo.svg";
 import { useMe } from "@/hooks/useMe";
 
 export const Sidebar = ({ className }: { className?: string }) => {

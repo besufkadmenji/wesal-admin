@@ -12,8 +12,6 @@ const DISALLOWED_REQUEST_HEADERS = new Set([
   "host",
 ]);
 
-const DISALLOWED_RESPONSE_HEADERS = new Set(["transfer-encoding"]);
-
 const HOP_BY_HOP_HEADERS = new Set([
   "connection",
   "keep-alive",
@@ -94,11 +92,11 @@ async function proxy(
 }
 
 export {
+  proxy as DELETE,
   proxy as GET,
+  proxy as HEAD,
+  proxy as OPTIONS,
+  proxy as PATCH,
   proxy as POST,
   proxy as PUT,
-  proxy as PATCH,
-  proxy as DELETE,
-  proxy as OPTIONS,
-  proxy as HEAD,
 };
