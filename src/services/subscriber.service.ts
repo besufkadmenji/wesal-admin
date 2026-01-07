@@ -1,0 +1,284 @@
+import axiosClient from "@/utils/axios.client";
+import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
+import {
+  GetSubscribersParams,
+  SubscribersData,
+  SubscriberDetail,
+  SubscriberDetailResponse,
+  CreateSubscriberDto,
+  UpdateSubscriberDto,
+} from "@/types/subscriber";
+
+export class SubscriberService {
+  /**
+   * Get subscribers list
+   * GET /admin/subscribers
+   * @param params - Query parameters (search, type, status, page, limit)
+   * @param lang - Language preference
+   * @returns Subscribers list with pagination info
+   */
+  static async getSubscribers(
+    params?: GetSubscribersParams,
+    lang?: string,
+  ): Promise<SubscribersData | null> {
+    try {
+      const response = await axiosClient.get("/admin/subscribers", {
+        params,
+        headers: lang ? { "Accept-Language": lang } : {},
+      });
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Get subscriber details by ID
+   * GET /admin/subscribers/:id
+   * @param id - Subscriber ID
+   * @param lang - Language preference
+   * @returns Subscriber details with document paths
+   */
+  static async getSubscriberById(
+    id: string,
+    lang?: string,
+  ): Promise<SubscriberDetail | null> {
+    try {
+      const response = await axiosClient.get<SubscriberDetailResponse>(
+        `/admin/subscribers/${id}`,
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Create new subscriber
+   * POST /admin/subscribers
+   * @param dto - Create subscriber DTO with subscriber information and document files
+   * @param lang - Language preference
+   * @returns Created subscriber data
+   */
+  static async createSubscriber(
+    dto: CreateSubscriberDto,
+    lang?: string,
+  ): Promise<SubscriberDetail | null> {
+    try {
+      const formData = new FormData();
+
+      formData.append("fullName", dto.fullName);
+      formData.append("organizationName", dto.organizationName);
+      formData.append("email", dto.email);
+      formData.append("countryCode", dto.countryCode);
+      formData.append("phoneNumber", dto.phoneNumber);
+      formData.append("password", dto.password);
+      formData.append("confirmPassword", dto.confirmPassword);
+      formData.append(
+        "commercialRegistrationNumber",
+        dto.commercialRegistrationNumber,
+      );
+      formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      formData.append("type", dto.type);
+
+      if (dto.commercialRegistrationImagePath) {
+        formData.append(
+          "commercialRegistrationImagePath",
+          dto.commercialRegistrationImagePath,
+        );
+      }
+
+      if (dto.taxRegistrationImagePath) {
+        formData.append(
+          "taxRegistrationImagePath",
+          dto.taxRegistrationImagePath,
+        );
+      }
+
+      const response = await axiosClient.post<SubscriberDetailResponse>(
+        "/admin/subscribers",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...(lang && { "Accept-Language": lang }),
+          },
+        },
+      );
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Update subscriber
+   * PUT /admin/subscribers/:id
+   * @param id - Subscriber ID
+   * @param dto - Update subscriber DTO with subscriber information and document files
+   * @param lang - Language preference
+   * @returns Updated subscriber data
+   */
+  static async updateSubscriber(
+    id: string,
+    dto: UpdateSubscriberDto,
+    lang?: string,
+  ): Promise<SubscriberDetail | null> {
+    try {
+      const formData = new FormData();
+
+      formData.append("fullName", dto.fullName);
+      formData.append("organizationName", dto.organizationName);
+      formData.append("email", dto.email);
+      formData.append("countryCode", dto.countryCode);
+      formData.append("phoneNumber", dto.phoneNumber);
+      formData.append(
+        "commercialRegistrationNumber",
+        dto.commercialRegistrationNumber,
+      );
+      formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      formData.append("type", dto.type);
+
+      if (dto.password) {
+        formData.append("password", dto.password);
+      }
+
+      if (dto.confirmPassword) {
+        formData.append("confirmPassword", dto.confirmPassword);
+      }
+
+      if (dto.commercialRegistrationImagePath) {
+        formData.append(
+          "commercialRegistrationImagePath",
+          dto.commercialRegistrationImagePath,
+        );
+      }
+
+      if (dto.taxRegistrationImagePath) {
+        formData.append(
+          "taxRegistrationImagePath",
+          dto.taxRegistrationImagePath,
+        );
+      }
+
+      const response = await axiosClient.put<SubscriberDetailResponse>(
+        `/admin/subscribers/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...(lang && { "Accept-Language": lang }),
+          },
+        },
+      );
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Activate subscriber
+   * POST /admin/subscribers/:id/activate
+   * @param id - Subscriber ID
+   * @param lang - Language preference
+   * @returns null on success
+   */
+  static async activateSubscriber(id: string, lang?: string): Promise<boolean> {
+    try {
+      await axiosClient.post(
+        `/admin/subscribers/${id}/activate`,
+        {},
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
+      return true;
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Deactivate subscriber
+   * POST /admin/subscribers/:id/deactivate
+   * @param id - Subscriber ID
+   * @param reason - Reason for deactivation
+   * @param lang - Language preference
+   * @returns boolean - true on success, false on error
+   */
+  static async deactivateSubscriber(
+    id: string,
+    reason: string,
+    lang?: string,
+  ): Promise<boolean> {
+    try {
+      await axiosClient.post(
+        `/admin/subscribers/${id}/deactivate`,
+        { reason },
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
+      return true;
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Delete subscriber
+   * DELETE /admin/subscribers/:id
+   * @param id - Subscriber ID
+   * @param lang - Language preference
+   * @returns boolean - true on success, false on error
+   */
+  static async deleteSubscriber(id: string, lang?: string): Promise<boolean> {
+    try {
+      await axiosClient.delete(`/admin/subscribers/${id}`, {
+        headers: lang ? { "Accept-Language": lang } : {},
+      });
+      return true;
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+}

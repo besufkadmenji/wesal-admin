@@ -1,0 +1,1202 @@
+{
+  "header": {
+    "logout": "تسجيل خروج"
+  },
+
+  "common": {
+    "system_name": "نظام الرابط الذهبي",
+    "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "contactUsSuccessMessage": "تم إرسال رسالتك بنجاح. سنعود إليك قريبًا.",
+    "warehouseOwner": "صاحب مستودع",
+    "notifications": "الاشعارات",
+    "supplier": "مورد",
+    "actions": {
+      "cancel": "الغاء",
+      "activate": "تفعيل",
+      "deactivate": "تعطيل",
+      "export": "تصدير",
+      "search": "البحث",
+      "print": "طباعة",
+      "download": "تحميل",
+      "upload": "تحميل",
+      "add": "اضافة",
+      "save": "حفظ",
+      "filter": "تصفية",
+      "next": "التالي",
+      "confirm": "تأكيد",
+      "action": "الاجراء",
+      "actions": "الاجراء",
+      "saveAndPrint": "حفظ وطباعة"
+    },
+
+    "timeFilters": {
+      "all": "الكل",
+      "12months": "12 شهر",
+      "30days": "30 يوم",
+      "7days": "7 ايام",
+      "today": "اليوم",
+      "customPeriod": "فترة محددة"
+    },
+
+    "fields": {
+      "orderNumber": "رقم الامر",
+      "clientName": "اسم العميل",
+      "supplierName": "اسم المورد",
+      "productName": "اسم المنتج",
+      "itemCode": "كود الصنف",
+      "itemName": "اسم الصنف",
+      "productCode": "كود المنتج",
+      "quantity": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "subtotal": "السعر الفرعي",
+      "total": "الاجمالي",
+      "date": "التاريخ",
+      "creationDate": "تاريخ الإنشاء",
+      "responsible": "المسئول",
+      "requestStatus": "حالة الطلب",
+      "invoiceStatus": "حالة الفاتورة",
+      "unitsCount": "عدد الوحدات",
+      "totalUnits": "اجمالي عدد الوحدات",
+      "optional": "(اختياري)"
+    },
+
+    "company": {
+      "name": "شركة جولدن لينك",
+      "address": "جدة - شارع الامير سلطان"
+    },
+
+    "documents": {
+      "attachDocuments": "ارفق مستندات",
+      "supportedFormats": "الصيغ المدعومة: Jpg, PDF, Png"
+    },
+
+    "statuses": {
+      "partiallyPaid": "مدفوعة جزئيًا",
+      "fullyPaid": "مدفوعة بالكامل",
+      "unpaid": "غير مدفوع",
+      "received": "مستلم",
+      "partiallyReceived": "مستلم جزئي",
+      "notReceived": "غير مستلم",
+      "completed": "مكتمل",
+      "pendingReview": "في انتظار المراجعة",
+      "pendingReviewApprove": "قبول",
+      "pendingReviewReject": "رفض",
+      "underReview": "قيد المراجعة",
+      "offerSent": "عرض مرسل",
+      "accepted": "مقبول",
+      "rejected": "مرفوض",
+      "ACTIVE": "نشط",
+      "INACTIVE": "غير نشط",
+      "SUSPENDED": "موقوف",
+      "PENDING_APPROVAL": "في انتظار الموافقة",
+      "NOT_REPLIED": "لم يتم الرد",
+      "REPLIED": "تم الرد"
+    },
+
+    "roles": {
+      "ADMINISTRATOR": "مدير",
+      "SUPER_ADMIN": "مسؤول فائق",
+      "CUSTOM": "مخصص"
+    },
+    "message_types": {
+      "REQUEST": "طلب",
+      "SUGGESTION": "اقتراح",
+      "INQUIRY": "استفسار",
+      "COMPLAINT": "شكوى",
+      "OTHER": "أخرى"
+    },
+    "validation": {
+      "deactivation_reason": {
+        "required": "سبب التعطيل مطلوب"
+      }
+    }
+  },
+  "auth": {
+    "welcome_back": "أهلا بعودتك من جديد",
+    "email": "البريد الإلكتروني",
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "sign_in": "تسجيل الدخول",
+    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح."
+  },
+  "forgot_password": {
+    "title": "استعادة كلمة المرور",
+    "send_code": "أرسل كود التحقق"
+  },
+  "verify_code": {
+    "title": "رمز التحقق",
+    "description": "من فضلك أدخل الكود هنا",
+    "resend_code": "إعادة إرسال الرمز",
+    "confirm": "تأكيد"
+  },
+  "reset_password": {
+    "title": "تغيير كلمة المرور",
+    "password": "كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "sign_in": "تسجيل الدخول"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "system_managers": "إدارة مديري النظام",
+    "subscribers": "إدارة المشتركين",
+    "subscription_requests": "طلبات الاشتراكات",
+    "sellers": "إدارة البائعات",
+    "reports": "التقارير",
+    "clients": "إدارة عملائنا",
+    "settings": "الإعدادات",
+    "website_content": "إدارة محتوى الموقع",
+    "logos": "إدارة الشعارات",
+    "logout": "تسجيل الخروج",
+    "package_management": "إدارة الباقات",
+    "contact_admin": "التواصل مع الإدارة",
+    "about": "عن المنصة",
+    "terms_and_conditions": "سياسة الشروط والأحكام",
+    "privacy_policy": "سياسة الخصوصية",
+    "features_management": "إدارة مميزات المنصة",
+    "contact_us": "إدارة رسائل تواصل معنا",
+    "notifications": "إدارة الإشعارات"
+  },
+  "subscription_requests_page": {
+    "title": "طلبات الاشتراكات",
+    "total_requests": "إجمالي طلبات الاشتراكات",
+    "total_count": "اشتراك",
+    "filters": {
+      "all": "الكل",
+      "12_months": "12 شهر",
+      "30_days": "30 يوم",
+      "7_days": "7 أيام",
+      "today": "اليوم"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "name": "الاسم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "request_date": "تاريخ الطلب",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "approved": "موافق",
+      "rejected": "مرفوض"
+    },
+    "actions": {
+      "view": "عرض",
+      "approve": "الموافقة",
+      "reject": "الرفض"
+    }
+  },
+  "subscribers_page": {
+    "title": "إدارة المشتركين",
+    "total_subscribers": "إجمالي عدد المشتركين",
+    "total_count": "مشترك",
+    "filters": {
+      "all": "الكل",
+      "12_months": "12 شهر",
+      "30_days": "30 يوم",
+      "7_days": "7 أيام",
+      "today": "اليوم"
+    },
+    "buttons": {
+      "export": "تصدير",
+      "add_subscriber": "إضافة مشترك جديد"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "الحالة",
+    "type_placeholder": "النوع",
+    "table_headers": {
+      "checkbox": "",
+      "name": "الاسم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "registration_date": "تاريخ التسجيل",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "موقوف"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "activateSuccess": "تم تفعيل المشترك بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل المشترك بنجاح.",
+      "deleteSuccess": "تم حذف المشترك بنجاح."
+    }
+  },
+  "subscription_request_detail_page": {
+    "title": "بيانات طلب الانضمام",
+    "buttons": {
+      "reject": "رفض",
+      "approve": "قبول",
+      "created_date": "تاريخ الإنشاء"
+    },
+    "resource_information": "معلومات المورد",
+    "sections": {
+      "general_info": "المعلومات العامة",
+      "commercial_registration": "معلومات التسجيل التجاري"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "organization_name": "اسم المؤسسة",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "commercial_registration_document": "مستند التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي"
+    }
+  },
+  "messages": {
+    "success": {
+      "subscription_approved": "تم قبول طلب الانضمام بنجاح.",
+      "subscription_rejected": "تم رفض طلب الانضمام بنجاح.",
+      "admin_added_successfully": "تم إضافة ادمين بنجاح."
+    }
+  },
+  "reject_subscription_form": {
+    "title": "رفض طلب الانضمام",
+    "labels": {
+      "reason": "سبب الرفض"
+    },
+    "placeholders": {
+      "reason": "ادخل سبب الرفض ..."
+    },
+    "buttons": {
+      "send": "إرسال"
+    }
+  },
+  "noData": {
+    "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
+    "subscribers": "لا يوجد مشتركون متاحون",
+    "admins": "لا يوجد مستخدمون متاحون",
+    "notifications": "لا توجد إشعارات متاحة",
+    "messages": "لا توجد رسائل متاحة",
+    "clients": "لا يوجد عملاء متاحون",
+    "features": "لا توجد مميزات متاحة"
+  },
+  "admin_forgot_password_form": {
+    "title": "استعادة كلمة المرور",
+    "subtitle": "Wesal System",
+    "labels": {
+      "email": "البريد الإلكتروني"
+    },
+    "placeholders": {
+      "email": "ادخل بريدك الإلكتروني"
+    },
+    "buttons": {
+      "send_verification_code": "إرسل كود التحقق"
+    }
+  },
+  "admin_verify_code_form": {
+    "title": "رمز التحقق",
+    "subtitle": "Wesal System",
+    "description": "من فضلك أدخل الكود هنا",
+    "resend_code": "إعادة إرسال الرمز",
+    "buttons": {
+      "confirm": "تأكيد"
+    }
+  },
+  "admin_reset_password_form": {
+    "title": "تغيير كلمة المرور",
+    "subtitle": "Wesal System",
+    "labels": {
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "sign_in": "تسجيل الدخول"
+    }
+  },
+  "system_managers_page": {
+    "title": "ادارة مديرين النظام",
+    "total_managers": "مدير ين النظام الكلى",
+    "total_count": "ادمين",
+    "buttons": {
+      "add_new_manager": "إضافة مستخدم جديد",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "حالة المستخدم",
+    "table_headers": {
+      "checkbox": "",
+      "number": "#",
+      "name": "اسم المستخدم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "status": "الحالة",
+      "role": "اسم الصلاحية",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الادمين بنجاح.",
+      "updateSuccess": "تم تحديث الادمين بنجاح.",
+      "activateSuccess": "تم إضافة مورد/صاحب مستودع بنجاح.",
+      "deactivateSuccess": "تم تعطيل الادمين بنجاح.",
+      "deleteSuccess": "تم حذف الادمين بنجاح."
+    },
+    "status_labels": {
+      "approved": "موافق",
+      "pending": "قيد الانتظار"
+    }
+  },
+  "add_new_admin_form": {
+    "title": "إضافة ادمين جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": " Png  يحتوي على صورة المستخدم",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي"
+    },
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول",
+      "permissions": "الصلاحيات"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "organization_name": "اسم المؤسسة",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "phone_number": "رقم الهاتف",
+      "status": "الحالة",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "admin_name": "ادخل اسم الادمين",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "permissions": {
+      "full_access": "الوصول الكامل",
+      "limited_access": "وصول محدود"
+    },
+    "upload_info": {
+      "title": "ارفق بهمبة",
+      "description": "تم رفع ملفك بنجاح"
+    },
+    "validation": {
+      "fullNameRequired": "اسم الادمين مطلوب",
+      "fullNameMinLength": "يجب أن يكون اسم الادمين 3 أحرف على الأقل",
+      "fullNameMaxLength": "لا يجب أن يتجاوز اسم الادمين 100 حرف",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+      "phoneNumberRequired": "رقم الهاتف مطلوب",
+      "phoneNumberInvalid": "صيغة رقم الهاتف غير صحيحة",
+      "phoneNumberTooShort": "يجب أن يحتوي رقم الهاتف على 7 أرقام على الأقل",
+      "phoneNumberTooLong": "لا يجب أن يتجاوز رقم الهاتف 20 رقم",
+      "countryCodeRequired": "رمز الدولة مطلوب",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordWeak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+      "confirmPasswordMismatch": "كلمات المرور غير متطابقة"
+    }
+  },
+  "admin_permissions_management": {
+    "title": "إدارة صلاحيات الادمين",
+    "permissions_label": "الصلاحيات",
+    "restricted_permissions": "الصلاحيات المقيدة",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "permission_modules": {
+      "system_managers_management": "إدارة مديري النظام/الادمين",
+      "sellers_management": "إدارة البائعات",
+      "subscription_requests": "طلبات الاشتراكات",
+      "reports": "التقارير",
+      "data_management": "إدارة البيانات",
+      "about_platform": "عن المنصة",
+      "contact_with_management": "التواصل مع الإدارة",
+      "privacy_and_terms": "الخصوصية والشروط",
+      "custom_privacy_policy": "سياسة الخصوصية المخصصة",
+      "contact_us_messages": "رسائل تواصل معنا",
+      "our_clients_management": "إدارة عملائنا"
+    },
+    "permission_actions": {
+      "create": "إضافة",
+      "read": "عرض",
+      "update": "تعديل",
+      "delete": "حذف"
+    },
+    "modules": {
+      "auth": "المصادقة",
+      "user": "مديري النظام",
+      "supplier": "البائعات",
+      "customer": "المشترين",
+      "subscriptionRequest": "طلبات الاشتراك",
+      "category": "الفئات",
+      "subcategory": "الفئات الفرعية",
+      "product": "المنتجات",
+      "order": "الطلبات",
+      "return": "المرتجعات",
+      "driver": "السائقين",
+      "client": "العملاء",
+      "message": "رسائل تواصل معنا",
+      "notification": "الاشعارات",
+      "settings": "الاعدادات",
+      "subscription": "الاشتراكات",
+      "inventory": "المخزون",
+      "dashboard_admin": "لوحة تحكم المدير",
+      "dashboard_user": "لوحة تحكم المستخدم",
+      "countryCode": "رموز البلدان",
+      "queue": "قائمة الانتظار"
+    }
+  },
+  "activate_admin_confirmation": {
+    "title": "تفعيل المشترك المعطل",
+    "description": "هل تريد بتأكيد تفعيل المشترك المعطل ؟",
+    "buttons": {
+      "cancel": "تراجع",
+      "activate": "تفعيل"
+    }
+  },
+  "deactivate_admin_confirmation": {
+    "title": "تعطيل الادمين",
+    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "buttons": {
+      "cancel": "تراجع",
+      "deactivate": "تعطيل"
+    }
+  },
+  "delete_admin_confirmation": {
+    "title": "حذف الادمين",
+    "description": "هل أنت تريد بحذف هذا الادمين ?",
+    "buttons": {
+      "cancel": "تراجع",
+      "delete": "حذف"
+    }
+  },
+  "deactivate_admin_reason_form": {
+    "title": "تعطيل الادمين",
+    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل ..."
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "deactivate": "تعطيل"
+    }
+  },
+  "activate_client_confirmation": {
+    "title": "تفعيل العميل",
+    "description": "هل تريد بتأكيد تفعيل هذا العميل؟"
+  },
+  "deactivate_client_reason_form": {
+    "title": "تعطيل العميل",
+    "description": "هل أنت تريد بتعطيل هذا العميل؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل..."
+    }
+  },
+  "activate_feature_confirmation": {
+    "title": "تفعيل الميزة",
+    "description": "هل تريد بتأكيد تفعيل هذه الميزة؟"
+  },
+  "deactivate_feature_reason_form": {
+    "title": "تعطيل الميزة",
+    "description": "هل أنت تريد بتعطيل هذه الميزة؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل..."
+    }
+  },
+  "admin_detail_page": {
+    "title": "بيانات المشترك",
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول",
+      "commercial_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "organization_name": "اسم المؤسسة",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    }
+  },
+  "edit_admin": {
+    "title": "تعديل الادمين"
+  },
+  "edit_admin_form": {
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "admin_name": "ادخل اسم الادمين",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": "ارفع صورة ملف شخصي للادمين"
+    }
+  },
+  "view_admin": {
+    "viewMainCategory": {
+      "title": "عرض الادمين"
+    }
+  },
+  "deleteConfirmation": {
+    "deleteAdmin": {
+      "title": "حذف الادمين",
+      "message": "هل تريد بتأكيد حذف هذا الادمين؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteSubscriber": {
+      "title": "حذف المشترك",
+      "message": "هل تريد بتأكيد حذف هذا المشترك؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteClient": {
+      "title": "حذف العميل",
+      "message": "هل تريد بتأكيد حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteFeature": {
+      "title": "حذف الميزة",
+      "message": "هل تريد بتأكيد حذف هذه الميزة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "confirm": "حذف",
+    "cancel": "تراجع"
+  },
+  "activate_subscriber_confirmation": {
+    "title": "تفعيل المشترك",
+    "description": "هل تريد بتأكيد تفعيل هذا المشترك؟"
+  },
+  "deactivate_subscriber_reason_form": {
+    "title": "إلغاء تفعيل المشترك",
+    "description": "يرجى تقديم سبب لإلغاء تفعيل هذا المشترك",
+    "labels": {
+      "deactivation_reason": "سبب الإلغاء"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب الإلغاء"
+    }
+  },
+  "add_new_subscriber_form": {
+    "title": "إضافة مشترك جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "subscriber_information": "معلومات المشترك",
+      "login_information": "معلومات الدخول",
+      "tax_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "organization_name": "اسم المؤسسة"
+    },
+    "placeholders": {
+      "name": "ادخل اسم المشترك",
+      "phone_number": "ادخل رقم الهاتف",
+      "email": "ادخل البريد الإلكتروني",
+      "type": "ادخل النوع",
+      "commercial_registration_number": "ادخل رقم التسجيل التجاري",
+      "tax_number": "ادخل رقم السجل الضريبي",
+      "password": "ادخل كلمة المرور",
+      "confirm_password": "ادخل تأكيد كلمة المرور",
+      "organization_name": "ادخل اسم المؤسسة"
+    },
+    "image": {
+      "attach": "ارفق صورة السجل التجاري",
+      "desc": " Png  يحتوي على صورة السجل التجاري",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي",
+      "desc_tax": " Png  يحتوي على صورة السجل الضريبي"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء المشترك بنجاح."
+    }
+  },
+  "edit_subscriber_form": {
+    "title": "تعديل المشترك",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "subscriber_information": "معلومات المشترك",
+      "login_information": "معلومات الدخول",
+      "tax_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "name": "ادخل اسم المشترك",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": "ارفع صورة ملف شخصي للمشترك",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث المشترك بنجاح."
+    }
+  },
+  "view_subscriber": {
+    "title": "بيانات المشترك"
+  },
+  "notifications_page": {
+    "title": "إدارة الإشعارات",
+    "total_notifications": "إجمالي عدد الإشعارات",
+    "total_count": "إشعار",
+    "buttons": {
+      "add_notification": "إضافة إشعار جديد"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "notification_title": "العنوان",
+      "notification_content": "المحتوى",
+      "recipients_count": "عدد المستقبلين",
+      "sent_date": "تاريخ الإرسال",
+      "created_by": "من إنشاء",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الإشعار بنجاح.",
+      "deleteSuccess": "تم حذف الإشعار بنجاح."
+    },
+    "no_notifications_yet": "لا توجد إشعارات بعد"
+  },
+  "add_new_notification_form": {
+    "title": "إضافة إشعار جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "notification_information": "معلومات الإشعار",
+      "recipients": "المستقبلون"
+    },
+    "labels": {
+      "title": "عنوان الإشعار",
+      "content": "محتوى الإشعار",
+      "sender_id": "اسم المستخدم المُرسل",
+      "recipients": "اختر المستقبلين"
+    },
+    "placeholders": {
+      "title": "ادخل عنوان الإشعار",
+      "content": "ادخل محتوى الإشعار"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الإشعار بنجاح."
+    },
+    "validation": {
+      "title": {
+        "required": "عنوان الإشعار مطلوب",
+        "minLength": "يجب أن يكون عنوان الإشعار 3 أحرف على الأقل",
+        "maxLength": "يجب ألا يتجاوز عنوان الإشعار 255 حرفًا"
+      },
+      "content": {
+        "required": "محتوى الإشعار مطلوب",
+        "minLength": "يجب أن يكون محتوى الإشعار 10 أحرف على الأقل",
+        "maxLength": "يجب ألا يتجاوز محتوى الإشعار 5000 حرف"
+      },
+      "recipientIds": {
+        "required": "يجب تحديد متلقي واحد على الأقل"
+      }
+    }
+  },
+  "notification_detail_page": {
+    "title": "إشعار جديد",
+    "sections": {
+      "notification_information": "معلومات الإشعار",
+      "recipients_information": "معلومات المستقبلين"
+    },
+    "labels": {
+      "title": "عنوان الإشعار",
+      "content": "محتوى الإشعار",
+      "sent_date": "تاريخ الإرسال",
+      "sender_id": "اسم المستخدم المُرسل",
+      "created_by": "من إنشاء",
+      "recipients_count": "عدد المستقبلين"
+    },
+    "table_headers": {
+      "recipient_name": "اسم المستقبل",
+      "delivery_status": "حالة الإرسال",
+      "delivered_date": "تاريخ الإرسال",
+      "read_date": "تاريخ القراءة"
+    },
+    "delivery_status": {
+      "delivered": "مُسلم",
+      "pending": "قيد الانتظار",
+      "failed": "فشل"
+    }
+  },
+  "settings_page": {
+    "title": "الإعدادات",
+    "general_settings": "الإعدادات العامة",
+    "personal_profile": "الملف الشخصي",
+    "sections": {
+      "general_settings": "الإعدادات العامة",
+      "personal_profile": "الملف الشخصي"
+    },
+    "labels": {
+      "trial_period_duration": "مدة الفترة التجريبية",
+      "full_name": "اسم المستخدم",
+      "account_number": "رقم الحساب",
+      "email": "البريد الإلكتروني",
+      "phone_number": "رقم الهاتف",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "profile_image": "صورة الملف الشخصي",
+      "vat_rate": "نسبة ضريبة القيمة المضافة"
+    },
+    "placeholders": {
+      "full_name": "ادخل اسم المستخدم",
+      "account_number": "ادخل رقم الحساب",
+      "email": "ادخل البريد الإلكتروني",
+      "phone_number": "ادخل رقم الهاتف",
+      "password": "ادخل كلمة المرور",
+      "confirm_password": "ادخل تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "upload": "تحميل"
+    },
+    "image": {
+      "attach": "ارفق صورة الملف الشخصي",
+      "desc": "ارفع صورة ملف شخصي بصيغة Png"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الإعدادات بنجاح.",
+      "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح."
+    }
+  },
+  "change_password_form": {
+    "title": "تغيير كلمة المرور",
+    "description": "هل تريد تغيير كلمة المرور؟",
+    "labels": {
+      "current_password": "كلمة المرور الحالية",
+      "new_password": "كلمة المرور الجديدة",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "current_password": "ادخل كلمة المرور الحالية",
+      "new_password": "ادخل كلمة المرور الجديدة",
+      "confirm_password": "ادخل تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "submit": "حفظ"
+    }
+  },
+  "contact_messages_page": {
+    "title": "إدارة رسائل تواصل معنا",
+    "total_messages": "إجمالي عدد رسائل تواصل معنا",
+    "total_count": "رسالة",
+    "buttons": {
+      "delete": "حذف"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "الحالة",
+    "type_placeholder": "نوع الرسالة",
+    "table_headers": {
+      "checkbox": "",
+      "customer_name": "اسم العميل",
+      "phone_number": "رقم الجوال",
+      "email": "البريد الإلكتروني",
+      "message_date": "تاريخ الرسالة",
+      "message_type": "نوع الرسالة",
+      "status": "حالة الرسالة",
+      "action": "الإجراء"
+    },
+    "message_types": {
+      "REQUEST": "طلب",
+      "SUGGESTION": "اقتراح",
+      "INQUIRY": "استفسار",
+      "COMPLAINT": "شكوى",
+      "OTHER": "أخرى"
+    },
+    "status": {
+      "NOT_REPLIED": "لم يتم الرد",
+      "REPLIED": "تم الرد"
+    },
+    "actions": {
+      "view": "عرض",
+      "reply": "رد",
+      "delete": "حذف"
+    },
+    "messages": {
+      "deleteSuccess": "تم حذف الرسالة بنجاح."
+    }
+  },
+  "contact_us_form": {
+    "title": "عرض بيانات الرسالة",
+    "sectionTitle": "بيانات الرسالة",
+    "labels": {
+      "subscriber_name": "اسم المشترك",
+      "phone_number": "رقم الجوال",
+      "country_code": "رقم الدولة",
+      "email": "البريد الالكتروني",
+      "message_type": "نوع الرسالة",
+      "received_date": "تاريخ استلام الرسالة",
+      "message_content": "محتوي الرسالة",
+      "reply_content": "الرد على الرسالة"
+    }
+  },
+  "reply_message_form": {
+    "title": "الرد على الرسالة",
+    "description": "هل تريد الرد على الرسالة ؟",
+    "labels": {
+      "message_content": "محتوي الرسالة"
+    },
+    "placeholders": {
+      "message_content": "ادخل محتوي الرسالة ..."
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "send": "إرسال"
+    },
+    "messages": {
+      "updateSuccess": "تم الرد على الرسالة بنجاح."
+    }
+  },
+  "contact_settings": {
+    "title": "التواصل مع الإدارة",
+    "contact_info": {
+      "title": "معلومات التواصل",
+      "add": "إضافة",
+      "labels": {
+        "phone_number": "رقم جوال التواصل",
+        "whatsapp": "واتساب التواصل",
+        "email": "البريد الالكتروني"
+      },
+      "placeholders": {
+        "phone_number": "ادخل رقم الجوال",
+        "whatsapp": "ادخل رقم واتساب",
+        "email": "ادخل البريد الالكتروني"
+      }
+    },
+    "social_media": {
+      "title": "مواقع التواصل الاجتماعي",
+      "description": "قم بإضافة مواقع التواصل الاجتماعي وايقونتها",
+      "section_title": "موقع التواصل الاجتماعي",
+      "labels": {
+        "platform_name": "اسم المنصة",
+        "platform_link": "رابط المنصة"
+      },
+      "placeholders": {
+        "platform_link": "ادخل رابط الموقع"
+      },
+      "platforms": {
+        "facebook": "فيسبوك",
+        "instagram": "انستجرام",
+        "snapchat": "سناب شات"
+      },
+      "buttons": {
+        "add": "اضف"
+      }
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الإعدادات بنجاح."
+    }
+  },
+  "about_platform": {
+    "title": "عن المنصة",
+    "section_title": "عن المنصة",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث بيانات المنصة بنجاح."
+    }
+  },
+  "terms_conditions": {
+    "title": "سياسة الشروط والأحكام",
+    "section_title": "سياسة الشروط والأحكام",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الشروط والأحكام بنجاح."
+    }
+  },
+  "privacy_policy": {
+    "title": "سياسة الخصوصية",
+    "section_title": "سياسة الخصوصية",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث سياسة الخصوصية بنجاح."
+    }
+  },
+  "clients_management": {
+    "title": "إدارة العملاء",
+    "total_clients": "إجمالي عدد العملاء",
+    "total_count": "عميل",
+    "buttons": {
+      "add_client": "إضافة عميل جديد",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "id": "المعرف",
+      "name": "اسم العميل",
+      "created_date": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إضافة العميل بنجاح.",
+      "updateSuccess": "تم تحديث بيانات العميل بنجاح.",
+      "deleteSuccess": "تم حذف العميل بنجاح.",
+      "activateSuccess": "تم تفعيل العميل بنجاح.",
+      "deactivateSuccess": "تم تعطيل العميل بنجاح."
+    },
+    "form": {
+      "title_add": "إضافة عميل جديد",
+      "title_edit": "تعديل عميل جديد",
+      "labels": {
+        "name": "اسم العميل",
+        "status": "الحالة",
+        "logo": "شعار العميل"
+      },
+      "placeholders": {
+        "name": "ادخل اسم العميل..."
+      },
+      "upload_info": {
+        "title": "ارفق صورة الشعار",
+        "description": "يحتوي على صيغ الصورة Png, Jpeg, Jpg",
+        "button": "تحميل"
+      }
+    },
+    "detail": {
+      "title": "معلومات العميل",
+      "labels": {
+        "name": "اسم العميل",
+        "status": "الحالة",
+        "created_date": "تاريخ الإنشاء",
+        "logo": "شعار العميل"
+      }
+    }
+  },
+  "features_management": {
+    "title": "إدارة مميزات المنصة",
+    "total_features": "إجمالي عدد مميزات المنصة",
+    "total_count": "ميزة",
+    "buttons": {
+      "add_feature": "إضافة ميزة",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "id": "م",
+      "name": "اسم الميزة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إضافة الميزة بنجاح.",
+      "updateSuccess": "تم تحديث بيانات الميزة بنجاح.",
+      "deleteSuccess": "تم حذف الميزة بنجاح.",
+      "activateSuccess": "تم تفعيل الميزة بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل الميزة بنجاح."
+    },
+    "form": {
+      "title_add": "إضافة ميزة جديدة",
+      "title_edit": "تعديل ميزة جديدة",
+      "title_view": "ميزة جديدة",
+      "labels": {
+        "name": "اسم الميزة",
+        "name_ar": "اسم الميزة",
+        "name_en": "Feature Name",
+        "status": "الحالة",
+        "description_ar": "وصف الميزة باللغة العربية",
+        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "photo": "صورة الميزة"
+      },
+      "placeholders": {
+        "name": "ادخل اسم الميزة...",
+        "description_ar": "ادخل وصف الميزة...",
+        "description_en": "Enter feature description..."
+      },
+      "upload_info": {
+        "title": "ارفق صورة الميزة",
+        "description": "يحتوي على صيغ الصورة Png, Jpeg, Jpg",
+        "button": "تحميل"
+      },
+      "sections": {
+        "feature_data": "بيانات الميزة"
+      }
+    },
+    "detail": {
+      "title": "بيانات الميزة",
+      "labels": {
+        "name": "اسم الميزة",
+        "name_ar": "اسم الميزة",
+        "name_en": "Feature Name",
+        "status": "الحالة",
+        "description_ar": "وصف الميزة باللغة العربية",
+        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "photo": "صورة الميزة"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "لوحة المعلومات",
+    "cards": {
+      "new_subscribers": {
+        "title": "عدد المشتركين الجدد",
+        "count": "800",
+        "change": "2%"
+      },
+      "requests": {
+        "title": "عدد الطلبات",
+        "count": "247",
+        "change": "-25%"
+      },
+      "invoices": {
+        "title": "إجمالي الفواتير هذا الشهر",
+        "count": "31500",
+        "change": "+15%"
+      },
+      "new_subscription_requests": {
+        "title": "عدد طلبات الاشتراكات الجديدة",
+        "count": "300",
+        "change": "+10%"
+      }
+    },
+    "table": {
+      "title": "لوحة المعلومات",
+      "headers": {
+        "checkbox": "تحديد",
+        "id": "المعرف",
+        "name": "الاسم",
+        "organization_name": "اسم المؤسسة",
+        "commercial_registration_number": "رقم السجل التجاري",
+        "email": "البريد الإلكتروني",
+        "phone_number": "رقم الهاتف",
+        "status": "الحالة",
+        "created_date": "تاريخ الإنشاء",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "view": "عرض",
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "chart": {
+      "title": "الاشتراكات الجديدة",
+      "legend": {
+        "new_subscribers": "المشتركين الجدد",
+        "requests_received": "الطلبات المستقبلة",
+        "current_month": "هذا الشهر",
+        "previous_month": "الشهر السابق"
+      },
+      "date_range": "30 سبتمبر 2021",
+      "filters": {
+        "this_month": "هذا الشهر",
+        "last_6_months": "آخر 6 أشهر",
+        "this_year": "هذا العام"
+      }
+    },
+    "status": {
+      "pending": "مورد",
+      "confirmed": "طالب مستوحي"
+    }
+  }
+}
