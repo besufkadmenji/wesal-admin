@@ -24,9 +24,7 @@ function resolveLocale(req: NextRequest): string {
   const cookieLang = req.cookies.get("lang")?.value;
   if (cookieLang) return cookieLang;
 
-  return (
-    acceptLanguage.get(req.headers.get("accept-language")) || fallbackLng
-  );
+  return acceptLanguage.get(req.headers.get("accept-language")) || fallbackLng;
 }
 
 const preAuthPaths = (locale: string) => [
@@ -44,9 +42,13 @@ export async function proxy(request: NextRequest) {
     pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
 
   let response: NextResponse;
-
+  console.log("Middleware Request Pathname:", hasLocale, pathname);
   // 1️⃣ Redirect to locale-prefixed URL if missing
   if (!hasLocale) {
+    console.log(
+      "Redirecting to locale-prefixed URL",
+      `/${locale}${pathname}${search}`,
+    );
     response = NextResponse.redirect(
       new URL(`/${locale}${pathname}${search}`, request.url),
     );
@@ -64,19 +66,17 @@ export async function proxy(request: NextRequest) {
   }
 
   // 3️⃣ Auth logic
-  const isPreAuthPath = preAuthPaths(locale).includes(pathname);
+  const checkedPathname = hasLocale ? pathname : `/${locale}${pathname}`;
+  const isPreAuthPath = preAuthPaths(locale).includes(checkedPathname);
+  console.log("isPreAuthPath", isPreAuthPath, checkedPathname);
   const isLoggedIn = await getAdmin(request);
 
   if (!isLoggedIn && !isPreAuthPath) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/login`, request.url),
-    );
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
   if (isLoggedIn && isPreAuthPath) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/dashboard`, request.url),
-    );
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
   return response;
