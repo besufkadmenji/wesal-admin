@@ -9,6 +9,7 @@ export enum AddButtonType {
   Notification,
   Client,
   Feature,
+  Category,
 }
 export const AddButton = ({
   type,
@@ -29,6 +30,7 @@ export const AddButton = ({
       dict.notifications_page.buttons.add_notification,
     [AddButtonType.Client]: dict.clients_management.buttons.add_client,
     [AddButtonType.Feature]: dict.features_management.buttons.add_feature,
+    [AddButtonType.Category]: dict.categories_page.buttons.add_new_category,
   };
   return (
     <PrimaryButton

@@ -226,6 +226,7 @@ input CategoryPaginationInput {
   """Page number (1-based)"""
   page: Int! = 1
   parentId: String
+  search: String
 
   """Sort order: ASC or DESC"""
   sortOrder: SortOrder = ASC
@@ -268,6 +269,7 @@ input CityPaginationInput {
 
   """Page number (1-based)"""
   page: Int! = 1
+  search: String
 
   """Sort field name"""
   sortBy: CitySortField

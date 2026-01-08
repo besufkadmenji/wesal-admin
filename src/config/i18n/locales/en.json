@@ -141,6 +141,8 @@
   "navigation": {
     "home": "Home",
     "system_managers": "System Managers Management",
+    "categories": "Categories Management",
+    "cities": "Cities Management",
     "subscribers": "Subscribers Management",
     "subscription_requests": "Subscription Requests",
     "sellers": "Sellers Management",
@@ -287,7 +289,8 @@
     "notifications": "No notifications available",
     "messages": "No messages available",
     "clients": "No clients available",
-    "features": "No features available"
+    "features": "No features available",
+    "categories": "No categories available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -424,6 +427,43 @@
       "passwordWeak": "Password must contain uppercase, lowercase, and numeric characters",
       "confirmPasswordRequired": "Please confirm your password",
       "confirmPasswordMismatch": "Passwords do not match"
+    }
+  },
+  "add_new_category_form": {
+    "title": "Add New Category",
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "sections": {
+      "category_information": "Category Information"
+    },
+    "labels": {
+      "category_name_ar": "Category Name (Arabic)",
+      "category_name_en": "Category Name (English)",
+      "category_desc_ar": "Category Description (Arabic)",
+      "category_desc_en": "Category Description (English)",
+      "parent": "Parent Category"
+    },
+    "placeholders": {
+      "category_name_ar": "Enter category name in Arabic",
+      "category_name_en": "Enter category name in English",
+      "category_desc_ar": "Enter category description in Arabic",
+      "category_desc_en": "Enter category description in English"
+    },
+    "validation": {
+      "nameArRequired": "Arabic category name is required",
+      "nameArMinLength": "Arabic category name must be at least 3 characters long",
+      "nameArMaxLength": "Arabic category name must not exceed 100 characters",
+      "nameEnRequired": "English category name is required",
+      "nameEnMinLength": "English category name must be at least 3 characters long",
+      "nameEnMaxLength": "English category name must not exceed 100 characters",
+      "descriptionArRequired": "Arabic description is required",
+      "descriptionArMinLength": "Arabic description must be at least 10 characters long",
+      "descriptionArMaxLength": "Arabic description must not exceed 500 characters",
+      "descriptionEnRequired": "English description is required",
+      "descriptionEnMinLength": "English description must be at least 10 characters long",
+      "descriptionEnMaxLength": "English description must not exceed 500 characters"
     }
   },
   "admin_permissions_management": {
@@ -589,6 +629,14 @@
       "title": "View Admin"
     }
   },
+  "edit_category": {
+    "title": "Edit Category"
+  },
+  "view_category": {
+    "viewMainCategory": {
+      "title": "View Category"
+    }
+  },
   "deleteConfirmation": {
     "deleteAdmin": {
       "title": "Delete Admin",
@@ -605,6 +653,10 @@
     "deleteFeature": {
       "title": "Delete Feature",
       "message": "Are you sure you want to delete this feature? This action cannot be undone."
+    },
+    "deleteCategory": {
+      "title": "Delete Category",
+      "message": "Are you sure you want to delete this category? This action cannot be undone."
     },
     "confirm": "Delete",
     "cancel": "Cancel"
@@ -891,6 +943,36 @@
     },
     "messages": {
       "deleteSuccess": "Message deleted successfully."
+    }
+  },
+  "categories_page": {
+    "title": "Categories Management",
+    "total_categories": "Total Categories",
+    "total_count": "categories",
+    "buttons": {
+      "add_new_category": "Add New Category",
+      "save": "Save"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "Name (Arabic)",
+      "nameEn": "Name (English)",
+      "descriptionAr": "Description (Arabic)",
+      "descriptionEn": "Description (English)",
+      "parentCategory": "Parent Category",
+      "created_date": "Created Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Category created successfully.",
+      "updateSuccess": "Category updated successfully.",
+      "deleteSuccess": "Category deleted successfully."
     }
   },
   "contact_us_form": {

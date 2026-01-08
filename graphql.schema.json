@@ -1913,6 +1913,18 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sortOrder",
             "description": "Sort order: ASC or DESC",
             "type": {
@@ -2245,6 +2257,18 @@
               }
             },
             "defaultValue": "1",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },

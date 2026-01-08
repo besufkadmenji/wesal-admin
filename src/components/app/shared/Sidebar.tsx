@@ -1,20 +1,20 @@
+import LogoIcon from "@/assets/icons/main.logo.svg";
+import MenuIcon from "@/assets/icons/menu.svg";
 import {
-  HomeIcon,
   AdminsIcon,
   CmsIcon,
-  CustomersIcon,
   GiftIcon,
+  HomeIcon,
   LogoutIcon,
-  NotificationIcon,
-  ReportsIcon,
-  SettingsIcon,
-  SubscribersIcon,
+  MapPinIcon,
+  SubscribersIcon
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
-import MenuIcon from "@/assets/icons/menu.svg";
+import { CategoryIcon } from '@/assets/icons/sidebar/index';
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
+import { useMe } from "@/hooks/useMe";
 import {
   Button,
   Drawer,
@@ -25,8 +25,6 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import LogoIcon from "@/assets/icons/main.logo.svg";
-import { useMe } from "@/hooks/useMe";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
@@ -56,6 +54,16 @@ export const Sidebar = ({ className }: { className?: string }) => {
           icon={<AdminsIcon className="size-5" />}
           label={dict.navigation.system_managers}
         />
+        <OptionLink
+          href="/categories"
+          icon={<CategoryIcon className="size-5" />}
+          label={dict.navigation.categories}
+        />
+        <OptionLink
+          href="/cities"
+          icon={<MapPinIcon className="size-5" />}
+          label={dict.navigation.cities}
+        />
         <ExpandableOption
           icon={<SubscribersIcon className="size-5" />}
           label={dict.navigation.subscribers}
@@ -75,7 +83,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
           icon={<GiftIcon className="size-5" />}
           label={dict.navigation.package_management}
         />
-        <OptionLink
+        {/* <OptionLink
           href="/reports"
           icon={<ReportsIcon className="size-5" />}
           label={dict.navigation.reports}
@@ -89,7 +97,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
           href="/settings"
           icon={<SettingsIcon className="size-5" />}
           label={dict.navigation.settings}
-        />
+        /> */}
         <ExpandableOption
           icon={<CmsIcon className="size-5" />}
           label={dict.navigation.website_content}
@@ -120,11 +128,11 @@ export const Sidebar = ({ className }: { className?: string }) => {
             },
           ]}
         />
-        <OptionLink
+        {/* <OptionLink
           href="/notifications"
           icon={<NotificationIcon className="size-5" />}
           label={dict.navigation.notifications}
-        />
+        /> */}
         <OptionLink
           href="#"
           icon={<LogoutIcon className="size-5" />}

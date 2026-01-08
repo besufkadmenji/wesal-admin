@@ -10,6 +10,7 @@ export enum FormType {
   Message,
   Clients,
   Features,
+  Categories,
 }
 export const AppForm = ({
   type,

@@ -139,6 +139,8 @@
   "navigation": {
     "home": "الرئيسية",
     "system_managers": "إدارة مديري النظام",
+    "categories": "إدارة الفئات",
+    "cities": "إدارة المدن",
     "subscribers": "إدارة المشتركين",
     "subscription_requests": "طلبات الاشتراكات",
     "sellers": "إدارة البائعات",
@@ -285,7 +287,8 @@
     "notifications": "لا توجد إشعارات متاحة",
     "messages": "لا توجد رسائل متاحة",
     "clients": "لا يوجد عملاء متاحون",
-    "features": "لا توجد مميزات متاحة"
+    "features": "لا توجد مميزات متاحة",
+    "categories": "لا توجد فئات متاحة"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -422,6 +425,43 @@
       "passwordWeak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام",
       "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
       "confirmPasswordMismatch": "كلمات المرور غير متطابقة"
+    }
+  },
+  "add_new_category_form": {
+    "title": "إضافة فئة جديدة",
+    "buttons": {
+      "save": "حفظ",
+      "cancel": "تراجع"
+    },
+    "sections": {
+      "category_information": "معلومات الفئة"
+    },
+    "labels": {
+      "category_name_ar": "اسم الفئة (العربية)",
+      "category_name_en": "اسم الفئة (الإنجليزية)",
+      "category_desc_ar": "وصف الفئة (العربية)",
+      "category_desc_en": "وصف الفئة (الإنجليزية)",
+      "parent": "الفئة الأب"
+    },
+    "placeholders": {
+      "category_name_ar": "أدخل اسم الفئة بالعربية",
+      "category_name_en": "أدخل اسم الفئة بالإنجليزية",
+      "category_desc_ar": "أدخل وصف الفئة بالعربية",
+      "category_desc_en": "أدخل وصف الفئة بالإنجليزية"
+    },
+    "validation": {
+      "nameArRequired": "اسم الفئة بالعربية مطلوب",
+      "nameArMinLength": "اسم الفئة بالعربية يجب أن يكون 3 أحرف على الأقل",
+      "nameArMaxLength": "اسم الفئة بالعربية لا يجب أن يتجاوز 100 حرف",
+      "nameEnRequired": "اسم الفئة بالإنجليزية مطلوب",
+      "nameEnMinLength": "اسم الفئة بالإنجليزية يجب أن يكون 3 أحرف على الأقل",
+      "nameEnMaxLength": "اسم الفئة بالإنجليزية لا يجب أن يتجاوز 100 حرف",
+      "descriptionArRequired": "الوصف بالعربية مطلوب",
+      "descriptionArMinLength": "الوصف بالعربية يجب أن يكون 10 أحرف على الأقل",
+      "descriptionArMaxLength": "الوصف بالعربية لا يجب أن يتجاوز 500 حرف",
+      "descriptionEnRequired": "الوصف بالإنجليزية مطلوب",
+      "descriptionEnMinLength": "الوصف بالإنجليزية يجب أن يكون 10 أحرف على الأقل",
+      "descriptionEnMaxLength": "الوصف بالإنجليزية لا يجب أن يتجاوز 500 حرف"
     }
   },
   "admin_permissions_management": {
@@ -587,6 +627,14 @@
       "title": "عرض الادمين"
     }
   },
+  "edit_category": {
+    "title": "تعديل الفئة"
+  },
+  "view_category": {
+    "viewMainCategory": {
+      "title": "عرض الفئة"
+    }
+  },
   "deleteConfirmation": {
     "deleteAdmin": {
       "title": "حذف الادمين",
@@ -603,6 +651,10 @@
     "deleteFeature": {
       "title": "حذف الميزة",
       "message": "هل تريد بتأكيد حذف هذه الميزة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteCategory": {
+      "title": "حذف الفئة",
+      "message": "هل تريد بتأكيد حذف هذه الفئة؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -890,6 +942,36 @@
     },
     "messages": {
       "deleteSuccess": "تم حذف الرسالة بنجاح."
+    }
+  },
+  "categories_page": {
+    "title": "إدارة الفئات",
+    "total_categories": "إجمالي عدد الفئات",
+    "total_count": "فئة",
+    "buttons": {
+      "add_new_category": "إضافة فئة جديدة",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "الاسم (العربية)",
+      "nameEn": "الاسم (الإنجليزية)",
+      "descriptionAr": "الوصف (العربية)",
+      "descriptionEn": "الوصف (الإنجليزية)",
+      "parentCategory": "الفئة الأب",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الفئة بنجاح.",
+      "updateSuccess": "تم تحديث الفئة بنجاح.",
+      "deleteSuccess": "تم حذف الفئة بنجاح."
     }
   },
   "contact_us_form": {
