@@ -1,8 +1,8 @@
+import { AdminPermissionType } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import AdminService from "@/services/admin.service";
 import { PermissionService } from "@/services/permission.service";
-import { UserService } from "@/services/user.service";
 import { DeactivateUserDto } from "@/types/user";
 import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
-import { AdminPermissionType } from "@/gql/graphql";
 
 export const useManageAdmin = () => {
   const [busy, setBusy] = useState(false);

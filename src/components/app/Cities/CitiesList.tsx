@@ -62,7 +62,7 @@ export const CitiesList = () => {
           key: city.id,
           nameAr: city.nameAr,
           nameEn: city.nameEn,
-          country: lng === "ar" ? city.country.nameAr : city.country.nameEn,
+          country: lng === "ar" ? city.country!.nameAr : city.country!.nameEn,
           date: DateTimeHelpers.formatDate(city.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
