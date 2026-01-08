@@ -635,6 +635,31 @@
       "title": "عرض الفئة"
     }
   },
+  "add_new_city_form": {
+    "title": "إضافة مدينة جديدة",
+    "sections": {
+      "city_information": "معلومات المدينة"
+    },
+    "labels": {
+      "city_name_ar": "اسم المدينة (العربية)",
+      "city_name_en": "اسم المدينة (الإنجليزية)",
+      "country": "الدولة",
+      "parent": "الدولة"
+    },
+    "placeholders": {
+      "city_name_ar": "أدخل اسم المدينة بالعربية",
+      "city_name_en": "أدخل اسم المدينة بالإنجليزية",
+      "country": "اختر دولة"
+    }
+  },
+  "edit_city": {
+    "title": "تعديل المدينة"
+  },
+  "view_city": {
+    "viewMainCategory": {
+      "title": "عرض المدينة"
+    }
+  },
   "deleteConfirmation": {
     "deleteAdmin": {
       "title": "حذف الادمين",
@@ -655,6 +680,10 @@
     "deleteCategory": {
       "title": "حذف الفئة",
       "message": "هل تريد بتأكيد حذف هذه الفئة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteCity": {
+      "title": "حذف المدينة",
+      "message": "هل تريد بتأكيد حذف هذه المدينة؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -972,6 +1001,43 @@
       "createSuccess": "تم إنشاء الفئة بنجاح.",
       "updateSuccess": "تم تحديث الفئة بنجاح.",
       "deleteSuccess": "تم حذف الفئة بنجاح."
+    }
+  },
+  "cities_page": {
+    "title": "إدارة المدن",
+    "total_cities": "إجمالي عدد المدن",
+    "total_count": "مدينة",
+    "buttons": {
+      "add_new_city": "إضافة مدينة جديدة",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "الاسم (العربية)",
+      "nameEn": "الاسم (الإنجليزية)",
+      "country": "الدولة",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء المدينة بنجاح.",
+      "updateSuccess": "تم تحديث المدينة بنجاح.",
+      "deleteSuccess": "تم حذف المدينة بنجاح."
+    },
+    "validation": {
+      "nameArRequired": "اسم المدينة بالعربية مطلوب",
+      "nameArMinLength": "اسم المدينة بالعربية يجب أن يكون 3 أحرف على الأقل",
+      "nameArMaxLength": "اسم المدينة بالعربية لا يجب أن يتجاوز 100 حرف",
+      "nameEnRequired": "اسم المدينة بالإنجليزية مطلوب",
+      "nameEnMinLength": "اسم المدينة بالإنجليزية يجب أن يكون 3 أحرف على الأقل",
+      "nameEnMaxLength": "اسم المدينة بالإنجليزية لا يجب أن يتجاوز 100 حرف",
+      "countryIdRequired": "الدولة مطلوبة"
     }
   },
   "contact_us_form": {

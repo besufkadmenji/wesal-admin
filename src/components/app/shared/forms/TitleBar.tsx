@@ -52,6 +52,12 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_category.title
           : dict.view_category.viewMainCategory.title,
+    [FormType.Cities]:
+      action === "add"
+        ? dict.add_new_city_form.title
+        : action === "edit"
+          ? dict.edit_city.title
+          : dict.view_city.viewMainCategory.title,
   };
   const saveType = SaveButtonType.Admin;
 

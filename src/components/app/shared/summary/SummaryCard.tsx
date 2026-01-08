@@ -6,6 +6,7 @@ import MessagesIcon from "@/assets/icons/app/summary/messages.svg";
 import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
 import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.requests.svg";
 import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
+import CitiesIcon from "@/assets/icons/app/summary/cities.svg";
 import { Dictionary } from "@/config/i18n/types";
 import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
@@ -18,6 +19,7 @@ export enum SummaryCardType {
   CLIENTS = "CLIENTS",
   FEATURES = "FEATURES",
   CATEGORIES = "CATEGORIES",
+  CITIES = "CITIES",
 }
 
 const iconMap = {
@@ -31,6 +33,7 @@ const iconMap = {
   [SummaryCardType.CLIENTS]: <ClientsIcon className="size-8.5" />,
   [SummaryCardType.FEATURES]: <FeaturesIcon className="size-8.5" />,
   [SummaryCardType.CATEGORIES]: <CategoryIcon className="size-8.5" />,
+  [SummaryCardType.CITIES]: <CitiesIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -49,6 +52,7 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.CLIENTS]: dict.clients_management.total_clients,
   [SummaryCardType.FEATURES]: dict.features_management.total_features,
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_categories,
+  [SummaryCardType.CITIES]: dict.cities_page.total_cities,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -61,6 +65,7 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.CLIENTS]: dict.clients_management.total_count,
   [SummaryCardType.FEATURES]: dict.features_management.total_count,
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_count,
+  [SummaryCardType.CITIES]: dict.cities_page.total_count,
 });
 
 export const SummaryCard = ({
