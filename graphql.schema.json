@@ -465,7 +465,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1425,7 +1425,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1932,7 +1932,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -2108,13 +2108,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Country",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Country",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2292,7 +2288,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -2329,7 +2325,13 @@
             "deprecationReason": null
           },
           {
-            "name": "name",
+            "name": "nameAr",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nameEn",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2658,7 +2660,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -3148,7 +3150,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -3720,7 +3722,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -3956,7 +3958,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -5371,6 +5373,54 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "DeactivateUserInput",
+        "description": null,
+        "isOneOf": false,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "reason",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteUserInput",
+        "description": null,
+        "isOneOf": false,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "reason",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Favorite",
         "description": null,
@@ -5549,7 +5599,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -5938,7 +5988,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -6010,6 +6060,39 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Admin",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activateUser",
+            "description": "Activate user by ID",
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               }
             },
@@ -6850,6 +6933,55 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Admin",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deactivateUser",
+            "description": "Deactivate user by ID",
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "input",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "DeactivateUserInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               }
             },
@@ -7849,6 +7981,22 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "input",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "DeleteUserInput",
                     "ofType": null
                   }
                 },
@@ -8896,7 +9044,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -10302,7 +10450,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -11805,15 +11953,19 @@
           },
           {
             "name": "users",
-            "description": "Get all users with pagination",
+            "description": "Get all users with pagination by role",
             "args": [
               {
                 "name": "pagination",
                 "description": null,
                 "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "UserPaginationInput",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserPaginationInput",
+                    "ofType": null
+                  }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -12085,7 +12237,7 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -12457,9 +12609,13 @@
             "name": "role",
             "description": null,
             "type": {
-              "kind": "ENUM",
-              "name": "UserRole",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "UserRole",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -14001,6 +14157,18 @@
             "deprecationReason": null
           },
           {
+            "name": "role",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "UserRole",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "withAbsher",
             "description": null,
             "type": {
@@ -14080,6 +14248,18 @@
             "deprecationReason": null
           },
           {
+            "name": "city",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "City",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "cityId",
             "description": null,
             "args": [],
@@ -14098,6 +14278,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "country",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Country",
               "ofType": null
             },
             "isDeprecated": false,
@@ -14127,6 +14319,42 @@
                 "name": "DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deactivationReason",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteReason",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deletedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -14316,6 +14544,22 @@
             "deprecationReason": null
           },
           {
+            "name": "status",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "UserStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -14389,6 +14633,34 @@
             "deprecationReason": null
           },
           {
+            "name": "role",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "UserRole",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sortBy",
             "description": "Sort field name",
             "type": {
@@ -14408,7 +14680,19 @@
               "name": "SortOrder",
               "ofType": null
             },
-            "defaultValue": "ASC",
+            "defaultValue": "DESC",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "status",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "UserStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -14488,6 +14772,42 @@
           },
           {
             "name": "updatedAt",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "UserStatus",
+        "description": "User account status",
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ACTIVE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "INACTIVE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENDING_APPROVAL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SUSPENDED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

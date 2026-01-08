@@ -31,7 +31,7 @@ export const TitleBar = ({
         ? dict.add_new_admin_form.title
         : action === "edit"
           ? dict.edit_admin.title
-          : dict.view_admin.viewMainCategory.title,
+          : dict.view_admin.title,
     [FormType.Notifications]: dict.notifications_page.buttons.add_notification,
     [FormType.Message]: dict.contact_messages_page.title,
     [FormType.Clients]:
@@ -51,13 +51,19 @@ export const TitleBar = ({
         ? dict.add_new_category_form.title
         : action === "edit"
           ? dict.edit_category.title
-          : dict.view_category.viewMainCategory.title,
+          : dict.view_category.title,
     [FormType.Cities]:
       action === "add"
         ? dict.add_new_city_form.title
         : action === "edit"
           ? dict.edit_city.title
-          : dict.view_city.viewMainCategory.title,
+          : dict.view_city.title,
+    [FormType.Users]:
+      action === "add"
+        ? dict.add_new_user_form.title
+        : action === "edit"
+          ? dict.edit_user.title
+          : dict.view_user.title,
   };
   const saveType = SaveButtonType.Admin;
 

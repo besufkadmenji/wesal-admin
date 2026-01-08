@@ -10,6 +10,8 @@
     "warehouseOwner": "صاحب مستودع",
     "notifications": "الاشعارات",
     "supplier": "مورد",
+    "serviceProvider": "مزود خدمة",
+    "user": "مستخدم",
     "actions": {
       "cancel": "الغاء",
       "activate": "تفعيل",
@@ -141,6 +143,9 @@
     "system_managers": "إدارة مديري النظام",
     "categories": "إدارة الفئات",
     "cities": "إدارة المدن",
+    "users": "إدارة المستخدمين",
+    "providers": "إدارة مزودي الخدمات",
+    "join_requests": "طلبات الانضمام",
     "subscribers": "إدارة المشتركين",
     "subscription_requests": "طلبات الاشتراكات",
     "sellers": "إدارة البائعات",
@@ -158,6 +163,45 @@
     "features_management": "إدارة مميزات المنصة",
     "contact_us": "إدارة رسائل تواصل معنا",
     "notifications": "إدارة الإشعارات"
+  },
+  "users_page": {
+    "title": "إدارة المستخدمين",
+    "total_users": "إجمالي عدد المستخدمين",
+    "total_count": "مستخدم",
+    "filters": {
+      "all": "الكل",
+      "12_months": "12 شهر",
+      "30_days": "30 يوم",
+      "7_days": "7 أيام",
+      "today": "اليوم"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "registration_date": "تاريخ التسجيل",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء المستخدم بنجاح.",
+      "updateSuccess": "تم تحديث المستخدم بنجاح.",
+      "activateSuccess": "تم تفعيل المستخدم بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل المستخدم بنجاح.",
+      "deleteSuccess": "تم حذف المستخدم بنجاح."
+    }
   },
   "subscription_requests_page": {
     "title": "طلبات الاشتراكات",
@@ -288,7 +332,46 @@
     "messages": "لا توجد رسائل متاحة",
     "clients": "لا يوجد عملاء متاحون",
     "features": "لا توجد مميزات متاحة",
-    "categories": "لا توجد فئات متاحة"
+    "categories": "لا توجد فئات متاحة",
+    "cities": "لا توجد مدن متاحة",
+    "users": "لا يوجد مستخدمون متاحون"
+  },
+  "add_new_user_form": {
+    "title": "إضافة مستخدم جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "user_information": "معلومات المستخدم",
+      "login_information": "معلومات الدخول",
+      "business_information": "معلومات العمل"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "role": "الدور",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "city": "المدينة",
+      "address": "العنوان"
+    },
+    "placeholders": {
+      "name": "ادخل اسم المستخدم",
+      "phone_number": "ادخل رقم الهاتف",
+      "email": "ادخل البريد الإلكتروني",
+      "role": "اختر الدور",
+      "commercial_registration_number": "ادخل رقم التسجيل التجاري",
+      "city": "اختر المدينة",
+      "address": "ادخل العنوان"
+    }
+  },
+  "edit_user": {
+    "title": "تعديل المستخدم"
+  },
+  "view_user": {
+    "title": "عرض المستخدم"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -514,6 +597,14 @@
       "queue": "قائمة الانتظار"
     }
   },
+  "activate_user_confirmation": {
+    "title": "تفعيل المستخدم",
+    "description": "هل تريد بتأكيد تفعيل هذا المستخدم؟",
+    "buttons": {
+      "cancel": "تراجع",
+      "activate": "تفعيل"
+    }
+  },
   "activate_admin_confirmation": {
     "title": "تفعيل المشترك المعطل",
     "description": "هل تريد بتأكيد تفعيل المشترك المعطل ؟",
@@ -536,6 +627,20 @@
     "buttons": {
       "cancel": "تراجع",
       "delete": "حذف"
+    }
+  },
+  "deactivate_user_reason_form": {
+    "title": "تعطيل المستخدم",
+    "description": "هل أنت تريد بتعطيل هذا المستخدم؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل..."
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "deactivate": "تعطيل"
     }
   },
   "deactivate_admin_reason_form": {
@@ -623,17 +728,13 @@
     }
   },
   "view_admin": {
-    "viewMainCategory": {
-      "title": "عرض الادمين"
-    }
+    "title": "عرض الادمين"
   },
   "edit_category": {
     "title": "تعديل الفئة"
   },
   "view_category": {
-    "viewMainCategory": {
-      "title": "عرض الفئة"
-    }
+    "title": "عرض الفئة"
   },
   "add_new_city_form": {
     "title": "إضافة مدينة جديدة",
@@ -656,9 +757,7 @@
     "title": "تعديل المدينة"
   },
   "view_city": {
-    "viewMainCategory": {
-      "title": "عرض المدينة"
-    }
+    "title": "عرض المدينة"
   },
   "deleteConfirmation": {
     "deleteAdmin": {
@@ -684,6 +783,10 @@
     "deleteCity": {
       "title": "حذف المدينة",
       "message": "هل تريد بتأكيد حذف هذه المدينة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteUser": {
+      "title": "حذف المستخدم",
+      "message": "هل تريد بتأكيد حذف هذا المستخدم؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"

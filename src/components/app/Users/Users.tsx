@@ -10,34 +10,25 @@ import {
 import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
 
-import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
-import { SubscribersFilter } from "./SubscribersFilter";
-import { SubscribersList } from "./SubscribersList";
-import { useSubscribers } from "./useSubscriber";
-import {
-  AddButton,
-  AddButtonType,
-} from "@/components/app/shared/button/AddButton";
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
+import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
+import { UsersFilter } from "./UsersFilter";
+import { UsersList } from "./UsersList";
+import { useUsers } from "./useUser";
+import { UserRole } from "@/gql/graphql";
 
-export const ServiceProviders = () => {
+export const Users = ({ role }: { role: UserRole }) => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useSubscribers();
+  const { data, isLoading } = useUsers({ role });
 
   return (
     <PageWrapper>
       <PageBar
-        title={dict.subscribers_page.title}
+        title={dict.users_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
       >
-        <AddButton
-          type={AddButtonType.Subscriber}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
         <ExportButton model={""} />
       </PageBar>
       <Gap className="h-8" />
@@ -45,15 +36,15 @@ export const ServiceProviders = () => {
         <SummaryCardSkeleton />
       ) : (
         <SummaryCard
-          type={SummaryCardType.SUBSCRIBERS}
-          value={data?.pagination.totalItems ?? 0}
+          type={SummaryCardType.USERS}
+          value={data?.meta.total ?? 0}
         />
       )}
 
       <Gap className="h-6" />
       <div className="grid grid-cols-1 gap-4">
-        <SubscribersFilter />
-        <SubscribersList />
+        <UsersFilter />
+        <UsersList role={role} />
       </div>
     </PageWrapper>
   );

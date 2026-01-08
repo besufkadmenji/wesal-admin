@@ -57,7 +57,7 @@ input AdminPaginationInput {
   sortBy: AdminSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   status: AdminStatus
 }
 
@@ -168,7 +168,7 @@ input AdvertisementPaginationInput {
   sortBy: AdvertisementSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   status: AdvertisementStatus
   userId: String
 }
@@ -229,7 +229,7 @@ input CategoryPaginationInput {
   search: String
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
 }
 
 input ChangeEmailInput {
@@ -254,7 +254,7 @@ type ChangePhoneResponse {
 }
 
 type City {
-  country: Country!
+  country: Country
   countryId: String!
   createdAt: DateTime!
   id: ID!
@@ -275,7 +275,7 @@ input CityPaginationInput {
   sortBy: CitySortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
 }
 
 """Available fields to sort cities by"""
@@ -283,7 +283,8 @@ enum CitySortField {
   countryId
   createdAt
   id
-  name
+  nameAr
+  nameEn
   updatedAt
 }
 
@@ -319,7 +320,7 @@ input ComplaintPaginationInput {
   sortBy: ComplaintSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   status: ComplaintStatus
   userId: String
 }
@@ -384,7 +385,7 @@ input ContractPaginationInput {
   sortBy: ContractSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   status: ContractStatus
 }
 
@@ -452,7 +453,7 @@ input ConversationPaginationInput {
   sortBy: ConversationSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   userId: String
 }
 
@@ -485,7 +486,7 @@ input CountryPaginationInput {
   sortBy: CountrySortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
 }
 
 """Available fields to sort countries by"""
@@ -623,6 +624,14 @@ input DeactivateAdminInput {
   reason: String
 }
 
+input DeactivateUserInput {
+  reason: String
+}
+
+input DeleteUserInput {
+  reason: String
+}
+
 type Favorite {
   advertisement: Advertisement!
   advertisementId: String!
@@ -645,7 +654,7 @@ input FavoritePaginationInput {
   sortBy: FavoriteSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   userId: String
 }
 
@@ -690,7 +699,7 @@ input MessagePaginationInput {
   sortBy: MessageSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
 }
 
 """Available fields to sort messages by"""
@@ -702,6 +711,9 @@ enum MessageSortField {
 
 type Mutation {
   activateAdmin(id: ID!): Admin!
+
+  """Activate user by ID"""
+  activateUser(id: ID!): User!
   adminChangePassword(input: AdminChangePasswordInput!): Boolean!
   adminForgotPassword(input: AdminForgotPasswordInput!): Boolean!
   adminLogin(input: AdminLoginInput!): AdminAuthResponse!
@@ -728,6 +740,9 @@ type Mutation {
   createPermission(createPermissionInput: CreatePermissionInput!): Permission!
   createRating(input: CreateRatingInput!): Rating!
   deactivateAdmin(id: ID!, input: DeactivateAdminInput!): Admin!
+
+  """Deactivate user by ID"""
+  deactivateUser(id: ID!, input: DeactivateUserInput!): User!
 
   """Delete all notifications for a user"""
   deleteAllNotificationsForUser(userId: String!): Boolean!
@@ -790,7 +805,7 @@ type Mutation {
   removeRating(id: String!): Rating!
 
   """Delete user by ID"""
-  removeUser(id: ID!): User!
+  removeUser(id: ID!, input: DeleteUserInput!): User!
 
   """Resend OTP for email or phone verification"""
   resendOtp(input: ResendOtpInput!): Boolean!
@@ -858,7 +873,7 @@ input NotificationPaginationInput {
   sortBy: NotificationSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   type: NotificationType
   userId: String
 }
@@ -1070,7 +1085,7 @@ input PaymentPaginationInput {
   sortBy: PaymentSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   status: PaymentStatus
   userId: String
 }
@@ -1169,8 +1184,8 @@ type Query {
   """Get user by ID"""
   user(id: ID!): User!
 
-  """Get all users with pagination"""
-  users(pagination: UserPaginationInput): PaginatedUserResponse!
+  """Get all users with pagination by role"""
+  users(pagination: UserPaginationInput!): PaginatedUserResponse!
 }
 
 type Rating {
@@ -1200,7 +1215,7 @@ input RatingPaginationInput {
   sortBy: RatingSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
   userId: String
 }
 
@@ -1236,7 +1251,7 @@ input RegisterInput {
   name: String!
   password: String!
   phone: String!
-  role: UserRole
+  role: UserRole!
 }
 
 input ResendOtpInput {
@@ -1391,6 +1406,7 @@ input UpdateUserInput {
   name: String
   password: String
   phone: String
+  role: UserRole
   withAbsher: Boolean
 }
 
@@ -1399,10 +1415,15 @@ type User {
   avatarFilename: String
   bankName: String
   categories: [Category!]
+  city: City
   cityId: String
   commercialRegistrationNumber: String
+  country: Country
   countryId: String
   createdAt: DateTime!
+  deactivationReason: String
+  deleteReason: String
+  deletedAt: String
   dialCode: String
   email: String!
   emailVerified: Boolean!
@@ -1416,6 +1437,7 @@ type User {
   phone: String!
   phoneVerified: Boolean!
   role: UserRole!
+  status: UserStatus!
   updatedAt: DateTime!
   withAbsher: Boolean
 }
@@ -1426,12 +1448,15 @@ input UserPaginationInput {
 
   """Page number (1-based)"""
   page: Int! = 1
+  role: UserRole!
+  search: String
 
   """Sort field name"""
   sortBy: UserSortField
 
   """Sort order: ASC or DESC"""
-  sortOrder: SortOrder = ASC
+  sortOrder: SortOrder = DESC
+  status: UserStatus
 }
 
 """User role enumeration"""
@@ -1449,6 +1474,14 @@ enum UserSortField {
   isActive
   phone
   updatedAt
+}
+
+"""User account status"""
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING_APPROVAL
+  SUSPENDED
 }
 
 input VerifyAdminPasswordResetOtpInput {

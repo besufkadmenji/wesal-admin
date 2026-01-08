@@ -7,10 +7,11 @@ import {
   HomeIcon,
   LogoutIcon,
   MapPinIcon,
-  SubscribersIcon
+  ProvidersIcon,
+  UsersIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
-import { CategoryIcon } from '@/assets/icons/sidebar/index';
+import { CategoryIcon } from "@/assets/icons/sidebar/index";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -64,24 +65,24 @@ export const Sidebar = ({ className }: { className?: string }) => {
           icon={<MapPinIcon className="size-5" />}
           label={dict.navigation.cities}
         />
+        <OptionLink
+          href="/users"
+          icon={<UsersIcon className="size-5" />}
+          label={dict.navigation.users}
+        />
         <ExpandableOption
-          icon={<SubscribersIcon className="size-5" />}
-          label={dict.navigation.subscribers}
+          icon={<ProvidersIcon className="size-5" />}
+          label={dict.navigation.providers}
           options={[
             {
-              href: "/subscribers/requests",
-              label: dict.navigation.subscription_requests,
+              href: "/providers/requests",
+              label: dict.navigation.join_requests,
             },
             {
-              href: "/subscribers",
-              label: dict.navigation.subscribers,
+              href: "/providers",
+              label: dict.navigation.providers,
             },
           ]}
-        />
-        <OptionLink
-          href="/packages"
-          icon={<GiftIcon className="size-5" />}
-          label={dict.navigation.package_management}
         />
         {/* <OptionLink
           href="/reports"

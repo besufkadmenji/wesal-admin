@@ -12,6 +12,7 @@ export enum FormType {
   Features,
   Categories,
   Cities,
+  Users
 }
 export const AppForm = ({
   type,

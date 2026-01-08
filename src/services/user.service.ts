@@ -1,221 +1,100 @@
-import axiosClient from "@/utils/axios.client";
-import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 import {
+  DeactivateUserInput,
+  DeleteUserInput,
+  PaginatedUserResponse,
   User,
-  UsersListResponse,
-  GetUsersParams,
-  CreateUserWithFileDto,
-  UpdateUserWithFileDto,
-  DeactivateUserDto,
-  UserResponse,
-} from "@/types/user";
+  UserPaginationInput,
+} from "@/gql/graphql";
+import { ACTIVATE_USER_MUTATION } from "@/graphql/user/activateUser";
+import { DEACTIVATE_USER_MUTATION } from "@/graphql/user/deactivateUser";
+import { REMOVE_USER_MUTATION } from "@/graphql/user/removeUser";
+import { USER_QUERY } from "@/graphql/user/user";
+import { USERS_QUERY } from "@/graphql/user/users";
+import client from "@/utils/apollo.client";
+import { parseGraphQLError } from "@/utils/parse-graphql-error";
 
-export class UserService {
-  /**
-   * Get list of users with optional search and pagination
-   */
-  static async getUsers(
-    params?: GetUsersParams,
-    lang?: string,
-  ): Promise<UsersListResponse | null> {
+class UserService {
+  static users = async (
+    input: UserPaginationInput,
+  ): Promise<PaginatedUserResponse | null> => {
     try {
-      const response = await axiosClient.get("/users", {
-        params,
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
-      console.log("Users response:", response);
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
-    }
-  }
-
-  /**
-   * Get user details by ID
-   */
-  static async getUserById(id: string, lang?: string): Promise<User | null> {
-    try {
-      const response = await axiosClient.get(`/users/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
-    }
-  }
-
-  /**
-   * Create a new user with FormData support for file upload
-   */
-  static async createUser(
-    data: CreateUserWithFileDto,
-    lang?: string,
-  ): Promise<UserResponse | null> {
-    try {
-      const formData = new FormData();
-
-      // Append file if provided
-      if (data.profileImage) {
-        formData.append("profileImage", data.profileImage);
-      }
-
-      // Append form fields
-      formData.append("fullName", data.fullName);
-      formData.append("email", data.email);
-      formData.append("countryCode", data.countryCode);
-      formData.append("phoneNumber", data.phoneNumber);
-      formData.append("password", data.password);
-      formData.append("confirmPassword", data.confirmPassword);
-      formData.append("status", data.status);
-
-      if (data.permissionType) {
-        formData.append("permissionType", data.permissionType);
-      }
-
-      const response = await axiosClient.post("/users", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
+      const userResult = await client().query({
+        query: USERS_QUERY,
+        variables: {
+          pagination: input,
         },
       });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      return userResult.data?.users ?? null;
+    } catch (e) {
+      console.error("userResult", e);
     }
-  }
-
-  /**
-   * Update user information with FormData support for file upload
-   */
-  static async updateUser(
-    id: string,
-    data: UpdateUserWithFileDto,
-    lang?: string,
-  ): Promise<UserResponse | null> {
+    return null;
+  };
+  static user = async (userId: string): Promise<User | null> => {
     try {
-      const formData = new FormData();
-
-      // Append file if provided
-      if (data.profileImage) {
-        formData.append("profileImage", data.profileImage);
-      }
-
-      // Append form fields
-      if (data.fullName) {
-        formData.append("fullName", data.fullName);
-      }
-      if (data.email) {
-        formData.append("email", data.email);
-      }
-      if (data.countryCode) {
-        formData.append("countryCode", data.countryCode);
-      }
-      if (data.phoneNumber) {
-        formData.append("phoneNumber", data.phoneNumber);
-      }
-      if (data.status) {
-        formData.append("status", data.status);
-      }
-
-      const response = await axiosClient.put(`/users/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
+      const userResult = await client().query({
+        query: USER_QUERY,
+        variables: {
+          userId,
         },
       });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      return userResult.data?.user ?? null;
+    } catch (e) {
+      console.error("userResult", e);
     }
-  }
+    return null;
+  };
 
-  /**
-   * Deactivate user with optional reason
-   */
-  static async deactivateUser(
-    id: string,
-    data?: DeactivateUserDto,
-    lang?: string,
-  ): Promise<string> {
+  static activateUser = async (activateUserId: string) => {
     try {
-      const response = await axiosClient.post(
-        `/users/${id}/deactivate`,
-        data || {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
+      const activateUserResponse = await client().mutate({
+        mutation: ACTIVATE_USER_MUTATION,
+        variables: {
+          activateUserId,
         },
-      );
-      return response.data.message || "";
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
-    }
-  }
-
-  /**
-   * Activate user
-   */
-  static async activateUser(id: string, lang?: string): Promise<string> {
-    try {
-      const response = await axiosClient.post(
-        `/users/${id}/activate`,
-        {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
-      );
-      console.log("Activate user response:", response);
-      return response.data.message || "";
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
-    }
-  }
-
-  /**
-   * Delete user permanently
-   */
-  static async deleteUser(id: string, lang?: string): Promise<string> {
-    try {
-      const response = await axiosClient.delete(`/users/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
       });
-      return response.data.message || "";
+      return activateUserResponse.data?.activateUser ?? null;
     } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
     }
-  }
+  };
+  static deactivateUser = async (
+    deactivateUserId: string,
+    input: DeactivateUserInput,
+  ) => {
+    try {
+      const deactivateUserResponse = await client().mutate({
+        mutation: DEACTIVATE_USER_MUTATION,
+        variables: {
+          deactivateUserId,
+          input,
+        },
+      });
+      return deactivateUserResponse.data?.deactivateUser ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+  static removeUser = async (removeUserId: string, input: DeleteUserInput) => {
+    try {
+      const removeUserResponse = await client().mutate({
+        mutation: REMOVE_USER_MUTATION,
+        variables: {
+          removeUserId,
+          input,
+        },
+      });
+      return removeUserResponse.data?.removeUser ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
 }
+
+export default UserService;

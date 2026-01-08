@@ -20,6 +20,7 @@ export enum SummaryCardType {
   FEATURES = "FEATURES",
   CATEGORIES = "CATEGORIES",
   CITIES = "CITIES",
+  USERS = "USERS",
 }
 
 const iconMap = {
@@ -34,6 +35,7 @@ const iconMap = {
   [SummaryCardType.FEATURES]: <FeaturesIcon className="size-8.5" />,
   [SummaryCardType.CATEGORIES]: <CategoryIcon className="size-8.5" />,
   [SummaryCardType.CITIES]: <CitiesIcon className="size-8.5" />,
+  [SummaryCardType.USERS]: <SubscribersIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -53,6 +55,7 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.FEATURES]: dict.features_management.total_features,
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_categories,
   [SummaryCardType.CITIES]: dict.cities_page.total_cities,
+  [SummaryCardType.USERS]: dict.users_page.total_users,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -66,6 +69,7 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.FEATURES]: dict.features_management.total_count,
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_count,
   [SummaryCardType.CITIES]: dict.cities_page.total_count,
+  [SummaryCardType.USERS]: dict.users_page.total_count,
 });
 
 export const SummaryCard = ({

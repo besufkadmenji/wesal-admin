@@ -9,8 +9,8 @@ export { default as LogoutIcon } from "./logout.svg";
 export { default as NotificationIcon } from "./notification.svg";
 export { default as ReportsIcon } from "./reports.svg";
 export { default as SettingsIcon } from "./settings.svg";
-export { default as SubscribersIcon } from "./subscribers.svg";
+export { default as ProvidersIcon } from "./providers.svg";
 export { default as LayoutListIcon } from "./layout-list.svg";
 export { default as MapPinIcon } from "./map-pin.svg";
 export { default as CategoryIcon } from "./category.svg";
-
+export { default as UsersIcon } from "./users.svg";
