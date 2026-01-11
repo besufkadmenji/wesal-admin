@@ -7,6 +7,7 @@ import { useMe } from "@/hooks/useMe";
 import AdminService from "@/services/admin.service";
 import { AuthService } from "@/services/auth.service";
 import { uploadFile } from "@/utils/file.upload";
+import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
@@ -31,6 +32,9 @@ export const useManageSetting = () => {
       await AdminService.updateAdmin(me?.id ?? "", {
         ...updateProfile,
         avatarFilename,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["me"],
       });
       showSuccessMessage(dict.settings_page.messages.updateSuccess);
     } catch (error) {

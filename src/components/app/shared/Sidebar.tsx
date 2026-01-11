@@ -8,6 +8,7 @@ import {
   LogoutIcon,
   MapPinIcon,
   ProvidersIcon,
+  SettingsIcon,
   UsersIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
@@ -93,12 +94,12 @@ export const Sidebar = ({ className }: { className?: string }) => {
           href="/clients"
           icon={<CustomersIcon className="size-5" />}
           label={dict.navigation.clients}
-        />
+        /> */}
         <OptionLink
           href="/settings"
           icon={<SettingsIcon className="size-5" />}
           label={dict.navigation.settings}
-        /> */}
+        />
         <ExpandableOption
           icon={<CmsIcon className="size-5" />}
           label={dict.navigation.website_content}
