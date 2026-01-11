@@ -1524,7 +1524,7 @@ export type Query = {
   countries: PaginatedCountryResponse;
   country: Country;
   faq: Faq;
-  /** Get all active FAQs */
+  /** Get all active FAQs (or all if admin) */
   faqs: Array<Faq>;
   favorite: Favorite;
   favorites: PaginatedFavoriteResponse;
@@ -1937,7 +1937,7 @@ export type UpdateCountryInput = {
 export type UpdateFaqInput = {
   answerAr?: InputMaybe<Scalars['String']['input']>;
   answerEn?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
+  id: Scalars['String']['input'];
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
   order?: InputMaybe<Scalars['Float']['input']>;
   questionAr?: InputMaybe<Scalars['String']['input']>;
@@ -1945,7 +1945,7 @@ export type UpdateFaqInput = {
 };
 
 export type UpdateFaqOrderInput = {
-  id: Scalars['ID']['input'];
+  id: Scalars['String']['input'];
   order: Scalars['Int']['input'];
 };
 

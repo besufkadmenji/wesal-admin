@@ -1196,7 +1196,7 @@ type Query {
   country(id: ID!): Country!
   faq(id: ID!): Faq!
 
-  """Get all active FAQs"""
+  """Get all active FAQs (or all if admin)"""
   faqs: [Faq!]!
   favorite(id: String!): Favorite!
   favorites(input: FavoritePaginationInput): PaginatedFavoriteResponse!
@@ -1438,7 +1438,7 @@ input UpdateCountryInput {
 input UpdateFaqInput {
   answerAr: String
   answerEn: String
-  id: ID!
+  id: String!
   isActive: Boolean
   order: Float
   questionAr: String
@@ -1446,7 +1446,7 @@ input UpdateFaqInput {
 }
 
 input UpdateFaqOrderInput {
-  id: ID!
+  id: String!
   order: Int!
 }
 

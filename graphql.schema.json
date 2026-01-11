@@ -11863,7 +11863,7 @@
           },
           {
             "name": "faqs",
-            "description": "Get all active FAQs",
+            "description": "Get all active FAQs (or all if admin)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -14586,7 +14586,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "ID",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -14662,7 +14662,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "ID",
+                "name": "String",
                 "ofType": null
               }
             },
