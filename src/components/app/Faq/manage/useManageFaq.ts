@@ -29,7 +29,7 @@ export const useManageFaq = () => {
         queryClient.invalidateQueries({
           queryKey: ["faqs"],
         });
-        router.push("/content/faqs");
+        router.push("/content/faq");
       }
       resetForm();
     } catch (error) {
