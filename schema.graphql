@@ -206,6 +206,10 @@ input BulkAssignPermissionsInput {
   permissionIds: [ID!]!
 }
 
+input BulkUpdateFaqOrderInput {
+  items: [UpdateFaqOrderInput!]!
+}
+
 type Category {
   children: [Category!]
   createdAt: DateTime!
@@ -567,6 +571,15 @@ input CreateCountryInput {
   name: String!
 }
 
+input CreateFaqInput {
+  answerAr: String!
+  answerEn: String!
+  isActive: Boolean
+  order: Float
+  questionAr: String!
+  questionEn: String!
+}
+
 input CreateFavoriteInput {
   advertisementId: String!
   userId: String!
@@ -630,6 +643,18 @@ input DeactivateUserInput {
 
 input DeleteUserInput {
   reason: String
+}
+
+type Faq {
+  answerAr: String!
+  answerEn: String!
+  createdAt: DateTime!
+  id: ID!
+  isActive: Boolean!
+  order: Float!
+  questionAr: String!
+  questionEn: String!
+  updatedAt: DateTime!
 }
 
 type Favorite {
@@ -723,6 +748,9 @@ type Mutation {
   bulkAssignPermissionsToAdmin(input: BulkAssignPermissionsInput!): [AdminPermission!]!
   bulkRevokePermissionsFromAdmin(adminId: ID!, permissionIds: [ID!]!): Boolean!
 
+  """Bulk update FAQ order (admin only)"""
+  bulkUpdateOrder(input: BulkUpdateFaqOrderInput!): [Faq!]!
+
   """Change password for authenticated user"""
   changePassword(input: ChangePasswordInput!): Boolean!
   createAdmin(createAdminInput: CreateAdminInput!): Admin!
@@ -733,6 +761,9 @@ type Mutation {
   createContract(input: CreateContractInput!): Contract!
   createConversation(input: CreateConversationInput!): Conversation!
   createCountry(input: CreateCountryInput!): Country!
+
+  """Create FAQ (admin only)"""
+  createFaq(createFaqInput: CreateFaqInput!): Faq!
   createFavorite(input: CreateFavoriteInput!): Favorite!
   createMessage(input: CreateMessageInput!): Message!
   createNotification(input: CreateNotificationInput!): Notification!
@@ -794,6 +825,9 @@ type Mutation {
   removeContract(id: String!): Contract!
   removeConversation(id: String!): Conversation!
   removeCountry(id: ID!): Country!
+
+  """Remove FAQ (admin only)"""
+  removeFaq(id: ID!): Boolean!
   removeFavorite(id: String!): Favorite!
 
   """Remove favorite by user and advertisement IDs"""
@@ -828,6 +862,9 @@ type Mutation {
   updateContract(input: UpdateContractInput!): Contract!
   updateConversation(input: UpdateConversationInput!): Conversation!
   updateCountry(input: UpdateCountryInput!): Country!
+
+  """Update FAQ (admin only)"""
+  updateFaq(updateFaqInput: UpdateFaqInput!): Faq!
   updateMessage(input: UpdateMessageInput!): Message!
   updatePayment(input: UpdatePaymentInput!): Payment!
   updatePermission(id: ID!, updatePermissionInput: UpdatePermissionInput!): Permission!
@@ -1157,6 +1194,10 @@ type Query {
   """Get all countries with pagination"""
   countries(pagination: CountryPaginationInput): PaginatedCountryResponse!
   country(id: ID!): Country!
+  faq(id: ID!): Faq!
+
+  """Get all active FAQs"""
+  faqs: [Faq!]!
   favorite(id: String!): Favorite!
   favorites(input: FavoritePaginationInput): PaginatedFavoriteResponse!
 
@@ -1392,6 +1433,21 @@ input UpdateCountryInput {
   code: String
   id: ID!
   name: String
+}
+
+input UpdateFaqInput {
+  answerAr: String
+  answerEn: String
+  id: ID!
+  isActive: Boolean
+  order: Float
+  questionAr: String
+  questionEn: String
+}
+
+input UpdateFaqOrderInput {
+  id: ID!
+  order: Int!
 }
 
 input UpdateMessageInput {

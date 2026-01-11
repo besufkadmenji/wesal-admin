@@ -64,6 +64,12 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_user.title
           : dict.view_user.title,
+    [FormType.Faqs]:
+      action === "add"
+        ? dict.add_new_faq_form.title
+        : action === "edit"
+          ? dict.edit_faq.title
+          : dict.view_faq.title,
   };
   const saveType = SaveButtonType.Admin;
 

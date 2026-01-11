@@ -11,6 +11,7 @@ export enum AddButtonType {
   Feature,
   Category,
   City,
+  Faq,
 }
 export const AddButton = ({
   type,
@@ -33,6 +34,7 @@ export const AddButton = ({
     [AddButtonType.Feature]: dict.features_management.buttons.add_feature,
     [AddButtonType.Category]: dict.categories_page.buttons.add_new_category,
     [AddButtonType.City]: dict.cities_page.buttons.add_new_city,
+    [AddButtonType.Faq]: dict.faq_page.buttons.add_faq,
   };
   return (
     <PrimaryButton

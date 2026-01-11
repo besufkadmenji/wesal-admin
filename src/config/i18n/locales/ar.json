@@ -162,7 +162,8 @@
     "privacy_policy": "سياسة الخصوصية",
     "features_management": "إدارة مميزات المنصة",
     "contact_us": "إدارة رسائل تواصل معنا",
-    "notifications": "إدارة الإشعارات"
+    "notifications": "إدارة الإشعارات",
+    "faq": "الأسئلة الشائعة"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -334,7 +335,8 @@
     "features": "لا توجد مميزات متاحة",
     "categories": "لا توجد فئات متاحة",
     "cities": "لا توجد مدن متاحة",
-    "users": "لا يوجد مستخدمون متاحون"
+    "users": "لا يوجد مستخدمون متاحون",
+    "faqs": "لا توجد أسئلة شائعة متاحة"
   },
   "add_new_user_form": {
     "title": "إضافة مستخدم جديد",
@@ -787,6 +789,10 @@
     "deleteUser": {
       "title": "حذف المستخدم",
       "message": "هل تريد بتأكيد حذف هذا المستخدم؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteFaq": {
+      "title": "حذف السؤال الشائع",
+      "message": "هل تريد بتأكيد حذف هذا السؤال الشائع؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -1391,6 +1397,81 @@
         "photo": "صورة الميزة"
       }
     }
+  },
+  "add_new_faq_form": {
+    "title": "إضافة سؤال شائع جديد",
+    "buttons": {
+      "save": "حفظ",
+      "cancel": "تراجع"
+    },
+    "sections": {
+      "faq_information": "معلومات السؤال الشائع"
+    },
+    "labels": {
+      "questionAr": "السؤال (بالعربية)",
+      "questionEn": "السؤال (بالإنجليزية)",
+      "answerAr": "الإجابة (بالعربية)",
+      "answerEn": "الإجابة (بالإنجليزية)"
+    },
+    "placeholders": {
+      "questionAr": "أدخل السؤال بالعربية",
+      "questionEn": "أدخل السؤال بالإنجليزية",
+      "answerAr": "أدخل الإجابة بالعربية",
+      "answerEn": "أدخل الإجابة بالإنجليزية"
+    },
+    "validation": {
+      "questionArRequired": "السؤال بالعربية مطلوب",
+      "questionArMinLength": "السؤال بالعربية يجب أن يكون على الأقل 3 أحرف",
+      "questionArMaxLength": "السؤال بالعربية يجب ألا يتجاوز 100 حرف",
+      "questionEnRequired": "السؤال بالإنجليزية مطلوب",
+      "questionEnMinLength": "السؤال بالإنجليزية يجب أن يكون على الأقل 3 أحرف",
+      "questionEnMaxLength": "السؤال بالإنجليزية يجب ألا يتجاوز 100 حرف",
+      "answerArRequired": "الإجابة بالعربية مطلوبة",
+      "answerArMinLength": "الإجابة بالعربية يجب أن تكون على الأقل 10 أحرف",
+      "answerArMaxLength": "الإجابة بالعربية يجب ألا تتجاوز 500 حرف",
+      "answerEnRequired": "الإجابة بالإنجليزية مطلوبة",
+      "answerEnMinLength": "الإجابة بالإنجليزية يجب أن تكون على الأقل 10 أحرف",
+      "answerEnMaxLength": "الإجابة بالإنجليزية يجب ألا تتجاوز 500 حرف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء السؤال الشائع بنجاح.",
+      "updateSuccess": "تم تحديث السؤال الشائع بنجاح."
+    }
+  },
+  "edit_faq": {
+    "title": "تعديل السؤال الشائع"
+  },
+  "view_faq": {
+    "title": "عرض السؤال الشائع"
+  },
+  "faq_page": {
+    "title": "إدارة الأسئلة الشائعة",
+    "total_faqs": "إجمالي الأسئلة الشائعة",
+    "total_count": "أسئلة",
+    "buttons": {
+      "add_faq": "إضافة سؤال شائع جديد"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "questionEn": "السؤال (بالإنجليزية)",
+      "questionAr": "السؤال (بالعربية)",
+      "answerEn": "الإجابة (بالإنجليزية)",
+      "answerAr": "الإجابة (بالعربية)",
+      "createdAt": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء السؤال الشائع بنجاح.",
+      "updateSuccess": "تم تحديث السؤال الشائع بنجاح.",
+      "deleteSuccess": "تم حذف السؤال الشائع بنجاح."
+    },
+    "change_order_button": "تغيير الترتيب"
   },
   "dashboard": {
     "title": "لوحة المعلومات",

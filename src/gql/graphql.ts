@@ -208,6 +208,10 @@ export type BulkAssignPermissionsInput = {
   permissionIds: Array<Scalars['ID']['input']>;
 };
 
+export type BulkUpdateFaqOrderInput = {
+  items: Array<UpdateFaqOrderInput>;
+};
+
 export type Category = {
   children?: Maybe<Array<Category>>;
   createdAt: Scalars['DateTime']['output'];
@@ -549,6 +553,15 @@ export type CreateCountryInput = {
   name: Scalars['String']['input'];
 };
 
+export type CreateFaqInput = {
+  answerAr: Scalars['String']['input'];
+  answerEn: Scalars['String']['input'];
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  order?: InputMaybe<Scalars['Float']['input']>;
+  questionAr: Scalars['String']['input'];
+  questionEn: Scalars['String']['input'];
+};
+
 export type CreateFavoriteInput = {
   advertisementId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
@@ -607,6 +620,18 @@ export type DeactivateUserInput = {
 
 export type DeleteUserInput = {
   reason?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Faq = {
+  answerAr: Scalars['String']['output'];
+  answerEn: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  isActive: Scalars['Boolean']['output'];
+  order: Scalars['Float']['output'];
+  questionAr: Scalars['String']['output'];
+  questionEn: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Favorite = {
@@ -690,6 +715,8 @@ export type Mutation = {
   assignPermissionToAdmin: AdminPermission;
   bulkAssignPermissionsToAdmin: Array<AdminPermission>;
   bulkRevokePermissionsFromAdmin: Scalars['Boolean']['output'];
+  /** Bulk update FAQ order (admin only) */
+  bulkUpdateOrder: Array<Faq>;
   /** Change password for authenticated user */
   changePassword: Scalars['Boolean']['output'];
   createAdmin: Admin;
@@ -700,6 +727,8 @@ export type Mutation = {
   createContract: Contract;
   createConversation: Conversation;
   createCountry: Country;
+  /** Create FAQ (admin only) */
+  createFaq: Faq;
   createFavorite: Favorite;
   createMessage: Message;
   createNotification: Notification;
@@ -743,6 +772,8 @@ export type Mutation = {
   removeContract: Contract;
   removeConversation: Conversation;
   removeCountry: Country;
+  /** Remove FAQ (admin only) */
+  removeFaq: Scalars['Boolean']['output'];
   removeFavorite: Favorite;
   /** Remove favorite by user and advertisement IDs */
   removeFavoriteByUserAndAdvertisement: Favorite;
@@ -771,6 +802,8 @@ export type Mutation = {
   updateContract: Contract;
   updateConversation: Conversation;
   updateCountry: Country;
+  /** Update FAQ (admin only) */
+  updateFaq: Faq;
   updateMessage: Message;
   updatePayment: Payment;
   updatePermission: Permission;
@@ -839,6 +872,11 @@ export type MutationBulkRevokePermissionsFromAdminArgs = {
 };
 
 
+export type MutationBulkUpdateOrderArgs = {
+  input: BulkUpdateFaqOrderInput;
+};
+
+
 export type MutationChangePasswordArgs = {
   input: ChangePasswordInput;
 };
@@ -881,6 +919,11 @@ export type MutationCreateConversationArgs = {
 
 export type MutationCreateCountryArgs = {
   input: CreateCountryInput;
+};
+
+
+export type MutationCreateFaqArgs = {
+  createFaqInput: CreateFaqInput;
 };
 
 
@@ -1033,6 +1076,11 @@ export type MutationRemoveCountryArgs = {
 };
 
 
+export type MutationRemoveFaqArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationRemoveFavoriteArgs = {
   id: Scalars['String']['input'];
 };
@@ -1144,6 +1192,11 @@ export type MutationUpdateConversationArgs = {
 
 export type MutationUpdateCountryArgs = {
   input: UpdateCountryInput;
+};
+
+
+export type MutationUpdateFaqArgs = {
+  updateFaqInput: UpdateFaqInput;
 };
 
 
@@ -1470,6 +1523,9 @@ export type Query = {
   /** Get all countries with pagination */
   countries: PaginatedCountryResponse;
   country: Country;
+  faq: Faq;
+  /** Get all active FAQs */
+  faqs: Array<Faq>;
   favorite: Favorite;
   favorites: PaginatedFavoriteResponse;
   /** Get application settings (admin only) */
@@ -1588,6 +1644,11 @@ export type QueryCountriesArgs = {
 
 
 export type QueryCountryArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryFaqArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1871,6 +1932,21 @@ export type UpdateCountryInput = {
   code?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateFaqInput = {
+  answerAr?: InputMaybe<Scalars['String']['input']>;
+  answerEn?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  order?: InputMaybe<Scalars['Float']['input']>;
+  questionAr?: InputMaybe<Scalars['String']['input']>;
+  questionEn?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateFaqOrderInput = {
+  id: Scalars['ID']['input'];
+  order: Scalars['Int']['input'];
 };
 
 export type UpdateMessageInput = {
@@ -2205,6 +2281,46 @@ export type UpdateCityMutationVariables = Exact<{
 
 export type UpdateCityMutation = { updateCity: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
 
+export type BulkUpdateOrderMutationVariables = Exact<{
+  input: BulkUpdateFaqOrderInput;
+}>;
+
+
+export type BulkUpdateOrderMutation = { bulkUpdateOrder: Array<{ answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any }> };
+
+export type CreateFaqMutationVariables = Exact<{
+  createFaqInput: CreateFaqInput;
+}>;
+
+
+export type CreateFaqMutation = { createFaq: { id: string, answerAr: string, answerEn: string, createdAt: any, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+
+export type FaqQueryVariables = Exact<{
+  faqId: Scalars['ID']['input'];
+}>;
+
+
+export type FaqQuery = { faq: { answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+
+export type FaqsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FaqsQuery = { faqs: Array<{ answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any }> };
+
+export type RemoveFaqMutationVariables = Exact<{
+  removeFaqId: Scalars['ID']['input'];
+}>;
+
+
+export type RemoveFaqMutation = { removeFaq: boolean };
+
+export type UpdateFaqMutationVariables = Exact<{
+  updateFaqInput: UpdateFaqInput;
+}>;
+
+
+export type UpdateFaqMutation = { updateFaq: { answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+
 export type AdminPermissionsQueryVariables = Exact<{
   adminId: Scalars['ID']['input'];
 }>;
@@ -2298,6 +2414,12 @@ export const CountriesDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export const CreateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCityInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<CreateCityMutation, CreateCityMutationVariables>;
 export const RemoveCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RemoveCityMutation, RemoveCityMutationVariables>;
 export const UpdateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCityInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateCityMutation, UpdateCityMutationVariables>;
+export const BulkUpdateOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"bulkUpdateOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BulkUpdateFaqOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bulkUpdateOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BulkUpdateOrderMutation, BulkUpdateOrderMutationVariables>;
+export const CreateFaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFaq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createFaqInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateFaqInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFaq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createFaqInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createFaqInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateFaqMutation, CreateFaqMutationVariables>;
+export const FaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"faq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"faqId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"faq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"faqId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<FaqQuery, FaqQueryVariables>;
+export const FaqsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"faqs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"faqs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<FaqsQuery, FaqsQueryVariables>;
+export const RemoveFaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeFaq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeFaqId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeFaq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeFaqId"}}}]}]}}]} as unknown as DocumentNode<RemoveFaqMutation, RemoveFaqMutationVariables>;
+export const UpdateFaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateFaq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateFaqInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateFaqInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateFaq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateFaqInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateFaqInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<UpdateFaqMutation, UpdateFaqMutationVariables>;
 export const AdminPermissionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminPermissions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"adminId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminPermissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"adminId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"adminId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"permission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"module"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"permissionPlatform"}},{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"permissionId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"admin"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"organizationName"}},{"kind":"Field","name":{"kind":"Name","value":"permissionType"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"roleName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userType"}}]}}]}}]}}]} as unknown as DocumentNode<AdminPermissionsQuery, AdminPermissionsQueryVariables>;
 export const BulkAssignPermissionsToAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"bulkAssignPermissionsToAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BulkAssignPermissionsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bulkAssignPermissionsToAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"permission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"module"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"permissionPlatform"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"admin"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"organizationName"}},{"kind":"Field","name":{"kind":"Name","value":"permissionType"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"roleName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"permissionId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BulkAssignPermissionsToAdminMutation, BulkAssignPermissionsToAdminMutationVariables>;
 export const PermissionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"permissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"permissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"module"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"permissionPlatform"}},{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<PermissionsQuery, PermissionsQueryVariables>;

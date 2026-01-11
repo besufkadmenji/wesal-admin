@@ -164,7 +164,8 @@
     "privacy_policy": "Privacy Policy",
     "features_management": "Platform Features Management",
     "contact_us": "Contact Us Messages Management",
-    "notifications": "Notifications Management"
+    "notifications": "Notifications Management",
+    "faq": "Faq"
   },
   "users_page": {
     "title": "Users Management",
@@ -336,7 +337,8 @@
     "features": "No features available",
     "categories": "No categories available",
     "cities": "No cities available",
-    "users": "No users available"
+    "users": "No users available",
+    "faqs": "No FAQs available"
   },
   "add_new_user_form": {
     "title": "Add New User",
@@ -789,6 +791,10 @@
     "deleteUser": {
       "title": "Delete User",
       "message": "Are you sure you want to delete this user? This action cannot be undone."
+    },
+    "deleteFaq": {
+      "title": "Delete FAQ",
+      "message": "Are you sure you want to delete this FAQ? This action cannot be undone."
     },
     "confirm": "Delete",
     "cancel": "Cancel"
@@ -1392,6 +1398,81 @@
         "photo": "Feature Photo"
       }
     }
+  },
+  "add_new_faq_form": {
+    "title": "Add New FAQ",
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "sections": {
+      "faq_information": "FAQ Information"
+    },
+    "labels": {
+      "questionAr": "Question (Arabic)",
+      "questionEn": "Question (English)",
+      "answerAr": "Answer (Arabic)",
+      "answerEn": "Answer (English)"
+    },
+    "placeholders": {
+      "questionAr": "Enter question in Arabic",
+      "questionEn": "Enter question in English",
+      "answerAr": "Enter answer in Arabic",
+      "answerEn": "Enter answer in English"
+    },
+    "validation": {
+      "questionArRequired": "Question in Arabic is required",
+      "questionArMinLength": "Question in Arabic must be at least 3 characters long",
+      "questionArMaxLength": "Question in Arabic must not exceed 100 characters",
+      "questionEnRequired": "Question in English is required",
+      "questionEnMinLength": "Question in English must be at least 3 characters long",
+      "questionEnMaxLength": "Question in English must not exceed 100 characters",
+      "answerArRequired": "Answer in Arabic is required",
+      "answerArMinLength": "Answer in Arabic must be at least 10 characters long",
+      "answerArMaxLength": "Answer in Arabic must not exceed 500 characters",
+      "answerEnRequired": "Answer in English is required",
+      "answerEnMinLength": "Answer in English must be at least 10 characters long",
+      "answerEnMaxLength": "Answer in English must not exceed 500 characters"
+    },
+    "messages": {
+      "createSuccess": "FAQ created successfully.",
+      "updateSuccess": "FAQ updated successfully."
+    }
+  },
+  "edit_faq": {
+    "title": "Edit FAQ"
+  },
+  "view_faq": {
+    "title": "View FAQ"
+  },
+  "faq_page": {
+    "title": "FAQ Management",
+    "total_faqs": "Total FAQs Count",
+    "total_count": "faqs",
+    "buttons": {
+      "add_faq": "Add New FAQ"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "questionEn": "Question (English)",
+      "questionAr": "Question (Arabic)",
+      "answerEn": "Answer (English)",
+      "answerAr": "Answer (Arabic)",
+      "createdAt": "Created Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "FAQ created successfully.",
+      "updateSuccess": "FAQ updated successfully.",
+      "deleteSuccess": "FAQ deleted successfully."
+    },
+    "change_order_button": "Change Order"
   },
   "dashboard": {
     "title": "Management Information",
