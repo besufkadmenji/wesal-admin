@@ -1,6 +1,8 @@
-import { SubscriberRequests } from '@/components/app/SubscribersRequests/Subscribers';
-const SubscriberRequestsPage = () => {
-  return <SubscriberRequests />;
+import {
+  ProviderRequests
+} from "@/components/app/ProviderRequests/ProviderRequests";
+const ProviderRequestsPage = () => {
+  return <ProviderRequests />;
 };
 
-export default SubscriberRequestsPage;
+export default ProviderRequestsPage;

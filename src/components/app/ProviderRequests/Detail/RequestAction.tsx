@@ -1,18 +1,14 @@
-import { SubscriptionRequestDetail } from "@/types/subscription";
-import moment from "moment";
 import ApproveIcon from "@/assets/icons/app/approve.svg";
 import RejectIcon from "@/assets/icons/app/reject.svg";
-import { PrimaryButton } from "../../shared/button/PrimaryButton";
+import { User } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
-import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
+import moment from "moment";
 import { useQueryState } from "nuqs";
-export const RequestAction = ({
-  request,
-}: {
-  request: SubscriptionRequestDetail;
-}) => {
+import { PrimaryButton } from "../../shared/button/PrimaryButton";
+import { useManageUser } from "./useManageUser";
+export const RequestAction = ({ request }: { request: User }) => {
   const dict = useDict();
-  const { approveRequest, busy } = useManageRequest();
+  const { activateUser, busy } = useManageUser();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   return (
@@ -22,7 +18,7 @@ export const RequestAction = ({
         <PrimaryButton
           startContent={<ApproveIcon className="size-5" />}
           onPress={() => {
-            approveRequest(request.id);
+            activateUser(request.id);
           }}
           isLoading={busy}
           isDisabled={busy}

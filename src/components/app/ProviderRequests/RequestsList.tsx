@@ -1,3 +1,6 @@
+import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/RejectReasonModal";
+import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
+import { useUsers } from "@/components/app/ProviderRequests/useUser";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
@@ -6,36 +9,27 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
+import { useManageUser } from "./Detail/useManageUser";
 import { renderCell } from "./renderCell";
-import { useRequests } from "./useRequest";
-import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
-import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
-import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
 
 export const RequestsList = () => {
   const dict = useDict();
-  const { data, isLoading } = useRequests();
+  const { data, isLoading } = useUsers();
   // const { deleteProduct, busy } = useManageProduct();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
-  const { approveRequest, rejectRequest, busy } = useManageRequest();
+  const { activateUser, deactivateUser, busy } = useManageUser();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
-  const request = data?.subscriptionRequests.find(
-    (req) => req.id === showRejectModal,
-  );
+  const request = data?.items.find((req) => req.id === showRejectModal);
   const router = useRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
       key: "name",
       label: dict.subscription_requests_page.table_headers.name,
-    },
-    {
-      key: "organizationName",
-      label: dict.subscription_requests_page.table_headers.organization_name,
     },
     {
       key: "phone",
@@ -64,20 +58,19 @@ export const RequestsList = () => {
 
   return isLoading ? (
     <AppTableSkeleton columns={columns.length} rows={10} />
-  ) : !data || data.subscriptionRequests.length === 0 ? (
+  ) : !data || data.items.length === 0 ? (
     <NoData type={NoDataType.SubscriberRequests} />
   ) : (
     <>
       <AppTable
         label="Requests"
         columns={columns}
-        rows={data.subscriptionRequests.map((request) => ({
+        rows={data.items.map((request) => ({
           key: request.id,
-          name: request.fullName,
-          organizationName: request.organizationName,
-          phone: request.phoneNumber,
+          name: request.name ?? "-",
+          phone: request.phone,
           email: request.email,
-          type: request.type,
+          type: request.role,
           date: DateTimeHelpers.formatDate(request.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
@@ -86,7 +79,7 @@ export const RequestsList = () => {
               router.push(`${pathname}/${row.key}`);
             },
             onApprove: () => {
-              approveRequest(row.key);
+              activateUser(row.key);
             },
             onReject: () => {
               setShowRejectModal(row.key, { history: "push" });
@@ -94,8 +87,8 @@ export const RequestsList = () => {
           })
         }
         pagination={{
-          page: data.pagination.currentPage,
-          total: data.pagination.totalPages,
+          page: data.meta.page,
+          total: data.meta.totalPages,
           onChange: (p) => {
             setPage(p, { history: "push" });
           },

@@ -1,5 +1,5 @@
 "use client";
-import { RequestsFilter } from "@/components/app/SubscribersRequests/RequestsFilter";
+import { RequestsFilter } from "@/components/app/ProviderRequests/RequestsFilter";
 import { Gap } from "@/components/app/shared/Gap";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -10,15 +10,15 @@ import {
 import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
 
-import { RequestsList } from "@/components/app/SubscribersRequests/RequestsList";
-import { useRequests } from "@/components/app/SubscribersRequests/useRequest";
+import { RequestsList } from "@/components/app/ProviderRequests/RequestsList";
+import { useUsers } from "@/components/app/ProviderRequests/useUser";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 
-export const SubscriberRequests = () => {
+export const ProviderRequests = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useRequests();
+  const { data, isLoading } = useUsers();
 
   return (
     <PageWrapper>
@@ -29,7 +29,7 @@ export const SubscriberRequests = () => {
       ) : (
         <SummaryCard
           type={SummaryCardType.SUBSCRIBERS_REQUESTS}
-          value={data?.pagination.totalItems ?? 0}
+          value={data?.meta.total ?? 0}
         />
       )}
 

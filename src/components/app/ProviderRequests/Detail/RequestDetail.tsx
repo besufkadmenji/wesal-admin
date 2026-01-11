@@ -1,24 +1,32 @@
 "use client";
 
+import { DocumentDisplay } from "@/components/app/ProviderRequests/Detail/DocumentDisplay";
+import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/RejectReasonModal";
+import { RequestAction } from "@/components/app/ProviderRequests/Detail/RequestAction";
+import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
+import { UserRole, UserStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
-import { useRequest } from "../useRequest";
 import { FormSelect } from "../../shared/forms/FormSelect";
-import Image from "next/image";
-import { RequestAction } from "@/components/app/SubscribersRequests/Detail/RequestAction";
-import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
-import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
-import { DocumentDisplay } from "@/components/app/SubscribersRequests/Detail/DocumentDisplay";
+import { useUser } from "../useUser";
+import { useEffect } from "react";
 
-export const SubscriberRequestDetail = ({ id }: { id: string }) => {
+export const RequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const router = useRouter();
-  const { data: request } = useRequest(id);
+  const { data: request } = useUser(id);
   console.log("Category Data:", request, id);
-  return !request ? (
+  useEffect(() => {
+    if (request && request.status !== UserStatus.PendingApproval) {
+      router.replace(`/providers/requests`);
+    }
+    return () => {};
+  }, [router, request]);
+
+  return !request || request.status !== UserStatus.PendingApproval ? (
     <AppLoading className="h-[84vh]" />
   ) : (
     <>
@@ -35,18 +43,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
               <FormInput
                 label={dict.subscription_request_detail_page.labels.name}
                 placeholder={dict.subscription_request_detail_page.labels.name}
-                value={request.fullName}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-              <FormInput
-                label={
-                  dict.subscription_request_detail_page.labels.organization_name
-                }
-                placeholder={
-                  dict.subscription_request_detail_page.labels.organization_name
-                }
-                value={request.organizationName}
+                value={request.name ?? "-"}
                 onChange={(value: string): void => {}}
                 readOnly
               />
@@ -57,7 +54,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
                 placeholder={
                   dict.subscription_request_detail_page.labels.phone_number
                 }
-                value={request.phoneNumber}
+                value={request.phone}
                 onChange={(value: string): void => {}}
                 readOnly
               />
@@ -71,16 +68,12 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
               <FormSelect
                 label={dict.subscription_request_detail_page.labels.type}
                 placeholder={dict.subscription_request_detail_page.labels.type}
-                value={request.type}
+                value={request.role}
                 onChange={(value: string): void => {}}
                 options={[
                   {
-                    key: "WAREHOUSE_OWNER",
-                    label: dict.common.warehouseOwner,
-                  },
-                  {
-                    key: "SUPPLIER",
-                    label: dict.common.supplier,
+                    key: UserRole.Provider,
+                    label: dict.common.serviceProvider,
                   },
                 ]}
                 readOnly
@@ -98,33 +91,9 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
                 onChange={(value: string): void => {}}
                 readOnly
               />
-              <div className="col-start-1 col-end-3 grid justify-center p-10">
-                <DocumentDisplay
-                  documentPath={request.commercialRegistrationImagePath}
-                />
-              </div>
-            </div>
-          </FormSection>
-          <FormSection
-            title={
-              dict.subscription_request_detail_page.sections
-                .commercial_registration
-            }
-          >
-            <div className="grid grid-cols-1 gap-4">
-              <FormInput
-                label={dict.subscription_request_detail_page.labels.tax_number}
-                placeholder={
-                  dict.subscription_request_detail_page.labels.tax_number
-                }
-                value={request.taxRegistrationNumber || "-"}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-
-              <div className="col-start-1 col-end-3 grid justify-center p-10">
-                <DocumentDisplay documentPath={request.taxRegistrationImagePath} />
-              </div>
+              {/* <div className="col-start-1 col-end-3 grid justify-center p-10">
+                <DocumentDisplay documentPath={request.avatarFilename ?? "-"} />
+              </div> */}
             </div>
           </FormSection>
         </AppForm>
