@@ -358,6 +358,42 @@ enum ComplaintStatus {
   UNDER_REVIEW
 }
 
+type ContactMessage {
+  attachmentFilename: String
+  createdAt: DateTime!
+  dialCode: String
+  email: String!
+  id: ID!
+  isRead: Boolean!
+  messageContent: String!
+  messageType: String!
+  name: String!
+  phone: String!
+  updatedAt: DateTime!
+}
+
+input ContactMessagePaginationInput {
+  isRead: Boolean
+
+  """Number of items per page"""
+  limit: Int! = 10
+  messageType: String
+
+  """Page number (1-based)"""
+  page: Int! = 1
+  sortBy: ContactMessageSortField
+
+  """Sort order: ASC or DESC"""
+  sortOrder: SortOrder = DESC
+}
+
+"""Fields to sort contact messages by"""
+enum ContactMessageSortField {
+  createdAt
+  id
+  isRead
+}
+
 type Contract {
   agreedPrice: Float!
   client: User!
@@ -547,6 +583,16 @@ input CreateComplaintInput {
   reason: ComplaintReason!
   status: ComplaintStatus
   userId: String!
+}
+
+input CreateContactMessageInput {
+  attachmentFilename: String
+  dialCode: String
+  email: String!
+  messageContent: String!
+  messageType: String!
+  name: String!
+  phone: String!
 }
 
 input CreateContractInput {
@@ -758,6 +804,9 @@ type Mutation {
   createCategory(input: CreateCategoryInput!): Category!
   createCity(input: CreateCityInput!): City!
   createComplaint(input: CreateComplaintInput!): Complaint!
+
+  """Create contact message (public)"""
+  createContactMessage(createContactMessageInput: CreateContactMessageInput!): ContactMessage!
   createContract(input: CreateContractInput!): Contract!
   createConversation(input: CreateConversationInput!): Conversation!
   createCountry(input: CreateCountryInput!): Country!
@@ -797,6 +846,9 @@ type Mutation {
   """Mark all notifications as read for a user"""
   markAllNotificationsAsRead(userId: String!): Boolean!
 
+  """Mark message as read (admin only)"""
+  markAsRead(id: ID!): ContactMessage!
+
   """Mark multiple notifications as read"""
   markMultipleNotificationsAsRead(ids: [String!]!): Boolean!
 
@@ -822,6 +874,9 @@ type Mutation {
   removeCategory(id: String!): Category!
   removeCity(id: ID!): City!
   removeComplaint(id: String!): Complaint!
+
+  """Delete contact message (admin only)"""
+  removeContactMessage(id: ID!): Boolean!
   removeContract(id: String!): Contract!
   removeConversation(id: String!): Conversation!
   removeCountry(id: ID!): Country!
@@ -859,6 +914,9 @@ type Mutation {
   updateCategory(input: UpdateCategoryInput!): Category!
   updateCity(input: UpdateCityInput!): City!
   updateComplaint(input: UpdateComplaintInput!): Complaint!
+
+  """Update contact message (admin only)"""
+  updateContactMessage(updateContactMessageInput: UpdateContactMessageInput!): ContactMessage!
   updateContract(input: UpdateContractInput!): Contract!
   updateConversation(input: UpdateConversationInput!): Conversation!
   updateCountry(input: UpdateCountryInput!): Country!
@@ -989,6 +1047,14 @@ type PaginatedCityResponse {
 type PaginatedComplaintResponse {
   """List of items"""
   items: [Complaint!]!
+
+  """Pagination metadata"""
+  meta: PaginationMeta!
+}
+
+type PaginatedContactMessageResponse {
+  """List of items"""
+  items: [ContactMessage!]!
 
   """Pagination metadata"""
   meta: PaginationMeta!
@@ -1186,6 +1252,12 @@ type Query {
   city(id: ID!): City!
   complaint(id: String!): Complaint!
   complaints(input: ComplaintPaginationInput): PaginatedComplaintResponse!
+
+  """Get single contact message (admin only)"""
+  contactMessage(id: ID!): ContactMessage!
+
+  """Get contact messages (admin only) with pagination"""
+  contactMessages(paginationInput: ContactMessagePaginationInput): PaginatedContactMessageResponse!
   contract(id: String!): Contract!
   contracts(input: ContractPaginationInput): PaginatedContractResponse!
   conversation(id: String!): Conversation!
@@ -1408,6 +1480,17 @@ input UpdateComplaintInput {
   reason: ComplaintReason
   status: ComplaintStatus
   userId: String
+}
+
+input UpdateContactMessageInput {
+  attachmentFilename: String
+  dialCode: String
+  email: String
+  id: ID!
+  messageContent: String
+  messageType: String
+  name: String
+  phone: String
 }
 
 input UpdateContractInput {

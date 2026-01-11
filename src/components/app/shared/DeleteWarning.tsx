@@ -10,6 +10,7 @@ export enum DeleteWarningType {
   CITY = "CITY",
   USER = "USER",
   FAQ = "FAQ",
+  CONTACT_MESSAGE = "CONTACT_MESSAGE",
 }
 
 export const DeleteWarning = ({
@@ -36,6 +37,8 @@ export const DeleteWarning = ({
     [DeleteWarningType.CITY]: dict.deleteConfirmation.deleteCity.title,
     [DeleteWarningType.USER]: dict.deleteConfirmation.deleteUser.title,
     [DeleteWarningType.FAQ]: dict.deleteConfirmation.deleteFaq.title,
+    [DeleteWarningType.CONTACT_MESSAGE]:
+      dict.deleteConfirmation.deleteContactMessage.title,
   };
   const message = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.message,
@@ -48,6 +51,8 @@ export const DeleteWarning = ({
     [DeleteWarningType.CITY]: dict.deleteConfirmation.deleteCity.message,
     [DeleteWarningType.USER]: dict.deleteConfirmation.deleteUser.message,
     [DeleteWarningType.FAQ]: dict.deleteConfirmation.deleteFaq.message,
+    [DeleteWarningType.CONTACT_MESSAGE]:
+      dict.deleteConfirmation.deleteContactMessage.message,
   };
 
   return (

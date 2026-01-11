@@ -70,6 +70,7 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_faq.title
           : dict.view_faq.title,
+    [FormType.ContactMessages]: dict.contact_message_detail_page.title,
   };
   const saveType = SaveButtonType.Admin;
 

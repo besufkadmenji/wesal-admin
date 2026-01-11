@@ -14,6 +14,7 @@ export enum FormType {
   Cities,
   Users,
   Faqs,
+  ContactMessages,
 }
 export const AppForm = ({
   type,

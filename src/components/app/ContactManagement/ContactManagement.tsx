@@ -6,7 +6,6 @@ import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
-import { useMe } from "@/hooks/useMe";
 import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
@@ -14,7 +13,6 @@ import { useManageSettingsForm } from "./useForm";
 import { useManageSetting } from "./useManageSetting";
 export const ContactManagement = () => {
   const dict = useDict();
-  const { me } = useMe();
   const { setting, setSetting } = useManageSettingsForm();
   const [phoneNumber, setPhoneNumber] = useState("");
   const { updateSetting, busy } = useManageSetting();

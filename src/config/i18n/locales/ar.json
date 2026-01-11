@@ -336,7 +336,8 @@
     "categories": "لا توجد فئات متاحة",
     "cities": "لا توجد مدن متاحة",
     "users": "لا يوجد مستخدمون متاحون",
-    "faqs": "لا توجد أسئلة شائعة متاحة"
+    "faqs": "لا توجد أسئلة شائعة متاحة",
+    "contactMessages": "لا توجد رسائل تواصل متاحة"
   },
   "add_new_user_form": {
     "title": "إضافة مستخدم جديد",
@@ -794,6 +795,10 @@
       "title": "حذف السؤال الشائع",
       "message": "هل تريد بتأكيد حذف هذا السؤال الشائع؟ لا يمكن التراجع عن هذا الإجراء."
     },
+    "deleteContactMessage": {
+      "title": "حذف رسالة التواصل",
+      "message": "هل تريد بتأكيد حذف هذه رسالة التواصل؟ لا يمكن التراجع عن هذا الإجراء."
+    },
     "confirm": "حذف",
     "cancel": "تراجع"
   },
@@ -1081,6 +1086,37 @@
     "messages": {
       "deleteSuccess": "تم حذف الرسالة بنجاح."
     }
+  },
+  "contact_message_page": {
+    "title": "إدارة رسائل التواصل",
+    "total_messages": "إجمالي رسائل التواصل",
+    "total_count": "رسالة",
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "messageType": "نوع الرسالة",
+      "messageContent": "الرسالة",
+      "createdAt": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "read": "مقروءة",
+      "unread": "غير مقروءة"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "رد",
+      "delete": "حذف"
+    },
+    "messages": {
+      "deleteSuccess": "تم حذف رسالة التواصل بنجاح."
+    }
+  },
+  "contact_message_detail_page": {
+    "title": "تفاصيل رسالة التواصل"
   },
   "categories_page": {
     "title": "إدارة الفئات",

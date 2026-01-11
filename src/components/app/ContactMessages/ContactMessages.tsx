@@ -1,0 +1,24 @@
+"use client";
+import { ContactMessagesList } from '@/components/app/ContactMessages/ContactMessagesList';
+import { Gap } from "@/components/app/shared/Gap";
+import { PageBar } from "@/components/app/shared/PageBar";
+import { PageWrapper } from "@/components/app/shared/PageWrapper";
+import { useDict } from "@/hooks/useDict";
+import { usePathname, useRouter } from "next/navigation";
+
+export const ContactMessages = () => {
+  const dict = useDict();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  return (
+    <PageWrapper>
+      <PageBar
+        title={dict.contact_messages_page.title}
+        className="grid grid-cols-1 gap-2 md:flex"
+      />
+      <Gap className="h-8" />
+      <ContactMessagesList />
+    </PageWrapper>
+  );
+};

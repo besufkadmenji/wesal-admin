@@ -338,7 +338,8 @@
     "categories": "No categories available",
     "cities": "No cities available",
     "users": "No users available",
-    "faqs": "No FAQs available"
+    "faqs": "No FAQs available",
+    "contactMessages": "No contact messages available"
   },
   "add_new_user_form": {
     "title": "Add New User",
@@ -796,6 +797,10 @@
       "title": "Delete FAQ",
       "message": "Are you sure you want to delete this FAQ? This action cannot be undone."
     },
+    "deleteContactMessage": {
+      "title": "Delete Contact Message",
+      "message": "Are you sure you want to delete this contact message? This action cannot be undone."
+    },
     "confirm": "Delete",
     "cancel": "Cancel"
   },
@@ -1082,6 +1087,37 @@
     "messages": {
       "deleteSuccess": "Message deleted successfully."
     }
+  },
+  "contact_message_page": {
+    "title": "Contact Messages Management",
+    "total_messages": "Total Contact Messages",
+    "total_count": "messages",
+    "search_placeholder": "Search",
+    "table_headers": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "messageType": "Message Type",
+      "messageContent": "Message",
+      "createdAt": "Created Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "read": "Read",
+      "unread": "Unread"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Reply",
+      "delete": "Delete"
+    },
+    "messages": {
+      "deleteSuccess": "Contact message deleted successfully."
+    }
+  },
+  "contact_message_detail_page": {
+    "title": "Contact Message Details"
   },
   "categories_page": {
     "title": "Categories Management",

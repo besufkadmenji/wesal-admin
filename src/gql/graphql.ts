@@ -351,6 +351,39 @@ export enum ComplaintStatus {
   UnderReview = 'UNDER_REVIEW'
 }
 
+export type ContactMessage = {
+  attachmentFilename?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  dialCode?: Maybe<Scalars['String']['output']>;
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  isRead: Scalars['Boolean']['output'];
+  messageContent: Scalars['String']['output'];
+  messageType: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  phone: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ContactMessagePaginationInput = {
+  isRead?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Number of items per page */
+  limit?: Scalars['Int']['input'];
+  messageType?: InputMaybe<Scalars['String']['input']>;
+  /** Page number (1-based) */
+  page?: Scalars['Int']['input'];
+  sortBy?: InputMaybe<ContactMessageSortField>;
+  /** Sort order: ASC or DESC */
+  sortOrder?: InputMaybe<SortOrder>;
+};
+
+/** Fields to sort contact messages by */
+export enum ContactMessageSortField {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  IsRead = 'isRead'
+}
+
 export type Contract = {
   agreedPrice: Scalars['Float']['output'];
   client: User;
@@ -529,6 +562,16 @@ export type CreateComplaintInput = {
   reason: ComplaintReason;
   status?: InputMaybe<ComplaintStatus>;
   userId: Scalars['String']['input'];
+};
+
+export type CreateContactMessageInput = {
+  attachmentFilename?: InputMaybe<Scalars['String']['input']>;
+  dialCode?: InputMaybe<Scalars['String']['input']>;
+  email: Scalars['String']['input'];
+  messageContent: Scalars['String']['input'];
+  messageType: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
 };
 
 export type CreateContractInput = {
@@ -724,6 +767,8 @@ export type Mutation = {
   createCategory: Category;
   createCity: City;
   createComplaint: Complaint;
+  /** Create contact message (public) */
+  createContactMessage: ContactMessage;
   createContract: Contract;
   createConversation: Conversation;
   createCountry: Country;
@@ -750,6 +795,8 @@ export type Mutation = {
   login: AuthResponse;
   /** Mark all notifications as read for a user */
   markAllNotificationsAsRead: Scalars['Boolean']['output'];
+  /** Mark message as read (admin only) */
+  markAsRead: ContactMessage;
   /** Mark multiple notifications as read */
   markMultipleNotificationsAsRead: Scalars['Boolean']['output'];
   /** Mark a notification as read */
@@ -769,6 +816,8 @@ export type Mutation = {
   removeCategory: Category;
   removeCity: City;
   removeComplaint: Complaint;
+  /** Delete contact message (admin only) */
+  removeContactMessage: Scalars['Boolean']['output'];
   removeContract: Contract;
   removeConversation: Conversation;
   removeCountry: Country;
@@ -799,6 +848,8 @@ export type Mutation = {
   updateCategory: Category;
   updateCity: City;
   updateComplaint: Complaint;
+  /** Update contact message (admin only) */
+  updateContactMessage: ContactMessage;
   updateContract: Contract;
   updateConversation: Conversation;
   updateCountry: Country;
@@ -907,6 +958,11 @@ export type MutationCreateComplaintArgs = {
 };
 
 
+export type MutationCreateContactMessageArgs = {
+  createContactMessageInput: CreateContactMessageInput;
+};
+
+
 export type MutationCreateContractArgs = {
   input: CreateContractInput;
 };
@@ -999,6 +1055,11 @@ export type MutationMarkAllNotificationsAsReadArgs = {
 };
 
 
+export type MutationMarkAsReadArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationMarkMultipleNotificationsAsReadArgs = {
   ids: Array<Scalars['String']['input']>;
 };
@@ -1058,6 +1119,11 @@ export type MutationRemoveCityArgs = {
 
 export type MutationRemoveComplaintArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveContactMessageArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1177,6 +1243,11 @@ export type MutationUpdateCityArgs = {
 
 export type MutationUpdateComplaintArgs = {
   input: UpdateComplaintInput;
+};
+
+
+export type MutationUpdateContactMessageArgs = {
+  updateContactMessageInput: UpdateContactMessageInput;
 };
 
 
@@ -1340,6 +1411,13 @@ export type PaginatedCityResponse = {
 export type PaginatedComplaintResponse = {
   /** List of items */
   items: Array<Complaint>;
+  /** Pagination metadata */
+  meta: PaginationMeta;
+};
+
+export type PaginatedContactMessageResponse = {
+  /** List of items */
+  items: Array<ContactMessage>;
   /** Pagination metadata */
   meta: PaginationMeta;
 };
@@ -1516,6 +1594,10 @@ export type Query = {
   city: City;
   complaint: Complaint;
   complaints: PaginatedComplaintResponse;
+  /** Get single contact message (admin only) */
+  contactMessage: ContactMessage;
+  /** Get contact messages (admin only) with pagination */
+  contactMessages: PaginatedContactMessageResponse;
   contract: Contract;
   contracts: PaginatedContractResponse;
   conversation: Conversation;
@@ -1615,6 +1697,16 @@ export type QueryComplaintArgs = {
 
 export type QueryComplaintsArgs = {
   input?: InputMaybe<ComplaintPaginationInput>;
+};
+
+
+export type QueryContactMessageArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryContactMessagesArgs = {
+  paginationInput?: InputMaybe<ContactMessagePaginationInput>;
 };
 
 
@@ -1907,6 +1999,17 @@ export type UpdateComplaintInput = {
   reason?: InputMaybe<ComplaintReason>;
   status?: InputMaybe<ComplaintStatus>;
   userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateContactMessageInput = {
+  attachmentFilename?: InputMaybe<Scalars['String']['input']>;
+  dialCode?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  messageContent?: InputMaybe<Scalars['String']['input']>;
+  messageType?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateContractInput = {
@@ -2281,6 +2384,34 @@ export type UpdateCityMutationVariables = Exact<{
 
 export type UpdateCityMutation = { updateCity: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
 
+export type ContactMessageQueryVariables = Exact<{
+  contactMessageId: Scalars['ID']['input'];
+}>;
+
+
+export type ContactMessageQuery = { contactMessage: { attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, isRead: boolean, messageContent: string, messageType: string, name: string, phone: string, updatedAt: any } };
+
+export type ContactMessagesQueryVariables = Exact<{
+  paginationInput?: InputMaybe<ContactMessagePaginationInput>;
+}>;
+
+
+export type ContactMessagesQuery = { contactMessages: { items: Array<{ attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, isRead: boolean, messageContent: string, messageType: string, name: string, phone: string, updatedAt: any }>, meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number } } };
+
+export type MarkAsReadMutationVariables = Exact<{
+  markAsReadId: Scalars['ID']['input'];
+}>;
+
+
+export type MarkAsReadMutation = { markAsRead: { attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, isRead: boolean, messageContent: string, messageType: string, name: string, phone: string, updatedAt: any } };
+
+export type RemoveContactMessageMutationVariables = Exact<{
+  removeContactMessageId: Scalars['ID']['input'];
+}>;
+
+
+export type RemoveContactMessageMutation = { removeContactMessage: boolean };
+
 export type BulkUpdateOrderMutationVariables = Exact<{
   input: BulkUpdateFaqOrderInput;
 }>;
@@ -2414,6 +2545,10 @@ export const CountriesDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export const CreateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCityInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<CreateCityMutation, CreateCityMutationVariables>;
 export const RemoveCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RemoveCityMutation, RemoveCityMutationVariables>;
 export const UpdateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCityInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateCityMutation, UpdateCityMutationVariables>;
+export const ContactMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contactMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contactMessageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contactMessageId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ContactMessageQuery, ContactMessageQueryVariables>;
+export const ContactMessagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contactMessages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paginationInput"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ContactMessagePaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactMessages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paginationInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<ContactMessagesQuery, ContactMessagesQueryVariables>;
+export const MarkAsReadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"markAsRead"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"markAsReadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"markAsRead"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"markAsReadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<MarkAsReadMutation, MarkAsReadMutationVariables>;
+export const RemoveContactMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeContactMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeContactMessageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeContactMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeContactMessageId"}}}]}]}}]} as unknown as DocumentNode<RemoveContactMessageMutation, RemoveContactMessageMutationVariables>;
 export const BulkUpdateOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"bulkUpdateOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BulkUpdateFaqOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bulkUpdateOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BulkUpdateOrderMutation, BulkUpdateOrderMutationVariables>;
 export const CreateFaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFaq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createFaqInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateFaqInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFaq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createFaqInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createFaqInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateFaqMutation, CreateFaqMutationVariables>;
 export const FaqDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"faq"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"faqId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"faq"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"faqId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"answerAr"}},{"kind":"Field","name":{"kind":"Name","value":"answerEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"questionAr"}},{"kind":"Field","name":{"kind":"Name","value":"questionEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<FaqQuery, FaqQueryVariables>;

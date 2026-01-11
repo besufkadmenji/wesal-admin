@@ -125,7 +125,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
               label: dict.navigation.faq,
             },
             {
-              href: "/content/contact-us",
+              href: "/content/contact-messages",
               label: dict.navigation.contact_us,
             },
           ]}
