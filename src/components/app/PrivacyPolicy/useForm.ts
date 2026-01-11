@@ -29,10 +29,8 @@ export const useManageSettingsForm = () => {
 
   useEffect(() => {
     if (privacyPolicyData) {
-      const parsed = JSON.parse(privacyPolicyData.value as string);
-
-      setValueEn(parsed.en && typeof parsed.en === "string" ? parsed.en : "");
-      setValueAr(parsed.ar && typeof parsed.ar === "string" ? parsed.ar : "");
+      setValueEn(privacyPolicyData.privacyPolicyEn ?? "");
+      setValueAr(privacyPolicyData.privacyPolicyAr ?? "");
     }
 
     return () => {};

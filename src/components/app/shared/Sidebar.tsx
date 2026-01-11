@@ -120,10 +120,10 @@ export const Sidebar = ({ className }: { className?: string }) => {
               href: "/content/privacy-policy",
               label: dict.navigation.privacy_policy,
             },
-            {
-              href: "/content/features",
-              label: dict.navigation.features_management,
-            },
+            // {
+            //   href: "/content/features",
+            //   label: dict.navigation.features_management,
+            // },
             {
               href: "/content/contact-us",
               label: dict.navigation.contact_us,

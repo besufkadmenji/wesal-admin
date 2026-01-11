@@ -13,13 +13,10 @@ export const useManageSetting = () => {
   const updateSetting = async () => {
     setBusy(true);
     try {
-      await SettingService.updateSetting(
-        "terms_and_conditions",
-        {
-          value: JSON.stringify({ en: valueEn, ar: valueAr }),
-        },
-        lang,
-      );
+      await SettingService.setSetting({
+        termsEn: valueEn,
+        termsAr: valueAr,
+      });
 
       showSuccessMessage(dict.terms_conditions.messages.updateSuccess);
     } catch (error) {

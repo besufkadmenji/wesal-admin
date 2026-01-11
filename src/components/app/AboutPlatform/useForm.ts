@@ -29,10 +29,8 @@ export const useManageSettingsForm = () => {
 
   useEffect(() => {
     if (aboutDescriptionData) {
-      const parsed = JSON.parse(aboutDescriptionData.value as string);
-
-      setValueEn(parsed.en && typeof parsed.en === "string" ? parsed.en : "");
-      setValueAr(parsed.ar && typeof parsed.ar === "string" ? parsed.ar : "");
+      setValueEn(aboutDescriptionData.aboutEn ?? "");
+      setValueAr(aboutDescriptionData.aboutAr ?? "");
     }
 
     return () => {};

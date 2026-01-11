@@ -15,16 +15,7 @@ import { useManageSetting } from "./useManageSetting";
 export const ContactManagement = () => {
   const dict = useDict();
   const { me } = useMe();
-  const {
-    phoneNumbers,
-    email,
-    whatsapp,
-    socialMediaLinks,
-    setPhoneNumbers,
-    setEmail,
-    setWhatsapp,
-    setSocialMediaLinks,
-  } = useManageSettingsForm();
+  const { setting, setSetting } = useManageSettingsForm();
   const [phoneNumber, setPhoneNumber] = useState("");
   const { updateSetting, busy } = useManageSetting();
 
@@ -57,7 +48,9 @@ export const ContactManagement = () => {
                 />
                 <PrimaryButton
                   onPress={() => {
-                    setPhoneNumbers([...phoneNumbers, phoneNumber]);
+                    setSetting({
+                      phones: [...setting.phones!, phoneNumber],
+                    });
                     setPhoneNumber("");
                   }}
                   className="mb-2 self-end"
@@ -67,7 +60,7 @@ export const ContactManagement = () => {
                   {dict.contact_settings.contact_info.add}
                 </PrimaryButton>
               </div>
-              {phoneNumbers.map((phone, index) => (
+              {setting.phones!.map((phone, index) => (
                 <div
                   className="grid grid-cols-[1fr_auto] gap-2"
                   key={`${phone}-${index}`}
@@ -84,10 +77,12 @@ export const ContactManagement = () => {
                   />
                   <PrimaryButton
                     onPress={() => {
-                      const updatedPhoneNumbers = phoneNumbers.filter(
+                      const updatedPhones = setting.phones!.filter(
                         (p, i) => i !== index,
                       );
-                      setPhoneNumbers(updatedPhoneNumbers);
+                      setSetting({
+                        phones: updatedPhones,
+                      });
                     }}
                     className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
@@ -97,30 +92,32 @@ export const ContactManagement = () => {
                 </div>
               ))}
             </div>
-            {whatsapp && (
-              <FormInput
-                label={dict.contact_settings.contact_info.labels.whatsapp}
-                placeholder={
-                  dict.contact_settings.contact_info.placeholders.whatsapp
-                }
-                value={whatsapp}
-                onChange={(value: string): void => {
-                  setWhatsapp(value);
-                }}
-              />
-            )}
-            {email && (
-              <FormInput
-                label={dict.contact_settings.contact_info.labels.email}
-                placeholder={
-                  dict.contact_settings.contact_info.placeholders.email
-                }
-                value={email}
-                onChange={(value: string): void => {
-                  setEmail(value);
-                }}
-              />
-            )}
+
+            <FormInput
+              label={dict.contact_settings.contact_info.labels.whatsapp}
+              placeholder={
+                dict.contact_settings.contact_info.placeholders.whatsapp
+              }
+              value={setting.whatsappNumber ?? ""}
+              onChange={(value: string): void => {
+                setSetting({
+                  whatsappNumber: value,
+                });
+              }}
+            />
+
+            <FormInput
+              label={dict.contact_settings.contact_info.labels.email}
+              placeholder={
+                dict.contact_settings.contact_info.placeholders.email
+              }
+              value={setting.email ?? ""}
+              onChange={(value: string): void => {
+                setSetting({
+                  email: value,
+                });
+              }}
+            />
           </div>
         </FormSection>
         <FormSection title={""}>
@@ -137,7 +134,7 @@ export const ContactManagement = () => {
           </p>
           <div className="grid grid-cols-1 gap-4">
             <div className="grid grid-cols-1 gap-4">
-              {socialMediaLinks.map((link, index) => (
+              {setting.socialMediaLinks!.map((link, index) => (
                 <div
                   className="grid grid-cols-[1fr_2fr_auto] gap-2"
                   key={`${index}`}
@@ -145,11 +142,15 @@ export const ContactManagement = () => {
                   <FormInput
                     label={""}
                     placeholder={""}
-                    value={link.key}
+                    value={link.name}
                     onChange={(value: string): void => {
-                      const updatedSocialMediaLinks = [...socialMediaLinks];
-                      updatedSocialMediaLinks[index].key = value;
-                      setSocialMediaLinks(updatedSocialMediaLinks);
+                      const updatedSocialMediaLinks = [
+                        ...setting.socialMediaLinks!,
+                      ];
+                      updatedSocialMediaLinks[index].name = value;
+                      setSetting({
+                        socialMediaLinks: updatedSocialMediaLinks,
+                      });
                     }}
                     startContent={
                       <div className="border-dashboard-border h-5 w-5 rounded-full border" />
@@ -161,11 +162,15 @@ export const ContactManagement = () => {
                   <FormInput
                     label={""}
                     placeholder={""}
-                    value={link.value}
+                    value={link.link}
                     onChange={(value: string): void => {
-                      const updatedSocialMediaLinks = [...socialMediaLinks];
-                      updatedSocialMediaLinks[index].value = value;
-                      setSocialMediaLinks(updatedSocialMediaLinks);
+                      const updatedSocialMediaLinks = [
+                        ...setting.socialMediaLinks!,
+                      ];
+                      updatedSocialMediaLinks[index].link = value;
+                      setSetting({
+                        socialMediaLinks: updatedSocialMediaLinks,
+                      });
                     }}
                     classNames={{
                       inputWrapper: "bg-white shadow-none",
@@ -173,10 +178,11 @@ export const ContactManagement = () => {
                   />
                   <PrimaryButton
                     onPress={() => {
-                      const updatedSocialMediaLinks = socialMediaLinks.filter(
-                        (l, i) => i !== index,
-                      );
-                      setSocialMediaLinks(updatedSocialMediaLinks);
+                      const updatedSocialMediaLinks =
+                        setting.socialMediaLinks!.filter((l, i) => i !== index);
+                      setSetting({
+                        socialMediaLinks: updatedSocialMediaLinks,
+                      });
                     }}
                     className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
@@ -190,10 +196,12 @@ export const ContactManagement = () => {
           <PrimaryButton
             startContent={<AddIcon className="size-5" />}
             onPress={() => {
-              setSocialMediaLinks([
-                ...socialMediaLinks,
-                { key: "", value: "" },
-              ]);
+              setSetting({
+                socialMediaLinks: [
+                  ...setting.socialMediaLinks!,
+                  { name: "", link: "" },
+                ],
+              });
             }}
           >
             {dict.contact_settings.social_media.buttons.add}

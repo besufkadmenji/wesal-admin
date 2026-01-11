@@ -817,6 +817,9 @@ type Mutation {
   reviewComplaint(input: ReviewComplaintInput!): Complaint!
   revokeAllPermissionsFromAdmin(adminId: ID!): Boolean!
   revokePermissionFromAdmin(adminId: ID!, permissionId: ID!): Boolean!
+
+  """Create or update application settings (admin only)"""
+  setSetting(input: SettingInput!): Setting!
   updateAdmin(id: ID!, updateAdminInput: UpdateAdminInput!): Admin!
   updateAdvertisement(input: UpdateAdvertisementInput!): Advertisement!
   updateCategory(input: UpdateCategoryInput!): Category!
@@ -1157,6 +1160,9 @@ type Query {
   favorite(id: String!): Favorite!
   favorites(input: FavoritePaginationInput): PaginatedFavoriteResponse!
 
+  """Get application settings (admin only)"""
+  getSetting: Setting!
+
   """Check if advertisement is favorited by user"""
   isFavorite(advertisementId: String!, userId: String!): Boolean!
 
@@ -1269,6 +1275,42 @@ input ReviewComplaintInput {
   adminResponse: String!
   complaintId: String!
   reviewerId: String!
+}
+
+type Setting {
+  aboutAr: String!
+  aboutEn: String!
+  email: String!
+  phones: [String!]!
+  privacyPolicyAr: String!
+  privacyPolicyEn: String!
+  socialMediaLinks: [SocialMediaLink!]!
+  termsAr: String!
+  termsEn: String!
+  whatsappNumber: String!
+}
+
+input SettingInput {
+  aboutAr: String
+  aboutEn: String
+  email: String
+  phones: [String!]
+  privacyPolicyAr: String
+  privacyPolicyEn: String
+  socialMediaLinks: [SocialMediaLinkInput!]
+  termsAr: String
+  termsEn: String
+  whatsappNumber: String
+}
+
+type SocialMediaLink {
+  link: String!
+  name: String!
+}
+
+input SocialMediaLinkInput {
+  link: String!
+  name: String!
 }
 
 """Sort order direction"""

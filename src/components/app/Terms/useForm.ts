@@ -1,6 +1,6 @@
-import { useSetting } from "@/components/app/Settings/useSettings";
 import { useEffect } from "react";
 import { create } from "zustand";
+import { useSetting } from "./useSettings";
 
 interface SettingsState {
   valueEn: string;
@@ -29,10 +29,8 @@ export const useManageSettingsForm = () => {
 
   useEffect(() => {
     if (termsData) {
-      const parsed = JSON.parse(termsData.value as string);
-
-      setValueEn(parsed.en && typeof parsed.en === "string" ? parsed.en : "");
-      setValueAr(parsed.ar && typeof parsed.ar === "string" ? parsed.ar : "");
+      setValueEn(termsData.termsEn ?? "");
+      setValueAr(termsData.termsAr ?? "");
     }
 
     return () => {};

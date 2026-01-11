@@ -1,73 +1,36 @@
-import axiosClient from "@/utils/axios.client";
-import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
-import {
-  GetSettingsParams,
-  SettingsResponse,
-  Setting,
-  UpdateSettingDto,
-} from "@/types/setting";
+import { Setting, SettingInput } from "@/gql/graphql";
+import { GET_SETTING_QUERY } from "@/graphql/setting/getSetting";
+import { SET_SETTING_MUTATION } from "@/graphql/setting/setSetting";
+import client from "@/utils/apollo.client";
+import { parseGraphQLError } from "@/utils/parse-graphql-error";
 
 export class SettingService {
-  static async getSettings(
-    params?: GetSettingsParams,
-    lang?: string,
-  ): Promise<SettingsResponse | null> {
+  static getSetting = async (): Promise<Setting | null> => {
     try {
-      const response = await axiosClient.get<SettingsResponse>("/settings", {
-        params,
-        headers: lang ? { "Accept-Language": lang } : {},
+      const userResult = await client().query({
+        query: GET_SETTING_QUERY,
+        variables: {},
       });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      return userResult.data?.getSetting ?? null;
+    } catch (e) {
+      console.error("userResult", e);
     }
-  }
+    return null;
+  };
 
-  static async getSettingByKey(
-    key: string,
-    lang?: string,
-  ): Promise<Setting | null> {
+  static setSetting = async (input: SettingInput) => {
     try {
-      const response = await axiosClient.get<Setting>(`/settings/key/${key}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
-      return unwrapAxiosResponse(response.data);
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
-    }
-  }
-
-  static async updateSetting(
-    key: string,
-    dto: UpdateSettingDto,
-    lang?: string,
-  ): Promise<Setting | null> {
-    try {
-      const response = await axiosClient.put<Setting>(
-        `/settings/${key}/key`,
-        dto,
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
+      const activateUserResponse = await client().mutate({
+        mutation: SET_SETTING_MUTATION,
+        variables: {
+          input,
         },
-      );
-      return unwrapAxiosResponse(response.data);
+      });
+      return activateUserResponse.data?.setSetting ?? null;
     } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Something went wrong, try again later.",
-        ),
-      );
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
     }
-  }
+  };
 }

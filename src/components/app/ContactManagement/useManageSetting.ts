@@ -1,6 +1,4 @@
 import { useDict } from "@/hooks/useDict";
-import { useLang } from "@/hooks/useLang";
-import { useMe } from "@/hooks/useMe";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useState } from "react";
@@ -8,46 +6,22 @@ import { useManageSettingsForm } from "./useForm";
 
 export const useManageSetting = () => {
   const [busy, setBusy] = useState(false);
-  const lang = useLang();
   const dict = useDict();
-  const { me } = useMe();
-  const { email, phoneNumbers, whatsapp, socialMediaLinks } =
-    useManageSettingsForm();
+  const { setting } = useManageSettingsForm();
   const updateSetting = async () => {
     setBusy(true);
     try {
-      await SettingService.updateSetting(
-        "contact_email",
-        {
-          value: email,
-        },
-        lang,
+      const cleanedSetting = Object.entries(setting).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]:
+            value === "" || value === null || value === undefined
+              ? null
+              : value,
+        }),
+        {} as typeof setting,
       );
-      await SettingService.updateSetting(
-        "contact_phones",
-        {
-          value: JSON.stringify(phoneNumbers),
-        },
-        lang,
-      );
-      await SettingService.updateSetting(
-        "contact_whatsapp",
-        {
-          value: whatsapp,
-        },
-        lang,
-      );
-      await SettingService.updateSetting(
-        "social_media_links",
-        {
-          value: JSON.stringify(
-            Object.fromEntries(
-              socialMediaLinks.map((link) => [link.key, link.value]),
-            ),
-          ),
-        },
-        lang,
-      );
+      await SettingService.setSetting(cleanedSetting);
       showSuccessMessage(dict.contact_settings.messages.updateSuccess);
     } catch (error) {
       showErrorMessage(
