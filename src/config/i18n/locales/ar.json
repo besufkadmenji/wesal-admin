@@ -358,13 +358,16 @@
       "role": "الدور",
       "commercial_registration_number": "رقم التسجيل التجاري",
       "city": "المدينة",
-      "address": "العنوان"
+      "address": "العنوان",
+      "commercial_name": "الاسم التجاري",
+      "commercial_registration_image": "مستند التسجيل التجاري"
     },
     "placeholders": {
       "name": "ادخل اسم المستخدم",
       "phone_number": "ادخل رقم الهاتف",
       "email": "ادخل البريد الإلكتروني",
       "role": "اختر الدور",
+      "commercial_name": "ادخل الاسم التجاري",
       "commercial_registration_number": "ادخل رقم التسجيل التجاري",
       "city": "اختر المدينة",
       "address": "ادخل العنوان"
@@ -374,7 +377,13 @@
     "title": "تعديل المستخدم"
   },
   "view_user": {
-    "title": "عرض المستخدم"
+    "title": "عرض المستخدم",
+    "contract_section_title": "العقد",
+    "service_provider_signature": "توقيع مزود الخدمة",
+    "platform_manager_signature": "توقيع مدير النظام",
+    "no_contract_signed_yet": "لم يتم التوقيع على أي عقد حتى الآن",
+    "contract_status": "حالة العقد",
+    "contract_signed_at": "تاريخ توقيع العقد"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -1572,5 +1581,11 @@
       "pending": "مورد",
       "confirmed": "طالب مستوحي"
     }
+  },
+  "contract_status": {
+    "active": "نشط",
+    "expired": "منتهي الصلاحية",
+    "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
+    "terminatedByUser": "تم الإنهاء من قبل المستخدم"
   }
 }

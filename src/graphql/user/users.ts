@@ -47,6 +47,27 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
           updatedAt
           withAbsher
           status
+          city {
+            countryId
+            createdAt
+            id
+            nameAr
+            nameEn
+            updatedAt
+          }
+          deactivationReason
+          deleteReason
+          deletedAt
+          signedContract {
+            contractExpiresAt
+            contractSignedAt
+            platformManagerSignature
+            serviceProviderSignature
+            status
+            terminationReason
+          }
+          commercialName
+          commercialRegistrationFilename
         }
       }
     }

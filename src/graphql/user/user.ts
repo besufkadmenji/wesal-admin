@@ -48,6 +48,16 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
       deactivationReason
       deleteReason
       deletedAt
+      signedContract {
+        contractExpiresAt
+        contractSignedAt
+        platformManagerSignature
+        serviceProviderSignature
+        status
+        terminationReason
+      }
+      commercialName
+      commercialRegistrationFilename
     }
   }
 `;

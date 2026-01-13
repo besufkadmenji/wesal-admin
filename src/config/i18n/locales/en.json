@@ -358,15 +358,18 @@
       "password": "Password",
       "confirm_password": "Confirm Password",
       "role": "Role",
+      "commercial_name": "Commercial Name",
       "commercial_registration_number": "Commercial Registration Number",
       "city": "City",
-      "address": "Address"
+      "address": "Address",
+      "commercial_registration_image": "Commercial Registration Document"
     },
     "placeholders": {
       "name": "Enter user name",
       "phone_number": "Enter phone number",
       "email": "Enter email",
       "role": "Select role",
+      "commercial_name": "Enter commercial name",
       "commercial_registration_number": "Enter commercial registration number",
       "city": "Select city",
       "address": "Enter address"
@@ -376,7 +379,13 @@
     "title": "Edit User"
   },
   "view_user": {
-    "title": "View User"
+    "title": "View User",
+    "contract_section_title": "Contract",
+    "service_provider_signature": "Service Provider Signature",
+    "platform_manager_signature": "Platform Manager Signature",
+    "no_contract_signed_yet": "No contract signed yet",
+    "contract_status": "Contract Status",
+    "contract_signed_at": "Contract Signed At"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -1573,5 +1582,11 @@
       "pending": "Pending",
       "confirmed": "Confirmed"
     }
+  },
+  "contract_status": {
+    "active": "Active",
+    "expired": "Expired",
+    "terminatedByAdmin": "Terminated by Admin",
+    "terminatedByUser": "Terminated by User"
   }
 }

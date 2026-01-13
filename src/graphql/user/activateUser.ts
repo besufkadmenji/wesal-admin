@@ -1,6 +1,6 @@
 import {
-    ActivateUserMutation,
-    ActivateUserMutationVariables,
+  ActivateUserMutation,
+  ActivateUserMutationVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -43,6 +43,27 @@ export const ACTIVATE_USER_MUTATION: TypedDocumentNode<
       updatedAt
       withAbsher
       status
+      city {
+        countryId
+        createdAt
+        id
+        nameAr
+        nameEn
+        updatedAt
+      }
+      deactivationReason
+      deleteReason
+      deletedAt
+      signedContract {
+        contractExpiresAt
+        contractSignedAt
+        platformManagerSignature
+        serviceProviderSignature
+        status
+        terminationReason
+      }
+      commercialName
+      commercialRegistrationFilename
     }
   }
 `;

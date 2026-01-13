@@ -46,7 +46,27 @@ export const DEACTIVATE_USER_MUTATION: TypedDocumentNode<
       updatedAt
       withAbsher
       status
+      city {
+        countryId
+        createdAt
+        id
+        nameAr
+        nameEn
+        updatedAt
+      }
       deactivationReason
+      deleteReason
+      deletedAt
+      signedContract {
+        contractExpiresAt
+        contractSignedAt
+        platformManagerSignature
+        serviceProviderSignature
+        status
+        terminationReason
+      }
+      commercialName
+      commercialRegistrationFilename
     }
   }
 `;
