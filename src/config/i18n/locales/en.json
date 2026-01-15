@@ -1102,6 +1102,7 @@
     "total_messages": "Total Contact Messages",
     "total_count": "messages",
     "search_placeholder": "Search",
+    "attachment":"Attachment",
     "table_headers": {
       "name": "Name",
       "email": "Email",

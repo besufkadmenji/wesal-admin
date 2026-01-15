@@ -12,6 +12,7 @@ import { AppLoading } from "../shared/AppLoading";
 import { useContactMessage } from "./useContactMessage";
 import { useEffect } from "react";
 import ContactMessageService from "@/services/contact.message.service";
+import Image from "next/image";
 
 export const ViewContactMessages = ({ id }: { id: string }) => {
   const { data } = useContactMessage(id);
@@ -32,7 +33,6 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
       <AppForm type={FormType.ContactMessages} action="view">
         <FormSection title={dict.contact_message_detail_page.title}>
           <div className="grid grid-cols-1 gap-4">
-            {" "}
             <FormInput
               label={dict.contact_message_page.table_headers.name}
               placeholder={dict.contact_message_page.table_headers.name}
@@ -70,6 +70,25 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
               onChange={(value: string): void => {}}
               readOnly
             />
+            {data.attachmentFilename && (
+              <div className="grid grid-cols-1 gap-2">
+                <p
+                  className={
+                    "text-sm leading-5 font-semibold subpixel-antialiased tracking-tight text-[#4D5464] dark:text-white! dark:after:text-white/70"
+                  }
+                >
+                  {dict.contact_message_page.attachment}
+                </p>
+                <div className="relative h-60 w-full">
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_DATA}/files/${data.attachmentFilename}`}
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </FormSection>
       </AppForm>
