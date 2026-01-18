@@ -1,8 +1,8 @@
 import { useDict } from "@/hooks/useDict";
+import Image from "next/image";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { twMerge } from "tailwind-merge";
-import Image from "next/image";
 
 export const SignatureInput = ({
   label,
@@ -40,7 +40,7 @@ export const SignatureInput = ({
       ? `${process.env.NEXT_PUBLIC_DATA}/files/${initUrl}`
       : null;
   return (
-    <div className="grid grid-cols-1 gap-3 col-span-2">
+    <div className="col-span-2 grid grid-cols-1 gap-3">
       <label className="text-base leading-8 font-medium text-black">
         {label} {isRequired && <span className="text-[#B3251E]">*</span>}
       </label>
@@ -52,7 +52,7 @@ export const SignatureInput = ({
           isDragReject && "border-red-500 bg-red-500/5",
         )}
       >
-        <input {...getInputProps()} disabled={!!initUrl} />
+        <input {...getInputProps()} />
         {url ? (
           <Image src={url} alt="" fill className="object-contain" />
         ) : (
