@@ -3,8 +3,8 @@ import { gql, TypedDocumentNode } from "@apollo/client";
 
 export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
   gql`
-    query users($pagination: UserPaginationInput!) {
-      users(pagination: $pagination) {
+    query users($pagination: UserPaginationInput!, $withContracts: Boolean) {
+      users(pagination: $pagination, withContracts: $withContracts) {
         meta {
           hasNext
           hasPrevious
@@ -67,6 +67,9 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
             serviceProviderSignature
             status
             terminationReason
+            platformManagerName
+            acceptedRulesEn
+            acceptedRulesAr
           }
           commercialName
           commercialRegistrationFilename

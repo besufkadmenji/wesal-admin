@@ -1,8 +1,7 @@
-import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
-import { UserRole } from "@/gql/graphql";
+import { ContractStatus, SignedContractStatus, UserRole } from "@/gql/graphql";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -10,23 +9,22 @@ export const typeMap = (dict: Dictionary) => ({
   [UserRole.Provider]: dict.common.serviceProvider,
   [UserRole.User]: dict.common.user,
 });
+export const statusMap = (dict: Dictionary) => ({
+  [SignedContractStatus.Active]: dict.common.active,
+  [SignedContractStatus.Expired]: dict.common.expired,
+  [SignedContractStatus.TerminatedByAdmin]: dict.common.terminatedByAdmin,
+  [SignedContractStatus.TerminatedByUser]: dict.common.terminatedByUser,
+});
 export const renderCell = (
   row: RowType,
   column: Key,
   dict: Dictionary,
   action: {
     onView: () => void;
-    onDelete: () => void;
-    onActivate: (value: boolean) => void;
   },
 ) => {
   if (column === "action") {
-    return (
-      <ActionsCell
-        onView={action.onView}
-        onDelete={row.status === "DELETED" ? undefined : action.onDelete}
-      />
-    );
+    return <ActionsCell onView={action.onView} />;
   } else if (column === "name") {
     return (
       <div className="grid w-max grid-cols-1 gap-1">
@@ -67,15 +65,22 @@ export const renderCell = (
       </div>
     );
   } else if (column === "status") {
-    console.log("row status:", row.status);
     return (
-      <AppSwitch
-        isSelected={row.status === "ACTIVE"}
-        onValueChange={(checked) => {
-          action.onActivate(checked);
-        }}
-        isDisabled={row.status === "DELETED"}
-      />
+      <div
+        className={twMerge(
+          "text-title rounded-full text-xs leading-8 tracking-tight dark:text-white",
+          row.status === SignedContractStatus.Active &&
+            "bg-green-50 text-green-600",
+          row.status === SignedContractStatus.Expired &&
+            "bg-red-50 text-red-600",
+          row.status === SignedContractStatus.TerminatedByAdmin &&
+            "bg-purple-50 text-purple-600",
+          row.status === SignedContractStatus.TerminatedByUser &&
+            "bg-orange-50 text-orange-600",
+        )}
+      >
+        {statusMap(dict)[row.status as keyof typeof statusMap] ?? row.status}
+      </div>
     );
   }
   return row[column as string];

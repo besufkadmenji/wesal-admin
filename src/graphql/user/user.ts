@@ -57,6 +57,9 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
         serviceProviderSignature
         status
         terminationReason
+        platformManagerName
+        acceptedRulesEn
+        acceptedRulesAr
       }
       commercialName
       commercialRegistrationFilename

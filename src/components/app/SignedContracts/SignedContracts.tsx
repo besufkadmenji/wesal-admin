@@ -12,16 +12,15 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
-import { UsersFilter } from "./UsersFilter";
-import { UsersList } from "./UsersList";
+import { SignedContractsFilter } from "./SignedContractsFilter";
+import { SignedContractsList } from "./SignedContractsList";
 import { useUsers } from "./useUser";
-import { UserRole } from "@/gql/graphql";
 
-export const Users = ({ role }: { role: UserRole }) => {
+export const SignedContracts = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useUsers({ role });
+  const { data, isLoading } = useUsers();
 
   return (
     <PageWrapper>
@@ -43,8 +42,8 @@ export const Users = ({ role }: { role: UserRole }) => {
 
       <Gap className="h-6" />
       <div className="grid grid-cols-1 gap-4">
-        <UsersFilter />
-        <UsersList role={role} />
+        <SignedContractsFilter />
+        <SignedContractsList />
       </div>
     </PageWrapper>
   );

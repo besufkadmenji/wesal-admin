@@ -6,6 +6,7 @@
   "common": {
     "system_name": "Wesal System",
     "errorOccurred": "An error occurred. Please try again.",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
     "contactUsSuccessMessage": "Your message has been sent successfully. We will get back to you soon.",
     "warehouseOwner": "Warehouse Owner",
     "notifications": "Notifications",
@@ -113,7 +114,11 @@
       "deactivation_reason": {
         "required": "Deactivation reason is required"
       }
-    }
+    },
+    "active": "Active",
+    "expired": "Expired",
+    "terminatedByAdmin": "Terminated by Admin",
+    "terminatedByUser": "Terminated by User"
   },
   "auth": {
     "welcome_back": "Welcome back again",
@@ -165,7 +170,8 @@
     "features_management": "Platform Features Management",
     "contact_us": "Contact Us Messages Management",
     "notifications": "Notifications Management",
-    "faq": "Faq"
+    "faq": "Faq",
+    "electronicContracts": "Electronic Contracts"
   },
   "users_page": {
     "title": "Users Management",
@@ -187,6 +193,7 @@
       "type": "Type",
       "registration_date": "Registration Date",
       "status": "Status",
+      "contactStatus": "Contract Status",
       "actions": "Actions"
     },
     "status": {
@@ -386,6 +393,42 @@
     "no_contract_signed_yet": "No contract signed yet",
     "contract_status": "Contract Status",
     "contract_signed_at": "Contract Signed At"
+  },
+  "profile": {
+    "commercialRecordNumber": "Commercial Registration Number"
+  },
+  "contract": {
+    "title": "Electronic Contract",
+    "signatureSavedSuccessfully": "Signature saved successfully",
+    "contractTerminatedSuccessfully": "Contract has been terminated successfully",
+    "serviceProviderName": "Service Provider Name",
+    "commercialName": "Commercial Name",
+    "phoneNumber": "Phone Number",
+    "category": "Category",
+    "address": "Address",
+    "locationOnMap": "Show Location on Map",
+    "platformManagerName": "Platform Manager Name",
+    "serviceProviderSignature": "Service Provider Signature",
+    "platformManagerSignature": "Platform Manager Signature",
+    "signatureAllowedOnce": "* Signature can only be assigned once",
+    "commitmentText": "Service Provider Commitment",
+    "commitmentDescription": "The service provider commits to provide services in accordance with the highest professional standards.",
+    "exportPDF": "Export as PDF",
+    "cancelContract": "Terminate Contract",
+    "saveSignature": "Save Signature",
+    "verifiedWithAbsher": "✓ Verified with Absher",
+    "verifiedWithAbsherDescription": "This identity has been verified through the official Absher platform.",
+    "cancelReason": {
+      "title": "Terminate Contract",
+      "subtitle": "Are you sure you want to terminate the contract? Please provide a reason.",
+      "placeholder": "Enter reason for termination",
+      "send": "Terminate",
+      "cancel": "Cancel"
+    },
+    "error": {
+      "signatureRequired": "Platform manager signature is required",
+      "cancelReasonRequired": "Please provide a reason for contract termination"
+    }
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",

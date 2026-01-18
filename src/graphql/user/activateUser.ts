@@ -61,6 +61,9 @@ export const ACTIVATE_USER_MUTATION: TypedDocumentNode<
         serviceProviderSignature
         status
         terminationReason
+        platformManagerName
+        acceptedRulesEn
+        acceptedRulesAr
       }
       commercialName
       commercialRegistrationFilename

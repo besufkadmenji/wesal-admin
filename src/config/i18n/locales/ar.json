@@ -6,6 +6,7 @@
   "common": {
     "system_name": "نظام الرابط الذهبي",
     "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "unexpectedError": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.",
     "contactUsSuccessMessage": "تم إرسال رسالتك بنجاح. سنعود إليك قريبًا.",
     "warehouseOwner": "صاحب مستودع",
     "notifications": "الاشعارات",
@@ -111,7 +112,11 @@
       "deactivation_reason": {
         "required": "سبب التعطيل مطلوب"
       }
-    }
+    },
+    "active": "نشط",
+    "expired": "منتهي الصلاحية",
+    "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
+    "terminatedByUser": "تم الإنهاء من قبل المستخدم"
   },
   "auth": {
     "welcome_back": "أهلا بعودتك من جديد",
@@ -163,7 +168,8 @@
     "features_management": "إدارة مميزات المنصة",
     "contact_us": "إدارة رسائل تواصل معنا",
     "notifications": "إدارة الإشعارات",
-    "faq": "الأسئلة الشائعة"
+    "faq": "الأسئلة الشائعة",
+    "electronicContracts": "العقود الإلكترونية"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -185,6 +191,7 @@
       "type": "النوع",
       "registration_date": "تاريخ التسجيل",
       "status": "الحالة",
+      "contactStatus": "حالة العقد",
       "actions": "الإجراءات"
     },
     "status": {
@@ -384,6 +391,42 @@
     "no_contract_signed_yet": "لم يتم التوقيع على أي عقد حتى الآن",
     "contract_status": "حالة العقد",
     "contract_signed_at": "تاريخ توقيع العقد"
+  },
+  "profile": {
+    "commercialRecordNumber": "رقم السجل التجاري"
+  },
+  "contract": {
+    "title": "العقد الإلكتروني",
+    "signatureSavedSuccessfully": "تم حفظ التوقيع بنجاح",
+    "contractTerminatedSuccessfully": "تم إرسال فسخ العقد بنجاح",
+    "serviceProviderName": "اسم مزود الخدمة",
+    "commercialName": "الاسم التجاري",
+    "phoneNumber": "رقم الهاتف",
+    "category": "الفئة",
+    "address": "العنوان",
+    "locationOnMap": "عرض الموقع على الخريطة",
+    "platformManagerName": "اسم مدير المنصة",
+    "serviceProviderSignature": "توقيع مزود الخدمة",
+    "platformManagerSignature": "توقيع مدير المنصة",
+    "signatureAllowedOnce": "* يمكن تعيين التوقيع مرة واحدة فقط",
+    "commitmentText": "التزام مزود الخدمة",
+    "commitmentDescription": "يتعهد مزود الخدمة بتقديم الخدمات وفقاً لأعلى معايير الاحترافية.",
+    "exportPDF": "تصدير كملف PDF",
+    "cancelContract": "فسخ العقد",
+    "saveSignature": "حفظ التوقيع",
+    "verifiedWithAbsher": "✓ تم التحقق عبر أبشر",
+    "verifiedWithAbsherDescription": "تم التحقق من هذه الهوية من خلال منصة أبشر الرسمية.",
+    "cancelReason": {
+      "title": "فسخ العقد",
+      "subtitle": "هل أنت متأكد من رغبتك في فسخ العقد؟ يرجى تقديم سبب.",
+      "placeholder": "أدخل سبب الفسخ",
+      "send": "فسخ",
+      "cancel": "الغاء"
+    },
+    "error": {
+      "signatureRequired": "توقيع مدير المنصة مطلوب",
+      "cancelReasonRequired": "يرجى تقديم سبب لفسخ العقد"
+    }
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",

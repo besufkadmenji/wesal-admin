@@ -3,7 +3,6 @@ import MenuIcon from "@/assets/icons/menu.svg";
 import {
   AdminsIcon,
   CmsIcon,
-  GiftIcon,
   HomeIcon,
   LogoutIcon,
   MapPinIcon,
@@ -82,6 +81,10 @@ export const Sidebar = ({ className }: { className?: string }) => {
             {
               href: "/providers",
               label: dict.navigation.providers,
+            },
+            {
+              href: "/providers/e-contracts",
+              label: dict.navigation.electronicContracts,
             },
           ]}
         />

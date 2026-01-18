@@ -86,6 +86,10 @@ input AdminResetPasswordInput {
   resetToken: String!
 }
 
+input AdminSignContractInput {
+  userId: ID!
+}
+
 """Available fields to sort admins by"""
 enum AdminSortField {
   createdAt
@@ -794,6 +798,12 @@ type Mutation {
   adminForgotPassword(input: AdminForgotPasswordInput!): Boolean!
   adminLogin(input: AdminLoginInput!): AdminAuthResponse!
   adminResetPassword(input: AdminResetPasswordInput!): Boolean!
+
+  """Sign contract as service provider"""
+  adminSignContract(input: AdminSignContractInput!): User!
+
+  """Terminate contract as service provider"""
+  adminTerminateContract(terminationReason: String!, userId: String!): User!
   adminVerifyPasswordResetOtp(input: VerifyAdminPasswordResetOtpInput!): VerifyAdminPasswordResetOtpResponse!
   assignPermissionToAdmin(input: AssignPermissionInput!): AdminPermission!
   bulkAssignPermissionsToAdmin(input: BulkAssignPermissionsInput!): [AdminPermission!]!
@@ -1315,7 +1325,7 @@ type Query {
   user(id: ID!): User!
 
   """Get all users with pagination by role"""
-  users(pagination: UserPaginationInput!): PaginatedUserResponse!
+  users(pagination: UserPaginationInput!, withContracts: Boolean): PaginatedUserResponse!
 }
 
 type Rating {
@@ -1438,13 +1448,17 @@ input SettingInput {
 }
 
 input SignContractInput {
-  platformManagerSignature: String
+  acceptedRulesAr: String
+  acceptedRulesEn: String
   serviceProviderSignature: String!
 }
 
 type SignedContract {
+  acceptedRulesAr: String
+  acceptedRulesEn: String
   contractExpiresAt: String
   contractSignedAt: String!
+  platformManagerName: String
   platformManagerSignature: String
   serviceProviderSignature: String!
   status: SignedContractStatus!
