@@ -119,7 +119,11 @@ export const SignedContract = ({ userId }: { userId: string }) => {
                 isRequired
               />
               <SignatureInput
-                initUrl={user.signedContract?.platformManagerSignature || null}
+                initUrl={
+                  user.signedContract?.platformManagerSignature ||
+                  me?.platformManagerSignature ||
+                  null
+                }
                 file={form.platformManagerSignature}
                 onChange={(f) => {
                   setPlatformManagerSignature(f);
@@ -135,7 +139,7 @@ export const SignedContract = ({ userId }: { userId: string }) => {
               <h3 className="leading-8 font-medium text-black">
                 {dict.contract.commitmentText}
               </h3>
-              <p className="text-gray leading-7">
+              <p className="text-gray leading-7 whitespace-pre-line">
                 {lng === "en"
                   ? user.signedContract?.acceptedRulesEn
                   : user.signedContract?.acceptedRulesAr}
@@ -170,9 +174,10 @@ export const SignedContract = ({ userId }: { userId: string }) => {
               onPress={() => {
                 saveSignature(userId);
               }}
-              disabled={busy}
+              isDisabled={busy}
+              isLoading={busy}
             >
-              {dict.contract.saveSignature}
+              {dict.contract.signContract}
             </Button>
           )}
         </div>

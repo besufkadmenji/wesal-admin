@@ -414,6 +414,7 @@
     "exportPDF": "تصدير كملف PDF",
     "cancelContract": "فسخ العقد",
     "saveSignature": "حفظ التوقيع",
+    "signContract": "توقيع العقد",
     "verifiedWithAbsher": "✓ تم التحقق عبر أبشر",
     "verifiedWithAbsherDescription": "تم التحقق من هذه الهوية من خلال منصة أبشر الرسمية.",
     "cancelReason": {

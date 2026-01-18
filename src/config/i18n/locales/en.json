@@ -416,6 +416,7 @@
     "exportPDF": "Export as PDF",
     "cancelContract": "Terminate Contract",
     "saveSignature": "Save Signature",
+    "signContract": "Sign Contract",
     "verifiedWithAbsher": "✓ Verified with Absher",
     "verifiedWithAbsherDescription": "This identity has been verified through the official Absher platform.",
     "cancelReason": {
