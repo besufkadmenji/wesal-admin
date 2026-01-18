@@ -536,13 +536,17 @@
       "category_name_en": "اسم الفئة (الإنجليزية)",
       "category_desc_ar": "وصف الفئة (العربية)",
       "category_desc_en": "وصف الفئة (الإنجليزية)",
-      "parent": "الفئة الأب"
+      "parent": "الفئة الأب",
+      "rules_ar": "القواعد (العربية)",
+      "rules_en": "القواعد (الإنجليزية)"
     },
     "placeholders": {
       "category_name_ar": "أدخل اسم الفئة بالعربية",
       "category_name_en": "أدخل اسم الفئة بالإنجليزية",
       "category_desc_ar": "أدخل وصف الفئة بالعربية",
-      "category_desc_en": "أدخل وصف الفئة بالإنجليزية"
+      "category_desc_en": "أدخل وصف الفئة بالإنجليزية",
+      "rules_ar": "أدخل القواعد بالعربية",
+      "rules_en": "أدخل القواعد بالإنجليزية"
     },
     "validation": {
       "nameArRequired": "اسم الفئة بالعربية مطلوب",
@@ -556,7 +560,13 @@
       "descriptionArMaxLength": "الوصف بالعربية لا يجب أن يتجاوز 500 حرف",
       "descriptionEnRequired": "الوصف بالإنجليزية مطلوب",
       "descriptionEnMinLength": "الوصف بالإنجليزية يجب أن يكون 10 أحرف على الأقل",
-      "descriptionEnMaxLength": "الوصف بالإنجليزية لا يجب أن يتجاوز 500 حرف"
+      "descriptionEnMaxLength": "الوصف بالإنجليزية لا يجب أن يتجاوز 500 حرف",
+      "rulesArRequired": "القواعد بالعربية مطلوبة",
+      "rulesArMinLength": "القواعد بالعربية يجب أن تكون 10 أحرف على الأقل",
+      "rulesArMaxLength": "القواعد بالعربية لا يجب أن تتجاوز 500 حرف",
+      "rulesEnRequired": "القواعد بالإنجليزية مطلوبة",
+      "rulesEnMinLength": "القواعد بالإنجليزية يجب أن تكون 10 أحرف على الأقل",
+      "rulesEnMaxLength": "القواعد بالإنجليزية لا يجب أن تتجاوز 500 حرف"
     }
   },
   "admin_permissions_management": {
@@ -1013,7 +1023,8 @@
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
       "profile_image": "صورة الملف الشخصي",
-      "vat_rate": "نسبة ضريبة القيمة المضافة"
+      "vat_rate": "نسبة ضريبة القيمة المضافة",
+      "signature": "التوقيع"
     },
     "placeholders": {
       "full_name": "ادخل اسم المستخدم",
@@ -1312,6 +1323,25 @@
     },
     "messages": {
       "updateSuccess": "تم تحديث سياسة الخصوصية بنجاح."
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "rules": "قواعد المنصة",
+    "saveRules": "حفظ القواعد",
+    "labels": {
+      "rulesAr": "القواعد (العربية)",
+      "rulesEn": "القواعد (الإنجليزية)"
+    },
+    "placeholders": {
+      "rulesAr": "أدخل قواعد المنصة بالعربية...",
+      "rulesEn": "أدخل قواعد المنصة بالإنجليزية..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث القواعد بنجاح."
     }
   },
   "clients_management": {

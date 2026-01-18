@@ -15,6 +15,8 @@ export const useForm = create<FormState>((set) => ({
     descriptionAr: "",
     descriptionEn: "",
     parentId: null,
+    rulesAr: "",
+    rulesEn: "",
   },
   setForm: (form) =>
     set((state) => ({
@@ -31,6 +33,8 @@ export const useForm = create<FormState>((set) => ({
         descriptionAr: "",
         descriptionEn: "",
         parentId: null,
+        rulesAr: "",
+        rulesEn: "",
       },
     })),
 }));
@@ -47,15 +51,10 @@ export const useManageForm = (id: string, category?: Category | null) => {
       descriptionAr: category?.descriptionAr || "",
       descriptionEn: category?.descriptionEn || "",
       parentId: category?.parentId || null,
+      rulesAr: category?.rulesAr || "",
+      rulesEn: category?.rulesEn || "",
     });
-  }, [
-    category?.descriptionAr,
-    category?.descriptionEn,
-    category?.nameAr,
-    category?.nameEn,
-    category?.parentId,
-    setForm,
-  ]);
+  }, [category, setForm]);
 
   return { form, setForm, reset };
 };

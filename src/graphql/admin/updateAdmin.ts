@@ -24,6 +24,7 @@ export const UPDATE_ADMIN_MUTATION: TypedDocumentNode<
       updatedAt
       userType
       phoneNumber
+      platformManagerSignature
     }
   }
 `;

@@ -16,6 +16,8 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
         nameEn
         parentId
         updatedAt
+        rulesEn
+        rulesAr
       }
       cityId
       commercialRegistrationNumber

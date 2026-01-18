@@ -20,6 +20,8 @@ export const SET_SETTING_MUTATION: TypedDocumentNode<
       termsAr
       termsEn
       whatsappNumber
+      rulesAr
+      rulesEn
     }
   }
 `;

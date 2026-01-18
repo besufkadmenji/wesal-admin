@@ -26,6 +26,8 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
             nameEn
             parentId
             updatedAt
+            rulesEn
+            rulesAr
           }
           cityId
           commercialRegistrationNumber

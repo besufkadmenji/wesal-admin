@@ -120,6 +120,27 @@ export const EditCategory = ({ id }: { id: string }) => {
               }
               errorMessage={errors.status}
             />
+            <span />
+            <FormAreaInput
+              label={dict.add_new_category_form.labels.rules_ar}
+              placeholder={dict.add_new_category_form.placeholders.rules_ar}
+              value={form.rulesAr}
+              onChange={(value: string): void => {
+                setForm({ rulesAr: value });
+                clearError("rulesAr");
+              }}
+              errorMessage={errors.rulesAr}
+            />
+            <FormAreaInput
+              label={dict.add_new_category_form.labels.rules_en}
+              placeholder={dict.add_new_category_form.placeholders.rules_en}
+              value={form.rulesEn}
+              onChange={(value: string): void => {
+                setForm({ rulesEn: value });
+                clearError("rulesEn");
+              }}
+              errorMessage={errors.rulesEn}
+            />
           </div>
         </FormSection>
       </AppForm>

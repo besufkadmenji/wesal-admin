@@ -6,6 +6,7 @@ import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
 import AdminService from "@/services/admin.service";
 import { AuthService } from "@/services/auth.service";
+import { SettingService } from "@/services/setting.service";
 import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
@@ -20,23 +21,48 @@ export const useManageSetting = () => {
   const [, setChangePassword] = useQueryState("changePassword");
   const { reset } = useChangePasswordForm();
   const { me } = useMe();
-  const { avatarFile, updateProfile } = useManageSettingsForm();
+  const { avatarFile, updateProfile, signatureFile } = useManageSettingsForm();
   const updateSetting = async () => {
     setBusy(true);
     try {
       let avatarFilename = updateProfile.avatarFilename;
+      let signature = updateProfile.platformManagerSignature;
       if (avatarFile) {
         const uploadResult = await uploadFile(avatarFile);
         avatarFilename = uploadResult.filename;
       }
+      if (signatureFile) {
+        const uploadResult = await uploadFile(signatureFile);
+        signature = uploadResult.filename;
+      }
       await AdminService.updateAdmin(me?.id ?? "", {
         ...updateProfile,
         avatarFilename,
+        platformManagerSignature: signature,
       });
       queryClient.invalidateQueries({
         queryKey: ["me"],
       });
       showSuccessMessage(dict.settings_page.messages.updateSuccess);
+    } catch (error) {
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const updateRules = async (rulesAr: string, rulesEn: string) => {
+    setBusy(true);
+    try {
+      await SettingService.setSetting({
+        rulesAr,
+        rulesEn,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["setting"],
+      });
+      showSuccessMessage(dict.settings.messages.updateSuccess);
     } catch (error) {
       showErrorMessage(
         error instanceof Error ? error.message : "An error occurred.",
@@ -67,5 +93,6 @@ export const useManageSetting = () => {
     changingPassword,
     updateSetting,
     changePassword,
+    updateRules,
   };
 };

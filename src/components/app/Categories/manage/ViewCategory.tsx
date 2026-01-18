@@ -82,25 +82,42 @@ export const ViewCategory = ({ id }: { id: string }) => {
               readOnly
             />
             {form.parentId && (
-              <FormSelect
-                label={dict.add_new_category_form.labels.parent}
-                placeholder={dict.add_new_category_form.labels.parent}
-                value={form.parentId?.toString() || ""}
-                onChange={(value: string): void => {
-                  setForm({
-                    parentId: value as unknown as string | null,
-                  });
-                }}
-                options={
-                  categories?.map((category) => ({
-                    label:
-                      lng === "ar" ? category.nameAr : category.nameEn || "",
-                    key: category.id,
-                  })) ?? []
-                }
-                readOnly
-              />
+              <>
+                <FormSelect
+                  label={dict.add_new_category_form.labels.parent}
+                  placeholder={dict.add_new_category_form.labels.parent}
+                  value={form.parentId?.toString() || ""}
+                  onChange={(value: string): void => {
+                    setForm({
+                      parentId: value as unknown as string | null,
+                    });
+                  }}
+                  options={
+                    categories?.map((category) => ({
+                      label:
+                        lng === "ar" ? category.nameAr : category.nameEn || "",
+                      key: category.id,
+                    })) ?? []
+                  }
+                  readOnly
+                />
+                <span />
+              </>
             )}
+            <FormAreaInput
+              label={dict.add_new_category_form.labels.rules_ar}
+              placeholder={dict.add_new_category_form.placeholders.rules_ar}
+              value={form.rulesAr}
+              onChange={(value: string): void => {}}
+              readOnly
+            />
+            <FormAreaInput
+              label={dict.add_new_category_form.labels.rules_en}
+              placeholder={dict.add_new_category_form.placeholders.rules_en}
+              value={form.rulesEn}
+              onChange={(value: string): void => {}}
+              readOnly
+            />
           </div>
         </FormSection>
       </AppForm>

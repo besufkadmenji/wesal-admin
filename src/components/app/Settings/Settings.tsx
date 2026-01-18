@@ -12,14 +12,23 @@ import { useDict } from "@/hooks/useDict";
 import { useMe } from "@/hooks/useMe";
 import { useQueryState } from "nuqs";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
+import { Rules } from "@/components/app/Settings/Rules";
+import { SignatureInput } from "@/components/app/Settings/SignatureInput";
+import { AdminPermissionType } from "@/gql/graphql";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
-  const { updateProfile, setUpdateProfile, avatarFile, setAvatarFile } =
-    useManageSettingsForm();
+  const {
+    updateProfile,
+    setUpdateProfile,
+    avatarFile,
+    setAvatarFile,
+    signatureFile,
+    setSignatureFile,
+  } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
-
+  console.log("me.permissionType", me?.permissionType,me?.id);
   return (
     <>
       <PageWrapper>
@@ -96,9 +105,23 @@ export const Settings = () => {
                   }
                   className="md:col-span-2"
                 />
+                {me.permissionType === AdminPermissionType.SuperAdmin && (
+                  <SignatureInput
+                    label={dict.settings_page.labels.signature}
+                    file={signatureFile ?? null}
+                    initUrl={updateProfile.platformManagerSignature}
+                    onChange={(file?: File): void => {
+                      setSignatureFile(file || null);
+                      if (!file) {
+                        setUpdateProfile({ platformManagerSignature: "" });
+                      }
+                    }}
+                  />
+                )}
               </div>
             )}
           </FormSection>
+          <Rules />
         </div>
       </PageWrapper>
       <ChangePassword />

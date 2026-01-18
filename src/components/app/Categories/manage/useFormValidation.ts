@@ -5,12 +5,16 @@ const NAME_MIN_LENGTH = 3;
 const NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MIN_LENGTH = 10;
 const DESCRIPTION_MAX_LENGTH = 500;
+const RULES_MIN_LENGTH = 10;
+const RULES_MAX_LENGTH = 500;
 
 interface CategoryForm {
   nameAr: string;
   nameEn: string;
   descriptionAr: string;
   descriptionEn: string;
+  rulesAr?: string;
+  rulesEn?: string;
   parentId?: string | null;
 }
 
@@ -82,6 +86,38 @@ export const useFormValidation = (form: CategoryForm) => {
     [dict],
   );
 
+  const validateRulesAr = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return dict.add_new_category_form.validation.rulesArRequired;
+      }
+      if (value.trim().length < RULES_MIN_LENGTH) {
+        return dict.add_new_category_form.validation.rulesArMinLength;
+      }
+      if (value.trim().length > RULES_MAX_LENGTH) {
+        return dict.add_new_category_form.validation.rulesArMaxLength;
+      }
+      return null;
+    },
+    [dict],
+  );
+
+  const validateRulesEn = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return dict.add_new_category_form.validation.rulesEnRequired;
+      }
+      if (value.trim().length < RULES_MIN_LENGTH) {
+        return dict.add_new_category_form.validation.rulesEnMinLength;
+      }
+      if (value.trim().length > RULES_MAX_LENGTH) {
+        return dict.add_new_category_form.validation.rulesEnMaxLength;
+      }
+      return null;
+    },
+    [dict],
+  );
+
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -97,6 +133,12 @@ export const useFormValidation = (form: CategoryForm) => {
     const descriptionEnError = validateDescriptionEn(form.descriptionEn);
     if (descriptionEnError) newErrors.descriptionEn = descriptionEnError;
 
+    const rulesArError = validateRulesAr(form.rulesAr || "");
+    if (rulesArError) newErrors.rulesAr = rulesArError;
+
+    const rulesEnError = validateRulesEn(form.rulesEn || "");
+    if (rulesEnError) newErrors.rulesEn = rulesEnError;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
@@ -104,10 +146,14 @@ export const useFormValidation = (form: CategoryForm) => {
     form.nameEn,
     form.descriptionAr,
     form.descriptionEn,
+    form.rulesAr,
+    form.rulesEn,
     validateNameAr,
     validateNameEn,
     validateDescriptionAr,
     validateDescriptionEn,
+    validateRulesAr,
+    validateRulesEn,
   ]);
 
   const isFormValid = useMemo(() => {
@@ -115,19 +161,30 @@ export const useFormValidation = (form: CategoryForm) => {
     const nameEnError = validateNameEn(form.nameEn);
     const descriptionArError = validateDescriptionAr(form.descriptionAr);
     const descriptionEnError = validateDescriptionEn(form.descriptionEn);
+    const rulesArError = validateRulesAr(form.rulesAr || "");
+    const rulesEnError = validateRulesEn(form.rulesEn || "");
 
     return (
-      !nameArError && !nameEnError && !descriptionArError && !descriptionEnError
+      !nameArError &&
+      !nameEnError &&
+      !descriptionArError &&
+      !descriptionEnError &&
+      !rulesArError &&
+      !rulesEnError
     );
   }, [
     form.nameAr,
     form.nameEn,
     form.descriptionAr,
     form.descriptionEn,
+    form.rulesAr,
+    form.rulesEn,
     validateNameAr,
     validateNameEn,
     validateDescriptionAr,
     validateDescriptionEn,
+    validateRulesAr,
+    validateRulesEn,
   ]);
 
   const validateField = useCallback(
@@ -147,6 +204,12 @@ export const useFormValidation = (form: CategoryForm) => {
         case "descriptionEn":
           error = validateDescriptionEn(value) || "";
           break;
+        case "rulesAr":
+          error = validateRulesAr(value) || "";
+          break;
+        case "rulesEn":
+          error = validateRulesEn(value) || "";
+          break;
       }
 
       if (error) {
@@ -164,6 +227,8 @@ export const useFormValidation = (form: CategoryForm) => {
       validateNameEn,
       validateDescriptionAr,
       validateDescriptionEn,
+      validateRulesAr,
+      validateRulesEn,
     ],
   );
 

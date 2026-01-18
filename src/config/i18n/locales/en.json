@@ -538,13 +538,17 @@
       "category_name_en": "Category Name (English)",
       "category_desc_ar": "Category Description (Arabic)",
       "category_desc_en": "Category Description (English)",
-      "parent": "Parent Category"
+      "parent": "Parent Category",
+      "rules_ar": "Rules (Arabic)",
+      "rules_en": "Rules (English)"
     },
     "placeholders": {
       "category_name_ar": "Enter category name in Arabic",
       "category_name_en": "Enter category name in English",
       "category_desc_ar": "Enter category description in Arabic",
-      "category_desc_en": "Enter category description in English"
+      "category_desc_en": "Enter category description in English",
+      "rules_ar": "Enter rules in Arabic",
+      "rules_en": "Enter rules in English"
     },
     "validation": {
       "nameArRequired": "Arabic category name is required",
@@ -558,7 +562,13 @@
       "descriptionArMaxLength": "Arabic description must not exceed 500 characters",
       "descriptionEnRequired": "English description is required",
       "descriptionEnMinLength": "English description must be at least 10 characters long",
-      "descriptionEnMaxLength": "English description must not exceed 500 characters"
+      "descriptionEnMaxLength": "English description must not exceed 500 characters",
+      "rulesArRequired": "Arabic rules are required",
+      "rulesArMinLength": "Arabic rules must be at least 10 characters long",
+      "rulesArMaxLength": "Arabic rules must not exceed 500 characters",
+      "rulesEnRequired": "English rules are required",
+      "rulesEnMinLength": "English rules must be at least 10 characters long",
+      "rulesEnMaxLength": "English rules must not exceed 500 characters"
     }
   },
   "admin_permissions_management": {
@@ -1015,7 +1025,8 @@
       "password": "Password",
       "confirm_password": "Confirm Password",
       "profile_image": "Profile Image",
-      "vat_rate": "VAT rate"
+      "vat_rate": "VAT rate",
+      "signature": "Signature"
     },
     "placeholders": {
       "full_name": "Enter full name",
@@ -1313,6 +1324,25 @@
     },
     "messages": {
       "updateSuccess": "Privacy policy updated successfully."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "rules": "Platform Rules",
+    "saveRules": "Save Rules",
+    "labels": {
+      "rulesAr": "Rules (Arabic)",
+      "rulesEn": "Rules (English)"
+    },
+    "placeholders": {
+      "rulesAr": "Enter platform rules in Arabic...",
+      "rulesEn": "Enter platform rules in English..."
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "messages": {
+      "updateSuccess": "Rules updated successfully."
     }
   },
   "clients_management": {

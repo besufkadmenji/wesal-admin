@@ -1,6 +1,4 @@
-import {
-    GetSettingQuery
-} from "@/gql/graphql";
+import { GetSettingQuery } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
 export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
@@ -19,6 +17,9 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       termsAr
       termsEn
       whatsappNumber
+      rulesAr
+      rulesEn
+      platformManagerSignature
     }
   }
 `;

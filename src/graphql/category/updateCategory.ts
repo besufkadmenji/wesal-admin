@@ -18,6 +18,8 @@ export const UPDATE_CATEGORY_MUTATION: TypedDocumentNode<
       nameEn
       parentId
       updatedAt
+      rulesEn
+      rulesAr
     }
   }
 `;

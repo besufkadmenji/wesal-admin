@@ -13,6 +13,8 @@ export const CATEGORY_QUERY: TypedDocumentNode<
       id
       nameAr
       nameEn
+      rulesEn
+      rulesAr
       parent {
         createdAt
         descriptionAr
@@ -22,6 +24,8 @@ export const CATEGORY_QUERY: TypedDocumentNode<
         nameEn
         parentId
         updatedAt
+        rulesEn
+        rulesAr
       }
       parentId
       updatedAt

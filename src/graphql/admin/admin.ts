@@ -16,6 +16,7 @@ export const ADMIN_QUERY: TypedDocumentNode<AdminQuery, AdminQueryVariables> =
         updatedAt
         userType
         phoneNumber
+        platformManagerSignature
       }
     }
   `;

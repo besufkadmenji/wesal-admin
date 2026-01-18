@@ -19,6 +19,7 @@ type Admin {
   organizationName: String!
   permissionType: AdminPermissionType!
   phoneNumber: String!
+  platformManagerSignature: String
   roleName: String!
   status: AdminStatus!
   updatedAt: DateTime!
@@ -220,6 +221,8 @@ type Category {
   nameEn: String!
   parent: Category
   parentId: String
+  rulesAr: String!
+  rulesEn: String!
   updatedAt: DateTime!
 }
 
@@ -569,6 +572,8 @@ input CreateCategoryInput {
   nameAr: String!
   nameEn: String!
   parentId: String
+  rulesAr: String!
+  rulesEn: String!
 }
 
 input CreateCityInput {
@@ -1405,8 +1410,11 @@ type Setting {
   aboutEn: String!
   email: String!
   phones: [String!]!
+  platformManagerSignature: String
   privacyPolicyAr: String!
   privacyPolicyEn: String!
+  rulesAr: String!
+  rulesEn: String!
   socialMediaLinks: [SocialMediaLink!]!
   termsAr: String!
   termsEn: String!
@@ -1418,8 +1426,11 @@ input SettingInput {
   aboutEn: String
   email: String
   phones: [String!]
+  platformManagerSignature: String
   privacyPolicyAr: String
   privacyPolicyEn: String
+  rulesAr: String
+  rulesEn: String
   socialMediaLinks: [SocialMediaLinkInput!]
   termsAr: String
   termsEn: String
@@ -1471,6 +1482,7 @@ input UpdateAdminInput {
   organizationName: String
   permissionType: AdminPermissionType
   phoneNumber: String!
+  platformManagerSignature: String
   roleName: String
   status: AdminStatus
   userType: AdminUserType
@@ -1496,6 +1508,8 @@ input UpdateCategoryInput {
   nameAr: String
   nameEn: String
   parentId: String
+  rulesAr: String
+  rulesEn: String
 }
 
 input UpdateCityInput {

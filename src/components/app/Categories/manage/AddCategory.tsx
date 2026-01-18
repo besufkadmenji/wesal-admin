@@ -16,6 +16,7 @@ import { FormSelect } from "../../shared/forms/FormSelect";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCategory } from "./useManageCategory";
+import { useSetting } from "../../Settings/useSettings";
 
 export const AddCategory = () => {
   const { form, setForm, reset } = useForm();
@@ -24,7 +25,17 @@ export const AddCategory = () => {
   const router = useRouter();
   const { busy, createCategory } = useManageCategory();
   const { errors, validateForm, clearError } = useFormValidation(form);
+  const { setting } = useSetting("rules");
   const lng = useLang();
+  useEffect(() => {
+    if (setting) {
+      setForm({
+        rulesAr: setting.rulesAr ?? "",
+        rulesEn: setting.rulesEn ?? "",
+      });
+    }
+  }, [setForm, setting]);
+
   useEffect(() => {
     return () => {
       reset();
@@ -116,6 +127,27 @@ export const AddCategory = () => {
                   })) ?? []
                 }
                 errorMessage={errors.status}
+              />
+              <span />
+              <FormAreaInput
+                label={dict.add_new_category_form.labels.rules_ar}
+                placeholder={dict.add_new_category_form.placeholders.rules_ar}
+                value={form.rulesAr}
+                onChange={(value: string): void => {
+                  setForm({ rulesAr: value });
+                  clearError("rulesAr");
+                }}
+                errorMessage={errors.rulesAr}
+              />
+              <FormAreaInput
+                label={dict.add_new_category_form.labels.rules_en}
+                placeholder={dict.add_new_category_form.placeholders.rules_en}
+                value={form.rulesEn}
+                onChange={(value: string): void => {
+                  setForm({ rulesEn: value });
+                  clearError("rulesEn");
+                }}
+                errorMessage={errors.rulesEn}
               />
             </div>
           </FormSection>

@@ -16,6 +16,7 @@ export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
       userType
       phoneNumber
       avatarFilename
+      platformManagerSignature
     }
   }
 `;

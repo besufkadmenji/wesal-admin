@@ -1,6 +1,6 @@
 import {
-    RemoveCategoryMutation,
-    RemoveCategoryMutationVariables,
+  RemoveCategoryMutation,
+  RemoveCategoryMutationVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -18,6 +18,8 @@ export const REMOVE_CATEGORY_MUTATION: TypedDocumentNode<
       nameEn
       parentId
       updatedAt
+      rulesEn
+      rulesAr
     }
   }
 `;
