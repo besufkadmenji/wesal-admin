@@ -19,7 +19,7 @@ export const useSignSignature = () => {
           queryKey: ["signedContracts"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["signedContract", userId],
+          queryKey: ["signedContract"],
         });
       }
       // Handle successful login (e.g., redirect, show message)
