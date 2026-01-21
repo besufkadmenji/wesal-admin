@@ -16,7 +16,9 @@ export const renderCell = (
     onReject: () => void;
   },
 ) => {
-  if (column === "action") {
+  if (column === "number") {
+    return <p className="text-primary font-semibold">{row.number}</p>;
+  } else if (column === "action") {
     return (
       <div className="flex items-center justify-center gap-2">
         <ActionCell

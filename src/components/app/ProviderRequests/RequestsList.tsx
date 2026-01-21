@@ -28,6 +28,10 @@ export const RequestsList = () => {
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
+      key: "number",
+      label: dict.users_page.table_headers.number,
+    },
+    {
       key: "name",
       label: dict.subscription_requests_page.table_headers.name,
     },
@@ -67,6 +71,7 @@ export const RequestsList = () => {
         columns={columns}
         rows={data.items.map((request) => ({
           key: request.id,
+          number: `${request.publicId ?? "-"}`,
           name: request.name ?? "-",
           phone: request.phone,
           email: request.email,

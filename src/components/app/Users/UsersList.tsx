@@ -35,6 +35,10 @@ export const UsersList = ({ role }: { role: UserRole }) => {
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
+      key: "number",
+      label: dict.users_page.table_headers.number,
+    },
+    {
       key: "name",
       label: dict.users_page.table_headers.name,
     },
@@ -79,6 +83,7 @@ export const UsersList = ({ role }: { role: UserRole }) => {
         columns={columns}
         rows={data.items.map((user) => ({
           key: user.id,
+          number: `${user.publicId ?? "-"}`,
           name: user.name ?? "-",
           phone: user.phone,
           email: user.email,

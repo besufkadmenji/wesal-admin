@@ -20,6 +20,7 @@ type Admin {
   permissionType: AdminPermissionType!
   phoneNumber: String!
   platformManagerSignature: String
+  publicId: Int
   roleName: String!
   status: AdminStatus!
   updatedAt: DateTime!
@@ -69,6 +70,7 @@ type AdminPermission {
   id: ID!
   permission: Permission!
   permissionId: ID!
+  publicId: Int
   updatedAt: DateTime!
 }
 
@@ -126,6 +128,7 @@ type Advertisement {
   id: ID!
   media: [AdvertisementMedia!]
   price: Float!
+  publicId: Int
   status: AdvertisementStatus!
   title: String!
   updatedAt: DateTime!
@@ -138,6 +141,7 @@ type AdvertisementAttributes {
   advertisementId: String!
   id: ID!
   key: String!
+  publicId: Int
   value: String!
 }
 
@@ -150,6 +154,7 @@ type AdvertisementMedia {
   advertisement: Advertisement!
   advertisementId: String!
   id: ID!
+  publicId: Int
   sortOrder: Int!
   url: String!
 }
@@ -225,6 +230,7 @@ type Category {
   nameEn: String!
   parent: Category
   parentId: String
+  publicId: Int
   rulesAr: String!
   rulesEn: String!
   updatedAt: DateTime!
@@ -271,6 +277,7 @@ type City {
   id: ID!
   nameAr: String!
   nameEn: String!
+  publicId: Int
   updatedAt: DateTime!
 }
 
@@ -306,6 +313,7 @@ type Complaint {
   createdAt: DateTime!
   description: String!
   id: ID!
+  publicId: Int
   reason: ComplaintReason!
   reviewedAt: DateTime
   reviewedBy: String
@@ -376,6 +384,7 @@ type ContactMessage {
   messageType: String!
   name: String!
   phone: String!
+  publicId: Int
   updatedAt: DateTime!
 }
 
@@ -412,6 +421,7 @@ type Contract {
   id: ID!
   provider: User!
   providerId: String!
+  publicId: Int
   signatures: [ContractSignature!]
   status: ContractStatus!
   updatedAt: DateTime!
@@ -480,6 +490,7 @@ type Conversation {
   messages: [Message!]
   provider: User!
   providerId: String!
+  publicId: Int
   updatedAt: DateTime!
   user: User!
   userId: String!
@@ -519,6 +530,7 @@ type Country {
   id: ID!
   nameAr: String!
   nameEn: String!
+  publicId: Int
   updatedAt: DateTime!
 }
 
@@ -707,6 +719,7 @@ type Faq {
   id: ID!
   isActive: Boolean!
   order: Float!
+  publicId: Int
   questionAr: String!
   questionEn: String!
   updatedAt: DateTime!
@@ -717,6 +730,7 @@ type Favorite {
   advertisementId: String!
   createdAt: DateTime!
   id: ID!
+  publicId: Int
   user: User!
   userId: String!
 }
@@ -760,6 +774,7 @@ type Message {
   conversationId: String!
   createdAt: DateTime!
   id: ID!
+  publicId: Int
   sender: User!
   senderId: String!
   updatedAt: DateTime!
@@ -841,6 +856,7 @@ type Mutation {
 
   """Delete all notifications for a user"""
   deleteAllNotificationsForUser(userId: String!): Boolean!
+  deleteSignedContract(id: String!): SignedContract!
 
   """Request password reset OTP"""
   forgotPassword(input: ForgotPasswordInput!): Boolean!
@@ -970,6 +986,7 @@ type Notification {
   id: ID!
   isRead: Boolean!
   message: String!
+  publicId: Int
   readAt: DateTime
   relatedEntityId: String
   relatedEntityType: String
@@ -1145,6 +1162,14 @@ type PaginatedRatingResponse {
   meta: PaginationMeta!
 }
 
+type PaginatedSignedContractResponse {
+  """List of items"""
+  items: [SignedContract!]!
+
+  """Pagination metadata"""
+  meta: PaginationMeta!
+}
+
 type PaginatedUserResponse {
   """List of items"""
   items: [User!]!
@@ -1182,6 +1207,7 @@ type Payment {
   id: ID!
   notes: String
   paymentMethod: PaymentMethod!
+  publicId: Int
   status: PaymentStatus!
   transactionReference: String
   updatedAt: DateTime!
@@ -1246,6 +1272,7 @@ type Permission {
   name: String!
   nameAr: String!
   permissionPlatform: PermissionPlatform!
+  publicId: Int
   resource: String!
   updatedAt: DateTime!
 }
@@ -1320,12 +1347,15 @@ type Query {
   """Get rating statistics for an advertisement"""
   ratingStatistics(advertisementId: String!): RatingStatistics!
   ratings(input: RatingPaginationInput): PaginatedRatingResponse!
+  signedContractById(id: String!): SignedContract
+  signedContractByUserId(userId: String!): SignedContract
+  signedContracts(input: SignedContractPaginationInput): PaginatedSignedContractResponse!
 
   """Get user by ID"""
   user(id: ID!): User!
 
   """Get all users with pagination by role"""
-  users(pagination: UserPaginationInput!, withContracts: Boolean): PaginatedUserResponse!
+  users(pagination: UserPaginationInput!): PaginatedUserResponse!
 }
 
 type Rating {
@@ -1334,6 +1364,7 @@ type Rating {
   comment: String
   createdAt: DateTime!
   id: ID!
+  publicId: Int
   rating: Int!
   updatedAt: DateTime!
   user: User!
@@ -1420,9 +1451,9 @@ type Setting {
   aboutEn: String!
   email: String!
   phones: [String!]!
-  platformManagerSignature: String
   privacyPolicyAr: String!
   privacyPolicyEn: String!
+  publicId: Int
   rulesAr: String!
   rulesEn: String!
   socialMediaLinks: [SocialMediaLink!]!
@@ -1436,7 +1467,6 @@ input SettingInput {
   aboutEn: String
   email: String
   phones: [String!]
-  platformManagerSignature: String
   privacyPolicyAr: String
   privacyPolicyEn: String
   rulesAr: String
@@ -1458,11 +1488,41 @@ type SignedContract {
   acceptedRulesEn: String
   contractExpiresAt: String
   contractSignedAt: String!
+  createdAt: DateTime!
+  id: ID!
   platformManagerName: String
   platformManagerSignature: String
+  publicId: Int
   serviceProviderSignature: String!
   status: SignedContractStatus!
   terminationReason: String
+  updatedAt: DateTime!
+  user: User
+  userId: String!
+}
+
+input SignedContractPaginationInput {
+  """Number of items per page"""
+  limit: Int! = 10
+
+  """Page number (1-based)"""
+  page: Int! = 1
+  search: String
+
+  """Sort field name"""
+  sortBy: SignedContractSortField
+
+  """Sort order: ASC or DESC"""
+  sortOrder: SortOrder = DESC
+  userId: String
+}
+
+"""Available fields to sort signed contracts by"""
+enum SignedContractSortField {
+  createdAt
+  id
+  updatedAt
+  userId
 }
 
 """User account status"""
@@ -1681,6 +1741,7 @@ type User {
   name: String
   phone: String!
   phoneVerified: Boolean!
+  publicId: Int
   role: UserRole!
   signedContract: SignedContract
   status: UserStatus!

@@ -14,13 +14,13 @@ import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 import { SignedContractsFilter } from "./SignedContractsFilter";
 import { SignedContractsList } from "./SignedContractsList";
-import { useUsers } from "./useUser";
+import { useSignedContracts } from "./useSignedContract";
 
 export const SignedContracts = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useUsers();
+  const { data, isLoading } = useSignedContracts();
 
   return (
     <PageWrapper>

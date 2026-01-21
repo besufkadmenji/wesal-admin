@@ -4,23 +4,24 @@ import DownloadIcon from "@/assets/icons/download.svg";
 import MapPointIcon from "@/assets/icons/map.point.svg";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
+import { useMe } from "@/hooks/useMe";
 import { downloadPDF } from "@/utils/download.pdf";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useEffect, useRef } from "react";
-import { useUser } from "../useUser";
+import { useSignedContract } from "../useSignedContract";
 import { CancelContract } from "./CancelContact";
 import { FormInput } from "./FormInput";
 import { SignatureInput } from "./SignatureInput";
 import { useContractStore } from "./useForm";
 import { useSignSignature } from "./useSignSignature";
-import { useMe } from "@/hooks/useMe";
 export const SignedContract = ({ userId }: { userId: string }) => {
   const dict = useDict();
   const lng = useLang();
   const { me } = useMe();
-  const { data: user } = useUser(userId);
+  const { data: signedContract } = useSignedContract(userId);
+  const user = signedContract?.user;
   const contractRef = useRef<HTMLDivElement | null>(null);
   const { saveSignature, busy } = useSignSignature();
   const [open, setOpen] = useQueryState("cancelContract", {
@@ -104,13 +105,11 @@ export const SignedContract = ({ userId }: { userId: string }) => {
             </div>
             <FormInput
               label={dict.contract.platformManagerName}
-              value={
-                user.signedContract?.platformManagerName || me?.fullName || ""
-              }
+              value={signedContract?.platformManagerName || me?.fullName || ""}
             />
             <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
               <SignatureInput
-                initUrl={user.signedContract?.serviceProviderSignature || null}
+                initUrl={signedContract?.serviceProviderSignature || null}
                 file={form.serviceProviderSignature}
                 onChange={(f) => {
                   setServiceProviderSignature(f);
@@ -120,7 +119,7 @@ export const SignedContract = ({ userId }: { userId: string }) => {
               />
               <SignatureInput
                 initUrl={
-                  user.signedContract?.platformManagerSignature ||
+                  signedContract?.platformManagerSignature ||
                   me?.platformManagerSignature ||
                   null
                 }
@@ -141,13 +140,13 @@ export const SignedContract = ({ userId }: { userId: string }) => {
               </h3>
               <p className="text-gray leading-7 whitespace-pre-line">
                 {lng === "en"
-                  ? user.signedContract?.acceptedRulesEn
-                  : user.signedContract?.acceptedRulesAr}
+                  ? signedContract?.acceptedRulesEn
+                  : signedContract?.acceptedRulesAr}
               </p>
             </div>
           </div>
 
-          {user.signedContract?.platformManagerSignature ? (
+          {signedContract?.platformManagerSignature ? (
             <div className="grid grid-cols-2 gap-3 justify-self-center px-27">
               <Button
                 className="bg-primary h-12.5 rounded-[20px] px-24 font-semibold text-[#EFF9F0]"

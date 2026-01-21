@@ -1,5 +1,6 @@
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 
+import { useSignedContracts } from "@/components/app/SignedContracts/useSignedContract";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,15 +9,18 @@ import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
-import { useUsers } from "./useUser";
 
 export const SignedContractsList = () => {
   const dict = useDict();
-  const { data, isLoading } = useUsers();
+  const { data, isLoading } = useSignedContracts();
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const router = useRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
+    {
+      key: "number",
+      label: dict.users_page.table_headers.number,
+    },
     {
       key: "name",
       label: dict.users_page.table_headers.name,
@@ -59,14 +63,15 @@ export const SignedContractsList = () => {
     <AppTable
       label="Users"
       columns={columns}
-      rows={data.items.map((user) => ({
-        key: user.id,
-        name: user.name ?? "-",
-        phone: user.phone,
-        email: user.email,
-        type: user.role,
-        date: DateTimeHelpers.formatDate(user.createdAt),
-        status: user.signedContract?.status || "",
+      rows={data.items.map((signedContract) => ({
+        key: signedContract.id,
+        number: `${signedContract.publicId ?? "-"}`,
+        name: signedContract.user?.name ?? "-",
+        phone: signedContract.user?.phone ?? "-",
+        email: signedContract.user?.email ?? "-",
+        type: signedContract.user?.role ?? "-",
+        date: DateTimeHelpers.formatDate(signedContract.createdAt),
+        status: signedContract.status || "",
       }))}
       renderCell={(row: RowType, column: Key): ReactNode =>
         renderCell(row, column, dict, {

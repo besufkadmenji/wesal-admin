@@ -185,6 +185,7 @@
     "search_placeholder": "البحث",
     "table_headers": {
       "checkbox": "",
+      "number": "#",
       "name": "الاسم",
       "phone_number": "رقم الهاتف",
       "email": "البريد الإلكتروني",

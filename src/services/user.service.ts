@@ -19,14 +19,12 @@ import { parseGraphQLError } from "@/utils/parse-graphql-error";
 class UserService {
   static users = async (
     input: UserPaginationInput,
-    withContracts?: boolean,
   ): Promise<PaginatedUserResponse | null> => {
     try {
       const userResult = await client().query({
         query: USERS_QUERY,
         variables: {
           pagination: input,
-          withContracts,
         },
       });
       return userResult.data?.users ?? null;

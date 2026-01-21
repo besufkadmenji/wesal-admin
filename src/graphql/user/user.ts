@@ -60,9 +60,15 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
         platformManagerName
         acceptedRulesEn
         acceptedRulesAr
+        id
+        createdAt
+        publicId
+        updatedAt
+        userId
       }
       commercialName
       commercialRegistrationFilename
+      publicId
     }
   }
 `;

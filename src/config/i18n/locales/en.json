@@ -187,6 +187,7 @@
     "search_placeholder": "Search",
     "table_headers": {
       "checkbox": "",
+      "number": "#",
       "name": "Name",
       "phone_number": "Phone Number",
       "email": "Email",
