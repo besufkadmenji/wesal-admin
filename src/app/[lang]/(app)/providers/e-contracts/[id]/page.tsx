@@ -8,7 +8,7 @@ const ServiceProviderDetailPage = async ({
   params: Promise<Params>;
 }) => {
   const { id } = await params;
-  return <SignedContract userId={id} />;
+  return <SignedContract id={id} />;
 };
 
 export default ServiceProviderDetailPage;

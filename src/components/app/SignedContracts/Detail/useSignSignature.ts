@@ -16,7 +16,10 @@ export const useSignSignature = () => {
       if (result) {
         showSuccessMessage(dict.contract.signatureSavedSuccessfully);
         queryClient.invalidateQueries({
-          queryKey: ["userWithContracts"],
+          queryKey: ["signedContracts"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["signedContract", userId],
         });
       }
       // Handle successful login (e.g., redirect, show message)

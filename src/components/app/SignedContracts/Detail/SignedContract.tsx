@@ -16,11 +16,11 @@ import { FormInput } from "./FormInput";
 import { SignatureInput } from "./SignatureInput";
 import { useContractStore } from "./useForm";
 import { useSignSignature } from "./useSignSignature";
-export const SignedContract = ({ userId }: { userId: string }) => {
+export const SignedContract = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const { me } = useMe();
-  const { data: signedContract } = useSignedContract(userId);
+  const { data: signedContract } = useSignedContract(id);
   const user = signedContract?.user;
   const contractRef = useRef<HTMLDivElement | null>(null);
   const { saveSignature, busy } = useSignSignature();
@@ -171,7 +171,7 @@ export const SignedContract = ({ userId }: { userId: string }) => {
             <Button
               className="bg-primary h-12.5 justify-self-center rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
               onPress={() => {
-                saveSignature(userId);
+                saveSignature(user.id);
               }}
               isDisabled={busy}
               isLoading={busy}
@@ -180,7 +180,7 @@ export const SignedContract = ({ userId }: { userId: string }) => {
             </Button>
           )}
         </div>
-        <CancelContract userId={userId} />
+        <CancelContract userId={user.id} />
       </>
     )
   );

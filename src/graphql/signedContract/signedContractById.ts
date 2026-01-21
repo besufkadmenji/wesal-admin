@@ -53,6 +53,28 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
         status
         updatedAt
         withAbsher
+        categories {
+          createdAt
+          descriptionAr
+          descriptionEn
+          id
+          nameAr
+          nameEn
+          parentId
+          publicId
+          rulesAr
+          rulesEn
+          updatedAt
+        }
+        city {
+          countryId
+          createdAt
+          id
+          nameAr
+          nameEn
+          publicId
+          updatedAt
+        }
       }
       userId
     }
