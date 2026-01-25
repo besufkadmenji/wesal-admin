@@ -18,7 +18,7 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 import { useEffect } from "react";
 import { AppLoading } from "@/components/app/shared/AppLoading";
-import { AdminStatus } from "@/gql/graphql";
+import { AdminPermissionType, AdminStatus } from "@/gql/graphql";
 
 export const EditAdmin = ({ id }: { id: string }) => {
   const { admin } = useAdminById(id);
@@ -125,7 +125,10 @@ export const EditAdmin = ({ id }: { id: string }) => {
             />
           </div>
         </FormSection>
-        <Permissions />
+        <Permissions
+          isSuperAdmin={admin.permissionType === AdminPermissionType.SuperAdmin}
+          readOnly={admin.permissionType === AdminPermissionType.SuperAdmin}
+        />
       </AppForm>
     </div>
   );

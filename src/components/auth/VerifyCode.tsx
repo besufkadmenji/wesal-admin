@@ -39,11 +39,16 @@ export const VerifyCode = () => {
                 onValueChange={setCode}
                 size="lg"
                 classNames={{
-                  segmentWrapper: "h-12 py-0 gap-5 ",
+                  wrapper: "justify-center",
+                  segmentWrapper: "h-12 py-0 gap-5",
                   segment:
-                    "bg-[#F9F9FC] dark:bg-dark-black size-12 border before:content-['-'] data-[focus-visible=true]:before:content-[''] data-[active=true]:before:content-[''] data-[has-value=true]:before:content-[''] rounded-lg border-dashboard-border dark:border-dark-border",
+                    "bg-[#F9F9FC]! dark:bg-dark-black size-12 border before:content-['-'] data-[focus-visible=true]:before:content-[''] data-[active=true]:before:content-[''] data-[has-value=true]:before:content-[''] rounded-lg border-dashboard-border dark:border-dark-border",
+                    errorMessage:"rtl:text-right"
                 }}
                 placeholder="-"
+                errorMessage={
+                  dict.admin_verify_code_form.inputs.code.error_message
+                }
               />
             </div>
           </div>
@@ -65,7 +70,11 @@ export const VerifyCode = () => {
         </div>
         <PrimaryButton
           className="px-11"
-          onPress={() => verifyResetCode(code)}
+          onPress={() => {
+            if (code.length === 4) {
+              return verifyResetCode(code);
+            }
+          }}
           isLoading={busy}
           isDisabled={busy}
         >

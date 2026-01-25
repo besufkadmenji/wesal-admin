@@ -127,7 +127,8 @@
     "password": "Password",
     "forgot_password": "Forgot password?",
     "sign_in": "Sign in",
-    "password_reset_success": "Your password has been reset successfully."
+    "password_reset_success": "Your password has been reset successfully.",
+    "reset_code_resent": "Reset code has been resent successfully."
   },
   "forgot_password": {
     "title": "Reset Password",
@@ -450,6 +451,11 @@
     "subtitle": "Wesal System",
     "description": "Please enter the code here",
     "resend_code": "Resend Code",
+    "inputs": {
+      "code": {
+        "error_message": "Please enter a valid code"
+      }
+    },
     "buttons": {
       "confirm": "Confirm"
     }

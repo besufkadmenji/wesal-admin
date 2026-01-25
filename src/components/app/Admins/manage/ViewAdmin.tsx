@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { useAdminById } from "../useAdmins";
+import { AdminPermissionType } from "@/gql/graphql";
 
 export const ViewAdmin = ({ id }: { id: string }) => {
   const { admin } = useAdminById(id);
@@ -76,7 +77,10 @@ export const ViewAdmin = ({ id }: { id: string }) => {
         <FormSection title="">
           <div className="grid grid-cols-1 gap-4"></div>
         </FormSection>
-        <Permissions readOnly />
+        <Permissions
+          readOnly
+          isSuperAdmin={admin.permissionType === AdminPermissionType.SuperAdmin}
+        />
       </AppForm>
     </div>
   );

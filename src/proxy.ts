@@ -17,12 +17,14 @@ export const config = {
  */
 function resolveLocale(req: NextRequest): string {
   const { pathname } = req.nextUrl;
-
-  if (pathname.startsWith("/en")) return "en";
-  if (pathname.startsWith("/ar")) return "ar";
+  console.log("pathname lang", pathname);
 
   const cookieLang = req.cookies.get("lang")?.value;
   if (cookieLang) return cookieLang;
+  console.log("No lang cookie");
+
+  if (pathname.startsWith("/en")) return "en";
+  if (pathname.startsWith("/ar")) return "ar";
 
   return acceptLanguage.get(req.headers.get("accept-language")) || fallbackLng;
 }
@@ -38,6 +40,7 @@ export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
   const locale = resolveLocale(request);
+  console.log("Resolved locale:", locale);
   const hasLocale =
     pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
 
@@ -50,7 +53,10 @@ export async function proxy(request: NextRequest) {
       `/${locale}${pathname}${search}`,
     );
     response = NextResponse.redirect(
-      new URL(`/${locale}${pathname}${search}`, request.url),
+      new URL(
+        `/${locale}${pathname.replace(locale === "en" ? "/ar" : "/en", "")}${search}`,
+        request.url,
+      ),
     );
   } else {
     response = NextResponse.next();

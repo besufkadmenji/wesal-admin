@@ -8,9 +8,11 @@ import { AppCheckbox } from "../../shared/AppCheckbox";
 
 export const Permissions = ({
   readOnly,
+  isSuperAdmin,
 }: {
   readOnly?: boolean;
   ready?: boolean;
+  isSuperAdmin?: boolean;
 }) => {
   const dict = useDict();
   const { form, setForm, permissionIds, setPermissionIds } = useForm();
@@ -88,9 +90,9 @@ export const Permissions = ({
               isSelected={
                 form.permissionType === AdminPermissionType.Administrator
               }
-              onValueChange={() =>
-                setForm({ permissionType: AdminPermissionType.Administrator })
-              }
+              onValueChange={() => {
+                setForm({ permissionType: AdminPermissionType.Administrator });
+              }}
               isDisabled={readOnly}
             >
               {dict.add_new_admin_form.permissions.full_access}
@@ -107,58 +109,54 @@ export const Permissions = ({
           </div>
         </div>
 
-        {form.permissionType === "CUSTOM" && (
-          <div className="grid grid-cols-1 gap-x-5 gap-y-6 p-4 md:grid-cols-2 md:p-6 lg:grid-cols-3">
-            {Object.entries(groupedPermissions).map(([module, perms]) => (
-              <div
-                key={module}
-                className="dark:border-dark-border grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-4 lg:p-6"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="text-base font-bold text-[#2E2E2E] dark:text-white">
-                    {dict.admin_permissions_management.modules[
-                      module as keyof typeof dict.admin_permissions_management.modules
-                    ] || module}
-                  </p>
-                  <AppSwitch
-                    size="sm"
-                    isSelected={isModuleFullySelected(module)}
-                    onValueChange={() => handleModuleToggle(module)}
-                    isDisabled={readOnly}
-                  />
-                </div>
-                <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
-
-                <div className="flex flex-wrap justify-start gap-4 lg:justify-start lg:gap-8">
-                  {(["read", "create", "update", "delete"] as const).map(
-                    (action) => {
-                      const hasAction = perms.some((p) => p.action === action);
-                      if (!hasAction) return null;
-
-                      return (
-                        <AppCheckbox
-                          key={action}
-                          isSelected={isActionSelected(module, action)}
-                          onValueChange={() =>
-                            handleActionToggle(module, action)
-                          }
-                          classNames={{
-                            label: "text-xs leading-4",
-                          }}
-                          isDisabled={readOnly}
-                        >
-                          {dict.admin_permissions_management.permission_actions[
-                            action
-                          ] || action}
-                        </AppCheckbox>
-                      );
-                    },
-                  )}
-                </div>
+        <div className="grid grid-cols-1 gap-x-5 gap-y-6 p-4 md:grid-cols-2 md:p-6 lg:grid-cols-3">
+          {Object.entries(groupedPermissions).map(([module, perms]) => (
+            <div
+              key={module}
+              className="dark:border-dark-border grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-4 lg:p-6"
+            >
+              <div className="flex items-center justify-between">
+                <p className="text-base font-bold text-[#2E2E2E] dark:text-white">
+                  {dict.admin_permissions_management.modules[
+                    module as keyof typeof dict.admin_permissions_management.modules
+                  ] || module}
+                </p>
+                <AppSwitch
+                  size="sm"
+                  isSelected={isModuleFullySelected(module) || isSuperAdmin}
+                  onValueChange={() => handleModuleToggle(module)}
+                  isDisabled={readOnly}
+                />
               </div>
-            ))}
-          </div>
-        )}
+              <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
+
+              <div className="flex flex-wrap justify-start gap-4 lg:justify-start lg:gap-8">
+                {(["read", "create", "update", "delete"] as const).map(
+                  (action) => {
+                    const hasAction = perms.some((p) => p.action === action);
+                    if (!hasAction) return null;
+
+                    return (
+                      <AppCheckbox
+                        key={action}
+                        isSelected={isActionSelected(module, action) || isSuperAdmin}
+                        onValueChange={() => handleActionToggle(module, action)}
+                        classNames={{
+                          label: "text-xs leading-4",
+                        }}
+                        isDisabled={readOnly}
+                      >
+                        {dict.admin_permissions_management.permission_actions[
+                          action
+                        ] || action}
+                      </AppCheckbox>
+                    );
+                  },
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   );

@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { ReactNode } from "react";
 const langMap: {
   [key: string]: { label: string; flag: ReactNode };
@@ -25,6 +25,7 @@ const langMap: {
 };
 export const SelectLanguage = () => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -43,6 +44,7 @@ export const SelectLanguage = () => {
           changeLang(
             k.toString(),
             pathname.replace("/ar", "").replace("/en", ""),
+            searchParams.toString(),
             false,
           );
         }}

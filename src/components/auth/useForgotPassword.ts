@@ -44,6 +44,7 @@ export const useForgotPassword = () => {
   const resendCode = async () => {
     const email = searchParams.get("email") || "";
     await forgotPassword(email);
+    showSuccessMessage(dict.auth.reset_code_resent);
     setResetSeconds(60);
     startTimer();
   };

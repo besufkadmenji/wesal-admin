@@ -3,6 +3,7 @@ import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
 import { AppSwitch } from "../shared/AppSwitch";
+import { Admin, AdminPermissionType } from "@/gql/graphql";
 export const statusMap = (
   dict: Dictionary,
 ): {
@@ -26,12 +27,19 @@ export const roleMap = (
 export const renderCell = (
   row: RowType,
   column: Key,
-  dict: Dictionary,
-  action: {
-    onView: () => void;
-    onEdit: () => void;
-    onDelete: () => void;
-    onActivate: (value: boolean) => void;
+  {
+    admin,
+    dict,
+    action,
+  }: {
+    admin: Admin;
+    dict: Dictionary;
+    action: {
+      onView: () => void;
+      onEdit: () => void;
+      onDelete: () => void;
+      onActivate: (value: boolean) => void;
+    };
   },
 ) => {
   if (column === "action") {
@@ -39,7 +47,11 @@ export const renderCell = (
       <ActionsCell
         onView={action.onView}
         onEdit={action.onEdit}
-        onDelete={action.onDelete}
+        onDelete={
+          admin.permissionType === AdminPermissionType.SuperAdmin
+            ? undefined
+            : action.onDelete
+        }
       />
     );
   } else if (column === "status") {

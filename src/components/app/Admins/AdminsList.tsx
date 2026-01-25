@@ -13,6 +13,7 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageAdmin } from "./manage/useManageAdmin";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
+import { Admin } from "@/gql/graphql";
 
 export const AdminsList = () => {
   const dict = useDict();
@@ -72,29 +73,33 @@ export const AdminsList = () => {
         rows={admins.map((admin) => ({
           key: admin.id,
           name: admin.fullName,
-          // phone: admin.phoneNumber,
+          phone: admin.phoneNumber,
           email: admin.email,
           role: roleMap(dict)[admin.permissionType],
           status: admin.status,
           date: DateTimeHelpers.formatDate(admin.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
-          renderCell(row, column, dict, {
-            onView: () => {
-              router.push(`${pathname}/${row.key}`);
-            },
-            onEdit: () => {
-              router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key, { history: "push" });
-            },
-            onActivate: (value: boolean) => {
-              if (value) {
-                setActivateAdmin(row.key, { history: "push" });
-              } else {
-                setDeactivateAdmin(row.key, { history: "push" });
-              }
+          renderCell(row, column, {
+            admin: admins.find((admin) => admin.id === row.key)!,
+            dict,
+            action: {
+              onView: () => {
+                router.push(`${pathname}/${row.key}`);
+              },
+              onEdit: () => {
+                router.push(`${pathname}/${row.key}/edit`);
+              },
+              onDelete: () => {
+                setIsDeleteWarningOpen(row.key, { history: "push" });
+              },
+              onActivate: (value: boolean) => {
+                if (value) {
+                  setActivateAdmin(row.key, { history: "push" });
+                } else {
+                  setDeactivateAdmin(row.key, { history: "push" });
+                }
+              },
             },
           })
         }

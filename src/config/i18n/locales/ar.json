@@ -125,7 +125,8 @@
     "password": "كلمة المرور",
     "forgot_password": "هل نسيت كلمة المرور؟",
     "sign_in": "تسجيل الدخول",
-    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح."
+    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح.",
+    "reset_code_resent": "تم إعادة إرسال رمز إعادة التعيين بنجاح."
   },
   "forgot_password": {
     "title": "استعادة كلمة المرور",
@@ -448,6 +449,11 @@
     "subtitle": "Wesal System",
     "description": "من فضلك أدخل الكود هنا",
     "resend_code": "إعادة إرسال الرمز",
+    "inputs": {
+      "code": {
+        "error_message": "يرجى إدخال رمز صحيح"
+      }
+    },
     "buttons": {
       "confirm": "تأكيد"
     }
