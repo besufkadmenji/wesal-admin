@@ -9,25 +9,30 @@ import {
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
+import { UploadInput } from "@/components/app/shared/UploadInput";
 import { useDict } from "@/hooks/useDict";
+import { useLang } from "@/hooks/useLang";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useCategoryById } from "../useCategories";
-import { useManageForm } from "./useForm";
+import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCategory } from "./useManageCategory";
-import { useCategories } from "@/components/app/Categories/useCategories";
-import { useLang } from "@/hooks/useLang";
 
 export const EditCategory = ({ id }: { id: string }) => {
   const { category } = useCategoryById(id);
   const lng = useLang();
-  const { categories } = useCategories({ parentId: null });
   const { form, setForm, reset } = useManageForm(id, category);
+  const imageFile = useForm((state) => state.imageFile);
+  const setImageFile = useForm((state) => state.setImageFile);
   const dict = useDict();
   const router = useRouter();
   const { busy, updateCategory } = useManageCategory();
-  const { errors, validateForm, clearError } = useFormValidation(form);
+  const { errors, validateForm, clearError } = useFormValidation({
+    ...form,
+    image: imageFile,
+    existingImage: category?.image || null,
+  });
   useEffect(() => {
     return () => {
       reset();
@@ -102,25 +107,7 @@ export const EditCategory = ({ id }: { id: string }) => {
               }}
               errorMessage={errors.descriptionEn}
             />
-            <FormSelect
-              label={dict.add_new_category_form.labels.parent}
-              placeholder={dict.add_new_category_form.labels.parent}
-              value={form.parentId?.toString() || ""}
-              onChange={(value: string): void => {
-                setForm({
-                  parentId: value as unknown as string | null,
-                });
-                clearError("parentId");
-              }}
-              options={
-                categories?.map((category) => ({
-                  label: lng === "ar" ? category.nameAr : category.nameEn || "",
-                  key: category.id,
-                })) ?? []
-              }
-              errorMessage={errors.status}
-            />
-            <span />
+
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_ar}
               placeholder={dict.add_new_category_form.placeholders.rules_ar}
@@ -141,6 +128,28 @@ export const EditCategory = ({ id }: { id: string }) => {
               }}
               errorMessage={errors.rulesEn}
             />
+            <div className="col-span-2 grid grid-cols-1 gap-4">
+              <UploadInput
+                label={dict.add_new_category_form.image.attach}
+                desc={dict.add_new_category_form.image.desc}
+                file={imageFile}
+                initUrl={
+                  form.image !== ""
+                    ? `${process.env.NEXT_PUBLIC_DATA}/files/${form.image}`
+                    : undefined
+                }
+                onChange={(file?: File): void => {
+                  setImageFile(file || null);
+                  setForm({ image: "" });
+                  clearError("image");
+                }}
+                accept={{
+                  "image/jpeg": [],
+                  "image/png": [],
+                }}
+                errorMessage={errors.image}
+              />
+            </div>
           </div>
         </FormSection>
       </AppForm>

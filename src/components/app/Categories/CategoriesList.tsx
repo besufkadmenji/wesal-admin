@@ -30,6 +30,10 @@ export const CategoriesList = () => {
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
+      key: "image",
+      label: dict.categories_page.table_headers.image,
+    },
+    {
       key: "nameAr",
       label: dict.categories_page.table_headers.nameAr,
     },
@@ -44,10 +48,6 @@ export const CategoriesList = () => {
     {
       key: "descriptionEn",
       label: dict.categories_page.table_headers.descriptionEn,
-    },
-    {
-      key: "parentCategory",
-      label: dict.categories_page.table_headers.parentCategory,
     },
     {
       key: "date",
@@ -70,14 +70,11 @@ export const CategoriesList = () => {
         columns={columns}
         rows={categories.map((category) => ({
           key: category.id,
+          image: category.image,
           nameAr: category.nameAr,
           nameEn: category.nameEn,
           descriptionAr: category.descriptionAr,
           descriptionEn: category.descriptionEn,
-          parentCategory:
-            lng === "ar"
-              ? (category.parent?.nameAr ?? "-")
-              : (category.parent?.nameEn ?? "-"),
           date: DateTimeHelpers.formatDate(category.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>

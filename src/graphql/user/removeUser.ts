@@ -17,7 +17,7 @@ export const REMOVE_USER_MUTATION: TypedDocumentNode<
         id
         nameAr
         nameEn
-        parentId
+        image
         updatedAt
       }
       cityId

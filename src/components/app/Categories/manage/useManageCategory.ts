@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import CategoryService from "@/services/category.service";
+import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
@@ -11,6 +12,7 @@ import { useForm } from "./useForm";
 export const useManageCategory = () => {
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
+  const imageFile = useForm((state) => state.imageFile);
   const resetForm = useForm((state) => state.reset);
   const router = useRouter();
   const dict = useDict();
@@ -18,13 +20,14 @@ export const useManageCategory = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
 
   const createCategory = async () => {
     setBusy(true);
     try {
+      const image = await uploadFile(imageFile!);
       const response = await CategoryService.createCategory({
         ...form,
+        image: image.filename,
       });
       if (response) {
         showSuccessMessage(dict.categories_page.messages.createSuccess);
@@ -47,8 +50,13 @@ export const useManageCategory = () => {
   const updateCategory = async (id: string) => {
     setBusy(true);
     try {
+      const image = imageFile
+        ? await uploadFile(imageFile)
+        : { filename: form.image };
+
       const response = await CategoryService.updateCategory({
         ...form,
+        image: image.filename,
         id,
       });
       if (response) {

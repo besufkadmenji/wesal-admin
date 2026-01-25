@@ -60,7 +60,7 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
           id
           nameAr
           nameEn
-          parentId
+          image
           publicId
           rulesAr
           rulesEn

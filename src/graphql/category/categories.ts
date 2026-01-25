@@ -22,22 +22,10 @@ export const CATEGORIES_QUERY: TypedDocumentNode<
         id
         nameAr
         nameEn
-        parentId
+        image
         updatedAt
         rulesEn
         rulesAr
-        parent {
-          createdAt
-          descriptionAr
-          descriptionEn
-          id
-          nameAr
-          nameEn
-          parentId
-          updatedAt
-          rulesEn
-          rulesAr
-        }
       }
     }
   }

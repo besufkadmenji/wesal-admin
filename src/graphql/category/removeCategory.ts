@@ -16,7 +16,7 @@ export const REMOVE_CATEGORY_MUTATION: TypedDocumentNode<
       descriptionEn
       nameAr
       nameEn
-      parentId
+      image
       updatedAt
       rulesEn
       rulesAr

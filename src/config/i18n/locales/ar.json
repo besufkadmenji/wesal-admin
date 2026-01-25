@@ -617,7 +617,14 @@
       "rulesArMaxLength": "القواعد بالعربية لا يجب أن تتجاوز 500 حرف",
       "rulesEnRequired": "القواعد بالإنجليزية مطلوبة",
       "rulesEnMinLength": "القواعد بالإنجليزية يجب أن تكون 10 أحرف على الأقل",
-      "rulesEnMaxLength": "القواعد بالإنجليزية لا يجب أن تتجاوز 500 حرف"
+      "rulesEnMaxLength": "القواعد بالإنجليزية لا يجب أن تتجاوز 500 حرف",
+      "imageRequired": "الصورة مطلوبة",
+      "imageInvalidFormat": "يجب أن تكون الصورة بصيغة JPG أو PNG",
+      "imageMaxSize": "يجب ألا يتجاوز حجم الصورة 5MB"
+    },
+    "image": {
+      "attach": "إرفاق صورة",
+      "desc": "الصيغ المدعومة: JPG, PNG"
     }
   },
   "admin_permissions_management": {
@@ -1201,6 +1208,7 @@
     "search_placeholder": "البحث",
     "table_headers": {
       "checkbox": "",
+      "image": "الصورة",
       "nameAr": "الاسم (العربية)",
       "nameEn": "الاسم (الإنجليزية)",
       "descriptionAr": "الوصف (العربية)",

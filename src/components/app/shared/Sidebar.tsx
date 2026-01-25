@@ -39,7 +39,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
     >
       <AppLink
         href={"/dashboard"}
-        className="relative mx-12 my-5 aspect-182/40 w-1/2 justify-self-center text-[#2E2E2E] lg:w-[12vw] dark:text-white"
+        className="relative mx-12 my-5 aspect-182/40 w-1/2 justify-self-center text-[#2E2E2E] lg:w-[12vw] dark:text-[#EFF9F0]"
       >
         <LogoIcon className="h-full w-full" />
       </AppLink>

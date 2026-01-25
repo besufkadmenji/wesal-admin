@@ -1,30 +1,32 @@
 "use client";
 
-import { useCategories } from "@/components/app/Categories/useCategories";
 import {
   AppForm,
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
+import { UploadInput } from "@/components/app/shared/UploadInput";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useSetting } from "../../Settings/useSettings";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
-import { FormSelect } from "../../shared/forms/FormSelect";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCategory } from "./useManageCategory";
-import { useSetting } from "../../Settings/useSettings";
 
 export const AddCategory = () => {
-  const { form, setForm, reset } = useForm();
-  const { categories } = useCategories({ parentId: null });
+  const { form, setForm, reset, imageFile, setImageFile } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createCategory } = useManageCategory();
-  const { errors, validateForm, clearError } = useFormValidation(form);
+  const { errors, validateForm, clearError } = useFormValidation({
+    ...form,
+    image: imageFile,
+    existingImage: null,
+  });
   const { setting } = useSetting("rules");
   const lng = useLang();
   useEffect(() => {
@@ -109,26 +111,7 @@ export const AddCategory = () => {
                 }}
                 errorMessage={errors.descriptionEn}
               />
-              <FormSelect
-                label={dict.add_new_category_form.labels.parent}
-                placeholder={dict.add_new_category_form.labels.parent}
-                value={form.parentId?.toString() || ""}
-                onChange={(value: string): void => {
-                  setForm({
-                    parentId: value as unknown as string | null,
-                  });
-                  clearError("parentId");
-                }}
-                options={
-                  categories?.map((category) => ({
-                    label:
-                      lng === "ar" ? category.nameAr : category.nameEn || "",
-                    key: category.id,
-                  })) ?? []
-                }
-                errorMessage={errors.status}
-              />
-              <span />
+
               <FormAreaInput
                 label={dict.add_new_category_form.labels.rules_ar}
                 placeholder={dict.add_new_category_form.placeholders.rules_ar}
@@ -149,6 +132,21 @@ export const AddCategory = () => {
                 }}
                 errorMessage={errors.rulesEn}
               />
+              <div className="col-span-2 grid grid-cols-1 gap-4">
+                <UploadInput
+                  label={dict.add_new_category_form.image.attach}
+                  desc={dict.add_new_category_form.image.desc}
+                  file={imageFile}
+                  onChange={(file?: File): void => {
+                    setImageFile(file || null);
+                  }}
+                  accept={{
+                    "image/jpeg": [],
+                    "image/png": [],
+                  }}
+                  errorMessage={errors.image}
+                />
+              </div>
             </div>
           </FormSection>
         </AppForm>

@@ -619,7 +619,14 @@
       "rulesArMaxLength": "Arabic rules must not exceed 500 characters",
       "rulesEnRequired": "English rules are required",
       "rulesEnMinLength": "English rules must be at least 10 characters long",
-      "rulesEnMaxLength": "English rules must not exceed 500 characters"
+      "rulesEnMaxLength": "English rules must not exceed 500 characters",
+      "imageRequired": "Image is required",
+      "imageInvalidFormat": "Image must be in JPG or PNG format",
+      "imageMaxSize": "Image size must not exceed 5MB"
+    },
+    "image": {
+      "attach": "Attach Image",
+      "desc": "Supported formats: JPG, PNG"
     }
   },
   "admin_permissions_management": {
@@ -1202,6 +1209,7 @@
     "search_placeholder": "Search",
     "table_headers": {
       "checkbox": "",
+      "image": "Image",
       "nameAr": "Name (Arabic)",
       "nameEn": "Name (English)",
       "descriptionAr": "Description (Arabic)",

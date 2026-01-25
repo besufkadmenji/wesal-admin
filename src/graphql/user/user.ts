@@ -14,7 +14,7 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
         id
         nameAr
         nameEn
-        parentId
+        image
         updatedAt
         rulesEn
         rulesAr

@@ -221,15 +221,13 @@ input BulkUpdateFaqOrderInput {
 }
 
 type Category {
-  children: [Category!]
   createdAt: DateTime!
   descriptionAr: String!
   descriptionEn: String!
   id: ID!
+  image: String!
   nameAr: String!
   nameEn: String!
-  parent: Category
-  parentId: String
   publicId: Int
   rulesAr: String!
   rulesEn: String!
@@ -242,7 +240,6 @@ input CategoryPaginationInput {
 
   """Page number (1-based)"""
   page: Int! = 1
-  parentId: String
   search: String
 
   """Sort order: ASC or DESC"""
@@ -585,9 +582,9 @@ input CreateAdvertisementInput {
 input CreateCategoryInput {
   descriptionAr: String!
   descriptionEn: String!
+  image: String!
   nameAr: String!
   nameEn: String!
-  parentId: String
   rulesAr: String!
   rulesEn: String!
 }
@@ -1579,9 +1576,9 @@ input UpdateCategoryInput {
   descriptionAr: String
   descriptionEn: String
   id: String!
+  image: String
   nameAr: String
   nameEn: String
-  parentId: String
   rulesAr: String
   rulesEn: String
 }

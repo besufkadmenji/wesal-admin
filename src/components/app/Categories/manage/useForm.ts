@@ -4,6 +4,8 @@ import { create } from "zustand";
 
 interface FormState {
   form: CreateCategoryInput;
+  imageFile?: File | null;
+  setImageFile: (file: File | null) => void;
   setForm: (form: Partial<CreateCategoryInput>) => void;
   reset: () => void;
 }
@@ -14,7 +16,7 @@ export const useForm = create<FormState>((set) => ({
     nameEn: "",
     descriptionAr: "",
     descriptionEn: "",
-    parentId: null,
+    image: "",
     rulesAr: "",
     rulesEn: "",
   },
@@ -25,6 +27,8 @@ export const useForm = create<FormState>((set) => ({
         ...form,
       },
     })),
+  imageFile: null,
+  setImageFile: (file) => set(() => ({ imageFile: file })),
   reset: () =>
     set(() => ({
       form: {
@@ -32,10 +36,11 @@ export const useForm = create<FormState>((set) => ({
         nameEn: "",
         descriptionAr: "",
         descriptionEn: "",
-        parentId: null,
+        image: "",
         rulesAr: "",
         rulesEn: "",
       },
+      imageFile: null,
     })),
 }));
 
@@ -50,7 +55,7 @@ export const useManageForm = (id: string, category?: Category | null) => {
       nameEn: category?.nameEn || "",
       descriptionAr: category?.descriptionAr || "",
       descriptionEn: category?.descriptionEn || "",
-      parentId: category?.parentId || null,
+      image: category?.image || "",
       rulesAr: category?.rulesAr || "",
       rulesEn: category?.rulesEn || "",
     });

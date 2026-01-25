@@ -16,7 +16,7 @@ export const UPDATE_CATEGORY_MUTATION: TypedDocumentNode<
       id
       nameAr
       nameEn
-      parentId
+      image
       updatedAt
       rulesEn
       rulesAr

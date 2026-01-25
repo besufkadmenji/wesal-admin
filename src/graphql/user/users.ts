@@ -24,7 +24,7 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
             id
             nameAr
             nameEn
-            parentId
+            image
             updatedAt
             rulesEn
             rulesAr
