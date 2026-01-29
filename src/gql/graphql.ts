@@ -123,86 +123,6 @@ export enum AdminUserType {
   Platform = 'PLATFORM'
 }
 
-export type Advertisement = {
-  attributes?: Maybe<Array<AdvertisementAttributes>>;
-  category: Category;
-  categoryId: Scalars['String']['output'];
-  city: City;
-  cityId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  media?: Maybe<Array<AdvertisementMedia>>;
-  price: Scalars['Float']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  status: AdvertisementStatus;
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type AdvertisementAttributes = {
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  key: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type AdvertisementAttributesInput = {
-  key: Scalars['String']['input'];
-  value: Scalars['String']['input'];
-};
-
-export type AdvertisementMedia = {
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  sortOrder: Scalars['Int']['output'];
-  url: Scalars['String']['output'];
-};
-
-export type AdvertisementMediaInput = {
-  sortOrder: Scalars['Int']['input'];
-  url: Scalars['String']['input'];
-};
-
-export type AdvertisementPaginationInput = {
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  /** Sort field name */
-  sortBy?: InputMaybe<AdvertisementSortField>;
-  /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<AdvertisementStatus>;
-  userId?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Available fields to sort advertisements by */
-export enum AdvertisementSortField {
-  CreatedAt = 'createdAt',
-  Id = 'id',
-  Price = 'price',
-  Status = 'status',
-  Title = 'title',
-  UpdatedAt = 'updatedAt'
-}
-
-/** Advertisement status */
-export enum AdvertisementStatus {
-  Draft = 'DRAFT',
-  Expired = 'EXPIRED',
-  Published = 'PUBLISHED',
-  Suspended = 'SUSPENDED'
-}
-
 export type AssignPermissionInput = {
   adminId: Scalars['ID']['input'];
   permissionId: Scalars['ID']['input'];
@@ -302,11 +222,11 @@ export enum CitySortField {
 
 export type Complaint = {
   adminResponse?: Maybe<Scalars['String']['output']>;
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  listing: Listing;
+  listingId: Scalars['String']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
   reason: ComplaintReason;
   reviewedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -319,9 +239,9 @@ export type Complaint = {
 };
 
 export type ComplaintPaginationInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   reason?: InputMaybe<ComplaintReason>;
@@ -465,11 +385,11 @@ export enum ContractStatus {
 }
 
 export type Conversation = {
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   isPaid: Scalars['Boolean']['output'];
+  listing: Listing;
+  listingId: Scalars['String']['output'];
   messages?: Maybe<Array<Message>>;
   provider: User;
   providerId: Scalars['String']['output'];
@@ -480,10 +400,10 @@ export type Conversation = {
 };
 
 export type ConversationPaginationInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   isPaid?: InputMaybe<Scalars['Boolean']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   providerId?: InputMaybe<Scalars['String']['input']>;
@@ -546,18 +466,6 @@ export type CreateAdminInput = {
   userType: AdminUserType;
 };
 
-export type CreateAdvertisementInput = {
-  attributes?: InputMaybe<Array<AdvertisementAttributesInput>>;
-  categoryId: Scalars['String']['input'];
-  cityId: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  media?: InputMaybe<Array<AdvertisementMediaInput>>;
-  price: Scalars['Float']['input'];
-  status?: InputMaybe<AdvertisementStatus>;
-  title: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
-};
-
 export type CreateCategoryInput = {
   descriptionAr: Scalars['String']['input'];
   descriptionEn: Scalars['String']['input'];
@@ -575,8 +483,8 @@ export type CreateCityInput = {
 };
 
 export type CreateComplaintInput = {
-  advertisementId: Scalars['String']['input'];
   description: Scalars['String']['input'];
+  listingId: Scalars['String']['input'];
   reason: ComplaintReason;
   status?: InputMaybe<ComplaintStatus>;
   userId: Scalars['String']['input'];
@@ -603,8 +511,8 @@ export type CreateContractInput = {
 };
 
 export type CreateConversationInput = {
-  advertisementId: Scalars['String']['input'];
   isPaid?: InputMaybe<Scalars['Boolean']['input']>;
+  listingId: Scalars['String']['input'];
   providerId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
 };
@@ -624,8 +532,29 @@ export type CreateFaqInput = {
 };
 
 export type CreateFavoriteInput = {
-  advertisementId: Scalars['String']['input'];
+  listingId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+export type CreateListingInput = {
+  categoryId: Scalars['String']['input'];
+  cityId: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  photos?: InputMaybe<Array<CreateListingMediaInput>>;
+  price: Scalars['Float']['input'];
+  status?: InputMaybe<ListingStatus>;
+  story?: InputMaybe<CreateListingMediaInput>;
+  type: ListingType;
+};
+
+export type CreateListingMediaInput = {
+  filename: Scalars['String']['input'];
+  id: Scalars['String']['input'];
+  originalFilename: Scalars['String']['input'];
+  size: Scalars['Int']['input'];
+  sortOrder: Scalars['Int']['input'];
+  type: MediaType;
 };
 
 export type CreateMessageInput = {
@@ -665,8 +594,8 @@ export type CreatePermissionInput = {
 };
 
 export type CreateRatingInput = {
-  advertisementId: Scalars['String']['input'];
   comment?: InputMaybe<Scalars['String']['input']>;
+  listingId: Scalars['String']['input'];
   rating: Scalars['Int']['input'];
   userId: Scalars['String']['input'];
 };
@@ -697,19 +626,19 @@ export type Faq = {
 };
 
 export type Favorite = {
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  listing: Listing;
+  listingId: Scalars['String']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
   user: User;
   userId: Scalars['String']['output'];
 };
 
 export type FavoritePaginationInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   /** Sort field name */
@@ -729,11 +658,80 @@ export type ForgotPasswordInput = {
   emailOrPhone: Scalars['String']['input'];
 };
 
+export type Listing = {
+  categoryId: Scalars['String']['output'];
+  cityId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  photos: Array<ListingMedia>;
+  price: Scalars['Float']['output'];
+  status: ListingStatus;
+  story: ListingMedia;
+  tags: Scalars['String']['output'];
+  type: ListingType;
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type ListingMedia = {
+  filename: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  originalFilename: Scalars['String']['output'];
+  size: Scalars['Int']['output'];
+  sortOrder: Scalars['Float']['output'];
+  type: MediaType;
+};
+
+export type ListingPaginationInput = {
+  /** Number of items per page */
+  limit?: Scalars['Int']['input'];
+  /** Page number (1-based) */
+  page?: Scalars['Int']['input'];
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Sort field name */
+  sortBy?: InputMaybe<ListingSortField>;
+  /** Sort order: ASC or DESC */
+  sortOrder?: InputMaybe<SortOrder>;
+  status?: InputMaybe<ListingStatus>;
+};
+
+/** Available fields to sort listings by */
+export enum ListingSortField {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  Name = 'name',
+  Price = 'price',
+  Status = 'status',
+  UpdatedAt = 'updatedAt'
+}
+
+/** Listing publication status */
+export enum ListingStatus {
+  Draft = 'DRAFT',
+  Expired = 'EXPIRED',
+  Published = 'PUBLISHED',
+  Suspended = 'SUSPENDED'
+}
+
+/** Listing type (free or featured) */
+export enum ListingType {
+  Featured = 'FEATURED',
+  Free = 'FREE'
+}
+
 export type LoginInput = {
   emailOrPhone: Scalars['String']['input'];
   password: Scalars['String']['input'];
   role: UserRole;
 };
+
+/** Media file type */
+export enum MediaType {
+  Image = 'IMAGE',
+  Video = 'VIDEO'
+}
 
 export type Message = {
   content: Scalars['String']['output'];
@@ -788,7 +786,6 @@ export type Mutation = {
   /** Change password for authenticated user */
   changePassword: Scalars['Boolean']['output'];
   createAdmin: Admin;
-  createAdvertisement: Advertisement;
   createCategory: Category;
   createCity: City;
   createComplaint: Complaint;
@@ -800,6 +797,7 @@ export type Mutation = {
   /** Create FAQ (admin only) */
   createFaq: Faq;
   createFavorite: Favorite;
+  createListing: Listing;
   createMessage: Message;
   createNotification: Notification;
   createPayment: Payment;
@@ -836,7 +834,6 @@ export type Mutation = {
   /** Reject a complaint */
   rejectComplaint: Complaint;
   removeAdmin: Scalars['Boolean']['output'];
-  removeAdvertisement: Advertisement;
   /** Delete user avatar by ID */
   removeAvatar: Scalars['Boolean']['output'];
   removeCategory: Category;
@@ -850,8 +847,9 @@ export type Mutation = {
   /** Remove FAQ (admin only) */
   removeFaq: Scalars['Boolean']['output'];
   removeFavorite: Favorite;
-  /** Remove favorite by user and advertisement IDs */
-  removeFavoriteByUserAndAdvertisement: Favorite;
+  /** Remove favorite by user and listing IDs */
+  removeFavoriteByUserAndListing: Favorite;
+  removeListing: RemoveListingResponse;
   removeMessage: Message;
   removeNotification: Notification;
   removePayment: Payment;
@@ -874,7 +872,6 @@ export type Mutation = {
   /** Terminate contract as service provider */
   terminateContract: User;
   updateAdmin: Admin;
-  updateAdvertisement: Advertisement;
   updateCategory: Category;
   updateCity: City;
   updateComplaint: Complaint;
@@ -885,6 +882,7 @@ export type Mutation = {
   updateCountry: Country;
   /** Update FAQ (admin only) */
   updateFaq: Faq;
+  updateListing: Listing;
   updateMessage: Message;
   updatePayment: Payment;
   updatePermission: Permission;
@@ -979,11 +977,6 @@ export type MutationCreateAdminArgs = {
 };
 
 
-export type MutationCreateAdvertisementArgs = {
-  input: CreateAdvertisementInput;
-};
-
-
 export type MutationCreateCategoryArgs = {
   input: CreateCategoryInput;
 };
@@ -1026,6 +1019,11 @@ export type MutationCreateFaqArgs = {
 
 export type MutationCreateFavoriteArgs = {
   input: CreateFavoriteInput;
+};
+
+
+export type MutationCreateListingArgs = {
+  createListingInput: CreateListingInput;
 };
 
 
@@ -1143,11 +1141,6 @@ export type MutationRemoveAdminArgs = {
 };
 
 
-export type MutationRemoveAdvertisementArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type MutationRemoveAvatarArgs = {
   id: Scalars['ID']['input'];
 };
@@ -1198,9 +1191,14 @@ export type MutationRemoveFavoriteArgs = {
 };
 
 
-export type MutationRemoveFavoriteByUserAndAdvertisementArgs = {
-  advertisementId: Scalars['String']['input'];
+export type MutationRemoveFavoriteByUserAndListingArgs = {
+  listingId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveListingArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -1282,11 +1280,6 @@ export type MutationUpdateAdminArgs = {
 };
 
 
-export type MutationUpdateAdvertisementArgs = {
-  input: UpdateAdvertisementInput;
-};
-
-
 export type MutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
 };
@@ -1324,6 +1317,11 @@ export type MutationUpdateCountryArgs = {
 
 export type MutationUpdateFaqArgs = {
   updateFaqInput: UpdateFaqInput;
+};
+
+
+export type MutationUpdateListingArgs = {
+  updateListingInput: UpdateListingInput;
 };
 
 
@@ -1417,12 +1415,12 @@ export type NotificationStats = {
 
 /** Type of notification */
 export enum NotificationType {
-  AdvertisementApproved = 'ADVERTISEMENT_APPROVED',
-  AdvertisementRejected = 'ADVERTISEMENT_REJECTED',
   ComplaintResolved = 'COMPLAINT_RESOLVED',
   ComplaintSubmitted = 'COMPLAINT_SUBMITTED',
   ContractCreated = 'CONTRACT_CREATED',
   ContractSigned = 'CONTRACT_SIGNED',
+  ListingApproved = 'LISTING_APPROVED',
+  ListingRejected = 'LISTING_REJECTED',
   NewMessage = 'NEW_MESSAGE',
   NewRating = 'NEW_RATING',
   PaymentCompleted = 'PAYMENT_COMPLETED',
@@ -1440,13 +1438,6 @@ export enum OtpType {
 export type PaginatedAdminResponse = {
   /** List of items */
   items: Array<Admin>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedAdvertisementResponse = {
-  /** List of items */
-  items: Array<Advertisement>;
   /** Pagination metadata */
   meta: PaginationMeta;
 };
@@ -1503,6 +1494,13 @@ export type PaginatedCountryResponse = {
 export type PaginatedFavoriteResponse = {
   /** List of items */
   items: Array<Favorite>;
+  /** Pagination metadata */
+  meta: PaginationMeta;
+};
+
+export type PaginatedListingResponse = {
+  /** List of items */
+  items: Array<Listing>;
   /** Pagination metadata */
   meta: PaginationMeta;
 };
@@ -1649,8 +1647,6 @@ export type Query = {
   admin: Admin;
   adminPermissions: Array<AdminPermission>;
   admins: PaginatedAdminResponse;
-  advertisement: Advertisement;
-  advertisements: PaginatedAdvertisementResponse;
   categories: PaginatedCategoryResponse;
   category: Category;
   /** Get all cities with pagination */
@@ -1678,13 +1674,16 @@ export type Query = {
   favorites: PaginatedFavoriteResponse;
   /** Get application settings (admin only) */
   getSetting: Setting;
-  /** Check if advertisement is favorited by user */
+  /** Check if listing is favorited by user */
   isFavorite: Scalars['Boolean']['output'];
+  listing?: Maybe<Listing>;
+  listings: PaginatedListingResponse;
   /** Get current authenticated user */
   me: User;
   meAdmin: Admin;
   message: Message;
   messages: PaginatedMessageResponse;
+  myListings: PaginatedListingResponse;
   notification: Notification;
   /** Get notification statistics for a user */
   notificationStats: NotificationStats;
@@ -1695,7 +1694,7 @@ export type Query = {
   permissionAdmins: Array<AdminPermission>;
   permissions: Array<Permission>;
   rating: Rating;
-  /** Get rating statistics for an advertisement */
+  /** Get rating statistics for an listing */
   ratingStatistics: RatingStatistics;
   ratings: PaginatedRatingResponse;
   signedContractById?: Maybe<SignedContract>;
@@ -1720,16 +1719,6 @@ export type QueryAdminPermissionsArgs = {
 
 export type QueryAdminsArgs = {
   paginationInput?: InputMaybe<AdminPaginationInput>;
-};
-
-
-export type QueryAdvertisementArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryAdvertisementsArgs = {
-  input?: InputMaybe<AdvertisementPaginationInput>;
 };
 
 
@@ -1825,8 +1814,18 @@ export type QueryFavoritesArgs = {
 
 
 export type QueryIsFavoriteArgs = {
-  advertisementId: Scalars['String']['input'];
+  listingId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+
+export type QueryListingArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryListingsArgs = {
+  paginationInput: ListingPaginationInput;
 };
 
 
@@ -1837,6 +1836,11 @@ export type QueryMessageArgs = {
 
 export type QueryMessagesArgs = {
   input?: InputMaybe<MessagePaginationInput>;
+};
+
+
+export type QueryMyListingsArgs = {
+  paginationInput: ListingPaginationInput;
 };
 
 
@@ -1881,7 +1885,7 @@ export type QueryRatingArgs = {
 
 
 export type QueryRatingStatisticsArgs = {
-  advertisementId: Scalars['String']['input'];
+  listingId: Scalars['String']['input'];
 };
 
 
@@ -1915,11 +1919,11 @@ export type QueryUsersArgs = {
 };
 
 export type Rating = {
-  advertisement: Advertisement;
-  advertisementId: Scalars['String']['output'];
   comment?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  listing: Listing;
+  listingId: Scalars['String']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
   rating: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1928,9 +1932,9 @@ export type Rating = {
 };
 
 export type RatingPaginationInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   maxRating?: InputMaybe<Scalars['Int']['input']>;
   minRating?: InputMaybe<Scalars['Int']['input']>;
   /** Page number (1-based) */
@@ -1979,6 +1983,11 @@ export type RegisterInput = {
   phone: Scalars['String']['input'];
   role: UserRole;
   withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type RemoveListingResponse = {
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type ResendOtpInput = {
@@ -2111,19 +2120,6 @@ export type UpdateAdminInput = {
   userType?: InputMaybe<AdminUserType>;
 };
 
-export type UpdateAdvertisementInput = {
-  attributes?: InputMaybe<Array<AdvertisementAttributesInput>>;
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  media?: InputMaybe<Array<AdvertisementMediaInput>>;
-  price?: InputMaybe<Scalars['Float']['input']>;
-  status?: InputMaybe<AdvertisementStatus>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type UpdateCategoryInput = {
   descriptionAr?: InputMaybe<Scalars['String']['input']>;
   descriptionEn?: InputMaybe<Scalars['String']['input']>;
@@ -2143,9 +2139,9 @@ export type UpdateCityInput = {
 };
 
 export type UpdateComplaintInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   reason?: InputMaybe<ComplaintReason>;
   status?: InputMaybe<ComplaintStatus>;
   userId?: InputMaybe<Scalars['String']['input']>;
@@ -2174,9 +2170,9 @@ export type UpdateContractInput = {
 };
 
 export type UpdateConversationInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
   isPaid?: InputMaybe<Scalars['Boolean']['input']>;
+  listingId?: InputMaybe<Scalars['String']['input']>;
   providerId?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2200,6 +2196,19 @@ export type UpdateFaqInput = {
 export type UpdateFaqOrderInput = {
   id: Scalars['String']['input'];
   order: Scalars['Int']['input'];
+};
+
+export type UpdateListingInput = {
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  cityId?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  photos?: InputMaybe<Array<CreateListingMediaInput>>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+  status?: InputMaybe<ListingStatus>;
+  story?: InputMaybe<CreateListingMediaInput>;
+  type?: InputMaybe<ListingType>;
 };
 
 export type UpdateMessageInput = {
@@ -2231,9 +2240,9 @@ export type UpdatePermissionInput = {
 };
 
 export type UpdateRatingInput = {
-  advertisementId?: InputMaybe<Scalars['String']['input']>;
   comment?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
   rating?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['String']['input']>;
 };
