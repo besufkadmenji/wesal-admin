@@ -16,10 +16,12 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { useCategoryById } from "../useCategories";
+import { UploadInput } from "@/components/app/shared/UploadInput";
+import { dataUrl } from "@/config/url";
+import Image from "next/image";
 
 export const ViewCategory = ({ id }: { id: string }) => {
   const { category } = useCategoryById(id);
-  const { categories } = useCategories({ parentId: null });
 
   const { form, setForm, reset } = useManageForm(id, category);
   const dict = useDict();
@@ -81,29 +83,6 @@ export const ViewCategory = ({ id }: { id: string }) => {
               }}
               readOnly
             />
-            {form.parentId && (
-              <>
-                <FormSelect
-                  label={dict.add_new_category_form.labels.parent}
-                  placeholder={dict.add_new_category_form.labels.parent}
-                  value={form.parentId?.toString() || ""}
-                  onChange={(value: string): void => {
-                    setForm({
-                      parentId: value as unknown as string | null,
-                    });
-                  }}
-                  options={
-                    categories?.map((category) => ({
-                      label:
-                        lng === "ar" ? category.nameAr : category.nameEn || "",
-                      key: category.id,
-                    })) ?? []
-                  }
-                  readOnly
-                />
-                <span />
-              </>
-            )}
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_ar}
               placeholder={dict.add_new_category_form.placeholders.rules_ar}
@@ -118,6 +97,16 @@ export const ViewCategory = ({ id }: { id: string }) => {
               onChange={(value: string): void => {}}
               readOnly
             />
+            <div className="col-span-2 grid justify-items-center grid-cols-1 gap-4">
+              <div className="relative size-60">
+                <Image
+                  src={`${dataUrl}/files/${category.image}`}
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
           </div>
         </FormSection>
       </AppForm>
