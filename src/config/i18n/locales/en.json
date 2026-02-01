@@ -172,7 +172,9 @@
     "contact_us": "Contact Us Messages Management",
     "notifications": "Notifications Management",
     "faq": "Faq",
-    "electronicContracts": "Electronic Contracts"
+    "electronicContracts": "Electronic Contracts",
+    "banks": "Banks Management",
+    "delivery_companies": "Delivery Companies Management"
   },
   "users_page": {
     "title": "Users Management",
@@ -753,6 +755,20 @@
       "deactivation_reason": "Enter deactivation reason..."
     }
   },
+  "activate_bank_confirmation": {
+    "title": "Activate Bank",
+    "description": "Are you sure you want to activate this bank?"
+  },
+  "deactivate_bank_reason_form": {
+    "title": "Deactivate Bank",
+    "description": "Are you sure you want to deactivate this bank?",
+    "labels": {
+      "deactivation_reason": "Deactivation Reason"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter deactivation reason..."
+    }
+  },
   "activate_feature_confirmation": {
     "title": "Activate Feature",
     "description": "Are you sure you want to activate this feature?"
@@ -877,6 +893,14 @@
     "deleteContactMessage": {
       "title": "Delete Contact Message",
       "message": "Are you sure you want to delete this contact message? This action cannot be undone."
+    },
+    "deleteBank": {
+      "title": "Delete Bank",
+      "message": "Are you sure you want to delete this bank? This action cannot be undone."
+    },
+    "deleteDeliveryCompany": {
+      "title": "Delete Delivery Company",
+      "message": "Are you sure you want to delete this delivery company? This action cannot be undone."
     },
     "confirm": "Delete",
     "cancel": "Cancel"
@@ -1609,6 +1633,132 @@
     },
     "change_order_button": "Change Order"
   },
+  "add_new_bank_form": {
+    "title": "Add New Bank",
+    "sections": {
+      "bank_information": "Bank Information"
+    },
+    "labels": {
+      "bank_name_ar": "Bank Name (Arabic)",
+      "name_en": "Bank Name (English)",
+      "status": "Status"
+    },
+    "placeholders": {
+      "bank_name_ar": "Enter bank name in Arabic",
+      "name_en": "Enter bank name in English",
+      "status": "Select status"
+    }
+  },
+  "edit_bank": {
+    "title": "Edit Bank"
+  },
+  "edit_bank_form": {
+    "sections": {
+      "bank_information": "Bank Information"
+    },
+    "labels": {
+      "bank_name_ar": "Bank Name (Arabic)",
+      "name_en": "Bank Name (English)",
+      "status": "Status"
+    },
+    "placeholders": {
+      "bank_name_ar": "Enter bank name in Arabic",
+      "name_en": "Enter bank name in English",
+      "status": "Select status"
+    }
+  },
+  "view_bank": {
+    "title": "View Bank"
+  },
+  "banks_page": {
+    "title": "Banks Management",
+    "total_banks": "Total Banks Count",
+    "total_count": "banks",
+    "buttons": {
+      "add_new_bank": "Add New Bank",
+      "save": "Save"
+    },
+    "search_placeholder": "Search",
+    "filter_placeholder": "Bank Status",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "Name (Arabic)",
+      "nameEn": "Name (English)",
+      "status": "Status",
+      "created_date": "Created Date",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "validation": {
+      "nameEnRequired": "English name is required",
+      "nameEnMinLength": "English name must be at least 2 characters",
+      "nameEnMaxLength": "English name must not exceed 100 characters",
+      "nameArRequired": "Arabic name is required",
+      "nameArMinLength": "Arabic name must be at least 2 characters",
+      "nameArMaxLength": "Arabic name must not exceed 100 characters",
+      "statusRequired": "Status is required",
+      "statusInvalid": "Invalid status value"
+    },
+    "messages": {
+      "createSuccess": "Bank created successfully.",
+      "updateSuccess": "Bank updated successfully.",
+      "deleteSuccess": "Bank deleted successfully.",
+      "activateSuccess": "Bank activated successfully.",
+      "deactivateSuccess": "Bank deactivated successfully."
+    }
+  },
+  "add_new_delivery_company_form": {
+    "title": "Add New Delivery Company"
+  },
+  "edit_delivery_company": {
+    "title": "Edit Delivery Company"
+  },
+  "view_delivery_company": {
+    "title": "View Delivery Company"
+  },
+  "delivery_companies_page": {
+    "title": "Delivery Companies Management",
+    "total_delivery_companies": "Total Delivery Companies Count",
+    "total_count": "companies",
+    "buttons": {
+      "add_new_delivery_company": "Add New Delivery Company",
+      "save": "Save"
+    },
+    "search_placeholder": "Search",
+    "filter_placeholder": "Company Status",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "Name (Arabic)",
+      "nameEn": "Name (English)",
+      "status": "Status",
+      "created_date": "Created Date",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Delivery company created successfully.",
+      "updateSuccess": "Delivery company updated successfully.",
+      "deleteSuccess": "Delivery company deleted successfully.",
+      "activateSuccess": "Delivery company activated successfully.",
+      "deactivateSuccess": "Delivery company deactivated successfully."
+    }
+  },
   "dashboard": {
     "title": "Management Information",
     "cards": {
@@ -1678,5 +1828,21 @@
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User"
+  },
+  "noData": {
+    "subscriberRequests": "No subscription requests found",
+    "subscribers": "No subscribers found",
+    "admins": "No admins found",
+    "notifications": "No notifications found",
+    "messages": "No messages found",
+    "clients": "No clients found",
+    "features": "No features found",
+    "categories": "No categories found",
+    "cities": "No cities found",
+    "users": "No users found",
+    "faqs": "No FAQs found",
+    "contactMessages": "No contact messages found",
+    "banks": "No banks found",
+    "deliveryCompanies": "No delivery companies found"
   }
 }

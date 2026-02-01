@@ -9,6 +9,8 @@ import {
   ProvidersIcon,
   SettingsIcon,
   UsersIcon,
+  BankIcon,
+  ShippingIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
 import { CategoryIcon } from "@/assets/icons/sidebar/index";
@@ -87,6 +89,16 @@ export const Sidebar = ({ className }: { className?: string }) => {
               label: dict.navigation.electronicContracts,
             },
           ]}
+        />
+        <OptionLink
+          href="/banks"
+          icon={<BankIcon className="size-5" />}
+          label={dict.navigation.banks}
+        />
+        <OptionLink
+          href="/delivery-companies"
+          icon={<ShippingIcon className="size-5" />}
+          label={dict.navigation.delivery_companies}
         />
         {/* <OptionLink
           href="/reports"

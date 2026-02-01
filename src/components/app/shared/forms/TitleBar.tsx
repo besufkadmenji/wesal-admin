@@ -1,9 +1,9 @@
 import { FormType } from "@/components/app/shared/forms/AppForm";
 import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 import { CancelButton } from "../button/CancelButton";
 import { SaveButton, SaveButtonType } from "../button/SaveButton";
-import { twMerge } from "tailwind-merge";
 
 export const TitleBar = ({
   type,
@@ -71,6 +71,18 @@ export const TitleBar = ({
           ? dict.edit_faq.title
           : dict.view_faq.title,
     [FormType.ContactMessages]: dict.contact_message_detail_page.title,
+    [FormType.Banks]:
+      action === "add"
+        ? dict.add_new_bank_form.title
+        : action === "edit"
+          ? dict.edit_bank.title
+          : dict.view_bank.title,
+    [FormType.DeliveryCompanies]:
+      action === "add"
+        ? dict.add_new_delivery_company_form.title
+        : action === "edit"
+          ? dict.edit_delivery_company.title
+          : dict.view_delivery_company.title,
   };
   const saveType = SaveButtonType.Admin;
 

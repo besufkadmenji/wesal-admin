@@ -170,7 +170,9 @@
     "contact_us": "إدارة رسائل تواصل معنا",
     "notifications": "إدارة الإشعارات",
     "faq": "الأسئلة الشائعة",
-    "electronicContracts": "العقود الإلكترونية"
+    "electronicContracts": "العقود الإلكترونية",
+    "banks": "إدارة البنوك",
+    "delivery_companies": "إدارة شركات التوصيل"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -751,6 +753,20 @@
       "deactivation_reason": "ادخل سبب التعطيل..."
     }
   },
+  "activate_bank_confirmation": {
+    "title": "تفعيل البنك",
+    "description": "هل أنت متأكد من تفعيل هذا البنك؟"
+  },
+  "deactivate_bank_reason_form": {
+    "title": "تعطيل البنك",
+    "description": "هل أنت متأكد من تعطيل هذا البنك؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "أدخل سبب التعطيل..."
+    }
+  },
   "activate_feature_confirmation": {
     "title": "تفعيل الميزة",
     "description": "هل تريد بتأكيد تفعيل هذه الميزة؟"
@@ -875,6 +891,14 @@
     "deleteContactMessage": {
       "title": "حذف رسالة التواصل",
       "message": "هل تريد بتأكيد حذف هذه رسالة التواصل؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteBank": {
+      "title": "حذف البنك",
+      "message": "هل تريد بتأكيد حذف هذا البنك؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteDeliveryCompany": {
+      "title": "حذف شركة التوصيل",
+      "message": "هل تريد بتأكيد حذف هذه شركة التوصيل؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -1608,6 +1632,132 @@
     },
     "change_order_button": "تغيير الترتيب"
   },
+  "add_new_bank_form": {
+    "title": "إضافة بنك جديد",
+    "sections": {
+      "bank_information": "معلومات البنك"
+    },
+    "labels": {
+      "bank_name_ar": "اسم البنك (بالعربية)",
+      "name_en": "اسم البنك (بالإنجليزية)",
+      "status": "الحالة"
+    },
+    "placeholders": {
+      "bank_name_ar": "أدخل اسم البنك بالعربية",
+      "name_en": "أدخل اسم البنك بالإنجليزية",
+      "status": "اختر الحالة"
+    }
+  },
+  "edit_bank": {
+    "title": "تعديل البنك"
+  },
+  "edit_bank_form": {
+    "sections": {
+      "bank_information": "معلومات البنك"
+    },
+    "labels": {
+      "bank_name_ar": "اسم البنك (بالعربية)",
+      "name_en": "اسم البنك (بالإنجليزية)",
+      "status": "الحالة"
+    },
+    "placeholders": {
+      "bank_name_ar": "أدخل اسم البنك بالعربية",
+      "name_en": "أدخل اسم البنك بالإنجليزية",
+      "status": "اختر الحالة"
+    }
+  },
+  "view_bank": {
+    "title": "عرض البنك"
+  },
+  "banks_page": {
+    "title": "إدارة البنوك",
+    "total_banks": "إجمالي عدد البنوك",
+    "total_count": "بنك",
+    "buttons": {
+      "add_new_bank": "إضافة بنك جديد",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "حالة البنك",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "الاسم (بالعربية)",
+      "nameEn": "الاسم (بالإنجليزية)",
+      "status": "الحالة",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "validation": {
+      "nameEnRequired": "الاسم بالإنجليزية مطلوب",
+      "nameEnMinLength": "الاسم بالإنجليزية يجب أن يكون على الأقل حرفين",
+      "nameEnMaxLength": "الاسم بالإنجليزية يجب ألا يتجاوز 100 حرف",
+      "nameArRequired": "الاسم بالعربية مطلوب",
+      "nameArMinLength": "الاسم بالعربية يجب أن يكون على الأقل حرفين",
+      "nameArMaxLength": "الاسم بالعربية يجب ألا يتجاوز 100 حرف",
+      "statusRequired": "الحالة مطلوبة",
+      "statusInvalid": "قيمة الحالة غير صالحة"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء البنك بنجاح.",
+      "updateSuccess": "تم تحديث البنك بنجاح.",
+      "deleteSuccess": "تم حذف البنك بنجاح.",
+      "activateSuccess": "تم تفعيل البنك بنجاح.",
+      "deactivateSuccess": "تم تعطيل البنك بنجاح."
+    }
+  },
+  "add_new_delivery_company_form": {
+    "title": "إضافة شركة توصيل جديدة"
+  },
+  "edit_delivery_company": {
+    "title": "تعديل شركة التوصيل"
+  },
+  "view_delivery_company": {
+    "title": "عرض شركة التوصيل"
+  },
+  "delivery_companies_page": {
+    "title": "إدارة شركات التوصيل",
+    "total_delivery_companies": "إجمالي عدد شركات التوصيل",
+    "total_count": "شركة",
+    "buttons": {
+      "add_new_delivery_company": "إضافة شركة توصيل جديدة",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "حالة الشركة",
+    "table_headers": {
+      "checkbox": "",
+      "nameAr": "الاسم (بالعربية)",
+      "nameEn": "الاسم (بالإنجليزية)",
+      "status": "الحالة",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء شركة التوصيل بنجاح.",
+      "updateSuccess": "تم تحديث شركة التوصيل بنجاح.",
+      "deleteSuccess": "تم حذف شركة التوصيل بنجاح.",
+      "activateSuccess": "تم تفعيل شركة التوصيل بنجاح.",
+      "deactivateSuccess": "تم تعطيل شركة التوصيل بنجاح."
+    }
+  },
   "dashboard": {
     "title": "لوحة المعلومات",
     "cards": {
@@ -1677,5 +1827,21 @@
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم"
+  },
+  "noData": {
+    "subscriberRequests": "لا توجد طلبات اشتراك",
+    "subscribers": "لا يوجد مشتركين",
+    "admins": "لا يوجد مديرين",
+    "notifications": "لا توجد إشعارات",
+    "messages": "لا توجد رسائل",
+    "clients": "لا يوجد عملاء",
+    "features": "لا توجد مميزات",
+    "categories": "لا توجد فئات",
+    "cities": "لا توجد مدن",
+    "users": "لا يوجد مستخدمين",
+    "faqs": "لا توجد أسئلة شائعة",
+    "contactMessages": "لا توجد رسائل تواصل",
+    "banks": "لا توجد بنوك",
+    "deliveryCompanies": "لا توجد شركات توصيل"
   }
 }

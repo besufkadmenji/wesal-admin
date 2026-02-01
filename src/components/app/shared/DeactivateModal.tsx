@@ -7,7 +7,7 @@ import { showErrorMessage } from "@/utils/show.message";
 
 interface DeactivateModalProps {
   queryParamName: string;
-  onConfirm: (id: string, reason?: string) => void;
+  onConfirm: (id: string, reason: string) => void;
   busy: boolean;
   title?: string;
   description?: string;
@@ -36,7 +36,7 @@ export const DeactivateModal = ({
       return;
     }
     if (id) {
-      onConfirm(id, showReason ? reason : undefined);
+      onConfirm(id, reason);
     }
   };
 

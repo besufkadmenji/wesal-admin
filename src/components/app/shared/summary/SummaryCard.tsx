@@ -1,12 +1,15 @@
 import AdminsIcon from "@/assets/icons/app/summary/admins.svg";
+import BanksIcon from "@/assets/icons/app/summary/banks.svg";
 import CategoryIcon from "@/assets/icons/app/summary/category.summary.svg";
+import CitiesIcon from "@/assets/icons/app/summary/cities.svg";
 import ClientsIcon from "@/assets/icons/app/summary/clients.svg";
 import FeaturesIcon from "@/assets/icons/app/summary/features.svg";
 import MessagesIcon from "@/assets/icons/app/summary/messages.svg";
 import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
+import ShippingIcon from "@/assets/icons/app/summary/shipping.svg";
 import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.requests.svg";
 import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
-import CitiesIcon from "@/assets/icons/app/summary/cities.svg";
+
 import { Dictionary } from "@/config/i18n/types";
 import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
@@ -21,6 +24,8 @@ export enum SummaryCardType {
   CATEGORIES = "CATEGORIES",
   CITIES = "CITIES",
   USERS = "USERS",
+  BANKS = "BANKS",
+  DELIVERY_COMPANIES = "DELIVERY_COMPANIES",
 }
 
 const iconMap = {
@@ -36,6 +41,8 @@ const iconMap = {
   [SummaryCardType.CATEGORIES]: <CategoryIcon className="size-8.5" />,
   [SummaryCardType.CITIES]: <CitiesIcon className="size-8.5" />,
   [SummaryCardType.USERS]: <SubscribersIcon className="size-8.5" />,
+  [SummaryCardType.BANKS]: <BanksIcon className="size-8.5" />,
+  [SummaryCardType.DELIVERY_COMPANIES]: <ShippingIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -56,6 +63,9 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_categories,
   [SummaryCardType.CITIES]: dict.cities_page.total_cities,
   [SummaryCardType.USERS]: dict.users_page.total_users,
+  [SummaryCardType.BANKS]: dict.banks_page.total_banks,
+  [SummaryCardType.DELIVERY_COMPANIES]:
+    dict.delivery_companies_page.total_delivery_companies,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -70,6 +80,9 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.CATEGORIES]: dict.categories_page.total_count,
   [SummaryCardType.CITIES]: dict.cities_page.total_count,
   [SummaryCardType.USERS]: dict.users_page.total_count,
+  [SummaryCardType.BANKS]: dict.banks_page.total_count,
+  [SummaryCardType.DELIVERY_COMPANIES]:
+    dict.delivery_companies_page.total_count,
 });
 
 export const SummaryCard = ({

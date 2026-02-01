@@ -12,6 +12,8 @@ export enum AddButtonType {
   Category,
   City,
   Faq,
+  Bank,
+  DeliveryCompany,
 }
 export const AddButton = ({
   type,
@@ -35,6 +37,9 @@ export const AddButton = ({
     [AddButtonType.Category]: dict.categories_page.buttons.add_new_category,
     [AddButtonType.City]: dict.cities_page.buttons.add_new_city,
     [AddButtonType.Faq]: dict.faq_page.buttons.add_faq,
+    [AddButtonType.Bank]: dict.banks_page.buttons.add_new_bank,
+    [AddButtonType.DeliveryCompany]:
+      dict.delivery_companies_page.buttons.add_new_delivery_company,
   };
   return (
     <PrimaryButton

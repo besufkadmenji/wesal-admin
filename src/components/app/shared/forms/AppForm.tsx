@@ -15,6 +15,8 @@ export enum FormType {
   Users,
   Faqs,
   ContactMessages,
+  Banks,
+  DeliveryCompanies,
 }
 export const AppForm = ({
   type,
