@@ -83,6 +83,7 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_delivery_company.title
           : dict.view_delivery_company.title,
+    [FormType.Listings]: dict.view_listing.title,
   };
   const saveType = SaveButtonType.Admin;
 

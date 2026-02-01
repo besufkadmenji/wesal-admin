@@ -2,15 +2,16 @@ import LogoIcon from "@/assets/icons/main.logo.svg";
 import MenuIcon from "@/assets/icons/menu.svg";
 import {
   AdminsIcon,
+  BankIcon,
   CmsIcon,
   HomeIcon,
+  ListingIcon,
   LogoutIcon,
   MapPinIcon,
   ProvidersIcon,
   SettingsIcon,
-  UsersIcon,
-  BankIcon,
   ShippingIcon,
+  UsersIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
 import { CategoryIcon } from "@/assets/icons/sidebar/index";
@@ -61,6 +62,11 @@ export const Sidebar = ({ className }: { className?: string }) => {
           href="/categories"
           icon={<CategoryIcon className="size-5" />}
           label={dict.navigation.categories}
+        />
+        <OptionLink
+          href="/listings"
+          icon={<ListingIcon className="size-5" />}
+          label={dict.navigation.ads}
         />
         <OptionLink
           href="/cities"

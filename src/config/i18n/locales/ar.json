@@ -172,7 +172,8 @@
     "faq": "الأسئلة الشائعة",
     "electronicContracts": "العقود الإلكترونية",
     "banks": "إدارة البنوك",
-    "delivery_companies": "إدارة شركات التوصيل"
+    "delivery_companies": "إدارة شركات التوصيل",
+    "ads": "إدارة الإعلانات"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -335,20 +336,6 @@
     "buttons": {
       "send": "إرسال"
     }
-  },
-  "noData": {
-    "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
-    "subscribers": "لا يوجد مشتركون متاحون",
-    "admins": "لا يوجد مستخدمون متاحون",
-    "notifications": "لا توجد إشعارات متاحة",
-    "messages": "لا توجد رسائل متاحة",
-    "clients": "لا يوجد عملاء متاحون",
-    "features": "لا توجد مميزات متاحة",
-    "categories": "لا توجد فئات متاحة",
-    "cities": "لا توجد مدن متاحة",
-    "users": "لا يوجد مستخدمون متاحون",
-    "faqs": "لا توجد أسئلة شائعة متاحة",
-    "contactMessages": "لا توجد رسائل تواصل متاحة"
   },
   "add_new_user_form": {
     "title": "إضافة مستخدم جديد",
@@ -913,6 +900,10 @@
     "deleteDeliveryCompany": {
       "title": "حذف شركة التوصيل",
       "message": "هل تريد بتأكيد حذف هذه شركة التوصيل؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteListing": {
+      "title": "حذف الإعلان",
+      "message": "هل أنت متأكد من أنك تريد حذف هذا الإعلان؟ هذا الإجراء لا يمكن التراجع عنه."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -1810,6 +1801,41 @@
       "deactivateSuccess": "تم تعطيل شركة التوصيل بنجاح."
     }
   },
+  "listings_page": {
+    "title": "إدارة الإعلانات",
+    "total_listings": "إجمالي عدد الإعلانات",
+    "total_count": "إعلان",
+    "table_headers": {
+      "service_provider": "مقدم الخدمة",
+      "name": "الاسم",
+      "type": "النوع",
+      "status": "الحالة",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "messages": {
+      "deleteSuccess": "تم حذف الإعلان بنجاح.",
+      "activateSuccess": "تم تفعيل الإعلان بنجاح.",
+      "deactivateSuccess": "تم تعطيل الإعلان بنجاح."
+    }
+  },
+  "view_listing": {
+    "title": "عرض الإعلان"
+  },
+  "activate_listing_confirmation": {
+    "title": "تفعيل الإعلان",
+    "description": "هل أنت متأكد من تفعيل هذا الإعلان؟"
+  },
+  "deactivate_listing_reason_form": {
+    "title": "تعطيل الإعلان",
+    "description": "هل أنت متأكد من تعطيل هذا الإعلان؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "أدخل سبب التعطيل..."
+    }
+  },
   "dashboard": {
     "title": "لوحة المعلومات",
     "cards": {
@@ -1894,6 +1920,27 @@
     "faqs": "لا توجد أسئلة شائعة",
     "contactMessages": "لا توجد رسائل تواصل",
     "banks": "لا توجد بنوك",
-    "deliveryCompanies": "لا توجد شركات توصيل"
+    "deliveryCompanies": "لا توجد شركات توصيل",
+    "listings": "لا توجد إعلانات"
+  },
+  "listingDetail": {
+    "about": "عن الإعلان",
+    "viewAll": "عرض الكل",
+    "storyVideo": "الفيديو الخاص بالإعلان",
+    "editAdData": "تعديل بيانات الإعلان",
+    "reviews": {
+      "title": "التعليقات",
+      "overallRating": "التقييم العام",
+      "commentCount": "تعليق",
+      "comments": "التعليقات",
+      "reviewerName": "اسم المقيّم",
+      "postedDate": "تاريخ النشر",
+      "rating": "التقييم",
+      "comment": "التعليق",
+      "viewMore": "المزيد من التعليقات",
+      "addReview": "أضف تقييمك"
+    },
+    "serviceProviderData": "بيانات مقدم الخدمة",
+    "contactProvider": "المحادثة و إظهار البيانات"
   }
 }

@@ -16,3 +16,4 @@ export { default as CategoryIcon } from "./category.svg";
 export { default as UsersIcon } from "./users.svg";
 export { default as BankIcon } from "./bank.svg";
 export { default as ShippingIcon } from "./truck.svg";
+export { default as ListingIcon } from "./listings.svg";

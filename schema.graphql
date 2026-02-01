@@ -761,9 +761,12 @@ input ForgotPasswordInput {
 }
 
 type Listing {
+  category: Category
   categoryId: String!
+  city: City
   cityId: String!
   createdAt: DateTime!
+  deactivationReason: String
   description: String!
   id: String!
   name: String!
@@ -820,10 +823,8 @@ enum ListingSortField {
 
 """Listing publication status"""
 enum ListingStatus {
-  DRAFT
-  EXPIRED
-  PUBLISHED
-  SUSPENDED
+  ACTIVE
+  INACTIVE
 }
 
 """Listing type (free or featured)"""
@@ -884,6 +885,7 @@ type Mutation {
   activateAdmin(id: ID!): Admin!
   activateBank(id: ID!): Bank!
   activateDeliveryCompany(id: ID!): DeliveryCompany!
+  activateListing(id: ID!): Listing!
 
   """Activate user by ID"""
   activateUser(id: ID!): User!
@@ -932,6 +934,7 @@ type Mutation {
   deactivateAdmin(id: ID!, input: DeactivateAdminInput!): Admin!
   deactivateBank(id: ID!, input: DeactivateBankInput!): Bank!
   deactivateDeliveryCompany(id: ID!, input: DeactivateDeliveryCompanyInput!): DeliveryCompany!
+  deactivateListing(id: ID!, reason: String!): Listing!
 
   """Deactivate user by ID"""
   deactivateUser(id: ID!, input: DeactivateUserInput!): User!
@@ -1001,7 +1004,7 @@ type Mutation {
 
   """Remove favorite by user and listing IDs"""
   removeFavoriteByUserAndListing(listingId: String!, userId: String!): Favorite!
-  removeListing(id: String!): RemoveListingResponse!
+  removeListing(id: ID!): RemoveListingResponse!
   removeMessage(id: String!): Message!
   removeNotification(id: String!): Notification!
   removePayment(id: String!): Payment!
@@ -1430,7 +1433,7 @@ type Query {
 
   """Check if listing is favorited by user"""
   isFavorite(listingId: String!, userId: String!): Boolean!
-  listing(id: String!): Listing
+  listing(id: ID!): Listing
   listings(paginationInput: ListingPaginationInput!): PaginatedListingResponse!
 
   """Get current authenticated user"""

@@ -9,6 +9,7 @@ import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
 import ShippingIcon from "@/assets/icons/app/summary/shipping.svg";
 import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.requests.svg";
 import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
+import ListingsIcon from "@/assets/icons/app/summary/ads.svg";
 
 import { Dictionary } from "@/config/i18n/types";
 import { useDict } from "@/hooks/useDict";
@@ -26,6 +27,7 @@ export enum SummaryCardType {
   USERS = "USERS",
   BANKS = "BANKS",
   DELIVERY_COMPANIES = "DELIVERY_COMPANIES",
+  LISTINGS = "LISTINGS",
 }
 
 const iconMap = {
@@ -43,6 +45,7 @@ const iconMap = {
   [SummaryCardType.USERS]: <SubscribersIcon className="size-8.5" />,
   [SummaryCardType.BANKS]: <BanksIcon className="size-8.5" />,
   [SummaryCardType.DELIVERY_COMPANIES]: <ShippingIcon className="size-8.5" />,
+  [SummaryCardType.LISTINGS]: <ListingsIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -66,6 +69,7 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.BANKS]: dict.banks_page.total_banks,
   [SummaryCardType.DELIVERY_COMPANIES]:
     dict.delivery_companies_page.total_delivery_companies,
+  [SummaryCardType.LISTINGS]: dict.listings_page.total_listings,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -83,6 +87,7 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.BANKS]: dict.banks_page.total_count,
   [SummaryCardType.DELIVERY_COMPANIES]:
     dict.delivery_companies_page.total_count,
+  [SummaryCardType.LISTINGS]: dict.listings_page.total_count,
 });
 
 export const SummaryCard = ({
