@@ -1,10 +1,14 @@
-import { ViewAdmin } from "@/components/app/Admins/manage/ViewAdmin";
+import { ViewDeliveryCompany } from "@/components/app/DeliveryCompanies/manage/ViewDeliveryCompany";
 type Params = {
   id: string;
 };
-const ViewAdminPage = async ({ params }: { params: Promise<Params> }) => {
+const ViewDeliveryCompanyPage = async ({
+  params,
+}: {
+  params: Promise<Params>;
+}) => {
   const { id } = await params;
-  return <ViewAdmin id={id} />;
+  return <ViewDeliveryCompany id={id} />;
 };
 
-export default ViewAdminPage;
+export default ViewDeliveryCompanyPage;

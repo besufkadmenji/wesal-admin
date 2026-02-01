@@ -755,6 +755,20 @@
       "deactivation_reason": "Enter deactivation reason..."
     }
   },
+  "activate_delivery_companies_confirmation": {
+    "title": "Activate Delivery Company",
+    "description": "Are you sure you want to activate this delivery company?"
+  },
+  "deactivate_delivery_company_reason_form": {
+    "title": "Deactivate Delivery Company",
+    "description": "Are you sure you want to deactivate this delivery company?",
+    "labels": {
+      "deactivation_reason": "Deactivation Reason"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter deactivation reason..."
+    }
+  },
   "activate_bank_confirmation": {
     "title": "Activate Bank",
     "description": "Are you sure you want to activate this bank?"
@@ -1716,10 +1730,38 @@
     }
   },
   "add_new_delivery_company_form": {
-    "title": "Add New Delivery Company"
+    "title": "Add New Delivery Company",
+    "sections": {
+      "delivery_company_information": "Delivery Company Information"
+    },
+    "labels": {
+      "delivery_company_name_ar": "Delivery Company Name (Arabic)",
+      "delivery_company_name_en": "Delivery Company Name (English)",
+      "status": "Status"
+    },
+    "placeholders": {
+      "delivery_company_name_ar": "Enter delivery company name in Arabic",
+      "delivery_company_name_en": "Enter delivery company name in English",
+      "status": "Select status"
+    }
   },
   "edit_delivery_company": {
     "title": "Edit Delivery Company"
+  },
+  "edit_delivery_company_form": {
+    "sections": {
+      "delivery_company_information": "Delivery Company Information"
+    },
+    "labels": {
+      "delivery_company_name_ar": "Delivery Company Name (Arabic)",
+      "delivery_company_name_en": "Delivery Company Name (English)",
+      "status": "Status"
+    },
+    "placeholders": {
+      "delivery_company_name_ar": "Enter delivery company name in Arabic",
+      "delivery_company_name_en": "Enter delivery company name in English",
+      "status": "Select status"
+    }
   },
   "view_delivery_company": {
     "title": "View Delivery Company"
@@ -1750,6 +1792,16 @@
       "view": "View",
       "edit": "Edit",
       "delete": "Delete"
+    },
+    "validation": {
+      "nameEnRequired": "English name is required",
+      "nameEnMinLength": "English name must be at least 2 characters",
+      "nameEnMaxLength": "English name must not exceed 100 characters",
+      "nameArRequired": "Arabic name is required",
+      "nameArMinLength": "Arabic name must be at least 2 characters",
+      "nameArMaxLength": "Arabic name must not exceed 100 characters",
+      "statusRequired": "Status is required",
+      "statusInvalid": "Invalid status value"
     },
     "messages": {
       "createSuccess": "Delivery company created successfully.",

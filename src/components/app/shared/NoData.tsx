@@ -15,7 +15,7 @@ export enum NoDataType {
   Faqs = "Faqs",
   ContactMessages = "ContactMessages",
   Banks = "Banks",
-  DeliveryBanks = "DeliveryBanks",
+  DeliveryCompanies = "DeliveryCompanies",
 }
 
 export const NoData = ({ type }: { type: NoDataType }) => {
@@ -35,7 +35,7 @@ export const NoData = ({ type }: { type: NoDataType }) => {
     [NoDataType.Faqs]: dict.noData.faqs,
     [NoDataType.ContactMessages]: dict.noData.contactMessages,
     [NoDataType.Banks]: dict.noData.banks,
-    [NoDataType.DeliveryBanks]: dict.noData.deliveryCompanies,
+    [NoDataType.DeliveryCompanies]: dict.noData.deliveryCompanies,
   };
 
   return (

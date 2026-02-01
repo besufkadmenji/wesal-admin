@@ -1,6 +1,6 @@
-import { AddAdmin } from "@/components/app/Admins/manage/AddAdmin";
-const AddAdminPage = () => {
-  return <AddAdmin />;
+import { AddDeliveryCompany } from "@/components/app/DeliveryCompanies/manage/AddDeliveryCompany";
+const AddDeliveryCompanyPage = () => {
+  return <AddDeliveryCompany />;
 };
 
-export default AddAdminPage;
+export default AddDeliveryCompanyPage;

@@ -1,6 +1,6 @@
-import { Admins } from "@/components/app/Admins/Admins";
-const AdminsPage = () => {
-  return <Admins />;
+import { DeliveryCompanies } from "@/components/app/DeliveryCompanies/DeliveryCompanies";
+const DeliveryCompaniesPage = () => {
+  return <DeliveryCompanies />;
 };
 
-export default AdminsPage;
+export default DeliveryCompaniesPage;

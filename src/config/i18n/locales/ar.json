@@ -753,6 +753,20 @@
       "deactivation_reason": "ادخل سبب التعطيل..."
     }
   },
+  "activate_delivery_companies_confirmation": {
+    "title": "تفعيل شركة التوصيل",
+    "description": "هل أنت متأكد من تفعيل شركة التوصيل هذه؟"
+  },
+  "deactivate_delivery_company_reason_form": {
+    "title": "تعطيل شركة التوصيل",
+    "description": "هل أنت متأكد من تعطيل شركة التوصيل هذه؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "أدخل سبب التعطيل..."
+    }
+  },
   "activate_bank_confirmation": {
     "title": "تفعيل البنك",
     "description": "هل أنت متأكد من تفعيل هذا البنك؟"
@@ -1715,10 +1729,38 @@
     }
   },
   "add_new_delivery_company_form": {
-    "title": "إضافة شركة توصيل جديدة"
+    "title": "إضافة شركة توصيل جديدة",
+    "sections": {
+      "delivery_company_information": "معلومات شركة التوصيل"
+    },
+    "labels": {
+      "delivery_company_name_ar": "اسم شركة التوصيل (بالعربية)",
+      "delivery_company_name_en": "اسم شركة التوصيل (بالإنجليزية)",
+      "status": "الحالة"
+    },
+    "placeholders": {
+      "delivery_company_name_ar": "أدخل اسم شركة التوصيل بالعربية",
+      "delivery_company_name_en": "أدخل اسم شركة التوصيل بالإنجليزية",
+      "status": "اختر الحالة"
+    }
   },
   "edit_delivery_company": {
     "title": "تعديل شركة التوصيل"
+  },
+  "edit_delivery_company_form": {
+    "sections": {
+      "delivery_company_information": "معلومات شركة التوصيل"
+    },
+    "labels": {
+      "delivery_company_name_ar": "اسم شركة التوصيل (بالعربية)",
+      "delivery_company_name_en": "اسم شركة التوصيل (بالإنجليزية)",
+      "status": "الحالة"
+    },
+    "placeholders": {
+      "delivery_company_name_ar": "أدخل اسم شركة التوصيل بالعربية",
+      "delivery_company_name_en": "أدخل اسم شركة التوصيل بالإنجليزية",
+      "status": "اختر الحالة"
+    }
   },
   "view_delivery_company": {
     "title": "عرض شركة التوصيل"
@@ -1749,6 +1791,16 @@
       "view": "عرض",
       "edit": "تعديل",
       "delete": "حذف"
+    },
+    "validation": {
+      "nameEnRequired": "الاسم بالإنجليزية مطلوب",
+      "nameEnMinLength": "الاسم بالإنجليزية يجب أن يكون على الأقل حرفين",
+      "nameEnMaxLength": "الاسم بالإنجليزية يجب ألا يتجاوز 100 حرف",
+      "nameArRequired": "الاسم بالعربية مطلوب",
+      "nameArMinLength": "الاسم بالعربية يجب أن يكون على الأقل حرفين",
+      "nameArMaxLength": "الاسم بالعربية يجب ألا يتجاوز 100 حرف",
+      "statusRequired": "الحالة مطلوبة",
+      "statusInvalid": "قيمة الحالة غير صالحة"
     },
     "messages": {
       "createSuccess": "تم إنشاء شركة التوصيل بنجاح.",

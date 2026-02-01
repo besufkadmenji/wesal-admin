@@ -1,10 +1,14 @@
-import { EditAdmin } from "@/components/app/Admins/manage/EditAdmin";
+import { EditDeliveryCompany } from "@/components/app/DeliveryCompanies/manage/EditDeliveryCompany";
 type Params = {
   id: string;
 };
-const EditAdminPage = async ({ params }: { params: Promise<Params> }) => {
+const EditDeliveryCompanyPage = async ({
+  params,
+}: {
+  params: Promise<Params>;
+}) => {
   const { id } = await params;
-  return <EditAdmin id={id} />;
+  return <EditDeliveryCompany id={id} />;
 };
 
-export default EditAdminPage;
+export default EditDeliveryCompanyPage;
