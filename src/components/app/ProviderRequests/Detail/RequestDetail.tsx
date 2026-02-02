@@ -1,32 +1,32 @@
 "use client";
 
-import { DocumentDisplay } from "@/components/app/ProviderRequests/Detail/DocumentDisplay";
 import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/RejectReasonModal";
 import { RequestAction } from "@/components/app/ProviderRequests/Detail/RequestAction";
 import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
-import { UserRole, UserStatus } from "@/gql/graphql";
+import { ProviderStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
-import { FormSelect } from "../../shared/forms/FormSelect";
-import { useUser } from "../useUser";
-import { useEffect } from "react";
+import { useProvider } from "../useProvider";
+import { DocumentDisplay } from "./DocumentDisplay";
+import { dataUrl } from "@/config/url";
 
 export const RequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const router = useRouter();
-  const { data: request } = useUser(id);
+  const { data: request } = useProvider(id);
   console.log("Category Data:", request, id);
   useEffect(() => {
-    if (request && request.status !== UserStatus.PendingApproval) {
+    if (request && request.status !== ProviderStatus.PendingApproval) {
       router.replace(`/providers/requests`);
     }
     return () => {};
   }, [router, request]);
 
-  return !request || request.status !== UserStatus.PendingApproval ? (
+  return !request || request.status !== ProviderStatus.PendingApproval ? (
     <AppLoading className="h-[84vh]" />
   ) : (
     <>
@@ -65,19 +65,6 @@ export const RequestDetail = ({ id }: { id: string }) => {
                 onChange={(value: string): void => {}}
                 readOnly
               />
-              <FormSelect
-                label={dict.subscription_request_detail_page.labels.type}
-                placeholder={dict.subscription_request_detail_page.labels.type}
-                value={request.role}
-                onChange={(value: string): void => {}}
-                options={[
-                  {
-                    key: UserRole.Provider,
-                    label: dict.common.serviceProvider,
-                  },
-                ]}
-                readOnly
-              />
               <FormInput
                 label={
                   dict.subscription_request_detail_page.labels
@@ -91,9 +78,15 @@ export const RequestDetail = ({ id }: { id: string }) => {
                 onChange={(value: string): void => {}}
                 readOnly
               />
-              {/* <div className="col-start-1 col-end-3 grid justify-center p-10">
-                <DocumentDisplay documentPath={request.avatarFilename ?? "-"} />
-              </div> */}
+              <div className="col-start-1 col-end-3 grid justify-center p-10">
+                <DocumentDisplay
+                  documentPath={
+                    request.commercialRegistrationFilename
+                      ? `${dataUrl}/files/${request.commercialRegistrationFilename}`
+                      : "-"
+                  }
+                />
+              </div>
             </div>
           </FormSection>
         </AppForm>

@@ -64,6 +64,12 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_user.title
           : dict.view_user.title,
+    [FormType.Providers]:
+      action === "add"
+        ? dict.add_new_provider_form.title
+        : action === "edit"
+          ? dict.edit_provider.title
+          : dict.view_provider.title,
     [FormType.Faqs]:
       action === "add"
         ? dict.add_new_faq_form.title

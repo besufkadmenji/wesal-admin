@@ -1,6 +1,6 @@
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 
-import { useManageUser } from "@/components/app/Users/Detail/useManageUser";
+import { useManageProvider } from "@/components/app/Providers/Detail/useManageProvider";
 import {
   DeleteWarning,
   DeleteWarningType,
@@ -12,20 +12,22 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
-import { ActivateUser } from "./ActivateUser";
-import { DeactivateUser } from "./DeactivateUser";
+import { ActivateProvider } from "./ActivateProvider";
+import { DeactivateProvider } from "./DeactivateProvider";
 import { renderCell } from "./renderCell";
-import { useUsers } from "./useUser";
+import { useProviders } from "./useProvider";
 
-export const UsersList = () => {
+export const ProvidersList = () => {
   const dict = useDict();
-  const { data, isLoading } = useUsers();
-  const { deleteUser, busy } = useManageUser();
+  const { data, isLoading } = useProviders();
+  const { deleteProvider, busy } = useManageProvider();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const [activateUser, setActivateUser] = useQueryState("activateUser");
-  const [deactivateUser, setDeactivateUser] = useQueryState("deactivateUser");
+  const [activateProvider, setActivateProvider] =
+    useQueryState("activateProvider");
+  const [deactivateProvider, setDeactivateProvider] =
+    useQueryState("deactivateProvider");
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   // const { approveRequest, rejectRequest, busy } = useManageRequest();
   const [showRejectModal, setShowRejectModal] =
@@ -35,33 +37,33 @@ export const UsersList = () => {
   const columns: ColumnType[] = [
     {
       key: "number",
-      label: dict.users_page.table_headers.number,
+      label: dict.providers_page.table_headers.number,
     },
     {
       key: "name",
-      label: dict.users_page.table_headers.name,
+      label: dict.providers_page.table_headers.name,
     },
     {
       key: "phone",
-      label: dict.users_page.table_headers.phone_number,
+      label: dict.providers_page.table_headers.phone_number,
     },
     {
       key: "email",
-      label: dict.users_page.table_headers.email,
+      label: dict.providers_page.table_headers.email,
     },
     {
       key: "date",
-      label: dict.users_page.table_headers.registration_date,
+      label: dict.providers_page.table_headers.registration_date,
       align: "center",
     },
     {
       key: "status",
-      label: dict.users_page.table_headers.status,
+      label: dict.providers_page.table_headers.status,
       align: "center",
     },
     {
       key: "action",
-      label: dict.users_page.table_headers.actions,
+      label: dict.providers_page.table_headers.actions,
       align: "center",
     },
   ];
@@ -69,20 +71,20 @@ export const UsersList = () => {
   return isLoading ? (
     <AppTableSkeleton columns={columns.length} rows={10} />
   ) : !data || data.items.length === 0 ? (
-    <NoData type={NoDataType.Users} />
+    <NoData type={NoDataType.Providers} />
   ) : (
     <>
       <AppTable
-        label="Users"
+        label="Providers"
         columns={columns}
-        rows={data.items.map((user) => ({
-          key: user.id,
-          number: `${user.publicId ?? "-"}`,
-          name: user.name ?? "-",
-          phone: user.phone,
-          email: user.email,
-          date: DateTimeHelpers.formatDate(user.createdAt),
-          status: user.status,
+        rows={data.items.map((provider) => ({
+          key: provider.id,
+          number: `${provider.publicId ?? "-"}`,
+          name: provider.name ?? "-",
+          phone: provider.phone,
+          email: provider.email,
+          date: DateTimeHelpers.formatDate(provider.createdAt),
+          status: provider.status,
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {
@@ -94,9 +96,9 @@ export const UsersList = () => {
             },
             onActivate: (value: boolean) => {
               if (value) {
-                setActivateUser(row.key as string, { history: "push" });
+                setActivateProvider(row.key as string, { history: "push" });
               } else {
-                setDeactivateUser(row.key as string, { history: "push" });
+                setDeactivateProvider(row.key as string, { history: "push" });
               }
             },
           })
@@ -114,14 +116,14 @@ export const UsersList = () => {
         onClose={() => setIsDeleteWarningOpen(null)}
         onConfirm={() => {
           if (isDeleteWarningOpen) {
-            deleteUser(isDeleteWarningOpen);
+            deleteProvider(isDeleteWarningOpen);
           }
         }}
         busy={busy}
-        type={DeleteWarningType.USER}
+        type={DeleteWarningType.PROVIDER}
       />
-      <ActivateUser />
-      <DeactivateUser />
+      <ActivateProvider />
+      <DeactivateProvider />
     </>
   );
 };

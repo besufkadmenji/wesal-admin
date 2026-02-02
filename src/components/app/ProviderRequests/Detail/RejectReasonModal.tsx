@@ -1,4 +1,4 @@
-import { User } from "@/gql/graphql";
+import { Provider } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -6,14 +6,14 @@ import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
-import { useManageUser } from "./useManageUser";
-export const RejectReasonModal = ({ request }: { request: User }) => {
+import { useManageProvider } from "./useManageProvider";
+export const RejectReasonModal = ({ request }: { request: Provider }) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
   const router = useRouter();
   const [reason, setReason] = useState("");
-  const { deactivateUser, busy } = useManageUser();
+  const { deactivateProvider, busy } = useManageProvider();
 
   return (
     <Modal
@@ -44,7 +44,7 @@ export const RejectReasonModal = ({ request }: { request: User }) => {
             isDisabled={!reason.trim() || busy}
             isLoading={busy}
             onPress={() => {
-              deactivateUser(request.id, reason);
+              deactivateProvider(request.id, reason);
             }}
           >
             {dict.reject_subscription_form.buttons.send}

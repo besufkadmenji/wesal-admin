@@ -21,7 +21,7 @@ export const SignedContract = ({ id }: { id: string }) => {
   const lng = useLang();
   const { me } = useMe();
   const { data: signedContract } = useSignedContract(id);
-  const user = signedContract?.user;
+  const provider = signedContract?.provider;
   const contractRef = useRef<HTMLDivElement | null>(null);
   const { saveSignature, busy } = useSignSignature();
   const [open, setOpen] = useQueryState("cancelContract", {
@@ -43,7 +43,7 @@ export const SignedContract = ({ id }: { id: string }) => {
   }, []);
 
   return (
-    user && (
+    provider && (
       <>
         <div className="grid grid-cols-1 gap-10 rounded-2xl bg-white p-10">
           <h1 className="text-2xl font-semibold text-black">
@@ -53,20 +53,20 @@ export const SignedContract = ({ id }: { id: string }) => {
             <div className="grid grid-cols-2 gap-4">
               <FormInput
                 label={dict.contract.serviceProviderName}
-                value={user.name || ""}
+                value={provider.name || ""}
               />
               <FormInput
                 label={dict.contract.commercialName}
-                value={user.commercialName || ""}
+                value={provider.commercialName || ""}
               />
               <FormInput
                 label={dict.contract.phoneNumber}
-                value={`${user.dialCode}${user.phone}` || ""}
+                value={`${provider.dialCode}${provider.phone}` || ""}
               />
               <FormInput
                 label={dict.contract.category}
                 value={
-                  user.categories
+                  provider.categories
                     ?.map((cat) => (lng === "en" ? cat.nameEn : cat.nameAr))
                     .join(", ") || ""
                 }
@@ -75,12 +75,12 @@ export const SignedContract = ({ id }: { id: string }) => {
             <div className="grid grid-cols-1 items-start gap-x-4 gap-y-6 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
               <FormInput
                 label={dict.profile.commercialRecordNumber}
-                value={user.commercialRegistrationNumber || ""}
+                value={provider.commercialRegistrationNumber || ""}
                 className="h-max rounded-none border-none p-0"
               />
               <div className="relative h-47.5 w-full">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_DATA}/files/${user.commercialRegistrationFilename}`}
+                  src={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.commercialRegistrationFilename}`}
                   alt="Commercial Record"
                   fill
                   className="object-contain object-left"
@@ -90,7 +90,7 @@ export const SignedContract = ({ id }: { id: string }) => {
             <div className="grid grid-cols-[1fr_auto] gap-3">
               <FormInput
                 label={dict.contract.address}
-                value={user.address || ""}
+                value={provider.address || ""}
               />
               <Button
                 className="h-full rounded-[20px] bg-[#EFF1F6] px-6!"
@@ -133,7 +133,7 @@ export const SignedContract = ({ id }: { id: string }) => {
                 {dict.contract.signatureAllowedOnce}
               </p>
             </div>
-            {user.withAbsher && <AbsherVerified />}
+            {provider.withAbsher && <AbsherVerified />}
             <div className="grid grid-cols-1 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
               <h3 className="leading-8 font-medium text-black">
                 {dict.contract.commitmentText}
@@ -171,7 +171,7 @@ export const SignedContract = ({ id }: { id: string }) => {
             <Button
               className="bg-primary h-12.5 justify-self-center rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
               onPress={() => {
-                saveSignature(user.id);
+                saveSignature(provider.id);
               }}
               isDisabled={busy}
               isLoading={busy}
@@ -180,7 +180,7 @@ export const SignedContract = ({ id }: { id: string }) => {
             </Button>
           )}
         </div>
-        <CancelContract userId={user.id} />
+        <CancelContract userId={provider.id} />
       </>
     )
   );

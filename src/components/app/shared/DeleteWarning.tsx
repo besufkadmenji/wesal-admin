@@ -14,6 +14,7 @@ export enum DeleteWarningType {
   BANK = "BANK",
   DELIVERY_COMPANY = "DELIVERY_COMPANY",
   LISTING = "LISTING",
+  PROVIDER = "PROVIDER",
 }
 
 export const DeleteWarning = ({
@@ -46,6 +47,7 @@ export const DeleteWarning = ({
     [DeleteWarningType.DELIVERY_COMPANY]:
       dict.deleteConfirmation.deleteDeliveryCompany.title,
     [DeleteWarningType.LISTING]: dict.deleteConfirmation.deleteListing.title,
+    [DeleteWarningType.PROVIDER]: dict.deleteConfirmation.deleteProvider.title,
   };
   const message = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.message,
@@ -64,6 +66,8 @@ export const DeleteWarning = ({
     [DeleteWarningType.DELIVERY_COMPANY]:
       dict.deleteConfirmation.deleteDeliveryCompany.message,
     [DeleteWarningType.LISTING]: dict.deleteConfirmation.deleteListing.message,
+    [DeleteWarningType.PROVIDER]:
+      dict.deleteConfirmation.deleteProvider.message,
   };
 
   return (

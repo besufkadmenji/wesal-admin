@@ -1,6 +1,6 @@
 import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/RejectReasonModal";
 import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
-import { useUsers } from "@/components/app/ProviderRequests/useUser";
+import { useProviders } from "@/components/app/ProviderRequests/useProvider";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
@@ -9,18 +9,18 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
-import { useManageUser } from "./Detail/useManageUser";
+import { useManageProvider } from "./Detail/useManageProvider";
 import { renderCell } from "./renderCell";
 
 export const RequestsList = () => {
   const dict = useDict();
-  const { data, isLoading } = useUsers();
+  const { data, isLoading } = useProviders();
   // const { deleteProduct, busy } = useManageProduct();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
-  const { activateUser, deactivateUser, busy } = useManageUser();
+  const { activateProvider, deactivateProvider, busy } = useManageProvider();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const request = data?.items.find((req) => req.id === showRejectModal);
@@ -29,33 +29,33 @@ export const RequestsList = () => {
   const columns: ColumnType[] = [
     {
       key: "number",
-      label: dict.users_page.table_headers.number,
+      label: dict.providers_request_page.table_headers.number,
     },
     {
       key: "name",
-      label: dict.subscription_requests_page.table_headers.name,
+      label: dict.providers_request_page.table_headers.name,
     },
     {
       key: "phone",
-      label: dict.subscription_requests_page.table_headers.phone_number,
+      label: dict.providers_request_page.table_headers.phone_number,
     },
     {
       key: "email",
-      label: dict.subscription_requests_page.table_headers.email,
+      label: dict.providers_request_page.table_headers.email,
     },
     {
       key: "type",
-      label: dict.subscription_requests_page.table_headers.type,
+      label: dict.providers_request_page.table_headers.type,
       align: "center",
     },
     {
       key: "date",
-      label: dict.subscription_requests_page.table_headers.request_date,
+      label: dict.providers_request_page.table_headers.request_date,
       align: "center",
     },
     {
       key: "action",
-      label: dict.subscription_requests_page.table_headers.actions,
+      label: dict.providers_request_page.table_headers.actions,
       align: "center",
     },
   ];
@@ -75,7 +75,6 @@ export const RequestsList = () => {
           name: request.name ?? "-",
           phone: request.phone,
           email: request.email,
-          type: request.role,
           date: DateTimeHelpers.formatDate(request.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
@@ -84,7 +83,7 @@ export const RequestsList = () => {
               router.push(`${pathname}/${row.key}`);
             },
             onApprove: () => {
-              activateUser(row.key);
+              activateProvider(row.key);
             },
             onReject: () => {
               setShowRejectModal(row.key, { history: "push" });

@@ -1,7 +1,6 @@
-import { Users } from "@/components/app/Users/Users";
-import { UserRole } from "@/gql/graphql";
+import { Providers } from "@/components/app/Providers/Providers";
 const ServiceProvidersPage = () => {
-  return <Users role={UserRole.Provider} />;
+  return <Providers />;
 };
 
 export default ServiceProvidersPage;

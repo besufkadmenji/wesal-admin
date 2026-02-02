@@ -1,4 +1,4 @@
-import { UserDetail } from "@/components/app/Users/Detail/UserDetail";
+import { ProviderDetail } from "@/components/app/Providers/Detail/ProviderDetail";
 type Params = {
   id: string;
 };
@@ -8,7 +8,7 @@ const ServiceProviderDetailPage = async ({
   params: Promise<Params>;
 }) => {
   const { id } = await params;
-  return <UserDetail id={id} />;
+  return <ProviderDetail id={id} />;
 };
 
 export default ServiceProviderDetailPage;

@@ -1,5 +1,5 @@
 "use client";
-import { RequestsFilter } from "@/components/app/ProviderRequests/RequestsFilter";
+
 import { Gap } from "@/components/app/shared/Gap";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -10,11 +10,13 @@ import {
 import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
 
-import { RequestsList } from "@/components/app/ProviderRequests/RequestsList";
-import { useProviders } from "@/components/app/ProviderRequests/useProvider";
+import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
+import { ProvidersFilter } from "./ProvidersFilter";
+import { ProvidersList } from "./ProvidersList";
+import { useProviders } from "./useProvider";
 
-export const ProviderRequests = () => {
+export const Providers = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
@@ -22,21 +24,26 @@ export const ProviderRequests = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.providers_request_page.title} />
+      <PageBar
+        title={dict.providers_page.title}
+        className="grid grid-cols-1 gap-2 md:flex"
+      >
+        <ExportButton model={""} />
+      </PageBar>
       <Gap className="h-8" />
       {isLoading ? (
         <SummaryCardSkeleton />
       ) : (
         <SummaryCard
-          type={SummaryCardType.PROVIDER_REQUESTS}
+          type={SummaryCardType.PROVIDERS}
           value={data?.meta.total ?? 0}
         />
       )}
 
       <Gap className="h-6" />
       <div className="grid grid-cols-1 gap-4">
-        <RequestsFilter />
-        <RequestsList />
+        <ProvidersFilter />
+        <ProvidersList />
       </div>
     </PageWrapper>
   );

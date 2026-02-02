@@ -17,20 +17,7 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
           address
           avatarFilename
           bankName
-          categories {
-            createdAt
-            descriptionAr
-            descriptionEn
-            id
-            nameAr
-            nameEn
-            image
-            updatedAt
-            rulesEn
-            rulesAr
-          }
           cityId
-          commercialRegistrationNumber
           countryId
           createdAt
           dialCode
@@ -45,9 +32,7 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
           name
           phone
           phoneVerified
-          role
           updatedAt
-          withAbsher
           status
           city {
             countryId
@@ -60,24 +45,6 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
           deactivationReason
           deleteReason
           deletedAt
-          signedContract {
-            contractExpiresAt
-            contractSignedAt
-            platformManagerSignature
-            serviceProviderSignature
-            status
-            terminationReason
-            platformManagerName
-            acceptedRulesEn
-            acceptedRulesAr
-            id
-            createdAt
-            publicId
-            updatedAt
-            userId
-          }
-          commercialName
-          commercialRegistrationFilename
           publicId
         }
       }

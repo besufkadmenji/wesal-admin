@@ -1,21 +1,15 @@
 import {
-  AdminTerminateContractMutation,
-  AdminTerminateContractMutationVariables
+  AdminSignProviderContractMutation,
+  AdminSignProviderContractMutationVariables
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
-export const TERMINATE_CONTRACT_MUTATION: TypedDocumentNode<
-  AdminTerminateContractMutation,
-  AdminTerminateContractMutationVariables
+export const SIGN_CONTRACT_MUTATION: TypedDocumentNode<
+  AdminSignProviderContractMutation,
+  AdminSignProviderContractMutationVariables
 > = gql`
-  mutation adminTerminateContract(
-    $userId: String!
-    $terminationReason: String!
-  ) {
-    adminTerminateContract(
-      userId: $userId
-      terminationReason: $terminationReason
-    ) {
+  mutation adminSignProviderContract($input: AdminSignContractInput!) {
+    adminSignProviderContract(input: $input) {
       id
       name
       isActive
@@ -32,7 +26,6 @@ export const TERMINATE_CONTRACT_MUTATION: TypedDocumentNode<
       longitude
       phone
       phoneVerified
-      role
       updatedAt
       ibanNumber
       bankName
@@ -54,6 +47,9 @@ export const TERMINATE_CONTRACT_MUTATION: TypedDocumentNode<
         platformManagerSignature
         serviceProviderSignature
         status
+        platformManagerName
+        acceptedRulesEn
+        acceptedRulesAr
       }
       deactivationReason
       deleteReason

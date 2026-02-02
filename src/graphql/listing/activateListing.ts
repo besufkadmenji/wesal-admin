@@ -47,7 +47,6 @@ export const ACTIVATE_LISTING_MUTATION: TypedDocumentNode<
         withAbsher
         updatedAt
         status
-        role
         publicId
         phoneVerified
       }
@@ -61,7 +60,7 @@ export const ACTIVATE_LISTING_MUTATION: TypedDocumentNode<
       }
       tags
       type
-      userId
+      providerId
       photos {
         filename
         id

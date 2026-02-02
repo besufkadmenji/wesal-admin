@@ -32,7 +32,7 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
         status
         terminationReason
         updatedAt
-        user {
+        provider {
           address
           avatarFilename
           bankName
@@ -58,12 +58,11 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
           phone
           phoneVerified
           publicId
-          role
           status
           updatedAt
           withAbsher
         }
-        userId
+        providerId
       }
     }
   }

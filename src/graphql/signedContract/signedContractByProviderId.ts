@@ -1,14 +1,14 @@
 import {
-  SignedContractByUserIdQuery,
-  SignedContractByUserIdQueryVariables,
+  SignedContractByProviderIdQuery,
+  SignedContractByProviderIdQueryVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
-export const SIGNED_CONTRACT_BY_USER_ID: TypedDocumentNode<
-  SignedContractByUserIdQuery,
-  SignedContractByUserIdQueryVariables
+export const SIGNED_CONTRACT_BY_PROVIDER_ID: TypedDocumentNode<
+  SignedContractByProviderIdQuery,
+  SignedContractByProviderIdQueryVariables
 > = gql`
-  query signedContractByUserId($userId: String!) {
-    signedContractByUserId(userId: $userId) {
+  query signedContractByProviderId($providerId: String!) {
+    signedContractByProviderId(providerId: $providerId) {
       acceptedRulesAr
       acceptedRulesEn
       contractExpiresAt
@@ -22,7 +22,7 @@ export const SIGNED_CONTRACT_BY_USER_ID: TypedDocumentNode<
       status
       terminationReason
       updatedAt
-      user {
+      provider {
         address
         avatarFilename
         bankName
@@ -48,12 +48,11 @@ export const SIGNED_CONTRACT_BY_USER_ID: TypedDocumentNode<
         phone
         phoneVerified
         publicId
-        role
         status
         updatedAt
         withAbsher
       }
-      userId
+      providerId
     }
   }
 `;

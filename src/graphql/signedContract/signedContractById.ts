@@ -1,6 +1,6 @@
 import {
-    SignedContractByIdQuery,
-    SignedContractByIdQueryVariables,
+  SignedContractByIdQuery,
+  SignedContractByIdQueryVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -23,7 +23,7 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
       status
       terminationReason
       updatedAt
-      user {
+      provider {
         address
         avatarFilename
         bankName
@@ -49,7 +49,6 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
         phone
         phoneVerified
         publicId
-        role
         status
         updatedAt
         withAbsher
@@ -76,7 +75,7 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
           updatedAt
         }
       }
-      userId
+      providerId
     }
   }
 `;

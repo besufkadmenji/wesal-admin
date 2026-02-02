@@ -2,7 +2,6 @@ import {
   PaginatedUserResponse,
   User,
   UserPaginationInput,
-  UserRole,
   UserStatus,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
@@ -28,7 +27,6 @@ export const useUsers = (
     ...(status && {
       status: status as UserStatus,
     }),
-    role: role as UserRole,
     ...initialParams,
   };
 

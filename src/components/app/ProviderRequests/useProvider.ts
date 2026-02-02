@@ -1,17 +1,16 @@
 import {
-  PaginatedUserResponse,
-  User,
-  UserPaginationInput,
-  UserRole,
-  UserStatus,
+  PaginatedProviderResponse,
+  Provider,
+  ProviderPaginationInput,
+  ProviderStatus,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
-import UserService from "@/services/user.service";
+import ProviderService from "@/services/provider.service";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
-export const useUsers = (): UseQueryResult<
-  PaginatedUserResponse | null,
+export const useProviders = (): UseQueryResult<
+  PaginatedProviderResponse | null,
   Error
 > => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
@@ -19,26 +18,27 @@ export const useUsers = (): UseQueryResult<
   const [search] = useQueryState("search", parseAsString.withDefault(""));
 
   const lang = useLang();
-  const params: UserPaginationInput = {
+  const params: ProviderPaginationInput = {
     page,
     limit,
     ...(search && { search }),
-    status: UserStatus.PendingApproval,
-    role: UserRole.Provider,
+    status: ProviderStatus.PendingApproval,
   };
 
   return useQuery({
     queryKey: ["providerRequests", lang, page, limit, search],
-    queryFn: () => UserService.users(params),
+    queryFn: () => ProviderService.providers(params),
   });
 };
 
-export const useUser = (id: string): UseQueryResult<User | null, Error> => {
+export const useProvider = (
+  id: string,
+): UseQueryResult<Provider | null, Error> => {
   const lang = useLang();
 
   return useQuery({
     queryKey: ["providerRequest", id, lang],
-    queryFn: () => UserService.user(id),
+    queryFn: () => ProviderService.provider(id),
     enabled: !!id,
   });
 };

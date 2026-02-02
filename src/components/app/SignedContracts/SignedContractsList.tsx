@@ -34,11 +34,6 @@ export const SignedContractsList = () => {
       label: dict.users_page.table_headers.email,
     },
     {
-      key: "type",
-      label: dict.users_page.table_headers.type,
-      align: "center",
-    },
-    {
       key: "date",
       label: dict.users_page.table_headers.registration_date,
       align: "center",
@@ -66,10 +61,9 @@ export const SignedContractsList = () => {
       rows={data.items.map((signedContract) => ({
         key: signedContract.id,
         number: `${signedContract.publicId ?? "-"}`,
-        name: signedContract.user?.name ?? "-",
-        phone: signedContract.user?.phone ?? "-",
-        email: signedContract.user?.email ?? "-",
-        type: signedContract.user?.role ?? "-",
+        name: signedContract.provider?.name ?? "-",
+        phone: signedContract.provider?.phone ?? "-",
+        email: signedContract.provider?.email ?? "-",
         date: DateTimeHelpers.formatDate(signedContract.createdAt),
         status: signedContract.status || "",
       }))}

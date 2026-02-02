@@ -1,14 +1,11 @@
 import {
-  AdminSignContractInput,
   DeactivateUserInput,
   DeleteUserInput,
   PaginatedUserResponse,
   User,
-  UserPaginationInput,
+  UserPaginationInput
 } from "@/gql/graphql";
 import { ACTIVATE_USER_MUTATION } from "@/graphql/user/activateUser";
-import { SIGN_CONTRACT_MUTATION } from "@/graphql/user/adminSignContract";
-import { TERMINATE_CONTRACT_MUTATION } from "@/graphql/user/adminTerminateContract";
 import { DEACTIVATE_USER_MUTATION } from "@/graphql/user/deactivateUser";
 import { REMOVE_USER_MUTATION } from "@/graphql/user/removeUser";
 import { USER_QUERY } from "@/graphql/user/user";
@@ -92,41 +89,6 @@ class UserService {
         },
       });
       return removeUserResponse.data?.removeUser ?? null;
-    } catch (error) {
-      // Parse and throw the error with a readable message
-      const errorMessage = parseGraphQLError(error);
-      throw new Error(errorMessage);
-    }
-  };
-
-  static signContact = async (input: AdminSignContractInput) => {
-    try {
-      const removeAvatarResponse = await client().mutate({
-        mutation: SIGN_CONTRACT_MUTATION,
-        variables: {
-          input,
-        },
-      });
-      return removeAvatarResponse.data?.adminSignContract ?? null;
-    } catch (error) {
-      // Parse and throw the error with a readable message
-      const errorMessage = parseGraphQLError(error);
-      throw new Error(errorMessage);
-    }
-  };
-  static terminateContact = async (
-    userId: string,
-    terminationReason: string,
-  ) => {
-    try {
-      const removeAvatarResponse = await client().mutate({
-        mutation: TERMINATE_CONTRACT_MUTATION,
-        variables: {
-          userId,
-          terminationReason,
-        },
-      });
-      return removeAvatarResponse.data?.adminTerminateContract ?? null;
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

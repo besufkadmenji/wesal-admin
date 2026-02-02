@@ -385,6 +385,47 @@
     "contract_status": "Contract Status",
     "contract_signed_at": "Contract Signed At"
   },
+  "add_new_provider_form": {
+    "title": "Add New Provider"
+  },
+  "edit_provider": {
+    "title": "Edit Provider"
+  },
+  "view_provider": {
+    "title": "Provider Details",
+    "contract_section_title": "Contract Information",
+    "service_provider_signature": "Service Provider Signature",
+    "platform_manager_signature": "Platform Manager Signature",
+    "contract_status": "Contract Status",
+    "contract_signed_at": "Contract Signed At",
+    "no_contract_signed_yet": "No contract signed yet"
+  },
+  "view_provider_form": {
+    "labels": {
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "role": "Type",
+      "commercial_name": "Commercial Name",
+      "commercial_registration_number": "Commercial Registration Number",
+      "commercial_registration_image": "Commercial Registration Image",
+      "city": "City",
+      "address": "Address"
+    },
+    "placeholders": {
+      "name": "Enter name",
+      "phone_number": "Enter phone number",
+      "email": "Enter email",
+      "role": "Select type",
+      "commercial_name": "Enter commercial name",
+      "commercial_registration_number": "Enter commercial registration number",
+      "city": "Select city",
+      "address": "Enter address"
+    },
+    "sections": {
+      "business_information": "Business Information"
+    }
+  },
   "profile": {
     "commercialRecordNumber": "Commercial Registration Number"
   },
@@ -907,6 +948,10 @@
       "title": "Delete Listing",
       "message": "Are you sure you want to delete this listing? This action cannot be undone."
     },
+    "deleteProvider": {
+      "title": "Delete Provider",
+      "message": "Are you sure you want to delete this provider? This action cannot be undone."
+    },
     "confirm": "Delete",
     "cancel": "Cancel"
   },
@@ -914,9 +959,23 @@
     "title": "Activate Subscriber",
     "description": "Are you sure you want to activate this subscriber?"
   },
+  "activate_provider_confirmation": {
+    "title": "Activate Provider",
+    "description": "Are you sure you want to activate this provider?"
+  },
   "deactivate_subscriber_reason_form": {
     "title": "Deactivate Subscriber",
     "description": "Please provide a reason for deactivating this subscriber",
+    "labels": {
+      "deactivation_reason": "Reason for Deactivation"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter reason for deactivation"
+    }
+  },
+  "deactivate_provider_reason_form": {
+    "title": "Deactivate Provider",
+    "description": "Please provide a reason for deactivating this provider",
     "labels": {
       "deactivation_reason": "Reason for Deactivation"
     },
@@ -1802,6 +1861,38 @@
       "deactivateSuccess": "Delivery company deactivated successfully."
     }
   },
+  "providers_page": {
+    "title": "Providers Management",
+    "total_providers": "Total Providers Count",
+    "total_count": "providers",
+    "table_headers": {
+      "number": "Number",
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "registration_date": "Registration Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "messages": {
+      "activateSuccess": "Provider activated successfully.",
+      "deactivateSuccess": "Provider deactivated successfully."
+    }
+  },
+  "providers_request_page": {
+    "title": "Provider Requests",
+    "total_requests": "Total Provider Requests",
+    "total_count": "requests",
+    "table_headers": {
+      "number": "Number",
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "request_date": "Request Date",
+      "actions": "Actions"
+    }
+  },
   "listings_page": {
     "title": "Listings Management",
     "total_listings": "Total Listings Count",
@@ -1905,7 +1996,8 @@
     "active": "Active",
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
-    "terminatedByUser": "Terminated by User"
+    "terminatedByUser": "Terminated by User",
+    "terminatedByProvider": "Terminated by Provider"
   },
   "noData": {
     "subscriberRequests": "No subscription requests found",
@@ -1918,6 +2010,7 @@
     "categories": "No categories found",
     "cities": "No cities found",
     "users": "No users found",
+    "providers": "No providers found",
     "faqs": "No FAQs found",
     "contactMessages": "No contact messages found",
     "banks": "No banks found",

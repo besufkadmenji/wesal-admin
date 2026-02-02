@@ -1,13 +1,13 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import UserService from "@/services/user.service";
+import ProviderService from "@/services/provider.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 
-export const useManageUser = () => {
+export const useManageProvider = () => {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
   const dict = useDict();
@@ -15,16 +15,16 @@ export const useManageUser = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const [, setActivateUser] = useQueryState("activateUser");
-  const [, setDeactivateUser] = useQueryState("deactivateUser");
+  const [, setActivateProvider] = useQueryState("activateProvider");
+  const [, setDeactivateProvider] = useQueryState("deactivateProvider");
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
-  const activateUser = async (id: string) => {
+  const activateProvider = async (id: string) => {
     setBusy(true);
     try {
-      const response = await UserService.activateUser(id);
+      const response = await ProviderService.activateProvider(id);
       if (response) {
-        showSuccessMessage(dict.users_page.messages.activateSuccess);
+        showSuccessMessage(dict.providers_page.messages.activateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["providerRequests"],
         });
@@ -33,7 +33,7 @@ export const useManageUser = () => {
         });
       }
     } catch (error) {
-      console.error("Activate user error:", error);
+      console.error("Activate provider error:", error);
       showErrorMessage(
         error instanceof Error
           ? error
@@ -41,18 +41,19 @@ export const useManageUser = () => {
       );
     } finally {
       setBusy(false);
-      setActivateUser(null);
+      setActivateProvider(null);
     }
   };
 
-  const deactivateUser = async (id: string, reason?: string) => {
+  const deactivateProvider = async (id: string, reason?: string) => {
     setBusy(true);
     try {
-      const response = await UserService.deactivateUser(id, {
-        reason: reason ?? "",
-      });
+      const response = await ProviderService.deactivateProvider(
+        id,
+        reason ?? "",
+      );
       if (response) {
-        showSuccessMessage(dict.users_page.messages.deactivateSuccess);
+        showSuccessMessage(dict.providers_page.messages.deactivateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["providerRequests"],
         });
@@ -62,7 +63,7 @@ export const useManageUser = () => {
       }
       setShowRejectModal(null);
     } catch (error) {
-      console.error("Deactivate user error:", error);
+      console.error("Deactivate provider error:", error);
       showErrorMessage(
         error instanceof Error
           ? error
@@ -70,13 +71,13 @@ export const useManageUser = () => {
       );
     } finally {
       setBusy(false);
-      setDeactivateUser(null);
+      setDeactivateProvider(null);
     }
   };
 
   return {
     busy,
-    activateUser,
-    deactivateUser,
+    activateProvider,
+    deactivateProvider,
   };
 };

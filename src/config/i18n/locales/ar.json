@@ -383,6 +383,47 @@
     "contract_status": "حالة العقد",
     "contract_signed_at": "تاريخ توقيع العقد"
   },
+  "add_new_provider_form": {
+    "title": "إضافة مقدم خدمة جديد"
+  },
+  "edit_provider": {
+    "title": "تعديل مقدم الخدمة"
+  },
+  "view_provider": {
+    "title": "تفاصيل مقدم الخدمة",
+    "contract_section_title": "معلومات العقد",
+    "service_provider_signature": "توقيع مقدم الخدمة",
+    "platform_manager_signature": "توقيع مدير المنصة",
+    "contract_status": "حالة العقد",
+    "contract_signed_at": "تاريخ توقيع العقد",
+    "no_contract_signed_yet": "لم يتم التوقيع على العقد بعد"
+  },
+  "view_provider_form": {
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "role": "النوع",
+      "commercial_name": "الاسم التجاري",
+      "commercial_registration_number": "رقم السجل التجاري",
+      "commercial_registration_image": "صورة السجل التجاري",
+      "city": "المدينة",
+      "address": "العنوان"
+    },
+    "placeholders": {
+      "name": "أدخل الاسم",
+      "phone_number": "أدخل رقم الهاتف",
+      "email": "أدخل البريد الإلكتروني",
+      "role": "اختر النوع",
+      "commercial_name": "أدخل الاسم التجاري",
+      "commercial_registration_number": "أدخل رقم السجل التجاري",
+      "city": "اختر المدينة",
+      "address": "أدخل العنوان"
+    },
+    "sections": {
+      "business_information": "معلومات العمل"
+    }
+  },
   "profile": {
     "commercialRecordNumber": "رقم السجل التجاري"
   },
@@ -905,6 +946,10 @@
       "title": "حذف الإعلان",
       "message": "هل أنت متأكد من أنك تريد حذف هذا الإعلان؟ هذا الإجراء لا يمكن التراجع عنه."
     },
+    "deleteProvider": {
+      "title": "حذف مقدم الخدمة",
+      "message": "هل تريد بتأكيد حذف هذا مقدم الخدمة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
     "confirm": "حذف",
     "cancel": "تراجع"
   },
@@ -912,9 +957,23 @@
     "title": "تفعيل المشترك",
     "description": "هل تريد بتأكيد تفعيل هذا المشترك؟"
   },
+  "activate_provider_confirmation": {
+    "title": "تفعيل مقدم الخدمة",
+    "description": "هل تريد بتأكيد تفعيل هذا مقدم الخدمة؟"
+  },
   "deactivate_subscriber_reason_form": {
     "title": "إلغاء تفعيل المشترك",
     "description": "يرجى تقديم سبب لإلغاء تفعيل هذا المشترك",
+    "labels": {
+      "deactivation_reason": "سبب الإلغاء"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب الإلغاء"
+    }
+  },
+  "deactivate_provider_reason_form": {
+    "title": "إلغاء تفعيل مقدم الخدمة",
+    "description": "يرجى تقديم سبب لإلغاء تفعيل هذا مقدم الخدمة",
     "labels": {
       "deactivation_reason": "سبب الإلغاء"
     },
@@ -1801,6 +1860,38 @@
       "deactivateSuccess": "تم تعطيل شركة التوصيل بنجاح."
     }
   },
+  "providers_page": {
+    "title": "إدارة مقدمي الخدمات",
+    "total_providers": "إجمالي عدد مقدمي الخدمات",
+    "total_count": "مقدم خدمة",
+    "table_headers": {
+      "number": "الرقم",
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "registration_date": "تاريخ التسجيل",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "messages": {
+      "activateSuccess": "تم تفعيل مقدم الخدمة بنجاح.",
+      "deactivateSuccess": "تم تعطيل مقدم الخدمة بنجاح."
+    }
+  },
+  "providers_request_page": {
+    "title": "طلبات مقدمي الخدمات",
+    "total_requests": "إجمالي طلبات مقدمي الخدمات",
+    "total_count": "طلب",
+    "table_headers": {
+      "number": "الرقم",
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "request_date": "تاريخ الطلب",
+      "actions": "الإجراءات"
+    }
+  },
   "listings_page": {
     "title": "إدارة الإعلانات",
     "total_listings": "إجمالي عدد الإعلانات",
@@ -1904,7 +1995,8 @@
     "active": "نشط",
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
-    "terminatedByUser": "تم الإنهاء من قبل المستخدم"
+    "terminatedByUser": "تم الإنهاء من قبل المستخدم",
+    "terminatedByProvider": "تم الإنهاء من قبل مقدم الخدمة"
   },
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك",
@@ -1917,6 +2009,7 @@
     "categories": "لا توجد فئات",
     "cities": "لا توجد مدن",
     "users": "لا يوجد مستخدمين",
+    "providers": "لا يوجد مقدمي خدمات",
     "faqs": "لا توجد أسئلة شائعة",
     "contactMessages": "لا توجد رسائل تواصل",
     "banks": "لا توجد بنوك",

@@ -1,9 +1,15 @@
-import { UserQuery, UserQueryVariables } from "@/gql/graphql";
+import {
+  ActivateProviderMutation,
+  ActivateProviderMutationVariables,
+} from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
-export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
-  query user($userId: ID!) {
-    user(id: $userId) {
+export const ACTIVATE_PROVIDER_MUTATION: TypedDocumentNode<
+  ActivateProviderMutation,
+  ActivateProviderMutationVariables
+> = gql`
+  mutation activateProvider($activateProviderId: ID!) {
+    activateProvider(id: $activateProviderId) {
       address
       avatarFilename
       bankName
@@ -35,7 +41,6 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
       deactivationReason
       deleteReason
       deletedAt
-      publicId
     }
   }
 `;

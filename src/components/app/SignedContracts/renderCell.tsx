@@ -1,19 +1,15 @@
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
-import { SignedContractStatus, UserRole } from "@/gql/graphql";
+import { SignedContractStatus } from "@/gql/graphql";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const typeMap = (dict: Dictionary) => ({
-  [UserRole.Provider]: dict.common.serviceProvider,
-  [UserRole.User]: dict.common.user,
-});
 export const statusMap = (dict: Dictionary) => ({
   [SignedContractStatus.Active]: dict.common.active,
   [SignedContractStatus.Expired]: dict.common.expired,
   [SignedContractStatus.TerminatedByAdmin]: dict.common.terminatedByAdmin,
-  [SignedContractStatus.TerminatedByUser]: dict.common.terminatedByUser,
+  [SignedContractStatus.TerminatedByProvider]: dict.common.terminatedByUser,
 });
 export const renderCell = (
   row: RowType,
@@ -38,7 +34,7 @@ export const renderCell = (
             "bg-red-50 text-red-600",
           row.status === SignedContractStatus.TerminatedByAdmin &&
             "bg-purple-50 text-purple-600",
-          row.status === SignedContractStatus.TerminatedByUser &&
+          row.status === SignedContractStatus.TerminatedByProvider &&
             "bg-orange-50 text-orange-600",
         )}
       >

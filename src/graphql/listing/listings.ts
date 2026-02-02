@@ -53,7 +53,6 @@ export const LISTINGS_QUERY: TypedDocumentNode<
           withAbsher
           updatedAt
           status
-          role
           publicId
           phoneVerified
         }
@@ -67,7 +66,7 @@ export const LISTINGS_QUERY: TypedDocumentNode<
         }
         tags
         type
-        userId
+        providerId
         photos {
           filename
           id

@@ -15,13 +15,12 @@ import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 import { UsersFilter } from "./UsersFilter";
 import { UsersList } from "./UsersList";
 import { useUsers } from "./useUser";
-import { UserRole } from "@/gql/graphql";
 
-export const Users = ({ role }: { role: UserRole }) => {
+export const Users = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useUsers({ role });
+  const { data, isLoading } = useUsers();
 
   return (
     <PageWrapper>
@@ -44,7 +43,7 @@ export const Users = ({ role }: { role: UserRole }) => {
       <Gap className="h-6" />
       <div className="grid grid-cols-1 gap-4">
         <UsersFilter />
-        <UsersList role={role} />
+        <UsersList />
       </div>
     </PageWrapper>
   );

@@ -1,5 +1,5 @@
 import { useDict } from "@/hooks/useDict";
-import UserService from "@/services/user.service";
+import ProviderService from "@/services/provider.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useState } from "react";
@@ -7,11 +7,13 @@ import { useState } from "react";
 export const useSignSignature = () => {
   const [busy, setBusy] = useState(false);
   const dict = useDict();
-  const saveSignature = async (userId: string) => {
+  const saveSignature = async (providerId: string) => {
     setBusy(true);
     try {
-      const result = await UserService.signContact({
-        userId,
+      const result = await ProviderService.signContact({
+        providerId,
+        platformManagerName: "",
+        platformManagerSignature: "",
       });
       if (result) {
         showSuccessMessage(dict.contract.signatureSavedSuccessfully);
@@ -40,7 +42,7 @@ export const useSignSignature = () => {
     }
     setBusy(true);
     try {
-      const result = await UserService.terminateContact(userId, reason);
+      const result = await ProviderService.terminateContact(userId, reason);
       if (result) {
         showSuccessMessage(dict.contract.contractTerminatedSuccessfully);
         queryClient.invalidateQueries({

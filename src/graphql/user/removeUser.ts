@@ -10,18 +10,7 @@ export const REMOVE_USER_MUTATION: TypedDocumentNode<
       address
       avatarFilename
       bankName
-      categories {
-        createdAt
-        descriptionAr
-        descriptionEn
-        id
-        nameAr
-        nameEn
-        image
-        updatedAt
-      }
       cityId
-      commercialRegistrationNumber
       countryId
       createdAt
       dialCode
@@ -36,9 +25,7 @@ export const REMOVE_USER_MUTATION: TypedDocumentNode<
       name
       phone
       phoneVerified
-      role
       updatedAt
-      withAbsher
       status
       city {
         countryId
@@ -51,16 +38,6 @@ export const REMOVE_USER_MUTATION: TypedDocumentNode<
       deactivationReason
       deleteReason
       deletedAt
-      signedContract {
-        contractExpiresAt
-        contractSignedAt
-        platformManagerSignature
-        serviceProviderSignature
-        status
-        terminationReason
-      }
-      commercialName
-      commercialRegistrationFilename
     }
   }
 `;
