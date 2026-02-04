@@ -13,6 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { AdminsFilter } from "./AdminsFilter";
 import { useUsers } from "./useAdmins";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
+import { ExportButton } from "@/components/app/shared/button/ExportButton";
+import { ExportModel } from "@/types/export.models";
 export const Admins = () => {
   const dict = useDict();
   const router = useRouter();
@@ -28,6 +30,7 @@ export const Admins = () => {
             router.push(`${pathname}/add`);
           }}
         />
+        <ExportButton model={ExportModel.Admins} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

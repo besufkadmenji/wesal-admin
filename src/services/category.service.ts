@@ -12,6 +12,7 @@ import { REMOVE_CATEGORY_MUTATION } from "@/graphql/category/removeCategory";
 import { UPDATE_CATEGORY_MUTATION } from "@/graphql/category/updateCategory";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class CategoryService {
   static categories = async (
@@ -90,6 +91,15 @@ class CategoryService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportCategories = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/categories/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

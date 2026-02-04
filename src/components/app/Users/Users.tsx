@@ -11,6 +11,7 @@ import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
+import { ExportModel } from "@/types/export.models";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 import { UsersFilter } from "./UsersFilter";
 import { UsersList } from "./UsersList";
@@ -28,7 +29,7 @@ export const Users = () => {
         title={dict.users_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
       >
-        <ExportButton model={""} />
+        <ExportButton model={ExportModel.Users} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

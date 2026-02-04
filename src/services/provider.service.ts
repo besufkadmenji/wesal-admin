@@ -14,6 +14,7 @@ import { PROVIDERS_QUERY } from "@/graphql/provider/providers";
 import { REMOVE_PROVIDER_MUTATION } from "@/graphql/provider/removeProvider";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class ProviderService {
   static providers = async (
@@ -133,6 +134,15 @@ class ProviderService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportProviders = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/providers/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

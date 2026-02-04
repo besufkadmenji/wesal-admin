@@ -12,6 +12,7 @@ import { REMOVE_FAQ_MUTATION } from "@/graphql/faq/removeFaq";
 import { UPDATE_FAQ_MUTATION } from "@/graphql/faq/updateFaq";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class FaqService {
   static faqs = async (): Promise<Faq[] | null> => {
@@ -101,6 +102,15 @@ class FaqService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportFaqs = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/faqs/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

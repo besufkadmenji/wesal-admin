@@ -13,6 +13,9 @@ import { Button } from "@heroui/react";
 import ChangeOrderIcon from "@/assets/icons/app/arrows-sort.svg";
 import { ChangeOrder } from "@/components/app/Faq/manage/ChangeOrder";
 import { useQueryState } from "nuqs";
+import { ExportButton } from "@/components/app/shared/button/ExportButton";
+import { ExportModel } from "@/types/export.models";
+import { Admins } from "@/components/app/Admins/Admins";
 
 export const FaqManager = () => {
   const dict = useDict();
@@ -42,6 +45,7 @@ export const FaqManager = () => {
         >
           {dict.faq_page.change_order_button}
         </Button>
+        <ExportButton model={ExportModel.FAQs} />
       </PageBar>
       <Gap className="h-8" />
       <FaqList />

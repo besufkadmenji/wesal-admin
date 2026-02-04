@@ -9,6 +9,7 @@ import { MARK_AS_READ_MUTATION } from "@/graphql/contact-message/markAsRead";
 import { REMOVE_CONTACT_MESSAGE_MUTATION } from "@/graphql/contact-message/removeContactMessage";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class ContactMessageService {
   static contactMessages = async (
@@ -73,6 +74,15 @@ class ContactMessageService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportContactMessages = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/contact-messages/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

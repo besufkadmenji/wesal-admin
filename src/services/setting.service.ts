@@ -3,6 +3,7 @@ import { GET_SETTING_QUERY } from "@/graphql/setting/getSetting";
 import { SET_SETTING_MUTATION } from "@/graphql/setting/setSetting";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 export class SettingService {
   static getSetting = async (): Promise<Setting | null> => {
@@ -32,5 +33,14 @@ export class SettingService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportSettings = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/settings/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }

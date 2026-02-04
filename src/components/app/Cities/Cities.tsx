@@ -1,5 +1,6 @@
 "use client";
 import { CitiesList } from "@/components/app/Cities/CitiesList";
+import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { Gap } from "@/components/app/shared/Gap";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -9,6 +10,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { ExportModel } from "@/types/export.models";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { CitiesFilter } from "./CitiesFilter";
@@ -28,6 +30,7 @@ export const Cities = () => {
             router.push(`${pathname}/add`);
           }}
         />
+        <ExportButton model={ExportModel.Cities} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

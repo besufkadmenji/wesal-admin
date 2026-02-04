@@ -62,6 +62,7 @@ export const renderCell = (
         onValueChange={(checked) => {
           action.onActivate(checked);
         }}
+        isDisabled={admin.permissionType === AdminPermissionType.SuperAdmin}
       />
     );
   }

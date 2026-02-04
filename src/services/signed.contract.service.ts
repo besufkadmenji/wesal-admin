@@ -6,6 +6,7 @@ import {
 import { SIGNED_CONTRACT_BY_ID } from "@/graphql/signedContract/signedContractById";
 import { SIGNED_CONTRACTS } from "@/graphql/signedContract/signedContracts";
 import client from "@/utils/apollo.client";
+import axiosClient from "@/utils/axios.client";
 
 class SignedContractService {
   static signedContracts = async (
@@ -39,6 +40,15 @@ class SignedContractService {
       console.error("userResult", e);
     }
     return null;
+  };
+
+  static exportSignedContracts = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/signed-contracts/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

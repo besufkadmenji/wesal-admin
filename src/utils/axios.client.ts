@@ -16,6 +16,7 @@ axiosClient.interceptors.request.use(async (config) => {
   const accessToken = Cookie.get("accessToken");
   const refreshToken = Cookie.get("refreshToken");
   const accessTokenExpiry = Cookie.get("accessTokenExpiry");
+  const lang = Cookie.get("lang");
 
   const bufferMs = 10_000;
   const isExpired = accessTokenExpiry
@@ -38,7 +39,10 @@ axiosClient.interceptors.request.use(async (config) => {
       config.headers.Authorization = `Bearer ${tokenToUse}`;
     }
   } catch (error) {}
-
+  // Add Accept-Language header based on lang cookie
+  if (lang && config.headers) {
+    config.headers["Accept-Language"] = lang;
+  }
   return config;
 });
 

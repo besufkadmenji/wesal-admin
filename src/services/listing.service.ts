@@ -10,6 +10,7 @@ import { LISTINGS_QUERY } from "@/graphql/listing/listings";
 import { REMOVE_LISTING_MUTATION } from "@/graphql/listing/removeListing";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class ListingService {
   static listings = async (
@@ -91,6 +92,15 @@ class ListingService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportListings = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/listings/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

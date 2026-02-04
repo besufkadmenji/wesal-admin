@@ -15,6 +15,7 @@ import { REMOVE_DELIVERY_COMPANY_MUTATION } from "@/graphql/delivery-company/rem
 import { UPDATE_DELIVERY_COMPANY_MUTATION } from "@/graphql/delivery-company/updateDeliveryCompany";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class DeliveryCompanyService {
   static deliveryCompanies = async (
@@ -135,6 +136,15 @@ class DeliveryCompanyService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportDeliveryCompanies = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/delivery-companies/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

@@ -16,6 +16,7 @@ import { REMOVE_ADMIN_MUTATION } from "@/graphql/admin/removeAdmin";
 import { UPDATE_ADMIN_MUTATION } from "@/graphql/admin/updateAdmin";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class AdminService {
   static meAdmin = async (): Promise<Admin | null> => {
@@ -142,6 +143,15 @@ class AdminService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportAdmins = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/admins/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

@@ -8,6 +8,7 @@ import { BULK_ASSIGN_PERMISSIONS_TO_ADMIN_MUTATION } from "@/graphql/permission/
 import { PERMISSIONS_QUERY } from "@/graphql/permission/permissions";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 export class PermissionService {
   static permissions = async (): Promise<Permission[] | null> => {
@@ -61,4 +62,22 @@ export class PermissionService {
     }
     return null;
   }
+
+  static exportPermissions = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/permissions/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
+  };
+
+  static exportAdminPermissions = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/admin-permissions/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
+  };
 }

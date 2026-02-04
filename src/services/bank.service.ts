@@ -15,6 +15,7 @@ import { REMOVE_BANK_MUTATION } from "@/graphql/bank/removeBank";
 import { UPDATE_BANK_MUTATION } from "@/graphql/bank/updateBank";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class BankService {
   static banks = async (
@@ -126,6 +127,15 @@ class BankService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportBanks = async (fields?: string[]): Promise<Blob> => {
+    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
+    const response = await axiosClient.get('/banks/export', {
+      params,
+      responseType: 'blob',
+    });
+    return new Blob([response.data], { type: 'text/csv' });
   };
 }
 

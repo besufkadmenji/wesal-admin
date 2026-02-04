@@ -88,6 +88,9 @@ export const EditAdmin = ({ id }: { id: string }) => {
                 key: key,
               }))}
               errorMessage={errors.status}
+              isDisabled={
+                admin.permissionType === AdminPermissionType.SuperAdmin
+              }
             />
           </div>
         </FormSection>

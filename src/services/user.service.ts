@@ -3,7 +3,7 @@ import {
   DeleteUserInput,
   PaginatedUserResponse,
   User,
-  UserPaginationInput
+  UserPaginationInput,
 } from "@/gql/graphql";
 import { ACTIVATE_USER_MUTATION } from "@/graphql/user/activateUser";
 import { DEACTIVATE_USER_MUTATION } from "@/graphql/user/deactivateUser";
@@ -12,6 +12,7 @@ import { USER_QUERY } from "@/graphql/user/user";
 import { USERS_QUERY } from "@/graphql/user/users";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import axiosClient from "@/utils/axios.client";
 
 class UserService {
   static users = async (
@@ -94,6 +95,16 @@ class UserService {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
     }
+  };
+
+  static exportUsers = async (fields?: string[]): Promise<Blob> => {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/users/export", {
+      params,
+      responseType: "blob",
+    });
+    return new Blob([response.data], { type: "text/csv" });
   };
 }
 
