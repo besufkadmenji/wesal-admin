@@ -18,6 +18,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+/** Type of user action (view or click) */
+export enum ActionType {
+  Click = 'CLICK',
+  View = 'VIEW'
+}
+
 export type Admin = {
   avatarFilename?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -95,8 +101,6 @@ export type AdminResetPasswordInput = {
 };
 
 export type AdminSignContractInput = {
-  platformManagerName: Scalars['String']['input'];
-  platformManagerSignature: Scalars['String']['input'];
   providerId: Scalars['String']['input'];
 };
 
@@ -1024,6 +1028,7 @@ export type Mutation = {
   signProviderContract: Provider;
   /** Terminate provider contract */
   terminateProviderContract: Provider;
+  trackAction: Tracking;
   updateAdmin: Admin;
   updateBank: Bank;
   updateCategory: Category;
@@ -1558,6 +1563,11 @@ export type MutationTerminateProviderContractArgs = {
 };
 
 
+export type MutationTrackActionArgs = {
+  input: TrackActionInput;
+};
+
+
 export type MutationUpdateAdminArgs = {
   id: Scalars['ID']['input'];
   updateAdminInput: UpdateAdminInput;
@@ -2086,6 +2096,8 @@ export type Query = {
   message: Message;
   messages: PaginatedMessageResponse;
   myListings: PaginatedListingResponse;
+  myPopularCategories: Array<Scalars['String']['output']>;
+  myPopularListings: Array<Scalars['String']['output']>;
   notification: Notification;
   /** Get notification statistics for a user */
   notificationStats: NotificationStats;
@@ -2274,6 +2286,16 @@ export type QueryMyListingsArgs = {
 };
 
 
+export type QueryMyPopularCategoriesArgs = {
+  limit?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryMyPopularListingsArgs = {
+  limit?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
 export type QueryNotificationArgs = {
   id: Scalars['String']['input'];
 };
@@ -2416,13 +2438,16 @@ export type RatingStatistics = {
 
 export type RegisterInput = {
   avatarFilename?: InputMaybe<Scalars['String']['input']>;
+  bankName: Scalars['String']['input'];
   cityId?: InputMaybe<Scalars['String']['input']>;
   countryId?: InputMaybe<Scalars['String']['input']>;
   dialCode?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
+  ibanNumber: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   phone: Scalars['String']['input'];
+  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type RegisterProviderInput = {
@@ -2568,6 +2593,30 @@ export enum SortOrder {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+/** Type of target being tracked (category or listing) */
+export enum TargetType {
+  Category = 'CATEGORY',
+  Listing = 'LISTING'
+}
+
+export type TrackActionInput = {
+  actionType: ActionType;
+  targetId: Scalars['String']['input'];
+  targetType: TargetType;
+};
+
+export type Tracking = {
+  actionType: ActionType;
+  count: Scalars['Int']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  targetId: Scalars['String']['output'];
+  targetType: TargetType;
+  updatedAt: Scalars['DateTime']['output'];
+  user: User;
+  userId: Scalars['String']['output'];
+};
 
 export type UpdateAdminInput = {
   avatarFilename?: InputMaybe<Scalars['String']['input']>;
@@ -2762,6 +2811,7 @@ export type UpdateUserInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
+  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type User = {
@@ -2791,6 +2841,7 @@ export type User = {
   publicId?: Maybe<Scalars['Int']['output']>;
   status: UserStatus;
   updatedAt: Scalars['DateTime']['output'];
+  withAbsher?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserPaginationInput = {

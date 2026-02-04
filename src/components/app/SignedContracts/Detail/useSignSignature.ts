@@ -12,8 +12,6 @@ export const useSignSignature = () => {
     try {
       const result = await ProviderService.signContact({
         providerId,
-        platformManagerName: "",
-        platformManagerSignature: "",
       });
       if (result) {
         showSuccessMessage(dict.contract.signatureSavedSuccessfully);

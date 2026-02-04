@@ -9,6 +9,12 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""Type of user action (view or click)"""
+enum ActionType {
+  CLICK
+  VIEW
+}
+
 type Admin {
   avatarFilename: String
   createdAt: DateTime!
@@ -89,8 +95,6 @@ input AdminResetPasswordInput {
 }
 
 input AdminSignContractInput {
-  platformManagerName: String!
-  platformManagerSignature: String!
   providerId: String!
 }
 
@@ -1113,6 +1117,7 @@ type Mutation {
 
   """Terminate provider contract"""
   terminateProviderContract(terminationReason: String!): Provider!
+  trackAction(input: TrackActionInput!): Tracking!
   updateAdmin(id: ID!, updateAdminInput: UpdateAdminInput!): Admin!
   updateBank(input: UpdateBankInput!): Bank!
   updateCategory(input: UpdateCategoryInput!): Category!
@@ -1603,6 +1608,8 @@ type Query {
   message(id: String!): Message!
   messages(input: MessagePaginationInput): PaginatedMessageResponse!
   myListings(paginationInput: ListingPaginationInput!): PaginatedListingResponse!
+  myPopularCategories(limit: Float = 10): [String!]!
+  myPopularListings(limit: Float = 10): [String!]!
   notification(id: String!): Notification!
 
   """Get notification statistics for a user"""
@@ -1692,13 +1699,16 @@ type RatingStatistics {
 
 input RegisterInput {
   avatarFilename: String
+  bankName: String!
   cityId: String
   countryId: String
   dialCode: String
   email: String!
+  ibanNumber: String!
   name: String!
   password: String!
   phone: String!
+  withAbsher: Boolean
 }
 
 input RegisterProviderInput {
@@ -1846,6 +1856,30 @@ input SocialMediaLinkInput {
 enum SortOrder {
   ASC
   DESC
+}
+
+"""Type of target being tracked (category or listing)"""
+enum TargetType {
+  CATEGORY
+  LISTING
+}
+
+input TrackActionInput {
+  actionType: ActionType!
+  targetId: String!
+  targetType: TargetType!
+}
+
+type Tracking {
+  actionType: ActionType!
+  count: Int!
+  createdAt: DateTime!
+  id: ID!
+  targetId: String!
+  targetType: TargetType!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
 }
 
 input UpdateAdminInput {
@@ -2041,6 +2075,7 @@ input UpdateUserInput {
   name: String
   password: String
   phone: String
+  withAbsher: Boolean
 }
 
 type User {
@@ -2070,6 +2105,7 @@ type User {
   publicId: Int
   status: UserStatus!
   updatedAt: DateTime!
+  withAbsher: Boolean
 }
 
 input UserPaginationInput {
