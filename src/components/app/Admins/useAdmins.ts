@@ -2,7 +2,6 @@
 import { AdminPaginationInput, AdminStatus } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
 import AdminService from "@/services/admin.service";
-import { UserStatus } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
@@ -12,7 +11,7 @@ export const useUsers = (initialParams?: AdminPaginationInput) => {
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const [status] = useQueryState("status", parseAsString.withDefault(""));
-  const statusValue = status as UserStatus | undefined;
+  const statusValue = status as AdminStatus | undefined;
   const params: AdminPaginationInput = {
     page,
     limit,

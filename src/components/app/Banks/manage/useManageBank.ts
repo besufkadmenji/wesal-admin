@@ -1,14 +1,12 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import BankService from "@/services/bank.service";
-import { DeactivateUserDto } from "@/types/user";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
-import { DeactivateBankInput } from "@/gql/graphql";
 
 export const useManageBank = () => {
   const [busy, setBusy] = useState(false);

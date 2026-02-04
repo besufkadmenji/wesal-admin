@@ -3,7 +3,6 @@ import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import AdminService from "@/services/admin.service";
 import { PermissionService } from "@/services/permission.service";
-import { DeactivateUserDto } from "@/types/user";
 import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
@@ -164,8 +163,7 @@ export const useManageAdmin = () => {
   const deactivateAdmin = async (id: string, reason?: string) => {
     setBusy(true);
     try {
-      const deactivateData: DeactivateUserDto = reason ? { reason } : {};
-      const success = await AdminService.deactivateAdmin(id, deactivateData);
+      const success = await AdminService.deactivateAdmin(id, { reason });
       if (success) {
         showSuccessMessage(
           dict.system_managers_page.messages.deactivateSuccess,
