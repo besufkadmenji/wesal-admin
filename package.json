@@ -21,7 +21,7 @@
     "@heroui/system": "^2.4.26",
     "@heroui/theme": "^2.4.26",
     "@hookform/resolvers": "^5.2.2",
-    "@internationalized/date": "^3.11.0",
+    "@internationalized/date": "3.10.1",
     "@react-aria/i18n": "^3.12.15",
     "@tanstack/react-query": "^5.90.20",
     "@tanstack/react-query-devtools": "^5.91.3",
