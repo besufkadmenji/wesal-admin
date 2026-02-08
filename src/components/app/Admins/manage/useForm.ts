@@ -105,6 +105,10 @@ export const useManageForm = (id: string, admin?: Admin | null) => {
         phoneNumber: admin.phoneNumber,
         status: admin.status,
         avatarFilename: admin.avatarFilename || undefined,
+        permissionType: admin.permissionType,
+        organizationName: admin.organizationName,
+        roleName: admin.roleName,
+        userType: admin.userType,
       });
       setReady(true);
     }

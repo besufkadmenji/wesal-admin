@@ -123,9 +123,16 @@ export const Permissions = ({
                 </p>
                 <AppSwitch
                   size="sm"
-                  isSelected={isModuleFullySelected(module) || isSuperAdmin}
+                  isSelected={
+                    isModuleFullySelected(module) ||
+                    isSuperAdmin ||
+                    form.permissionType === AdminPermissionType.Administrator
+                  }
                   onValueChange={() => handleModuleToggle(module)}
-                  isDisabled={readOnly}
+                  isDisabled={
+                    readOnly ||
+                    form.permissionType === AdminPermissionType.Administrator
+                  }
                 />
               </div>
               <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
@@ -139,12 +146,21 @@ export const Permissions = ({
                     return (
                       <AppCheckbox
                         key={action}
-                        isSelected={isActionSelected(module, action) || isSuperAdmin}
+                        isSelected={
+                          isActionSelected(module, action) ||
+                          isSuperAdmin ||
+                          form.permissionType ===
+                            AdminPermissionType.Administrator
+                        }
                         onValueChange={() => handleActionToggle(module, action)}
                         classNames={{
                           label: "text-xs leading-4",
                         }}
-                        isDisabled={readOnly}
+                        isDisabled={
+                          readOnly ||
+                          form.permissionType ===
+                            AdminPermissionType.Administrator
+                        }
                       >
                         {dict.admin_permissions_management.permission_actions[
                           action

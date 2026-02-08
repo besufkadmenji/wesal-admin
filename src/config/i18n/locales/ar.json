@@ -704,7 +704,11 @@
       "dashboard_admin": "لوحة تحكم المدير",
       "dashboard_user": "لوحة تحكم المستخدم",
       "countryCode": "رموز البلدان",
-      "queue": "قائمة الانتظار"
+      "queue": "قائمة الانتظار",
+      "report": "التقارير",
+      "subscriber": "المشتركين",
+      "dashboard": "لوحة التحكم",
+      "admin": "المديرين"
     }
   },
   "activate_user_confirmation": {

@@ -706,7 +706,11 @@
       "dashboard_admin": "Admin Dashboard",
       "dashboard_user": "User Dashboard",
       "countryCode": "Country Codes",
-      "queue": "Queue"
+      "queue": "Queue",
+      "report": "Reports",
+      "subscriber": "Subscribers",
+      "dashboard": "Dashboard",
+      "admin": "Admins"
     }
   },
   "activate_user_confirmation": {
