@@ -29,7 +29,8 @@
       "confirm": "Confirm",
       "action": "Action",
       "actions": "Actions",
-      "saveAndPrint": "Save and Print"
+      "saveAndPrint": "Save and Print",
+      "clearSearch": "Clear Search"
     },
 
     "timeFilters": {
@@ -383,7 +384,8 @@
     "platform_manager_signature": "Platform Manager Signature",
     "no_contract_signed_yet": "No contract signed yet",
     "contract_status": "Contract Status",
-    "contract_signed_at": "Contract Signed At"
+    "contract_signed_at": "Contract Signed At",
+    "avatar": "Avatar"
   },
   "add_new_provider_form": {
     "title": "Add New Provider"
@@ -1301,9 +1303,11 @@
     "search_placeholder": "Search",
     "table_headers": {
       "checkbox": "",
+      "id": "ID",
       "image": "Image",
       "nameAr": "Name (Arabic)",
       "nameEn": "Name (English)",
+      "status": "Status",
       "descriptionAr": "Description (Arabic)",
       "descriptionEn": "Description (English)",
       "parentCategory": "Parent Category",
@@ -1318,7 +1322,9 @@
     "messages": {
       "createSuccess": "Category created successfully.",
       "updateSuccess": "Category updated successfully.",
-      "deleteSuccess": "Category deleted successfully."
+      "deleteSuccess": "Category deleted successfully.",
+      "activateSuccess": "Category activated successfully.",
+      "deactivateSuccess": "Category deactivated successfully."
     }
   },
   "cities_page": {
@@ -1880,7 +1886,8 @@
     },
     "messages": {
       "activateSuccess": "Provider activated successfully.",
-      "deactivateSuccess": "Provider deactivated successfully."
+      "deactivateSuccess": "Provider deactivated successfully.",
+      "deleteSuccess": "Provider deleted successfully."
     }
   },
   "providers_request_page": {
@@ -1917,6 +1924,14 @@
   },
   "view_listing": {
     "title": "View Listing"
+  },
+  "activate_category_confirmation": {
+    "title": "Activate Category",
+    "description": "Are you sure you want to activate this category?"
+  },
+  "deactivate_category_confirmation": {
+    "title": "Deactivate Category",
+    "description": "Are you sure you want to deactivate this category?"
   },
   "activate_listing_confirmation": {
     "title": "Activate Listing",

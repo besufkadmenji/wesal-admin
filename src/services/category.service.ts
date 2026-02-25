@@ -7,6 +7,8 @@ import {
 } from "@/gql/graphql";
 import { CATEGORIES_QUERY } from "@/graphql/category/categories";
 import { CATEGORY_QUERY } from "@/graphql/category/category";
+import { ACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/activateCategory";
+import { DEACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/deactivateCategory";
 import { CREATE_CATEGORY_MUTATION } from "@/graphql/category/createCategory";
 import { REMOVE_CATEGORY_MUTATION } from "@/graphql/category/removeCategory";
 import { UPDATE_CATEGORY_MUTATION } from "@/graphql/category/updateCategory";
@@ -101,6 +103,31 @@ class CategoryService {
     });
     return new Blob([response.data], { type: 'text/csv' });
   };
-}
 
+  static activateCategory = async (activateCategoryId: string) => {
+    try {
+      const response = await client().mutate({
+        mutation: ACTIVATE_CATEGORY_MUTATION,
+        variables: { activateCategoryId },
+      });
+      return response.data?.activateCategory ?? null;
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+
+  static deactivateCategory = async (deactivateCategoryId: string) => {
+    try {
+      const response = await client().mutate({
+        mutation: DEACTIVATE_CATEGORY_MUTATION,
+        variables: { deactivateCategoryId },
+      });
+      return response.data?.deactivateCategory ?? null;
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+}
 export default CategoryService;

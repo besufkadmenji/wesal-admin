@@ -13,7 +13,7 @@ export const useSignedContracts = (): UseQueryResult<
   Error
 > => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
-  const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
+  const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
 
   const lang = useLang();

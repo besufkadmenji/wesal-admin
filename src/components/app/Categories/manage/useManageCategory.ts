@@ -20,6 +20,8 @@ export const useManageCategory = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [, setActivateCategory] = useQueryState("activateCategory");
+  const [, setDeactivateCategory] = useQueryState("deactivateCategory");
 
   const createCategory = async () => {
     setBusy(true);
@@ -105,10 +107,56 @@ export const useManageCategory = () => {
     }
   };
 
+  const activateCategory = async (id: string) => {
+    setBusy(true);
+    try {
+      const success = await CategoryService.activateCategory(id);
+      if (success) {
+        showSuccessMessage(dict.categories_page.messages.activateSuccess);
+        queryClient.invalidateQueries({ queryKey: ["categories"] });
+        queryClient.invalidateQueries({ queryKey: ["category", id] });
+        setActivateCategory(null);
+      } else {
+        showErrorMessage("Failed to activate category.");
+      }
+    } catch (error) {
+      console.error("Activate category error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const deactivateCategory = async (id: string) => {
+    setBusy(true);
+    try {
+      const success = await CategoryService.deactivateCategory(id);
+      if (success) {
+        showSuccessMessage(dict.categories_page.messages.deactivateSuccess);
+        queryClient.invalidateQueries({ queryKey: ["categories"] });
+        queryClient.invalidateQueries({ queryKey: ["category", id] });
+        setDeactivateCategory(null);
+      } else {
+        showErrorMessage("Failed to deactivate category.");
+      }
+    } catch (error) {
+      console.error("Deactivate category error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return {
     busy,
     createCategory,
     updateCategory,
     deleteCategory,
+    activateCategory,
+    deactivateCategory,
   };
 };

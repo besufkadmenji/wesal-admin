@@ -11,6 +11,8 @@ import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { useUser } from "../useUser";
+import Image from "next/image";
+import { dataUrl } from "@/config/url";
 
 const defaultProps = {
   center: {
@@ -75,6 +77,21 @@ export const UserDetail = ({ id }: { id: string }) => {
                 onChange={(value: string): void => {}}
                 readOnly
               />
+              {user.avatarFilename && user.avatarFilename !== "" && (
+                <div className="grid grid-cols-1 gap-2">
+                  <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
+                    {dict.view_user.avatar}
+                  </p>
+                  <div className="relative size-20 overflow-hidden rounded bg-gray-2">
+                    <Image
+                      src={`${dataUrl}/files/${user.avatarFilename}`}
+                      alt={user.name ?? "User Avatar"}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </FormSection>
         </AppForm>

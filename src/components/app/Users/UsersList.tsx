@@ -108,17 +108,7 @@ export const UsersList = () => {
             setPage(p, { history: "push" });
           },
         }}
-      />
-      <DeleteWarning
-        isOpen={!!isDeleteWarningOpen}
-        onClose={() => setIsDeleteWarningOpen(null)}
-        onConfirm={() => {
-          if (isDeleteWarningOpen) {
-            deleteUser(isDeleteWarningOpen);
-          }
-        }}
-        busy={busy}
-        type={DeleteWarningType.USER}
+        disableSelect
       />
       <ActivateUser />
       <DeactivateUser />

@@ -1,3 +1,5 @@
+import { ActivateCategory } from "@/components/app/Categories/manage/ActivateCategory";
+import { DeactivateCategory } from "@/components/app/Categories/manage/DeactivateCategory";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -30,6 +32,10 @@ export const CategoriesList = () => {
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
+      key: "id",
+      label: dict.categories_page.table_headers.id,
+    },
+    {
       key: "image",
       label: dict.categories_page.table_headers.image,
     },
@@ -42,12 +48,8 @@ export const CategoriesList = () => {
       label: dict.categories_page.table_headers.nameEn,
     },
     {
-      key: "descriptionAr",
-      label: dict.categories_page.table_headers.descriptionAr,
-    },
-    {
-      key: "descriptionEn",
-      label: dict.categories_page.table_headers.descriptionEn,
+      key: "status",
+      label: dict.categories_page.table_headers.status,
     },
     {
       key: "date",
@@ -70,23 +72,35 @@ export const CategoriesList = () => {
         columns={columns}
         rows={categories.map((category) => ({
           key: category.id,
+          id: `${category.publicId || "-"}`,
           image: category.image,
           nameAr: category.nameAr,
           nameEn: category.nameEn,
+          status: category.status,
           descriptionAr: category.descriptionAr,
           descriptionEn: category.descriptionEn,
           date: DateTimeHelpers.formatDate(category.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, {
-            onView: () => {
-              router.push(`${pathname}/${row.key}`);
-            },
-            onEdit: () => {
-              router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key, { history: "push" });
+            category: categories.find((cat) => cat.id === row.key)!,
+            action: {
+              onView: () => {
+                router.push(`${pathname}/${row.key}`);
+              },
+              onEdit: () => {
+                router.push(`${pathname}/${row.key}/edit`);
+              },
+              onDelete: () => {
+                setIsDeleteWarningOpen(row.key, { history: "push" });
+              },
+              onActivate: (value: boolean) => {
+                if (value) {
+                  setActivateCategory(row.key, { history: "push" });
+                } else {
+                  setDeactivateCategory(row.key, { history: "push" });
+                }
+              },
             },
           })
         }
@@ -109,6 +123,8 @@ export const CategoriesList = () => {
         busy={busy}
         type={DeleteWarningType.CATEGORY}
       />
+      <ActivateCategory />
+      <DeactivateCategory />
     </>
   );
 };

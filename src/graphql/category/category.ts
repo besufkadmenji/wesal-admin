@@ -15,8 +15,10 @@ export const CATEGORY_QUERY: TypedDocumentNode<
       nameEn
       rulesEn
       rulesAr
+      status
       image
       updatedAt
+      publicId
     }
   }
 `;

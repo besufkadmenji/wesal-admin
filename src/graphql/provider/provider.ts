@@ -21,6 +21,7 @@ export const PROVIDER_QUERY: TypedDocumentNode<
         updatedAt
         rulesEn
         rulesAr
+        status
       }
       cityId
       commercialRegistrationNumber

@@ -187,6 +187,7 @@ type Category {
   publicId: Int
   rulesAr: String!
   rulesEn: String!
+  status: CategoryStatus!
   updatedAt: DateTime!
 }
 
@@ -200,6 +201,12 @@ input CategoryPaginationInput {
 
   """Sort order: ASC or DESC"""
   sortOrder: SortOrder = DESC
+}
+
+"""Category publication status"""
+enum CategoryStatus {
+  ACTIVE
+  INACTIVE
 }
 
 input ChangeEmailInput {
@@ -337,6 +344,7 @@ type ContactMessage {
   name: String!
   phone: String!
   publicId: Int
+  reply: String!
   updatedAt: DateTime!
 }
 
@@ -925,6 +933,7 @@ enum MessageSortField {
 type Mutation {
   activateAdmin(id: ID!): Admin!
   activateBank(id: ID!): Bank!
+  activateCategory(id: ID!): Category!
   activateDeliveryCompany(id: ID!): DeliveryCompany!
   activateListing(id: ID!): Listing!
 
@@ -983,6 +992,7 @@ type Mutation {
   createRating(input: CreateRatingInput!): Rating!
   deactivateAdmin(id: ID!, input: DeactivateAdminInput!): Admin!
   deactivateBank(id: ID!, input: DeactivateBankInput!): Bank!
+  deactivateCategory(id: ID!): Category!
   deactivateDeliveryCompany(id: ID!, input: DeactivateDeliveryCompanyInput!): DeliveryCompany!
   deactivateListing(id: ID!, reason: String!): Listing!
 
@@ -1091,6 +1101,9 @@ type Mutation {
 
   """Delete user by ID"""
   removeUser(id: ID!, input: DeleteUserInput!): User!
+
+  """Reply to contact message (admin only)"""
+  replyToContactMessage(id: ID!, message: String!): ContactMessage!
 
   """Resend OTP for email or phone verification"""
   resendOtp(input: ResendOtpInput!): Boolean!
@@ -1856,6 +1869,14 @@ input SocialMediaLinkInput {
 enum SortOrder {
   ASC
   DESC
+}
+
+type Subscription {
+  """Subscribe to real-time updates for the authenticated provider"""
+  providerUpdated: Provider!
+
+  """Subscribe to real-time updates for the authenticated user"""
+  userUpdated: User!
 }
 
 """Type of target being tracked (category or listing)"""

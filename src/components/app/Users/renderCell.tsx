@@ -17,12 +17,7 @@ export const renderCell = (
   if (column === "number") {
     return <p className="text-primary font-semibold">{row.number}</p>;
   } else if (column === "action") {
-    return (
-      <ActionsCell
-        onView={action.onView}
-        onDelete={row.status === "DELETED" ? undefined : action.onDelete}
-      />
-    );
+    return <ActionsCell onView={action.onView} />;
   } else if (column === "name") {
     return (
       <div className="grid w-max grid-cols-1 gap-1">

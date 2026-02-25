@@ -6,7 +6,7 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
 export const useCountries = (initialParams?: CountryPaginationInput) => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
-  const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
+  const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const params: CountryPaginationInput = {
     page,
@@ -30,7 +30,7 @@ export const useCountries = (initialParams?: CountryPaginationInput) => {
 
 export const useCities = (initialParams?: CityPaginationInput) => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
-  const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
+  const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const params: CityPaginationInput = {
     page,

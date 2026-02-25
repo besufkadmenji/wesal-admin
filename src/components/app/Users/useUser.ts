@@ -13,7 +13,7 @@ export const useUsers = (
   initialParams?: UserPaginationInput,
 ): UseQueryResult<PaginatedUserResponse | null, Error> => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
-  const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
+  const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const [status] = useQueryState("status", parseAsString.withDefault(""));
   const [role] = useQueryState("role", parseAsString.withDefault("USER"));

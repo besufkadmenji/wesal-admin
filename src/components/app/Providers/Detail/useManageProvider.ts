@@ -77,7 +77,7 @@ export const useManageProvider = () => {
     try {
       const response = await ProviderService.removeProvider(id, { reason });
       if (response) {
-        showSuccessMessage(dict.system_managers_page.messages.deleteSuccess);
+        showSuccessMessage(dict.providers_page.messages.deleteSuccess);
         queryClient.invalidateQueries({
           queryKey: ["providers"],
         });

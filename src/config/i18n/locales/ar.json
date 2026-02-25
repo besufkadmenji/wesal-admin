@@ -29,7 +29,8 @@
       "confirm": "تأكيد",
       "action": "الاجراء",
       "actions": "الاجراء",
-      "saveAndPrint": "حفظ وطباعة"
+      "saveAndPrint": "حفظ وطباعة",
+      "clearSearch": "مسح البحث"
     },
 
     "timeFilters": {
@@ -381,7 +382,8 @@
     "platform_manager_signature": "توقيع مدير النظام",
     "no_contract_signed_yet": "لم يتم التوقيع على أي عقد حتى الآن",
     "contract_status": "حالة العقد",
-    "contract_signed_at": "تاريخ توقيع العقد"
+    "contract_signed_at": "تاريخ توقيع العقد",
+    "avatar": "الصورة الرمزية"
   },
   "add_new_provider_form": {
     "title": "إضافة مقدم خدمة جديد"
@@ -1300,9 +1302,11 @@
     "search_placeholder": "البحث",
     "table_headers": {
       "checkbox": "",
+      "id": "المعرف",
       "image": "الصورة",
       "nameAr": "الاسم (العربية)",
       "nameEn": "الاسم (الإنجليزية)",
+      "status": "الحالة",
       "descriptionAr": "الوصف (العربية)",
       "descriptionEn": "الوصف (الإنجليزية)",
       "parentCategory": "الفئة الأب",
@@ -1317,7 +1321,9 @@
     "messages": {
       "createSuccess": "تم إنشاء الفئة بنجاح.",
       "updateSuccess": "تم تحديث الفئة بنجاح.",
-      "deleteSuccess": "تم حذف الفئة بنجاح."
+      "deleteSuccess": "تم حذف الفئة بنجاح.",
+      "activateSuccess": "تم تفعيل الفئة بنجاح.",
+      "deactivateSuccess": "تم تعطيل الفئة بنجاح."
     }
   },
   "cities_page": {
@@ -1879,7 +1885,8 @@
     },
     "messages": {
       "activateSuccess": "تم تفعيل مقدم الخدمة بنجاح.",
-      "deactivateSuccess": "تم تعطيل مقدم الخدمة بنجاح."
+      "deactivateSuccess": "تم تعطيل مقدم الخدمة بنجاح.",
+      "deleteSuccess": "تم حذف مقدم الخدمة بنجاح."
     }
   },
   "providers_request_page": {
@@ -1916,6 +1923,14 @@
   },
   "view_listing": {
     "title": "عرض الإعلان"
+  },
+  "activate_category_confirmation": {
+    "title": "تفعيل الفئة",
+    "description": "هل أنت متأكد من تفعيل هذه الفئة؟"
+  },
+  "deactivate_category_confirmation": {
+    "title": "تعطيل الفئة",
+    "description": "هل أنت متأكد من تعطيل هذه الفئة؟"
   },
   "activate_listing_confirmation": {
     "title": "تفعيل الإعلان",

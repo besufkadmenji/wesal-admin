@@ -16,6 +16,7 @@ export const CATEGORIES_QUERY: TypedDocumentNode<
         totalPages
       }
       items {
+        publicId
         createdAt
         descriptionAr
         descriptionEn
@@ -23,6 +24,7 @@ export const CATEGORIES_QUERY: TypedDocumentNode<
         nameAr
         nameEn
         image
+        status
         updatedAt
         rulesEn
         rulesAr

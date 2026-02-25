@@ -43,7 +43,7 @@ export const AppTable = ({
   label,
   endAlign = "end",
   classNames,
-  disableSelect = false,
+  disableSelect = true,
   rowClick,
 }: {
   columns: ColumnType[];

@@ -89,6 +89,7 @@ export const ACTIVATE_LISTING_MUTATION: TypedDocumentNode<
         publicId
         rulesAr
         rulesEn
+        status
         updatedAt
       }
     }

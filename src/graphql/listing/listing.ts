@@ -86,6 +86,7 @@ export const LISTING_QUERY: TypedDocumentNode<
         publicId
         rulesAr
         rulesEn
+        status
         updatedAt
       }
     }
