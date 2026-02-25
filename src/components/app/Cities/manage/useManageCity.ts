@@ -19,6 +19,8 @@ export const useManageCity = () => {
     "isDeleteWarningOpen",
   );
   const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
+  const [, setActivateCity] = useQueryState("activateCity");
+  const [, setDeactivateCity] = useQueryState("deactivateCity");
 
   const createCity = async () => {
     setBusy(true);
@@ -97,10 +99,56 @@ export const useManageCity = () => {
     }
   };
 
+  const activateCity = async (id: string) => {
+    setBusy(true);
+    try {
+      const success = await CityService.activateCity(id);
+      if (success) {
+        showSuccessMessage(dict.cities_page.messages.activateSuccess);
+        queryClient.invalidateQueries({ queryKey: ["cities"] });
+        queryClient.invalidateQueries({ queryKey: ["city", id] });
+        setActivateCity(null);
+      } else {
+        showErrorMessage("Failed to activate city.");
+      }
+    } catch (error) {
+      console.error("Activate city error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const deactivateCity = async (id: string) => {
+    setBusy(true);
+    try {
+      const success = await CityService.deactivateCity(id);
+      if (success) {
+        showSuccessMessage(dict.cities_page.messages.deactivateSuccess);
+        queryClient.invalidateQueries({ queryKey: ["cities"] });
+        queryClient.invalidateQueries({ queryKey: ["city", id] });
+        setDeactivateCity(null);
+      } else {
+        showErrorMessage("Failed to deactivate city.");
+      }
+    } catch (error) {
+      console.error("Deactivate city error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return {
     busy,
     createCity,
     updateCity,
     deleteCity,
+    activateCity,
+    deactivateCity,
   };
 };

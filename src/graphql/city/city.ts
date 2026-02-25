@@ -7,6 +7,7 @@ export const CITY_QUERY: TypedDocumentNode<CityQuery, CityQueryVariables> = gql`
       id
       nameAr
       nameEn
+      status
       updatedAt
       createdAt
       countryId

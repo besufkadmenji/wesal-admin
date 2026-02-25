@@ -11,6 +11,8 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageCity } from "./manage/useManageCity";
 import { renderCell } from "./renderCell";
 import { useCities } from "./useCities";
+import { ActivateCity } from "./manage/ActivateCity";
+import { DeactivateCity } from "./manage/DeactivateCity";
 
 export const CitiesList = () => {
   const dict = useDict();
@@ -40,6 +42,10 @@ export const CitiesList = () => {
       label: dict.cities_page.table_headers.country,
     },
     {
+      key: "status",
+      label: dict.cities_page.table_headers.status,
+    },
+    {
       key: "date",
       label: dict.cities_page.table_headers.created_date,
     },
@@ -63,18 +69,29 @@ export const CitiesList = () => {
           nameAr: city.nameAr,
           nameEn: city.nameEn,
           country: lng === "ar" ? city.country!.nameAr : city.country!.nameEn,
+          status: city.status ?? 'ACTIVE',
           date: DateTimeHelpers.formatDate(city.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, {
-            onView: () => {
-              router.push(`${pathname}/${row.key}`);
-            },
-            onEdit: () => {
-              router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key, { history: "push" });
+            city: cities.find((c) => c.id === row.key)!,
+            action: {
+              onView: () => {
+                router.push(`${pathname}/${row.key}`);
+              },
+              onEdit: () => {
+                router.push(`${pathname}/${row.key}/edit`);
+              },
+              onDelete: () => {
+                setIsDeleteWarningOpen(row.key, { history: "push" });
+              },
+              onActivate: (value: boolean) => {
+                if (value) {
+                  setActivateCity(row.key, { history: "push" });
+                } else {
+                  setDeactivateCity(row.key, { history: "push" });
+                }
+              },
             },
           })
         }
@@ -97,6 +114,8 @@ export const CitiesList = () => {
         busy={busy}
         type={DeleteWarningType.CITY}
       />
+      <ActivateCity />
+      <DeactivateCity />
     </>
   );
 };

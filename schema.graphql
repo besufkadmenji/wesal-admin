@@ -238,6 +238,7 @@ type City {
   nameAr: String!
   nameEn: String!
   publicId: Int
+  status: CityStatus!
   updatedAt: DateTime!
 }
 
@@ -254,6 +255,7 @@ input CityPaginationInput {
 
   """Sort order: ASC or DESC"""
   sortOrder: SortOrder = DESC
+  status: CityStatus
 }
 
 """Available fields to sort cities by"""
@@ -264,6 +266,12 @@ enum CitySortField {
   nameAr
   nameEn
   updatedAt
+}
+
+"""City activation status"""
+enum CityStatus {
+  ACTIVE
+  INACTIVE
 }
 
 type Complaint {
@@ -934,6 +942,7 @@ type Mutation {
   activateAdmin(id: ID!): Admin!
   activateBank(id: ID!): Bank!
   activateCategory(id: ID!): Category!
+  activateCity(id: ID!): City!
   activateDeliveryCompany(id: ID!): DeliveryCompany!
   activateListing(id: ID!): Listing!
 
@@ -993,6 +1002,7 @@ type Mutation {
   deactivateAdmin(id: ID!, input: DeactivateAdminInput!): Admin!
   deactivateBank(id: ID!, input: DeactivateBankInput!): Bank!
   deactivateCategory(id: ID!): Category!
+  deactivateCity(id: ID!): City!
   deactivateDeliveryCompany(id: ID!, input: DeactivateDeliveryCompanyInput!): DeliveryCompany!
   deactivateListing(id: ID!, reason: String!): Listing!
 

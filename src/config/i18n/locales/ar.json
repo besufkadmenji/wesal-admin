@@ -1340,6 +1340,7 @@
       "nameAr": "الاسم (العربية)",
       "nameEn": "الاسم (الإنجليزية)",
       "country": "الدولة",
+      "status": "الحالة",
       "created_date": "تاريخ الإنشاء",
       "actions": "الإجراءات"
     },
@@ -1351,7 +1352,9 @@
     "messages": {
       "createSuccess": "تم إنشاء المدينة بنجاح.",
       "updateSuccess": "تم تحديث المدينة بنجاح.",
-      "deleteSuccess": "تم حذف المدينة بنجاح."
+      "deleteSuccess": "تم حذف المدينة بنجاح.",
+      "activateSuccess": "تم تفعيل المدينة بنجاح.",
+      "deactivateSuccess": "تم تعطيل المدينة بنجاح."
     },
     "validation": {
       "nameArRequired": "اسم المدينة بالعربية مطلوب",
@@ -1931,6 +1934,14 @@
   "deactivate_category_confirmation": {
     "title": "تعطيل الفئة",
     "description": "هل أنت متأكد من تعطيل هذه الفئة؟"
+  },
+  "activate_city_confirmation": {
+    "title": "تفعيل المدينة",
+    "description": "هل أنت متأكد من تفعيل هذه المدينة؟"
+  },
+  "deactivate_city_confirmation": {
+    "title": "تعطيل المدينة",
+    "description": "هل أنت متأكد من تعطيل هذه المدينة؟"
   },
   "activate_listing_confirmation": {
     "title": "تفعيل الإعلان",

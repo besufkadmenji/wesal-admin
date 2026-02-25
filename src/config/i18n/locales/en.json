@@ -1341,6 +1341,7 @@
       "nameAr": "Name (Arabic)",
       "nameEn": "Name (English)",
       "country": "Country",
+      "status": "Status",
       "created_date": "Created Date",
       "actions": "Actions"
     },
@@ -1352,7 +1353,9 @@
     "messages": {
       "createSuccess": "City created successfully.",
       "updateSuccess": "City updated successfully.",
-      "deleteSuccess": "City deleted successfully."
+      "deleteSuccess": "City deleted successfully.",
+      "activateSuccess": "City activated successfully.",
+      "deactivateSuccess": "City deactivated successfully."
     },
     "validation": {
       "nameArRequired": "Arabic city name is required",
@@ -1932,6 +1935,14 @@
   "deactivate_category_confirmation": {
     "title": "Deactivate Category",
     "description": "Are you sure you want to deactivate this category?"
+  },
+  "activate_city_confirmation": {
+    "title": "Activate City",
+    "description": "Are you sure you want to activate this city?"
+  },
+  "deactivate_city_confirmation": {
+    "title": "Deactivate City",
+    "description": "Are you sure you want to deactivate this city?"
   },
   "activate_listing_confirmation": {
     "title": "Activate Listing",

@@ -13,6 +13,7 @@ export const useCategories = (initialParams?: CategoryPaginationInput) => {
     page,
     limit,
     ...(search && { search }),
+    ...(status && { status }),
     ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({

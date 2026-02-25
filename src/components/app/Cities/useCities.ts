@@ -1,5 +1,9 @@
 "use client";
-import { CityPaginationInput, CountryPaginationInput } from "@/gql/graphql";
+import {
+  CityPaginationInput,
+  CityStatus,
+  CountryPaginationInput,
+} from "@/gql/graphql";
 import CityService from "@/services/city.service";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
@@ -32,10 +36,12 @@ export const useCities = (initialParams?: CityPaginationInput) => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
+  const [status] = useQueryState("status", parseAsString.withDefault(""));
   const params: CityPaginationInput = {
     page,
     limit,
     ...(search && { search }),
+    ...(status && { status: status as CityStatus }),
     ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({

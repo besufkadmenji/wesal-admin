@@ -21,6 +21,7 @@ export const CITIES_QUERY: TypedDocumentNode<
         id
         nameAr
         nameEn
+        status
         updatedAt
         country {
           code

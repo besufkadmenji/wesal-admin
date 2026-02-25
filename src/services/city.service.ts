@@ -13,6 +13,8 @@ import { COUNTRIES_QUERY } from "@/graphql/city/countries";
 import { CREATE_CITY_MUTATION } from "@/graphql/city/createCity";
 import { REMOVE_CITY_MUTATION } from "@/graphql/city/removeCity";
 import { UPDATE_CITY_MUTATION } from "@/graphql/city/updateCity";
+import { ACTIVATE_CITY_MUTATION } from "@/graphql/city/activateCity";
+import { DEACTIVATE_CITY_MUTATION } from "@/graphql/city/deactivateCity";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
@@ -128,6 +130,32 @@ class CityService {
       responseType: 'blob',
     });
     return new Blob([response.data], { type: 'text/csv' });
+  };
+
+  static activateCity = async (activateCityId: string) => {
+    try {
+      const response = await client().mutate({
+        mutation: ACTIVATE_CITY_MUTATION,
+        variables: { activateCityId },
+      });
+      return response.data?.activateCity ?? null;
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+
+  static deactivateCity = async (deactivateCityId: string) => {
+    try {
+      const response = await client().mutate({
+        mutation: DEACTIVATE_CITY_MUTATION,
+        variables: { deactivateCityId },
+      });
+      return response.data?.deactivateCity ?? null;
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
   };
 }
 
