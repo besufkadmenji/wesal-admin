@@ -64,6 +64,7 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
           rulesAr
           rulesEn
           updatedAt
+          status
         }
         city {
           countryId

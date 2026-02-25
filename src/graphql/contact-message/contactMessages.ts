@@ -1,6 +1,6 @@
 import {
-    ContactMessagesQuery,
-    ContactMessagesQueryVariables
+  ContactMessagesQuery,
+  ContactMessagesQueryVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -22,6 +22,7 @@ export const CONTACT_MESSAGES_QUERY: TypedDocumentNode<
         name
         phone
         updatedAt
+        reply
       }
       meta {
         hasNext

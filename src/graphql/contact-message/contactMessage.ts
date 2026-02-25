@@ -21,6 +21,7 @@ export const CONTACT_MESSAGE_QUERY: TypedDocumentNode<
       name
       phone
       updatedAt
+      reply
     }
   }
 `;

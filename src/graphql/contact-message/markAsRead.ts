@@ -18,6 +18,7 @@ export const MARK_AS_READ_MUTATION: TypedDocumentNode<
       name
       phone
       updatedAt
+      reply
     }
   }
 `;
