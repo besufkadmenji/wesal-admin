@@ -41,6 +41,7 @@ export const USERS_QUERY: TypedDocumentNode<UsersQuery, UsersQueryVariables> =
             nameAr
             nameEn
             updatedAt
+            status
           }
           deactivationReason
           deleteReason

@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @plugin "./../config/hero.ts";
 @source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 @custom-variant dark (&:where(.dark, .dark *));
@@ -33,7 +32,7 @@
   --shadow-hero: 0 0 120px 100px rgba(237, 222, 171, 0.2);
 
   --color-dashboard-title: #001543;
-  --color-dashboard-border: #E0E2E7;
+  --color-dashboard-border: #e0e2e7;
 
   --color-dark-app-background: #2d2d2d;
   --color-dark-title: #e5e5e5;
@@ -59,4 +58,33 @@
 
 * {
   scroll-behavior: smooth;
+}
+
+/* .leaflet-draw-toolbar a,
+.leaflet-draw-toolbar a:hover,
+.leaflet-draw-toolbar a:active,
+.leaflet-draw-toolbar a.leaflet-draw-toolbar-button-enabled,
+.leaflet-draw-toolbar a.leaflet-draw-toolbar-button-enabled:hover {
+  background-image: url("/leaflet-draw/spritesheet.png") !important;
+  background-image:
+    linear-gradient(transparent, transparent),
+    url("/leaflet-draw/spritesheet.svg") !important;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .leaflet-draw-toolbar a,
+  .leaflet-draw-toolbar a:hover,
+  .leaflet-draw-toolbar a:active,
+  .leaflet-draw-toolbar a.leaflet-draw-toolbar-button-enabled,
+  .leaflet-draw-toolbar a.leaflet-draw-toolbar-button-enabled:hover {
+    background-image: url("/leaflet-draw/spritesheet-2x.png") !important;
+    background-image:
+      linear-gradient(transparent, transparent),
+      url("/leaflet-draw/spritesheet.svg") !important;
+    background-size: 270px 30px !important;
+  }
+} */
+
+.sr-only {
+  display: none;
 }

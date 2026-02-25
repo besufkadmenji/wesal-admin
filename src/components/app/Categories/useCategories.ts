@@ -1,5 +1,5 @@
 "use client";
-import { CategoryPaginationInput } from "@/gql/graphql";
+import { CategoryPaginationInput, CategoryStatus } from "@/gql/graphql";
 import CategoryService from "@/services/category.service";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
@@ -13,7 +13,7 @@ export const useCategories = (initialParams?: CategoryPaginationInput) => {
     page,
     limit,
     ...(search && { search }),
-    ...(status && { status }),
+    ...(status && { status: status as CategoryStatus }),
     ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({

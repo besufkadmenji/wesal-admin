@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
+import { useCountries } from "@/components/app/Cities/useCities";
 
 export const useManageCity = () => {
+  const { countries } = useCountries();
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
@@ -27,6 +29,7 @@ export const useManageCity = () => {
     try {
       const response = await CityService.createCity({
         ...form,
+        countryId: countries![0]?.id || "",
       });
       if (response) {
         showSuccessMessage(dict.cities_page.messages.createSuccess);

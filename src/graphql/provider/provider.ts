@@ -49,6 +49,7 @@ export const PROVIDER_QUERY: TypedDocumentNode<
         nameAr
         nameEn
         updatedAt
+        status
       }
       deactivationReason
       deleteReason

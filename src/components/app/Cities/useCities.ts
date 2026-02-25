@@ -19,7 +19,7 @@ export const useCountries = (initialParams?: CountryPaginationInput) => {
     ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["countries", params, page, limit, search, status],
+    queryKey: ["countries", params, page, limit, search],
     queryFn: () => CityService.countries(params),
   });
 

@@ -201,6 +201,7 @@ input CategoryPaginationInput {
 
   """Sort order: ASC or DESC"""
   sortOrder: SortOrder = DESC
+  status: CategoryStatus
 }
 
 """Category publication status"""
@@ -234,6 +235,7 @@ type City {
   country: Country
   countryId: String!
   createdAt: DateTime!
+  geoBoundary: JSON
   id: ID!
   nameAr: String!
   nameEn: String!
@@ -556,6 +558,7 @@ input CreateCategoryInput {
 
 input CreateCityInput {
   countryId: ID!
+  geoBoundary: JSON
   nameAr: String!
   nameEn: String!
 }
@@ -812,6 +815,11 @@ enum FavoriteSortField {
 input ForgotPasswordInput {
   emailOrPhone: String!
 }
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type Listing {
   category: Category
@@ -1946,6 +1954,7 @@ input UpdateCategoryInput {
 
 input UpdateCityInput {
   countryId: ID
+  geoBoundary: JSON
   id: ID!
   nameAr: String
   nameEn: String

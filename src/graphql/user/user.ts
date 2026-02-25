@@ -31,6 +31,7 @@ export const USER_QUERY: TypedDocumentNode<UserQuery, UserQueryVariables> = gql`
         nameAr
         nameEn
         updatedAt
+        status
       }
       deactivationReason
       deleteReason

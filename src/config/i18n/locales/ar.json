@@ -883,7 +883,8 @@
   "add_new_city_form": {
     "title": "إضافة مدينة جديدة",
     "sections": {
-      "city_information": "معلومات المدينة"
+      "city_information": "معلومات المدينة",
+      "geo_boundary":"الحدود الجغرافية"
     },
     "labels": {
       "city_name_ar": "اسم المدينة (العربية)",

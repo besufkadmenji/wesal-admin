@@ -1,24 +1,25 @@
 "use client";
 
-import { useCountries } from "@/components/app/Cities/useCities";
 import {
   AppForm,
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
+import {
+  PolygonMapPicker,
+  type GeoJSONPolygon,
+} from "@/components/shared/PolygonMapPicker";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { FormSelect } from "../../shared/forms/FormSelect";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCity } from "./useManageCity";
 
 export const AddCity = () => {
   const { form, setForm, reset } = useForm();
-  const { countries } = useCountries();
   const dict = useDict();
   const router = useRouter();
   const { busy, createCity } = useManageCity();
@@ -29,6 +30,7 @@ export const AddCity = () => {
       reset();
     };
   }, [reset]);
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -67,26 +69,17 @@ export const AddCity = () => {
                 }}
                 errorMessage={errors.nameEn}
               />
-
-              <FormSelect
-                label={dict.add_new_city_form.labels.country}
-                placeholder={dict.add_new_city_form.placeholders.country}
-                value={form.countryId?.toString() || ""}
-                onChange={(value: string): void => {
-                  setForm({
-                    countryId: value as unknown as string,
-                  });
-                  clearError("countryId");
-                }}
-                options={
-                  countries?.map((country) => ({
-                    label: lng === "ar" ? country.nameAr : country.nameEn || "",
-                    key: country.id,
-                  })) ?? []
-                }
-                errorMessage={errors.countryId}
-              />
             </div>
+          </FormSection>
+
+          <FormSection title={dict.add_new_city_form.sections.geo_boundary}>
+            <PolygonMapPicker
+              value={(form.geoBoundary as GeoJSONPolygon | null) ?? null}
+              onChange={(polygon) => {
+                console.log("Selected polygon:", polygon);
+                return setForm({ geoBoundary: polygon });
+              }}
+            />
           </FormSection>
         </AppForm>
       </div>

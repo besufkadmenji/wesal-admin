@@ -20,6 +20,7 @@ export const CITY_QUERY: TypedDocumentNode<CityQuery, CityQueryVariables> = gql`
         nameEn
         updatedAt
       }
+      geoBoundary
     }
   }
 `;

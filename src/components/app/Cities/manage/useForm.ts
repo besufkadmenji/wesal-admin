@@ -1,4 +1,5 @@
 import { City, CreateCityInput } from "@/gql/graphql";
+import type { GeoJSONPolygon } from "@/components/shared/PolygonMapPicker";
 import { useEffect } from "react";
 import { create } from "zustand";
 
@@ -8,12 +9,15 @@ interface FormState {
   reset: () => void;
 }
 
+const initialForm: CreateCityInput = {
+  nameAr: "",
+  nameEn: "",
+  countryId: "",
+  geoBoundary: null,
+};
+
 export const useForm = create<FormState>((set) => ({
-  form: {
-    nameAr: "",
-    nameEn: "",
-    countryId: "",
-  },
+  form: { ...initialForm },
   setForm: (form) =>
     set((state) => ({
       form: {
@@ -23,11 +27,7 @@ export const useForm = create<FormState>((set) => ({
     })),
   reset: () =>
     set(() => ({
-      form: {
-        nameAr: "",
-        nameEn: "",
-        countryId: "",
-      },
+      form: { ...initialForm },
     })),
 }));
 
@@ -41,8 +41,10 @@ export const useManageForm = (id: string, city?: City | null) => {
       nameAr: city?.nameAr || "",
       nameEn: city?.nameEn || "",
       countryId: city?.countryId || "",
+      geoBoundary: (city?.geoBoundary as GeoJSONPolygon | null) ?? null,
     });
-  }, [city?.nameAr, city?.nameEn, city?.countryId, setForm]);
+  }, [city?.nameAr, city?.nameEn, city?.countryId, city?.geoBoundary, setForm]);
 
   return { form, setForm, reset };
 };
+

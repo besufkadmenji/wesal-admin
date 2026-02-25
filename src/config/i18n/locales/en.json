@@ -885,7 +885,8 @@
   "add_new_city_form": {
     "title": "Add New City",
     "sections": {
-      "city_information": "City Information"
+      "city_information": "City Information",
+      "geo_boundary": "Geo Boundary"
     },
     "labels": {
       "city_name_ar": "City Name (Arabic)",

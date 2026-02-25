@@ -74,6 +74,7 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
           nameEn
           publicId
           updatedAt
+          status
         }
       }
       providerId

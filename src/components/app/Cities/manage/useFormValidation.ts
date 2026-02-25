@@ -64,19 +64,6 @@ export const useFormValidation = (form: CityForm) => {
     [dict],
   );
 
-  const validateCountryId = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return (
-          dict.cities_page.validation?.countryIdRequired ||
-          "Country is required"
-        );
-      }
-      return null;
-    },
-    [dict],
-  );
-
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -86,9 +73,6 @@ export const useFormValidation = (form: CityForm) => {
     const nameEnError = validateNameEn(form.nameEn);
     if (nameEnError) newErrors.nameEn = nameEnError;
 
-    const countryIdError = validateCountryId(form.countryId);
-    if (countryIdError) newErrors.countryId = countryIdError;
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
@@ -97,22 +81,19 @@ export const useFormValidation = (form: CityForm) => {
     form.countryId,
     validateNameAr,
     validateNameEn,
-    validateCountryId,
   ]);
 
   const isFormValid = useMemo(() => {
     const nameArError = validateNameAr(form.nameAr);
     const nameEnError = validateNameEn(form.nameEn);
-    const countryIdError = validateCountryId(form.countryId);
 
-    return !nameArError && !nameEnError && !countryIdError;
+    return !nameArError && !nameEnError;
   }, [
     form.nameAr,
     form.nameEn,
     form.countryId,
     validateNameAr,
     validateNameEn,
-    validateCountryId,
   ]);
 
   const validateField = useCallback(
@@ -126,9 +107,6 @@ export const useFormValidation = (form: CityForm) => {
         case "nameEn":
           error = validateNameEn(value) || "";
           break;
-        case "countryId":
-          error = validateCountryId(value) || "";
-          break;
       }
 
       if (error) {
@@ -141,7 +119,7 @@ export const useFormValidation = (form: CityForm) => {
         });
       }
     },
-    [validateNameAr, validateNameEn, validateCountryId],
+    [validateNameAr, validateNameEn],
   );
 
   const clearError = useCallback(

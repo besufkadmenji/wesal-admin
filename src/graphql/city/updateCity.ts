@@ -13,6 +13,7 @@ export const UPDATE_CITY_MUTATION: TypedDocumentNode<
       nameAr
       nameEn
       updatedAt
+      geoBoundary
       country {
         code
         createdAt

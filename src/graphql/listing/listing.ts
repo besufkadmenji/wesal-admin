@@ -74,6 +74,7 @@ export const LISTING_QUERY: TypedDocumentNode<
         nameEn
         publicId
         updatedAt
+        status
       }
       category {
         createdAt
