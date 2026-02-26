@@ -706,7 +706,17 @@
       "report": "Reports",
       "subscriber": "Subscribers",
       "dashboard": "Dashboard",
-      "admin": "Admins"
+      "admin": "Admins",
+      "city": "Cities",
+      "contact_message": "Contact Messages",
+      "faq": "Faq",
+      "delivery_company": "Delivery Companies",
+      "listing": "Listings",
+      "permission": "Permissions",
+      "provider": "Providers",
+      "setting": "Settings",
+      "signed_contract": "Signed Contract",
+      "bank": "Banks"
     }
   },
   "activate_user_confirmation": {

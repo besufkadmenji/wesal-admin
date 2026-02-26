@@ -13,7 +13,8 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageAdmin } from "./manage/useManageAdmin";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
-import { Admin } from "@/gql/graphql";
+import { Admin, AdminPermissionType } from "@/gql/graphql";
+import { useMe } from "@/hooks/useMe";
 
 export const AdminsList = () => {
   const dict = useDict();
@@ -27,7 +28,7 @@ export const AdminsList = () => {
     useQueryState("deactivateAdmin");
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
-
+  const { me } = useMe();
   const router = useRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
@@ -76,6 +77,7 @@ export const AdminsList = () => {
           phone: admin.phoneNumber,
           email: admin.email,
           role: roleMap(dict)[admin.permissionType],
+          permissionType: admin.permissionType,
           status: admin.status,
           date: DateTimeHelpers.formatDate(admin.createdAt),
         }))}
@@ -87,9 +89,13 @@ export const AdminsList = () => {
               onView: () => {
                 router.push(`${pathname}/${row.key}`);
               },
-              onEdit: () => {
-                router.push(`${pathname}/${row.key}/edit`);
-              },
+              onEdit:
+                row.permissionType === AdminPermissionType.SuperAdmin &&
+                me?.permissionType !== AdminPermissionType.SuperAdmin
+                  ? undefined
+                  : () => {
+                      router.push(`${pathname}/${row.key}/edit`);
+                    },
               onDelete: () => {
                 setIsDeleteWarningOpen(row.key, { history: "push" });
               },

@@ -9,6 +9,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { CitiesFilter } from "./CitiesFilter";
@@ -18,16 +19,19 @@ export const Cities = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { cities, pagination, isLoading } = useCities();
+  const canCreate = useCanAccess("city", "create");
 
   return (
     <PageWrapper>
       <PageBar title={dict.cities_page.title}>
-        <AddButton
-          type={AddButtonType.City}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {canCreate && (
+          <AddButton
+            type={AddButtonType.City}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

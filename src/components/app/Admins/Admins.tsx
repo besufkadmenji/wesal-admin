@@ -9,6 +9,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { AdminsFilter } from "./AdminsFilter";
@@ -18,16 +19,19 @@ export const Admins = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { admins, pagination, isLoading } = useUsers();
+  const canCreate = useCanAccess("admin", "create");
 
   return (
     <PageWrapper>
       <PageBar title={dict.system_managers_page.title}>
-        <AddButton
-          type={AddButtonType.Admin}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {canCreate && (
+          <AddButton
+            type={AddButtonType.Admin}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

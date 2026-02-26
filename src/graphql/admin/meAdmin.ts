@@ -17,6 +17,13 @@ export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
       phoneNumber
       avatarFilename
       platformManagerSignature
+      adminPermissions {
+        id
+        permission {
+          module
+          action
+        }
+      }
     }
   }
 `;

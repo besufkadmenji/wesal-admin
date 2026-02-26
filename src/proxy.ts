@@ -99,7 +99,7 @@ async function getAdmin(req: NextRequest) {
     ).query({
       query: ME_ADMIN_QUERY,
     });
-
+    console.log("Admin data from proxy:", data);
     return data?.meAdmin ?? null;
   } catch {
     return null;

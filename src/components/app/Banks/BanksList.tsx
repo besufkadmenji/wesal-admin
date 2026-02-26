@@ -2,6 +2,7 @@ import { ActivateBank } from "@/components/app/Banks/manage/ActivateBank";
 import { DeactivateBank } from "@/components/app/Banks/manage/DeactivateBank";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import { usePathname, useRouter } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
@@ -17,6 +18,8 @@ export const BanksList = () => {
   const dict = useDict();
   const { banks, pagination, isLoading } = useBanks();
   const { deleteBank, busy } = useManageBank();
+  const canUpdate = useCanAccess("bank", "update");
+  const canDelete = useCanAccess("bank", "delete");
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -74,19 +77,25 @@ export const BanksList = () => {
               onView: () => {
                 router.push(`${pathname}/${row.key}`);
               },
-              onEdit: () => {
-                router.push(`${pathname}/${row.key}/edit`);
-              },
-              onDelete: () => {
-                setIsDeleteWarningOpen(row.key, { history: "push" });
-              },
-              onActivate: (value: boolean) => {
-                if (value) {
-                  setActivateBank(row.key, { history: "push" });
-                } else {
-                  setDeactivateBank(row.key, { history: "push" });
-                }
-              },
+              onEdit: canUpdate
+                ? () => {
+                    router.push(`${pathname}/${row.key}/edit`);
+                  }
+                : undefined,
+              onDelete: canDelete
+                ? () => {
+                    setIsDeleteWarningOpen(row.key, { history: "push" });
+                  }
+                : undefined,
+              onActivate: canUpdate
+                ? (value: boolean) => {
+                    if (value) {
+                      setActivateBank(row.key, { history: "push" });
+                    } else {
+                      setDeactivateBank(row.key, { history: "push" });
+                    }
+                  }
+                : undefined,
             },
           })
         }

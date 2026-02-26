@@ -19,6 +19,7 @@ import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import {
   Button,
   Drawer,
@@ -33,6 +34,17 @@ import { twMerge } from "tailwind-merge";
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
   const { logout } = useMe();
+  const canReadAdmins = useCanAccess("admin", "read");
+  const canReadCategories = useCanAccess("category", "read");
+  const canReadListings = useCanAccess("listing", "read");
+  const canReadCities = useCanAccess("city", "read");
+  const canReadUsers = useCanAccess("user", "read");
+  const canReadProviders = useCanAccess("provider", "read");
+  const canReadBanks = useCanAccess("bank", "read");
+  const canReadDeliveryCompanies = useCanAccess("delivery_company", "read");
+  const canReadSettings = useCanAccess("setting", "read");
+  const canReadContactMessages = useCanAccess("contact_message", "read");
+  const canReadFaq = useCanAccess("faq", "read");
   return (
     <aside
       className={twMerge(
@@ -53,109 +65,122 @@ export const Sidebar = ({ className }: { className?: string }) => {
           label={dict.navigation.home}
         />
 
-        <OptionLink
-          href="/admins"
-          icon={<AdminsIcon className="size-5" />}
-          label={dict.navigation.system_managers}
-        />
-        <OptionLink
-          href="/categories"
-          icon={<CategoryIcon className="size-5" />}
-          label={dict.navigation.categories}
-        />
-        <OptionLink
-          href="/listings"
-          icon={<ListingIcon className="size-5" />}
-          label={dict.navigation.ads}
-        />
-        <OptionLink
-          href="/cities"
-          icon={<MapPinIcon className="size-5" />}
-          label={dict.navigation.cities}
-        />
-        <OptionLink
-          href="/users"
-          icon={<UsersIcon className="size-5" />}
-          label={dict.navigation.users}
-        />
-        <ExpandableOption
-          icon={<ProvidersIcon className="size-5" />}
-          label={dict.navigation.providers}
-          options={[
-            {
-              href: "/providers/requests",
-              label: dict.navigation.join_requests,
-            },
-            {
-              href: "/providers",
-              label: dict.navigation.providers,
-            },
-            {
-              href: "/providers/e-contracts",
-              label: dict.navigation.electronicContracts,
-            },
-          ]}
-        />
-        <OptionLink
-          href="/banks"
-          icon={<BankIcon className="size-5" />}
-          label={dict.navigation.banks}
-        />
-        <OptionLink
-          href="/delivery-companies"
-          icon={<ShippingIcon className="size-5" />}
-          label={dict.navigation.delivery_companies}
-        />
-        {/* <OptionLink
-          href="/reports"
-          icon={<ReportsIcon className="size-5" />}
-          label={dict.navigation.reports}
-        />
-        <OptionLink
-          href="/clients"
-          icon={<CustomersIcon className="size-5" />}
-          label={dict.navigation.clients}
-        /> */}
-        <OptionLink
-          href="/settings"
-          icon={<SettingsIcon className="size-5" />}
-          label={dict.navigation.settings}
-        />
-        <ExpandableOption
-          icon={<CmsIcon className="size-5" />}
-          label={dict.navigation.website_content}
-          options={[
-            {
-              href: "/content/contact-management",
-              label: dict.navigation.contact_admin,
-            },
-            {
-              href: "/content/about-platform",
-              label: dict.navigation.about,
-            },
-            {
-              href: "/content/terms",
-              label: dict.navigation.terms_and_conditions,
-            },
-            {
-              href: "/content/privacy-policy",
-              label: dict.navigation.privacy_policy,
-            },
-            {
-              href: "/content/faq",
-              label: dict.navigation.faq,
-            },
-            {
-              href: "/content/contact-messages",
-              label: dict.navigation.contact_us,
-            },
-          ]}
-        />
-        {/* <OptionLink
-          href="/notifications"
-          icon={<NotificationIcon className="size-5" />}
-          label={dict.navigation.notifications}
-        /> */}
+        {canReadAdmins && (
+          <OptionLink
+            href="/admins"
+            icon={<AdminsIcon className="size-5" />}
+            label={dict.navigation.system_managers}
+          />
+        )}
+        {canReadCategories && (
+          <OptionLink
+            href="/categories"
+            icon={<CategoryIcon className="size-5" />}
+            label={dict.navigation.categories}
+          />
+        )}
+        {canReadListings && (
+          <OptionLink
+            href="/listings"
+            icon={<ListingIcon className="size-5" />}
+            label={dict.navigation.ads}
+          />
+        )}
+        {canReadCities && (
+          <OptionLink
+            href="/cities"
+            icon={<MapPinIcon className="size-5" />}
+            label={dict.navigation.cities}
+          />
+        )}
+        {canReadUsers && (
+          <OptionLink
+            href="/users"
+            icon={<UsersIcon className="size-5" />}
+            label={dict.navigation.users}
+          />
+        )}
+        {canReadProviders && (
+          <ExpandableOption
+            icon={<ProvidersIcon className="size-5" />}
+            label={dict.navigation.providers}
+            options={[
+              {
+                href: "/providers/requests",
+                label: dict.navigation.join_requests,
+              },
+              {
+                href: "/providers",
+                label: dict.navigation.providers,
+              },
+              {
+                href: "/providers/e-contracts",
+                label: dict.navigation.electronicContracts,
+              },
+            ]}
+          />
+        )}
+        {canReadBanks && (
+          <OptionLink
+            href="/banks"
+            icon={<BankIcon className="size-5" />}
+            label={dict.navigation.banks}
+          />
+        )}
+        {canReadDeliveryCompanies && (
+          <OptionLink
+            href="/delivery-companies"
+            icon={<ShippingIcon className="size-5" />}
+            label={dict.navigation.delivery_companies}
+          />
+        )}
+        {canReadSettings && (
+          <OptionLink
+            href="/settings"
+            icon={<SettingsIcon className="size-5" />}
+            label={dict.navigation.settings}
+          />
+        )}
+        {(canReadContactMessages || canReadFaq) && (
+          <ExpandableOption
+            icon={<CmsIcon className="size-5" />}
+            label={dict.navigation.website_content}
+            options={[
+              {
+                href: "/content/contact-management",
+                label: dict.navigation.contact_admin,
+              },
+              {
+                href: "/content/about-platform",
+                label: dict.navigation.about,
+              },
+              {
+                href: "/content/terms",
+                label: dict.navigation.terms_and_conditions,
+              },
+              {
+                href: "/content/privacy-policy",
+                label: dict.navigation.privacy_policy,
+              },
+              ...(canReadFaq
+                ? [
+                    {
+                      href: "/content/faq",
+                      label: dict.navigation.faq,
+                    },
+                  ]
+                : []),
+              ...(canReadContactMessages
+                ? [
+                    {
+                      href: "/content/contact-messages",
+                      label: dict.navigation.contact_us,
+                    },
+                  ]
+                : []),
+            ]}
+          />
+        )}
         <OptionLink
           href="#"
           icon={<LogoutIcon className="size-5" />}

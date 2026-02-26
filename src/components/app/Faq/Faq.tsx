@@ -7,6 +7,7 @@ import {
   AddButtonType,
 } from "@/components/app/shared/button/AddButton";
 import { useDict } from "@/hooks/useDict";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { usePathname, useRouter } from "next/navigation";
 import { Gap } from "@/components/app/shared/Gap";
 import { Button } from "@heroui/react";
@@ -22,6 +23,7 @@ export const FaqManager = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [changeOrder, setChangeOrder] = useQueryState("changeOrder");
+  const canCreate = useCanAccess("faq", "create");
 
   return (
     <PageWrapper>
@@ -29,12 +31,14 @@ export const FaqManager = () => {
         title={dict.faq_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
       >
-        <AddButton
-          type={AddButtonType.Faq}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {canCreate && (
+          <AddButton
+            type={AddButtonType.Faq}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
         <Button
           startContent={<ChangeOrderIcon className="size-5" />}
           variant="bordered"

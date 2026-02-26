@@ -16,6 +16,7 @@ enum ActionType {
 }
 
 type Admin {
+  adminPermissions: [AdminPermission!]
   avatarFilename: String
   createdAt: DateTime!
   deactivationReason: String

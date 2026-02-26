@@ -25,7 +25,7 @@ const ThemeSwitcher = dynamic(
 );
 
 export const Header = () => {
-  const {} = useMe();
+  // const {} = useMe();
   return (
     <header
       className={twMerge(
@@ -36,7 +36,7 @@ export const Header = () => {
       <div className="flex items-center gap-0 lg:gap-5">
         <ThemeSwitcher />
         <SelectLanguage />
-        <NotificationPopover />
+        {/* <NotificationPopover /> */}
         <LoggedUser />
       </div>
     </header>
@@ -76,7 +76,7 @@ const LoggedUser = () => {
 const NotificationPopover = () => {
   const dict = useDict();
   const { me } = useMe();
-  console.log("Notifications for", me?.id);
+  // console.log("Notifications for", me?.id);
   return (
     <Popover
       placement="bottom"

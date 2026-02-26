@@ -10,6 +10,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { ExportModel } from "@/types/export.models";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
@@ -20,16 +21,19 @@ export const Banks = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { banks, pagination, isLoading } = useBanks();
+  const canCreate = useCanAccess("bank", "create");
 
   return (
     <PageWrapper>
       <PageBar title={dict.banks_page.title}>
-        <AddButton
-          type={AddButtonType.Bank}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {canCreate && (
+          <AddButton
+            type={AddButtonType.Bank}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
         <ExportButton model={ExportModel.Banks} />
       </PageBar>
       <Gap className="h-8" />

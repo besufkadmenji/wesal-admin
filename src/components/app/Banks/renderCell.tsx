@@ -25,9 +25,9 @@ export const renderCell = (
     dict: Dictionary;
     action: {
       onView: () => void;
-      onEdit: () => void;
-      onDelete: () => void;
-      onActivate: (value: boolean) => void;
+      onEdit?: () => void;
+      onDelete?: () => void;
+      onActivate?: (value: boolean) => void;
     };
   },
 ) => {
@@ -41,13 +41,15 @@ export const renderCell = (
     );
   } else if (column === "status") {
     console.log("row status:", row.status);
-    return (
+    return action.onActivate ? (
       <AppSwitch
         isSelected={row.status === "ACTIVE"}
         onValueChange={(checked) => {
-          action.onActivate(checked);
+          action.onActivate!(checked);
         }}
       />
+    ) : (
+      <p className="w-max">{row.status}</p>
     );
   }
   return <p className="w-max">{row[column as string]}</p>;

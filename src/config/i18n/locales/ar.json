@@ -704,7 +704,17 @@
       "report": "التقارير",
       "subscriber": "المشتركين",
       "dashboard": "لوحة التحكم",
-      "admin": "المديرين"
+      "admin": "المديرين",
+      "city": "المدن",
+      "contact_message": "رسائل التواصل",
+      "faq": "الأسئلة الشائعة",
+      "delivery_company": "شركات التوصيل",
+      "listing": "الإعلانات",
+      "permission": "الصلاحيات",
+      "provider": "مقدمو الخدمات",
+      "setting": "الإعدادات",
+      "signed_contract": "العقد الموقع",
+      "bank": "البنوك"
     }
   },
   "activate_user_confirmation": {
