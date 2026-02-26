@@ -2,7 +2,7 @@ import { MeAdminQuery } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
 export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
-  query meAdmin {
+   query meAdmin {
     meAdmin {
       id
       createdAt
@@ -22,7 +22,20 @@ export const ME_ADMIN_QUERY: TypedDocumentNode<MeAdminQuery> = gql`
         permission {
           module
           action
+          createdAt
+          description
+          id
+          name
+          nameAr
+          permissionPlatform
+          resource
+          updatedAt
         }
+        adminId
+        permissionId
+        publicId
+        updatedAt
+        createdAt
       }
     }
   }

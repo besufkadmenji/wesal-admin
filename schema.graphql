@@ -71,7 +71,7 @@ input AdminPaginationInput {
 }
 
 type AdminPermission {
-  admin: Admin!
+  admin: Admin
   adminId: ID!
   createdAt: DateTime!
   id: ID!
