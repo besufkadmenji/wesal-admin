@@ -1082,6 +1082,9 @@ type Mutation {
 
   """Reject a complaint"""
   rejectComplaint(complaintId: String!, reason: String!, reviewerId: String!): Complaint!
+
+  """Reject a pending provider join request"""
+  rejectProviderJoinRequest(id: ID!, reason: String!): Provider!
   removeAdmin(id: ID!): Boolean!
 
   """Delete user avatar by ID"""
@@ -1553,6 +1556,7 @@ type Provider {
   phone: String!
   phoneVerified: Boolean!
   publicId: Int
+  rejectionReason: String
   signedContract: SignedContract
   status: ProviderStatus!
   updatedAt: DateTime!
@@ -1579,6 +1583,7 @@ enum ProviderStatus {
   DELETED
   INACTIVE
   PENDING_APPROVAL
+  REJECTED
   SUSPENDED
 }
 

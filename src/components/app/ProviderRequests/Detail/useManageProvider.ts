@@ -75,9 +75,36 @@ export const useManageProvider = () => {
     }
   };
 
+  const rejectProvider = async (id: string, reason: string) => {
+    setBusy(true);
+    try {
+      const response = await ProviderService.rejectJoinRequest(id, reason);
+      if (response) {
+        showSuccessMessage(dict.providers_page.messages.rejectSuccess);
+        queryClient.invalidateQueries({
+          queryKey: ["providerRequests"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["providerRequest", id],
+        });
+      }
+      setShowRejectModal(null);
+    } catch (error) {
+      console.error("Reject provider error:", error);
+      showErrorMessage(
+        error instanceof Error
+          ? error
+          : (error as string) || "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return {
     busy,
     activateProvider,
     deactivateProvider,
+    rejectProvider,
   };
 };

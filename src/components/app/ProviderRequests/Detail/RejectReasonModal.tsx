@@ -13,7 +13,7 @@ export const RejectReasonModal = ({ request }: { request: Provider }) => {
   const dict = useDict();
   const router = useRouter();
   const [reason, setReason] = useState("");
-  const { deactivateProvider, busy } = useManageProvider();
+  const { rejectProvider, busy } = useManageProvider();
 
   return (
     <Modal
@@ -44,7 +44,7 @@ export const RejectReasonModal = ({ request }: { request: Provider }) => {
             isDisabled={!reason.trim() || busy}
             isLoading={busy}
             onPress={() => {
-              deactivateProvider(request.id, reason);
+              rejectProvider(request.id, reason);
             }}
           >
             {dict.reject_subscription_form.buttons.send}

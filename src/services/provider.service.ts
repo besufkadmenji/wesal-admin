@@ -11,6 +11,7 @@ import { TERMINATE_CONTRACT_MUTATION } from "@/graphql/provider/adminTerminateCo
 import { DEACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/deactivateProvider";
 import { PROVIDER_QUERY } from "@/graphql/provider/provider";
 import { PROVIDERS_QUERY } from "@/graphql/provider/providers";
+import { REJECT_PROVIDER_JOIN_REQUEST_MUTATION } from "@/graphql/provider/rejectProviderJoinRequest";
 import { REMOVE_PROVIDER_MUTATION } from "@/graphql/provider/removeProvider";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
@@ -144,6 +145,22 @@ class ProviderService {
       responseType: "blob",
     });
     return new Blob([response.data], { type: "text/csv" });
+  };
+
+  static rejectJoinRequest = async (
+    id: string,
+    reason: string,
+  ) => {
+    try {
+      const result = await client().mutate({
+        mutation: REJECT_PROVIDER_JOIN_REQUEST_MUTATION,
+        variables: { id, reason },
+      });
+      return result.data?.rejectProviderJoinRequest ?? null;
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
   };
 }
 

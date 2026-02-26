@@ -14,6 +14,7 @@ export const useManageContactMessage = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [sendReply, setSendReply] = useQueryState("sendReply");
 
   const deleteContactMessage = async (id: string) => {
     setBusy(true);
@@ -42,8 +43,37 @@ export const useManageContactMessage = () => {
     }
   };
 
+  const replyContactMessage = async (id: string, message: string) => {
+    setBusy(true);
+    try {
+      const success = await ContactMessageService.sendReply(id, message);
+      if (success) {
+        showSuccessMessage(dict.contact_message_page.messages.replySuccess);
+        queryClient.invalidateQueries({
+          queryKey: ["contactMessages"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["contactMessage", id],
+        });
+        router.push("/content/contact-messages");
+      } else {
+        showErrorMessage("Failed to reply to contact message.");
+      }
+    } catch (error) {
+      console.error("Reply to contact message error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+      setSendReply(null, { history: "replace" });
+      router.back();
+    }
+  };
+
   return {
     busy,
     deleteContactMessage,
+    replyContactMessage,
   };
 };

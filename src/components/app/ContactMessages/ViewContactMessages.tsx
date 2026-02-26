@@ -13,9 +13,14 @@ import { useContactMessage } from "./useContactMessage";
 import { useEffect } from "react";
 import ContactMessageService from "@/services/contact.message.service";
 import Image from "next/image";
+import { Button } from "@heroui/react";
+import ReplyIcon from "@/assets/icons/app/reply.svg";
+import { SendReply } from "@/components/app/ContactMessages/SendReply";
+import { useQueryState } from "nuqs";
 
 export const ViewContactMessages = ({ id }: { id: string }) => {
   const { data } = useContactMessage(id);
+  const [sendReply, setSendReply] = useQueryState("sendReply");
 
   const dict = useDict();
 
@@ -30,7 +35,24 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
     <AppLoading className="h-[84vh]" />
   ) : (
     <div className="grid grid-cols-1">
-      <AppForm type={FormType.ContactMessages} action="view">
+      <AppForm
+        type={FormType.ContactMessages}
+        action="view"
+        titleChildren={
+          data.reply === "" && (
+            <Button
+              size="lg"
+              className="bg-primary text-white"
+              onPress={() => {
+                setSendReply(data.id as string, { history: "push" });
+              }}
+            >
+              <ReplyIcon className="size-4 shrink-0" />
+              {dict.contact_messages_page.buttons.send_reply}
+            </Button>
+          )
+        }
+      >
         <FormSection title={dict.contact_message_detail_page.title}>
           <div className="grid grid-cols-1 gap-4">
             <FormInput
@@ -70,11 +92,20 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
               onChange={(value: string): void => {}}
               readOnly
             />
+            {data.reply !== "" && (
+              <FormAreaInput
+                label={dict.contact_message_detail_page.reply}
+                placeholder={dict.contact_message_detail_page.reply}
+                value={data.reply || ""}
+                onChange={(value: string): void => {}}
+                readOnly
+              />
+            )}
             {data.attachmentFilename && (
               <div className="grid grid-cols-1 gap-2">
                 <p
                   className={
-                    "text-sm leading-5 font-semibold subpixel-antialiased tracking-tight text-[#4D5464] dark:text-white! dark:after:text-white/70"
+                    "text-sm leading-5 font-semibold tracking-tight text-[#4D5464] subpixel-antialiased dark:text-white! dark:after:text-white/70"
                   }
                 >
                   {dict.contact_message_page.attachment}
@@ -92,6 +123,7 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
           </div>
         </FormSection>
       </AppForm>
+      <SendReply />
     </div>
   );
 };

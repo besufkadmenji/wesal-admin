@@ -10,13 +10,13 @@ export const showErrorMessage = (message: string | Error) => {
   });
 };
 
-export const showSuccessMessage = (message: string) => {
+export const showSuccessMessage = (message: string, duration?: number) => {
   addToast({
     description: message,
     color: "success",
     classNames: {
       description: "font-medium",
     },
-    timeout: 1500,
+    timeout: duration ?? 3000,
   });
 };

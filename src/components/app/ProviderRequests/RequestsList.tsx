@@ -44,8 +44,8 @@ export const RequestsList = () => {
       label: dict.providers_request_page.table_headers.email,
     },
     {
-      key: "type",
-      label: dict.providers_request_page.table_headers.type,
+      key: "businessName",
+      label: dict.providers_request_page.table_headers.businessName,
       align: "center",
     },
     {
@@ -75,6 +75,7 @@ export const RequestsList = () => {
           name: request.name ?? "-",
           phone: request.phone,
           email: request.email,
+          businessName: request.commercialName ?? "-",
           date: DateTimeHelpers.formatDate(request.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>

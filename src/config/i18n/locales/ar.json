@@ -2,7 +2,6 @@
   "header": {
     "logout": "تسجيل خروج"
   },
-
   "common": {
     "system_name": "نظام الرابط الذهبي",
     "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
@@ -32,7 +31,6 @@
       "saveAndPrint": "حفظ وطباعة",
       "clearSearch": "مسح البحث"
     },
-
     "timeFilters": {
       "all": "الكل",
       "12months": "12 شهر",
@@ -41,7 +39,6 @@
       "today": "اليوم",
       "customPeriod": "فترة محددة"
     },
-
     "fields": {
       "orderNumber": "رقم الامر",
       "clientName": "اسم العميل",
@@ -63,17 +60,14 @@
       "totalUnits": "اجمالي عدد الوحدات",
       "optional": "(اختياري)"
     },
-
     "company": {
       "name": "شركة جولدن لينك",
       "address": "جدة - شارع الامير سلطان"
     },
-
     "documents": {
       "attachDocuments": "ارفق مستندات",
       "supportedFormats": "الصيغ المدعومة: Jpg, PDF, Png"
     },
-
     "statuses": {
       "partiallyPaid": "مدفوعة جزئيًا",
       "fullyPaid": "مدفوعة بالكامل",
@@ -96,7 +90,6 @@
       "NOT_REPLIED": "لم يتم الرد",
       "REPLIED": "تم الرد"
     },
-
     "roles": {
       "ADMINISTRATOR": "مدير",
       "SUPER_ADMIN": "مسؤول فائق",
@@ -127,6 +120,7 @@
     "forgot_password": "هل نسيت كلمة المرور؟",
     "sign_in": "تسجيل الدخول",
     "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح.",
+    "reset_code_sent": "تم إرسال رمز إعادة التعيين إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.",
     "reset_code_resent": "تم إعادة إرسال رمز إعادة التعيين بنجاح."
   },
   "forgot_password": {
@@ -884,7 +878,7 @@
     "title": "إضافة مدينة جديدة",
     "sections": {
       "city_information": "معلومات المدينة",
-      "geo_boundary":"الحدود الجغرافية"
+      "geo_boundary": "الحدود الجغرافية"
     },
     "labels": {
       "city_name_ar": "اسم المدينة (العربية)",
@@ -1225,7 +1219,8 @@
     "total_messages": "إجمالي عدد رسائل تواصل معنا",
     "total_count": "رسالة",
     "buttons": {
-      "delete": "حذف"
+      "delete": "حذف",
+      "send_reply": "إرسال رد"
     },
     "search_placeholder": "البحث",
     "filter_placeholder": "الحالة",
@@ -1286,11 +1281,13 @@
       "delete": "حذف"
     },
     "messages": {
-      "deleteSuccess": "تم حذف رسالة التواصل بنجاح."
+      "deleteSuccess": "تم حذف رسالة التواصل بنجاح.",
+      "replySuccess": "تم إرسال الرد بنجاح."
     }
   },
   "contact_message_detail_page": {
-    "title": "تفاصيل رسالة التواصل"
+    "title": "تفاصيل رسالة التواصل",
+    "reply": "الرد"
   },
   "categories_page": {
     "title": "إدارة الفئات",
@@ -1890,7 +1887,8 @@
     "messages": {
       "activateSuccess": "تم تفعيل مقدم الخدمة بنجاح.",
       "deactivateSuccess": "تم تعطيل مقدم الخدمة بنجاح.",
-      "deleteSuccess": "تم حذف مقدم الخدمة بنجاح."
+      "deleteSuccess": "تم حذف مقدم الخدمة بنجاح.",
+      "rejectSuccess": "تم رفض طلب انضمام مقدم الخدمة بنجاح."
     }
   },
   "providers_request_page": {
@@ -1904,7 +1902,8 @@
       "email": "البريد الإلكتروني",
       "type": "النوع",
       "request_date": "تاريخ الطلب",
-      "actions": "الإجراءات"
+      "actions": "الإجراءات",
+      "businessName": "اسم المؤسسة"
     }
   },
   "listings_page": {

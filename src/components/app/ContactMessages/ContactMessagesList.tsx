@@ -22,6 +22,8 @@ export const ContactMessagesList = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [sendReply, setSendReply] = useQueryState("sendReply");
+
   const router = useRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
@@ -82,6 +84,7 @@ export const ContactMessagesList = () => {
           status: contactMessage.isRead
             ? dict.contact_message_page.status.read
             : dict.contact_message_page.status.unread,
+          reply: contactMessage.reply,
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {
@@ -91,8 +94,8 @@ export const ContactMessagesList = () => {
             onDelete: () => {
               setIsDeleteWarningOpen(row.key as string, { history: "push" });
             },
-            onChangeStatus: (value: boolean) => {
-              // updateContactMessageStatus(row.key as string, value);
+            onReply: () => {
+              setSendReply(row.key as string, { history: "push" });
             },
           })
         }

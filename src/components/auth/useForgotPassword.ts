@@ -29,6 +29,7 @@ export const useForgotPassword = () => {
         email: email,
       });
       if (response) {
+        showSuccessMessage(dict.auth.reset_code_sent);
         router.replace(`/verify-reset-code?email=${encodeURIComponent(email)}`);
       }
     } catch (error) {
@@ -44,7 +45,7 @@ export const useForgotPassword = () => {
   const resendCode = async () => {
     const email = searchParams.get("email") || "";
     await forgotPassword(email);
-    showSuccessMessage(dict.auth.reset_code_resent);
+    // showSuccessMessage(dict.auth.reset_code_resent);
     setResetSeconds(60);
     startTimer();
   };

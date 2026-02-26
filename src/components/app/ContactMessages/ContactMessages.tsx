@@ -7,6 +7,7 @@ import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
 import { ExportModel } from "@/types/export.models";
 import { usePathname, useRouter } from "next/navigation";
+import { SendReply } from "@/components/app/ContactMessages/SendReply";
 
 export const ContactMessages = () => {
   const dict = useDict();
@@ -23,6 +24,7 @@ export const ContactMessages = () => {
       </PageBar>
       <Gap className="h-8" />
       <ContactMessagesList />
+      <SendReply />
     </PageWrapper>
   );
 };

@@ -10,6 +10,7 @@ import { REMOVE_CONTACT_MESSAGE_MUTATION } from "@/graphql/contact-message/remov
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
+import { REPLY_TO_CONTACT_MESSAGE } from "@/graphql/contact-message/replyToContactMessage";
 
 class ContactMessageService {
   static contactMessages = async (
@@ -60,6 +61,25 @@ class ContactMessageService {
       throw new Error(errorMessage);
     }
   };
+  static sendReply = async (
+    replyToContactMessageId: string,
+    message: string,
+  ) => {
+    try {
+      const replyContactMessageResponse = await client().mutate({
+        mutation: REPLY_TO_CONTACT_MESSAGE,
+        variables: {
+          replyToContactMessageId,
+          message,
+        },
+      });
+      return replyContactMessageResponse.data?.replyToContactMessage ?? null;
+    } catch (error) {
+      // Parse and throw the error with a readable message
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
   static removeContactMessage = async (removeContactMessageId: string) => {
     try {
       const removeContactMessageResponse = await client().mutate({
@@ -77,12 +97,13 @@ class ContactMessageService {
   };
 
   static exportContactMessages = async (fields?: string[]): Promise<Blob> => {
-    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
-    const response = await axiosClient.get('/contact-messages/export', {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/contact-messages/export", {
       params,
-      responseType: 'blob',
+      responseType: "blob",
     });
-    return new Blob([response.data], { type: 'text/csv' });
+    return new Blob([response.data], { type: "text/csv" });
   };
 }
 
