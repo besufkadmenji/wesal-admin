@@ -138,6 +138,23 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                 className="col-span-2"
                 readOnly
               />
+              {provider.categories && provider.categories.length > 0 && (
+                <div className="col-span-2 grid gap-2">
+                  <p className="text-sm font-medium text-black">
+                    {dict.view_provider_form.labels.categories}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {provider.categories.map((cat) => (
+                      <span
+                        key={cat.id}
+                        className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
+                      >
+                        {lng === "ar" ? cat.nameAr : cat.nameEn}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="col-span-2 grid h-40 grid-cols-1">
                 <GoogleMapReact
                   bootstrapURLKeys={{
@@ -182,6 +199,27 @@ export const ProviderDetail = ({ id }: { id: string }) => {
             </div>
           </FormSection>
 
+          <FormSection
+            title={dict.view_provider_form.sections.banking_information}
+          >
+            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+              <FormInput
+                label={dict.view_provider_form.labels.bank_name}
+                placeholder={dict.view_provider_form.placeholders.bank_name}
+                value={provider.bankName ?? "-"}
+                onChange={(value: string): void => {}}
+                readOnly
+              />
+              <FormInput
+                label={dict.view_provider_form.labels.iban_number}
+                placeholder={dict.view_provider_form.placeholders.iban_number}
+                value={provider.ibanNumber ?? "-"}
+                onChange={(value: string): void => {}}
+                readOnly
+              />
+            </div>
+          </FormSection>
+
           <FormSection title={dict.view_provider.contract_section_title}>
             {provider.signedContract ? (
               <div className="grid grid-cols-1 gap-6">
@@ -207,9 +245,12 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                       {dict.view_provider.contract_signed_at}
                     </p>
                     <div className="font-semibold text-black">
-                      {moment(provider.signedContract.contractSignedAt).format(
-                        "MMM D, YYYY hh:mm A",
-                      )}
+                      {moment
+                        .unix(
+                          Number(provider.signedContract.contractSignedAt) /
+                            1000,
+                        )
+                        .format("MMM D, YYYY hh:mm A")}
                     </div>
                   </div>
                 </div>

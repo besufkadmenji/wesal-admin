@@ -404,7 +404,10 @@
       "commercial_registration_number": "رقم السجل التجاري",
       "commercial_registration_image": "صورة السجل التجاري",
       "city": "المدينة",
-      "address": "العنوان"
+      "address": "العنوان",
+      "bank_name": "اسم البنك",
+      "iban_number": "رقم الآيبان",
+      "categories": "الفئات التجارية"
     },
     "placeholders": {
       "name": "أدخل الاسم",
@@ -414,10 +417,13 @@
       "commercial_name": "أدخل الاسم التجاري",
       "commercial_registration_number": "أدخل رقم السجل التجاري",
       "city": "اختر المدينة",
-      "address": "أدخل العنوان"
+      "address": "أدخل العنوان",
+      "bank_name": "أدخل اسم البنك",
+      "iban_number": "أدخل رقم الآيبان"
     },
     "sections": {
-      "business_information": "معلومات العمل"
+      "business_information": "معلومات العمل",
+      "banking_information": "معلومات البنك"
     }
   },
   "profile": {
@@ -1887,6 +1893,7 @@
     "total_providers": "إجمالي عدد مقدمي الخدمات",
     "total_count": "مقدم خدمة",
     "table_headers": {
+      "businessName": "اسم المؤسسة",
       "number": "الرقم",
       "name": "الاسم",
       "phone_number": "رقم الهاتف",

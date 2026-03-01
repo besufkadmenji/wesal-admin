@@ -406,7 +406,10 @@
       "commercial_registration_number": "Commercial Registration Number",
       "commercial_registration_image": "Commercial Registration Image",
       "city": "City",
-      "address": "Address"
+      "address": "Address",
+      "bank_name": "Bank Name",
+      "iban_number": "IBAN",
+      "categories": "Business Categories"
     },
     "placeholders": {
       "name": "Enter name",
@@ -416,10 +419,13 @@
       "commercial_name": "Enter commercial name",
       "commercial_registration_number": "Enter commercial registration number",
       "city": "Select city",
-      "address": "Enter address"
+      "address": "Enter address",
+      "bank_name": "Enter bank name",
+      "iban_number": "Enter IBAN"
     },
     "sections": {
-      "business_information": "Business Information"
+      "business_information": "Business Information",
+      "banking_information": "Banking Information"
     }
   },
   "profile": {
@@ -1889,6 +1895,7 @@
     "total_count": "providers",
     "table_headers": {
       "number": "Number",
+      "businessName": "Business Name",
       "name": "Name",
       "phone_number": "Phone Number",
       "email": "Email",

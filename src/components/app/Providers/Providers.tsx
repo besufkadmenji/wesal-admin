@@ -29,9 +29,7 @@ export const Providers = () => {
       <PageBar
         title={dict.providers_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
-      >
-        <ExportButton model={ExportModel.Providers} />
-      </PageBar>
+      />
       <Gap className="h-8" />
       {isLoading ? (
         <SummaryCardSkeleton />

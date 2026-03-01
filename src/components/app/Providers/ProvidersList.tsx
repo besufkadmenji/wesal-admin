@@ -52,6 +52,11 @@ export const ProvidersList = () => {
       key: "email",
       label: dict.providers_page.table_headers.email,
     },
+
+    {
+      key: "businessName",
+      label: dict.providers_page.table_headers.businessName,
+    },
     {
       key: "date",
       label: dict.providers_page.table_headers.registration_date,
@@ -84,6 +89,7 @@ export const ProvidersList = () => {
           name: provider.name ?? "-",
           phone: provider.phone,
           email: provider.email,
+          businessName: provider.commercialName ?? "-",
           date: DateTimeHelpers.formatDate(provider.createdAt),
           status: provider.status,
         }))}
