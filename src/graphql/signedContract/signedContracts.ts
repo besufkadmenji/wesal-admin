@@ -19,8 +19,14 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
         totalPages
       }
       items {
-        acceptedRulesAr
-        acceptedRulesEn
+        acceptedRulesAr {
+          label
+          value
+        }
+        acceptedRulesEn {
+          label
+          value
+        }
         contractExpiresAt
         contractSignedAt
         createdAt

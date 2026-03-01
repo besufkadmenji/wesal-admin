@@ -10,8 +10,14 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
 > = gql`
   query signedContractById($signedContractByIdId: String!) {
     signedContractById(id: $signedContractByIdId) {
-      acceptedRulesAr
-      acceptedRulesEn
+      acceptedRulesAr {
+        label
+        value
+      }
+      acceptedRulesEn {
+        label
+        value
+      }
       contractExpiresAt
       contractSignedAt
       createdAt

@@ -71,8 +71,14 @@ export const PROVIDERS_QUERY: TypedDocumentNode<
           status
           terminationReason
           platformManagerName
-          acceptedRulesEn
-          acceptedRulesAr
+          acceptedRulesAr {
+            label
+            value
+          }
+          acceptedRulesEn {
+            label
+            value
+          }
           id
           createdAt
           publicId

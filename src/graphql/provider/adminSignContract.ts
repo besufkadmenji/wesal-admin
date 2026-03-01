@@ -1,6 +1,6 @@
 import {
   AdminSignProviderContractMutation,
-  AdminSignProviderContractMutationVariables
+  AdminSignProviderContractMutationVariables,
 } from "@/gql/graphql";
 import { gql, TypedDocumentNode } from "@apollo/client";
 
@@ -48,8 +48,14 @@ export const SIGN_CONTRACT_MUTATION: TypedDocumentNode<
         serviceProviderSignature
         status
         platformManagerName
-        acceptedRulesEn
-        acceptedRulesAr
+        acceptedRulesAr {
+          label
+          value
+        }
+        acceptedRulesEn {
+          label
+          value
+        }
       }
       deactivationReason
       deleteReason

@@ -9,8 +9,14 @@ export const SIGNED_CONTRACT_BY_PROVIDER_ID: TypedDocumentNode<
 > = gql`
   query signedContractByProviderId($providerId: String!) {
     signedContractByProviderId(providerId: $providerId) {
-      acceptedRulesAr
-      acceptedRulesEn
+      acceptedRulesAr {
+        label
+        value
+      }
+      acceptedRulesEn {
+        label
+        value
+      }
       contractExpiresAt
       contractSignedAt
       createdAt
