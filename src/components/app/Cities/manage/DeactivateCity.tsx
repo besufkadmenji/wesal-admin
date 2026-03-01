@@ -13,7 +13,7 @@ export const DeactivateCity = () => {
       busy={busy}
       title={dict.deactivate_city_confirmation.title}
       description={dict.deactivate_city_confirmation.description}
-      showReason={true}
+      showReason={false}
     />
   );
 };

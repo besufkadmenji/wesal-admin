@@ -13,7 +13,7 @@ export const DeactivateCategory = () => {
       busy={busy}
       title={dict.deactivate_category_confirmation.title}
       description={dict.deactivate_category_confirmation.description}
-      showReason={true}
+      showReason={false}
     />
   );
 };
