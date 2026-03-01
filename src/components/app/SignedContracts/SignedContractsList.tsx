@@ -3,18 +3,19 @@ import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useSignedContracts } from "@/components/app/SignedContracts/useSignedContract";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const SignedContractsList = () => {
   const dict = useDict();
   const { data, isLoading } = useSignedContracts();
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

@@ -1,7 +1,7 @@
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
@@ -12,6 +12,7 @@ import { DeactivateDeliveryCompany } from "./manage/DeactivateDeliveryCompany";
 import { useManageDeliveryCompany } from "./manage/useManageDeliveryCompany";
 import { renderCell } from "./renderCell";
 import { useDeliveryCompanies } from "./useDeliveryCompanies";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const DeliveryCompaniesList = () => {
   const dict = useDict();
@@ -27,7 +28,7 @@ export const DeliveryCompaniesList = () => {
     useQueryState("deactivateDeliveryCompany");
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

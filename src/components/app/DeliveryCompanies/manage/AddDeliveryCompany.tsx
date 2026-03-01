@@ -8,8 +8,8 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { DeliveryCompanyStatus } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { SuccessMessage } from "./SuccessMessage";
@@ -20,7 +20,7 @@ import { useManageDeliveryCompany } from "./useManageDeliveryCompany";
 export const AddDeliveryCompany = () => {
   const { form, setForm, reset } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createDeliveryCompany } = useManageDeliveryCompany();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {
@@ -44,11 +44,22 @@ export const AddDeliveryCompany = () => {
           busy={busy}
           action="add"
         >
-          <FormSection title={dict.add_new_delivery_company_form.sections.delivery_company_information}>
+          <FormSection
+            title={
+              dict.add_new_delivery_company_form.sections
+                .delivery_company_information
+            }
+          >
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
-                label={dict.add_new_delivery_company_form.labels.delivery_company_name_ar}
-                placeholder={dict.add_new_delivery_company_form.placeholders.delivery_company_name_ar}
+                label={
+                  dict.add_new_delivery_company_form.labels
+                    .delivery_company_name_ar
+                }
+                placeholder={
+                  dict.add_new_delivery_company_form.placeholders
+                    .delivery_company_name_ar
+                }
                 value={form.nameAr}
                 onChange={(value: string): void => {
                   setForm({ nameAr: value });
@@ -57,8 +68,14 @@ export const AddDeliveryCompany = () => {
                 errorMessage={errors.nameAr}
               />
               <FormInput
-                label={dict.add_new_delivery_company_form.labels.delivery_company_name_en}
-                placeholder={dict.add_new_delivery_company_form.placeholders.delivery_company_name_en}
+                label={
+                  dict.add_new_delivery_company_form.labels
+                    .delivery_company_name_en
+                }
+                placeholder={
+                  dict.add_new_delivery_company_form.placeholders
+                    .delivery_company_name_en
+                }
                 value={form.nameEn}
                 onChange={(value: string): void => {
                   setForm({ nameEn: value });
@@ -68,7 +85,9 @@ export const AddDeliveryCompany = () => {
               />
               <FormSelect
                 label={dict.add_new_delivery_company_form.labels.status}
-                placeholder={dict.add_new_delivery_company_form.placeholders.status}
+                placeholder={
+                  dict.add_new_delivery_company_form.placeholders.status
+                }
                 value={form.status?.toString() || ""}
                 onChange={(value: string): void => {
                   setForm({

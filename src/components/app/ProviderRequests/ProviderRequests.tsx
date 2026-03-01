@@ -8,15 +8,16 @@ import {
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { RequestsList } from "@/components/app/ProviderRequests/RequestsList";
 import { useProviders } from "@/components/app/ProviderRequests/useProvider";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ProviderRequests = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { data, isLoading } = useProviders();
 

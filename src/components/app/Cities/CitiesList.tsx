@@ -2,7 +2,7 @@ import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
@@ -13,6 +13,7 @@ import { renderCell } from "./renderCell";
 import { useCities } from "./useCities";
 import { ActivateCity } from "./manage/ActivateCity";
 import { DeactivateCity } from "./manage/DeactivateCity";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const CitiesList = () => {
   const dict = useDict();
@@ -26,7 +27,7 @@ export const CitiesList = () => {
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const lng = useLang();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {
@@ -69,7 +70,7 @@ export const CitiesList = () => {
           nameAr: city.nameAr,
           nameEn: city.nameEn,
           country: lng === "ar" ? city.country!.nameAr : city.country!.nameEn,
-          status: city.status ?? 'ACTIVE',
+          status: city.status ?? "ACTIVE",
           date: DateTimeHelpers.formatDate(city.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>

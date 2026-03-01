@@ -1,15 +1,15 @@
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import ListingService from "@/services/listing.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 
 export const useManageListing = () => {
   const [busy, setBusy] = useState(false);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(

@@ -8,8 +8,8 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { BankStatus } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { SuccessMessage } from "./SuccessMessage";
@@ -20,7 +20,7 @@ import { useManageBank } from "./useManageBank";
 export const AddBank = () => {
   const { form, setForm, reset } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createBank } = useManageBank();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {

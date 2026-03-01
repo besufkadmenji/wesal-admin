@@ -6,12 +6,13 @@ import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
 import { ExportModel } from "@/types/export.models";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { SendReply } from "@/components/app/ContactMessages/SendReply";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ContactMessages = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
 
   return (

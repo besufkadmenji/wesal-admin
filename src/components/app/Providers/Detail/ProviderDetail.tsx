@@ -10,13 +10,13 @@ import { useLang } from "@/hooks/useLang";
 import GoogleMapReact from "google-map-react";
 import moment from "moment";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { twMerge } from "tailwind-merge";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { useProvider } from "../useProvider";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 const Marker = ({}: { lat: number; lng: number }) => (
   <DefaultMarkerIcon className="size-16 origin-center -translate-y-[80%] ltr:-translate-x-1/2 rtl:translate-x-1/2" />
@@ -31,7 +31,7 @@ const defaultProps = {
 export const ProviderDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
-  const router = useRouter();
+  const router = useAppRouter();
   const { data: provider } = useProvider(id);
   const [activateProvider, setActivateProvider] =
     useQueryState("activateProvider");

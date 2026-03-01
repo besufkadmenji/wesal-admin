@@ -12,13 +12,14 @@ import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCard
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { ExportModel } from "@/types/export.models";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { BanksFilter } from "./BanksFilter";
 import { useBanks } from "./useBanks";
+import { useAppRouter } from "@/hooks/useAppRouter";
 export const Banks = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { banks, pagination, isLoading } = useBanks();
   const canCreate = useCanAccess("bank", "create");

@@ -8,7 +8,6 @@ import {
 } from "@/components/app/shared/button/AddButton";
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
-import { usePathname, useRouter } from "next/navigation";
 import { Gap } from "@/components/app/shared/Gap";
 import { Button } from "@heroui/react";
 import ChangeOrderIcon from "@/assets/icons/app/arrows-sort.svg";
@@ -17,10 +16,12 @@ import { useQueryState } from "nuqs";
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { ExportModel } from "@/types/export.models";
 import { Admins } from "@/components/app/Admins/Admins";
+import { useAppRouter } from "@/hooks/useAppRouter";
+import { usePathname } from "next/navigation";
 
 export const FaqManager = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const [changeOrder, setChangeOrder] = useQueryState("changeOrder");
   const canCreate = useCanAccess("faq", "create");

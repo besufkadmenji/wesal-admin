@@ -27,9 +27,10 @@ import {
   DrawerContent,
   useDisclosure,
 } from "@heroui/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
@@ -237,7 +238,7 @@ const ExpandableOption = ({
   const lng = useLang();
   const pathname = usePathname();
   const [expanded, setExpanded] = useState(false);
-  const router = useRouter();
+  const router = useAppRouter();
   return (
     <div className="grid grid-cols-1 gap-2">
       <div

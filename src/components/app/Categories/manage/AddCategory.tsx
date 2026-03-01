@@ -7,9 +7,9 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { UploadInput } from "@/components/app/shared/UploadInput";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useSetting } from "../../Settings/useSettings";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
@@ -20,7 +20,7 @@ import { useManageCategory } from "./useManageCategory";
 export const AddCategory = () => {
   const { form, setForm, reset, imageFile, setImageFile } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createCategory } = useManageCategory();
   const { errors, validateForm, clearError } = useFormValidation({
     ...form,

@@ -435,6 +435,7 @@
     "category": "Category",
     "address": "Address",
     "locationOnMap": "Show Location on Map",
+    "hideMap": "Hide Map",
     "platformManagerName": "Platform Manager Name",
     "serviceProviderSignature": "Service Provider Signature",
     "platformManagerSignature": "Platform Manager Signature",

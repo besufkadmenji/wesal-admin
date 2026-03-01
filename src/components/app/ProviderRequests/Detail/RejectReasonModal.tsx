@@ -1,7 +1,7 @@
 import { Provider } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
@@ -11,7 +11,7 @@ export const RejectReasonModal = ({ request }: { request: Provider }) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const [reason, setReason] = useState("");
   const { rejectProvider, busy } = useManageProvider();
 

@@ -433,6 +433,7 @@
     "category": "الفئة",
     "address": "العنوان",
     "locationOnMap": "عرض الموقع على الخريطة",
+    "hideMap": "إخفاء الخريطة",
     "platformManagerName": "اسم مدير المنصة",
     "serviceProviderSignature": "توقيع مزود الخدمة",
     "platformManagerSignature": "توقيع مدير المنصة",

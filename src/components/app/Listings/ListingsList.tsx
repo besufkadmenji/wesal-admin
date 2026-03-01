@@ -3,7 +3,7 @@ import { DeactivateListing } from "@/components/app/Listings/manage/DeactivateLi
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
@@ -12,6 +12,7 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageListing } from "./manage/useManageListing";
 import { renderCell } from "./renderCell";
 import { useListings } from "./useListings";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ListingsList = () => {
   const dict = useDict();
@@ -27,7 +28,7 @@ export const ListingsList = () => {
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

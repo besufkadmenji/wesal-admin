@@ -1,20 +1,20 @@
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 
-import { useManageUser } from "@/components/app/Users/Detail/useManageUser";
 import {
   DeleteWarning,
   DeleteWarningType,
 } from "@/components/app/shared/DeleteWarning";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
+import { useManageFaq } from "./manage/useManageFaq";
 import { renderCell } from "./renderCell";
 import { useFaqs } from "./useFaq";
-import { useManageFaq } from "./manage/useManageFaq";
 
 export const FaqList = () => {
   const dict = useDict();
@@ -23,7 +23,7 @@ export const FaqList = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { updateFaqStatus } = useManageFaq();
   const columns: ColumnType[] = [

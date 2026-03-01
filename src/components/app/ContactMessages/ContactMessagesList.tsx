@@ -6,7 +6,7 @@ import {
 } from "@/components/app/shared/DeleteWarning";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
@@ -14,6 +14,7 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { useContactMessages } from "./useContactMessage";
 import { useManageContactMessage } from "./useManageContactMessage";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ContactMessagesList = () => {
   const dict = useDict();
@@ -24,7 +25,7 @@ export const ContactMessagesList = () => {
   );
   const [sendReply, setSendReply] = useQueryState("sendReply");
 
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

@@ -3,16 +3,16 @@ import { useLang } from "@/hooks/useLang";
 import DeliveryCompanyService from "@/services/delivery.company.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const useManageDeliveryCompany = () => {
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(

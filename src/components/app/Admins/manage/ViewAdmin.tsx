@@ -11,17 +11,17 @@ import {
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { useAdminById } from "../useAdmins";
 import { AdminPermissionType } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ViewAdmin = ({ id }: { id: string }) => {
   const { admin } = useAdminById(id);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, admin);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
 
   useEffect(() => {
     return () => {

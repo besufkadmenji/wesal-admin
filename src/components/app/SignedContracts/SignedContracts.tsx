@@ -8,7 +8,7 @@ import {
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { ExportModel } from "@/types/export.models";
@@ -16,10 +16,11 @@ import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 import { SignedContractsFilter } from "./SignedContractsFilter";
 import { SignedContractsList } from "./SignedContractsList";
 import { useSignedContracts } from "./useSignedContract";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const SignedContracts = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { data, isLoading } = useSignedContracts();
 

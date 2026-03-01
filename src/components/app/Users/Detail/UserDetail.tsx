@@ -5,7 +5,6 @@ import { ActivateUser } from "@/components/app/Users/ActivateUser";
 import { DeactivateUser } from "@/components/app/Users/DeactivateUser";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
@@ -13,6 +12,7 @@ import { FormInput } from "../../shared/forms/FormInput";
 import { useUser } from "../useUser";
 import Image from "next/image";
 import { dataUrl } from "@/config/url";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 const defaultProps = {
   center: {
@@ -24,7 +24,7 @@ const defaultProps = {
 export const UserDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
-  const router = useRouter();
+  const router = useAppRouter();
   const { data: user } = useUser(id);
   const [activateUser, setActivateUser] = useQueryState("activateUser");
   const [deactivateUser, setDeactivateUser] = useQueryState("deactivateUser");
@@ -82,7 +82,7 @@ export const UserDetail = ({ id }: { id: string }) => {
                   <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
                     {dict.view_user.avatar}
                   </p>
-                  <div className="relative size-20 overflow-hidden rounded bg-gray-2">
+                  <div className="bg-gray-2 relative size-20 overflow-hidden rounded">
                     <Image
                       src={`${dataUrl}/files/${user.avatarFilename}`}
                       alt={user.name ?? "User Avatar"}

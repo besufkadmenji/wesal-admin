@@ -2,6 +2,7 @@
 
 import { Permissions } from "@/components/app/Admins/manage/Permissions";
 import { statusMap } from "@/components/app/Admins/renderCell";
+import { AppLoading } from "@/components/app/shared/AppLoading";
 import {
   AppForm,
   FormSection,
@@ -9,16 +10,15 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
+import { AdminPermissionType, AdminStatus } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { UploadInput } from "../../shared/UploadInput";
 import { useAdminById } from "../useAdmins";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
-import { useEffect } from "react";
-import { AppLoading } from "@/components/app/shared/AppLoading";
-import { AdminPermissionType, AdminStatus } from "@/gql/graphql";
 
 export const EditAdmin = ({ id }: { id: string }) => {
   const { admin } = useAdminById(id);
@@ -26,7 +26,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
   const avatarFile = useForm((state) => state.avatarFile);
   const setAvatarFile = useForm((state) => state.setAvatarFile);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form, "edit");
   useEffect(() => {

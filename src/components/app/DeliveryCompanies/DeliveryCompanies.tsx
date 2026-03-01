@@ -11,14 +11,15 @@ import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCard
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { ExportModel } from "@/types/export.models";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { DeliveryCompaniesFilter } from "./DeliveryCompaniesFilter";
 import { DeliveryCompaniesList } from "./DeliveryCompaniesList";
 import { useDeliveryCompanies } from "./useDeliveryCompanies";
+import { useAppRouter } from "@/hooks/useAppRouter";
 export const DeliveryCompanies = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { deliveryCompanies, pagination, isLoading } = useDeliveryCompanies();
   const canCreate = useCanAccess("delivery_company", "create");

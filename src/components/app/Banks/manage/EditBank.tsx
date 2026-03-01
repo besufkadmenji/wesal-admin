@@ -11,18 +11,18 @@ import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { BankStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useBankById } from "../useBanks";
 import { useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageBank } from "./useManageBank";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const EditBank = ({ id }: { id: string }) => {
   const { bank } = useBankById(id);
   const { form, setForm, reset } = useManageForm(id, bank);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateBank } = useManageBank();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {

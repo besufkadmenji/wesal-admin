@@ -4,7 +4,7 @@ import { roleMap } from "@/components/app/Admins/renderCell";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
@@ -15,6 +15,7 @@ import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
 import { Admin, AdminPermissionType } from "@/gql/graphql";
 import { useMe } from "@/hooks/useMe";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const AdminsList = () => {
   const dict = useDict();
@@ -29,7 +30,7 @@ export const AdminsList = () => {
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const { me } = useMe();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

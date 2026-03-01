@@ -4,7 +4,7 @@ import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
@@ -13,6 +13,7 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageBank } from "./manage/useManageBank";
 import { renderCell } from "./renderCell";
 import { useBanks } from "./useBanks";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const BanksList = () => {
   const dict = useDict();
@@ -28,7 +29,7 @@ export const BanksList = () => {
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

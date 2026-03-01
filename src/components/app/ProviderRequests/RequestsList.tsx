@@ -4,13 +4,14 @@ import { useProviders } from "@/components/app/ProviderRequests/useProvider";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageProvider } from "./Detail/useManageProvider";
 import { renderCell } from "./renderCell";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const RequestsList = () => {
   const dict = useDict();
@@ -24,7 +25,7 @@ export const RequestsList = () => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const request = data?.items.find((req) => req.id === showRejectModal);
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

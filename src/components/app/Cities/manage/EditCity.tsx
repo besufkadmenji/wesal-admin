@@ -8,14 +8,13 @@ import {
   FormType,
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
-import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import {
   PolygonMapPicker,
   type GeoJSONPolygon,
 } from "@/components/shared/PolygonMapPicker";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useCityById } from "../useCities";
 import { useManageForm } from "./useForm";
@@ -28,7 +27,7 @@ export const EditCity = ({ id }: { id: string }) => {
   const { countries } = useCountries();
   const { form, setForm, reset } = useManageForm(id, city);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateCity } = useManageCity();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {

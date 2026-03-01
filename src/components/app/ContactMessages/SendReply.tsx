@@ -5,9 +5,10 @@ import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { ContactMessage } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const SendReply = ({ message }: { message?: ContactMessage }) => {
   const [sendReply, setSendReply] = useQueryState("sendReply");
@@ -18,7 +19,7 @@ export const SendReply = ({ message }: { message?: ContactMessage }) => {
   const dict = useDict();
   const [reply, setReply] = useState("");
   const params = useParams();
-  const router = useRouter();
+  const router = useAppRouter();
   const { replyContactMessage, busy } = useManageContactMessage();
   return (
     <Modal

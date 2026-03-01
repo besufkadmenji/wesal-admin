@@ -1,12 +1,13 @@
 import { useDict } from "@/hooks/useDict";
 import { AuthService } from "@/services/auth.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
+import { useAppRouter } from "@/hooks/useAppRouter";
+import { useSearchParams } from "next/navigation";
 
 export const useForgotPassword = () => {
   const [busy, setBusy] = useState(false);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const searchParams = useSearchParams();
   const [resetSeconds, setResetSeconds] = useState(60);

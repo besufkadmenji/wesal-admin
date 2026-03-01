@@ -8,18 +8,18 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFaq } from "../useFaq";
 import { useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageFaq } from "./useManageFaq";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const EditFaq = ({ id }: { id: string }) => {
   const { data } = useFaq(id);
   const { form, setForm, reset } = useManageForm(id, data);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateFaq } = useManageFaq();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {

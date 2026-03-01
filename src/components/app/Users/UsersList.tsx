@@ -7,7 +7,7 @@ import {
 } from "@/components/app/shared/DeleteWarning";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
@@ -16,6 +16,7 @@ import { ActivateUser } from "./ActivateUser";
 import { DeactivateUser } from "./DeactivateUser";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useUser";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const UsersList = () => {
   const dict = useDict();
@@ -30,7 +31,7 @@ export const UsersList = () => {
   // const { approveRequest, rejectRequest, busy } = useManageRequest();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

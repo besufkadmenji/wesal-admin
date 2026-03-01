@@ -1,12 +1,12 @@
 import SuccessCheckIcon from "@/assets/icons/app/check.success.svg";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 export const SuccessModal = () => {
   const [showSuccess, setShowSuccess] = useQueryState("showSuccessMessage");
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
 
   return (
     <Modal

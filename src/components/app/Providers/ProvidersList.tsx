@@ -5,9 +5,10 @@ import {
   DeleteWarning,
   DeleteWarningType,
 } from "@/components/app/shared/DeleteWarning";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
@@ -32,7 +33,7 @@ export const ProvidersList = () => {
   // const { approveRequest, rejectRequest, busy } = useManageRequest();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
     {

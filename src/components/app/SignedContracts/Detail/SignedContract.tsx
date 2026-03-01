@@ -1,5 +1,6 @@
 "use client";
 import CheckGreenIcon from "@/assets/icons/check.green.svg";
+import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
 import DownloadIcon from "@/assets/icons/download.svg";
 import MapPointIcon from "@/assets/icons/map.point.svg";
 import { useDict } from "@/hooks/useDict";
@@ -7,6 +8,7 @@ import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
 import { downloadPDF } from "@/utils/download.pdf";
 import { Button } from "@heroui/react";
+import GoogleMapReact from "google-map-react";
 import Image from "next/image";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useEffect, useRef } from "react";
@@ -16,6 +18,16 @@ import { FormInput } from "./FormInput";
 import { SignatureInput } from "./SignatureInput";
 import { useContractStore } from "./useForm";
 import { useSignSignature } from "./useSignSignature";
+
+const defaultProps = {
+  center: { lat: 21.636981, lng: 39.181078 },
+  zoom: 14,
+};
+
+const Marker = ({}: { lat: number; lng: number }) => (
+  <DefaultMarkerIcon className="size-16 origin-center -translate-y-[80%] ltr:-translate-x-1/2 rtl:translate-x-1/2" />
+);
+
 export const SignedContract = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
@@ -93,6 +105,7 @@ export const SignedContract = ({ id }: { id: string }) => {
                 value={provider.address || ""}
               />
               <Button
+                data-html2canvas-ignore
                 className="h-full rounded-[20px] bg-[#EFF1F6] px-6!"
                 variant={"ghost"}
                 onPress={() => {
@@ -100,9 +113,39 @@ export const SignedContract = ({ id }: { id: string }) => {
                 }}
               >
                 <MapPointIcon className="size-5" />
-                {dict.contract.locationOnMap}
+                {showMap ? dict.contract.hideMap : dict.contract.locationOnMap}
               </Button>
             </div>
+            {showMap && (
+              <div data-html2canvas-ignore className="grid h-80 grid-cols-1 overflow-hidden rounded-2xl">
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: process.env.NEXT_PUBLIC_MAPS_API_KEY || "",
+                  }}
+                  center={{
+                    lat: provider.latitude ?? defaultProps.center.lat,
+                    lng: provider.longitude ?? defaultProps.center.lng,
+                  }}
+                  zoom={defaultProps.zoom}
+                  options={{
+                    fullscreenControl: false,
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                    zoomControl: false,
+                    disableDefaultUI: true,
+                    draggable: false,
+                  }}
+                  yesIWantToUseGoogleMapApiInternals
+                >
+                  {provider.latitude && provider.longitude && (
+                    <Marker
+                      lat={provider.latitude}
+                      lng={provider.longitude}
+                    />
+                  )}
+                </GoogleMapReact>
+              </div>
+            )}
             <FormInput
               label={dict.contract.platformManagerName}
               value={signedContract?.platformManagerName || me?.fullName || ""}
@@ -139,9 +182,29 @@ export const SignedContract = ({ id }: { id: string }) => {
                 {dict.contract.commitmentText}
               </h3>
               <p className="text-gray leading-7 whitespace-pre-line">
-                {lng === "en"
-                  ? signedContract?.acceptedRulesEn
-                  : signedContract?.acceptedRulesAr}
+                {(
+                  (lng === "en"
+                    ? signedContract?.acceptedRulesEn
+                    : signedContract?.acceptedRulesAr) ?? []
+                ).map((rule, index) =>
+                  rule.label === "general" ? (
+                    <p
+                      key={index}
+                      className="text-gray leading-7 whitespace-pre-line"
+                    >
+                      {rule.value}
+                    </p>
+                  ) : (
+                    <div key={index} className="mt-4 grid grid-cols-1 gap-1">
+                      <h4 className="text-sm font-medium text-black">
+                        {rule.label}
+                      </h4>
+                      <p className="text-gray leading-7 whitespace-pre-line">
+                        {rule.value}
+                      </p>
+                    </div>
+                  ),
+                )}
               </p>
             </div>
           </div>

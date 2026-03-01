@@ -8,11 +8,10 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
-import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { UploadInput } from "@/components/app/shared/UploadInput";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useCategoryById } from "../useCategories";
 import { useForm, useManageForm } from "./useForm";
@@ -26,7 +25,7 @@ export const EditCategory = ({ id }: { id: string }) => {
   const imageFile = useForm((state) => state.imageFile);
   const setImageFile = useForm((state) => state.setImageFile);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateCategory } = useManageCategory();
   const { errors, validateForm, clearError } = useFormValidation({
     ...form,

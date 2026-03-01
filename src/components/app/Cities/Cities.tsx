@@ -10,13 +10,14 @@ import {
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { CitiesFilter } from "./CitiesFilter";
 import { useCities } from "./useCities";
+import { useAppRouter } from "@/hooks/useAppRouter";
 export const Cities = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { cities, pagination, isLoading } = useCities();
   const canCreate = useCanAccess("city", "create");

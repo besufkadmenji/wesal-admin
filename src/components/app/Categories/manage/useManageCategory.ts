@@ -1,10 +1,10 @@
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import CategoryService from "@/services/category.service";
 import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
@@ -14,7 +14,7 @@ export const useManageCategory = () => {
   const form = useForm((state) => state.form);
   const imageFile = useForm((state) => state.imageFile);
   const resetForm = useForm((state) => state.reset);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(

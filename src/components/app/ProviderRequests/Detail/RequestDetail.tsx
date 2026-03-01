@@ -6,7 +6,6 @@ import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessMo
 import { ProviderStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
@@ -14,11 +13,12 @@ import { FormInput } from "../../shared/forms/FormInput";
 import { useProvider } from "../useProvider";
 import { DocumentDisplay } from "./DocumentDisplay";
 import { dataUrl } from "@/config/url";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const RequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
-  const router = useRouter();
+  const router = useAppRouter();
   const { data: request } = useProvider(id);
   useEffect(() => {
     if (request && request.status !== ProviderStatus.PendingApproval) {

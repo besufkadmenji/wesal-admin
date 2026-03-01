@@ -6,10 +6,10 @@ import { PermissionService } from "@/services/permission.service";
 import { uploadFile } from "@/utils/file.upload";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const useManageAdmin = () => {
   const [busy, setBusy] = useState(false);
@@ -17,7 +17,7 @@ export const useManageAdmin = () => {
   const avatarFile = useForm((state) => state.avatarFile);
   const resetForm = useForm((state) => state.reset);
   const permissionIds = useForm((state) => state.permissionIds);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(

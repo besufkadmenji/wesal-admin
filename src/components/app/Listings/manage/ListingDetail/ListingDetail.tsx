@@ -1,7 +1,7 @@
 "use client";
 
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { DetailSkeleton } from "./DetailSkeleton";
 import { ListingImages } from "./ListingImages";
 import { MainInfo } from "./MainInfo";
@@ -9,10 +9,11 @@ import { ProviderData } from "./ProviderData";
 import { Reviews } from "./Reviews";
 import { StoryVideo } from "./StoryVideo";
 import { useListing } from "./useListing";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ListingDetail = () => {
   const { listing, isLoading } = useListing();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const dict = useDict();
   return isLoading || !listing ? (

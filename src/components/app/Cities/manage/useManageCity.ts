@@ -1,20 +1,20 @@
+import { useCountries } from "@/components/app/Cities/useCities";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import CityService from "@/services/city.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
-import { useCountries } from "@/components/app/Cities/useCities";
 
 export const useManageCity = () => {
   const { countries } = useCountries();
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
-  const router = useRouter();
+  const router = useAppRouter();
   const dict = useDict();
   const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(

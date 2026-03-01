@@ -13,7 +13,6 @@ import {
 } from "@/components/app/shared/forms/FormInput";
 import { AdminStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { UploadInput } from "../../shared/UploadInput";
@@ -21,6 +20,7 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const AddAdmin = () => {
   const {
@@ -33,7 +33,7 @@ export const AddAdmin = () => {
     setAvatarFile,
   } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(
     { ...form, confirmPassword },

@@ -8,15 +8,16 @@ import {
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
-import { useDict } from "@/hooks/useDict";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useCanAccess } from "@/hooks/useCanAccess";
-import { usePathname, useRouter } from "next/navigation";
+import { useDict } from "@/hooks/useDict";
+import { usePathname } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { AdminsFilter } from "./AdminsFilter";
 import { useUsers } from "./useAdmins";
 export const Admins = () => {
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const { admins, pagination, isLoading } = useUsers();
   const canCreate = useCanAccess("admin", "create");

@@ -5,6 +5,7 @@ import { dir } from "i18next";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { twMerge } from "tailwind-merge";
+import NextTopLoader from "nextjs-toploader";
 
 // import "leaflet-draw/dist/leaflet.draw.css";
 import "../globals.css";
@@ -45,6 +46,7 @@ export default async function RootLayout({
           lang === "en" ? `${inter.className}` : `${expoArabic.className}`,
         )}
       >
+        <NextTopLoader showSpinner={false} color="#202020" shadow="" />
         <AppHeroUIProvider>{children}</AppHeroUIProvider>
       </body>
     </html>

@@ -10,9 +10,9 @@ import {
   PolygonMapPicker,
   type GeoJSONPolygon,
 } from "@/components/shared/PolygonMapPicker";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
@@ -21,7 +21,7 @@ import { useManageCity } from "./useManageCity";
 export const AddCity = () => {
   const { form, setForm, reset } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createCity } = useManageCity();
   const { errors, validateForm, clearError } = useFormValidation(form);
   const lng = useLang();

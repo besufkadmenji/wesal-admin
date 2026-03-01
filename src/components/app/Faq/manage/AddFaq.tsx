@@ -5,8 +5,8 @@ import {
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { useForm } from "./useForm";
@@ -16,7 +16,7 @@ import { useManageFaq } from "./useManageFaq";
 export const AddFaq = () => {
   const { form, setForm, reset } = useForm();
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, createFaq } = useManageFaq();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {

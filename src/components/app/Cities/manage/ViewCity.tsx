@@ -9,9 +9,9 @@ import {
 } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { useCityById } from "../useCities";
@@ -22,7 +22,7 @@ export const ViewCity = ({ id }: { id: string }) => {
 
   const { form, setForm, reset } = useManageForm(id, city);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const lng = useLang();
 
   useEffect(() => {

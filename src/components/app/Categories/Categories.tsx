@@ -12,16 +12,17 @@ import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCard
 import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { ExportModel } from "@/types/export.models";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { CategoriesFilter } from "./CategoriesFilter";
 import { useCategories } from "./useCategories";
+import { useAppRouter } from "@/hooks/useAppRouter";
 export const Categories = () => {
   const dict = useDict();
-  const router = useRouter();
   const pathname = usePathname();
   const { categories, pagination, isLoading } = useCategories();
   const canCreate = useCanAccess("category", "create");
+  const router = useAppRouter();
 
   return (
     <PageWrapper>

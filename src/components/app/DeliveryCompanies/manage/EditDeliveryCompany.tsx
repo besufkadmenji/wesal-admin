@@ -10,8 +10,8 @@ import {
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { DeliveryCompanyStatus } from "@/gql/graphql";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDeliveryCompanyById } from "../useDeliveryCompanies";
 import { useManageForm } from "./useForm";
@@ -22,7 +22,7 @@ export const EditDeliveryCompany = ({ id }: { id: string }) => {
   const { deliveryCompany } = useDeliveryCompanyById(id);
   const { form, setForm, reset } = useManageForm(id, deliveryCompany);
   const dict = useDict();
-  const router = useRouter();
+  const router = useAppRouter();
   const { busy, updateDeliveryCompany } = useManageDeliveryCompany();
   const { errors, validateForm, clearError } = useFormValidation(form);
   useEffect(() => {
