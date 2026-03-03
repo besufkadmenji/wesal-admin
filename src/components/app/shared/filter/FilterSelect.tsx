@@ -7,12 +7,16 @@ export const FilterSelect = ({
   className,
   values,
   onValueChange,
+  classNames,
 }: {
   options: { label: string; key: string }[];
   placeholder: string;
   className?: string;
   values?: string[];
   onValueChange?: (values: string[]) => void;
+  classNames?: {
+    innerWrapper?: string;
+  };
 }) => {
   return (
     <Select
@@ -27,7 +31,7 @@ export const FilterSelect = ({
           "data-[hover=true]:border-app-primary data-[open=true]:border-app-primary data-[focus=true]:border-app-primary",
           className,
         ),
-        innerWrapper: "min-w-[20vw] pe-8",
+        innerWrapper: twMerge("min-w-[20vw] pe-8", classNames?.innerWrapper),
         selectorIcon: "size-6! ",
         popoverContent: "w-max",
       }}

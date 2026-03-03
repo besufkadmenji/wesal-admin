@@ -16,13 +16,16 @@ export const CONTACT_MESSAGES_QUERY: TypedDocumentNode<
         dialCode
         email
         id
-        isRead
         messageContent
         messageType
         name
         phone
         updatedAt
         reply
+        publicId
+        senderId
+        senderType
+        status
       }
       meta {
         hasNext

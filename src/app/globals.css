@@ -88,3 +88,46 @@
 .sr-only {
   display: none;
 }
+
+.rdp {
+  --rdp-accent-color: green; /* start & end */
+  --rdp-accent-background-color: red;
+}
+
+.rdp-nav {
+  display: none;
+}
+
+.rdp-month_grid {
+  background-color: #f4f5fa;
+  gap: 4px;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
+.rdp-root {
+  --rdp-accent-color: #2563eb;
+  --rdp-range_middle-background-color: #2563eb4f !important;
+  --rdp-range_middle-color: black;
+  --rdp-today-color: black;
+}
+
+.rdp-day_button {
+  font-weight: 400 !important;
+  font-size: 14px !important;
+}
+
+.rdp-today {
+  background-color: white;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+
+.rdp-today.rdp-selected.rdp-range_middle {
+  background-color: #2563eb4f !important;
+  border-radius: 0 !important;
+}
+
+.rdp-table {
+  border-collapse: separate;
+  border-spacing: 0 6px; /* horizontal | vertical */
+}

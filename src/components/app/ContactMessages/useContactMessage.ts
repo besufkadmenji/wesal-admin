@@ -1,6 +1,8 @@
 import {
   ContactMessage,
   ContactMessagePaginationInput,
+  ContactMessageStatus,
+  MessageType,
   PaginatedContactMessageResponse,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
@@ -14,15 +16,35 @@ export const useContactMessages = (): UseQueryResult<
 > => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
+  const [status] = useQueryState("status");
+  const [search] = useQueryState("search");
+  const [messageType] = useQueryState("messageType");
+  const [dateFrom] = useQueryState("dateFrom");
+  const [dateTo] = useQueryState("dateTo");
 
   const lang = useLang();
   const params: ContactMessagePaginationInput = {
     page,
     limit,
+    ...(search && { search }),
+    ...(status && { status: status as ContactMessageStatus }),
+    ...(messageType && { messageType: messageType as MessageType }),
+    ...(dateFrom && { dateFrom }),
+    ...(dateTo && { dateTo }),
   };
 
   return useQuery({
-    queryKey: ["contactMessages", lang, page, limit],
+    queryKey: [
+      "contactMessages",
+      lang,
+      page,
+      limit,
+      status,
+      messageType,
+      dateFrom,
+      dateTo,
+      search,
+    ],
     queryFn: () => ContactMessageService.contactMessages(params),
   });
 };

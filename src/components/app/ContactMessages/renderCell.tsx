@@ -4,6 +4,8 @@ import Dictionary from "@/config/i18n/types";
 import { Button } from "@heroui/react";
 import { Key } from "react";
 import ReplyIcon from "@/assets/icons/app/reply.svg";
+import { ContactMessageStatus, SenderType } from "@/gql/graphql";
+import { twMerge } from "tailwind-merge";
 
 export const renderCell = (
   row: RowType,
@@ -15,9 +17,19 @@ export const renderCell = (
     onReply: () => void;
   },
 ) => {
+  const statusMap = {
+    [ContactMessageStatus.Read]: dict.contact_message_page.status.read,
+    [ContactMessageStatus.Sent]: dict.contact_message_page.status.unread,
+    [ContactMessageStatus.Replied]: dict.contact_message_page.status.replied,
+  };
+  const senderMap = {
+    [SenderType.Guest]: dict.contact_message_page.sender_types.guest,
+    [SenderType.User]: dict.contact_message_page.sender_types.user,
+    [SenderType.Provider]: dict.contact_message_page.sender_types.provider,
+  };
   if (column === "action") {
     return (
-      <div className="flex gap-2 justify-end">
+      <div className="flex justify-end gap-2">
         {row.reply === "" && (
           <Button
             size="sm"
@@ -31,6 +43,38 @@ export const renderCell = (
         <ActionsCell onView={action.onView} onDelete={action.onDelete} />
       </div>
     );
+  } else if (column === "name") {
+    return <p className="w-20">{row.name}</p>;
+  } else if (column === "status") {
+    return (
+      <div
+        className={twMerge(
+          "rounded-xl px-2 py-1 text-sm font-medium",
+          row.status === ContactMessageStatus.Read &&
+            "bg-green-50 text-green-600",
+          row.status === ContactMessageStatus.Sent &&
+            "bg-yellow-50 text-yellow-600",
+          row.status === ContactMessageStatus.Replied &&
+            "bg-purple-50 text-purple-600",
+        )}
+      >
+        {statusMap[row.status as ContactMessageStatus]}
+      </div>
+    );
+  } else if (column === "senderType") {
+    return (
+      <div
+        className={twMerge(
+          "rounded-xl px-2 py-1 text-sm font-medium justify-self-start",
+          row.senderType === SenderType.Guest && "bg-teal-50 text-teal-600",
+          row.senderType === SenderType.User && "bg-orange-50 text-orange-600",
+          row.senderType === SenderType.Provider &&
+            "bg-indigo-50 text-indigo-600",
+        )}
+      >
+        {senderMap[row.senderType as SenderType]}
+      </div>
+    );
   }
-  return row[column as string];
+  return <p className="line-clamp-2 text-ellipsis">{row[column as string]}</p>;
 };

@@ -9,11 +9,13 @@ export const SearchInput = ({
   noSubmit,
   value,
   onChange,
+  noClear,
 }: {
   className?: string;
   noSubmit?: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  noClear?: boolean;
 }) => {
   const dict = useDict();
   const [query, setQuery] = useQueryState("search", { defaultValue: "" });
@@ -42,7 +44,7 @@ export const SearchInput = ({
           }
         }}
       />
-      {query && (
+      {query && !noClear && (
         <Button
           onPress={() => {
             setQuery(null);

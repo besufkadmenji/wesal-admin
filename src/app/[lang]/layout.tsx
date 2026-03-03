@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { twMerge } from "tailwind-merge";
 import NextTopLoader from "nextjs-toploader";
+import "react-day-picker/style.css";
 
 // import "leaflet-draw/dist/leaflet.draw.css";
 import "../globals.css";

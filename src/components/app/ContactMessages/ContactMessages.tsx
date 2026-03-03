@@ -9,6 +9,7 @@ import { ExportModel } from "@/types/export.models";
 import { usePathname } from "next/navigation";
 import { SendReply } from "@/components/app/ContactMessages/SendReply";
 import { useAppRouter } from "@/hooks/useAppRouter";
+import { ContactMessagesFilter } from "./ContactMessagesFilter";
 
 export const ContactMessages = () => {
   const dict = useDict();
@@ -23,6 +24,8 @@ export const ContactMessages = () => {
       >
         <ExportButton model={ExportModel.ContactMessages} />
       </PageBar>
+      <Gap className="h-8" />
+      <ContactMessagesFilter />
       <Gap className="h-8" />
       <ContactMessagesList />
       <SendReply />

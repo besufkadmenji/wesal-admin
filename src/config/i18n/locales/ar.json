@@ -29,7 +29,9 @@
       "action": "الاجراء",
       "actions": "الاجراء",
       "saveAndPrint": "حفظ وطباعة",
-      "clearSearch": "مسح البحث"
+      "clearSearch": "مسح البحث",
+      "clearFilters": "مسح الفلاتر",
+      "apply": "تطبيق"
     },
     "timeFilters": {
       "all": "الكل",
@@ -1243,6 +1245,8 @@
     "search_placeholder": "البحث",
     "filter_placeholder": "الحالة",
     "type_placeholder": "نوع الرسالة",
+    "date_from": "من تاريخ",
+    "date_to": "إلى تاريخ",
     "table_headers": {
       "checkbox": "",
       "customer_name": "اسم العميل",
@@ -1261,7 +1265,8 @@
       "OTHER": "أخرى"
     },
     "status": {
-      "NOT_REPLIED": "لم يتم الرد",
+      "SENT": "مرسلة",
+      "READ": "مقروءة",
       "REPLIED": "تم الرد"
     },
     "actions": {
@@ -1287,11 +1292,18 @@
       "messageContent": "الرسالة",
       "createdAt": "تاريخ الإنشاء",
       "status": "الحالة",
-      "actions": "الإجراءات"
+      "actions": "الإجراءات",
+      "senderType": "نوع المرسل"
     },
     "status": {
       "read": "مقروءة",
-      "unread": "غير مقروءة"
+      "unread": "غير مقروءة",
+      "replied": "تم الرد"
+    },
+    "sender_types": {
+      "guest": "زائر",
+      "user": "مستخدم",
+      "provider": "مقدم خدمة"
     },
     "actions": {
       "view": "عرض",

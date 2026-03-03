@@ -29,7 +29,9 @@
       "action": "Action",
       "actions": "Actions",
       "saveAndPrint": "Save and Print",
-      "clearSearch": "Clear Search"
+      "clearSearch": "Clear Search",
+      "clearFilters": "Clear Filters",
+      "apply": "Apply"
     },
     "timeFilters": {
       "all": "All",
@@ -1244,6 +1246,8 @@
     "search_placeholder": "Search",
     "filter_placeholder": "Status",
     "type_placeholder": "Message Type",
+    "date_from": "From Date",
+    "date_to": "To Date",
     "table_headers": {
       "checkbox": "",
       "customer_name": "Customer Name",
@@ -1262,7 +1266,8 @@
       "OTHER": "Other"
     },
     "status": {
-      "NOT_REPLIED": "Not Replied",
+      "SENT": "Sent",
+      "READ": "Read",
       "REPLIED": "Replied"
     },
     "actions": {
@@ -1288,11 +1293,18 @@
       "messageContent": "Message",
       "createdAt": "Created Date",
       "status": "Status",
-      "actions": "Actions"
+      "actions": "Actions",
+      "senderType": "Sender Type"
     },
     "status": {
       "read": "Read",
-      "unread": "Unread"
+      "unread": "Unread",
+      "replied": "Replied"
+    },
+    "sender_types": {
+      "guest": "Guest",
+      "user": "User",
+      "provider": "Provider"
     },
     "actions": {
       "view": "View",

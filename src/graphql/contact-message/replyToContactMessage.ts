@@ -14,19 +14,21 @@ export const REPLY_TO_CONTACT_MESSAGE: TypedDocumentNode<
     $message: String!
   ) {
     replyToContactMessage(id: $replyToContactMessageId, message: $message) {
-      id
       attachmentFilename
       createdAt
       dialCode
       email
-      isRead
+      id
       messageContent
       messageType
       name
       phone
-      publicId
-      reply
       updatedAt
+      reply
+      publicId
+      senderId
+      senderType
+      status
     }
   }
 `;

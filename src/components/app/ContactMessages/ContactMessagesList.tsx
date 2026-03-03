@@ -7,7 +7,7 @@ import {
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import { usePathname } from "next/navigation";
-import { useQueryState } from "nuqs";
+import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
@@ -24,7 +24,7 @@ export const ContactMessagesList = () => {
     "isDeleteWarningOpen",
   );
   const [sendReply, setSendReply] = useQueryState("sendReply");
-
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const router = useAppRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [
@@ -39,6 +39,10 @@ export const ContactMessagesList = () => {
     {
       key: "phone",
       label: dict.contact_message_page.table_headers.phone,
+    },
+    {
+      key: "senderType",
+      label: dict.contact_message_page.table_headers.senderType,
     },
     {
       key: "messageType",
@@ -79,12 +83,11 @@ export const ContactMessagesList = () => {
           name: contactMessage.name ?? "-",
           email: contactMessage.email,
           phone: `${contactMessage.dialCode}${contactMessage.phone}`,
+          senderType: contactMessage.senderType,
           messageType: contactMessage.messageType,
           messageContent: contactMessage.messageContent,
           date: DateTimeHelpers.formatDate(contactMessage.createdAt),
-          status: contactMessage.isRead
-            ? dict.contact_message_page.status.read
-            : dict.contact_message_page.status.unread,
+          status: contactMessage.status,
           reply: contactMessage.reply,
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
@@ -100,6 +103,13 @@ export const ContactMessagesList = () => {
             },
           })
         }
+        pagination={{
+          page: data.meta.page,
+          total: data.meta.totalPages,
+          onChange: (page) => {
+            setPage(page, { history: "push" });
+          },
+        }}
       />
       <DeleteWarning
         isOpen={!!isDeleteWarningOpen}

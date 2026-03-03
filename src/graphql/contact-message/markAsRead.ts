@@ -12,13 +12,16 @@ export const MARK_AS_READ_MUTATION: TypedDocumentNode<
       dialCode
       email
       id
-      isRead
       messageContent
       messageType
       name
       phone
       updatedAt
       reply
+      publicId
+      senderId
+      senderType
+      status
     }
   }
 `;
