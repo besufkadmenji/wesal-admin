@@ -10,21 +10,46 @@ import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { useManageSettingsForm } from "./useForm";
+import { useFormValidation } from "./useFormValidation";
 import { useManageSetting } from "./useManageSetting";
 export const ContactManagement = () => {
   const dict = useDict();
   const { setting, setSetting } = useManageSettingsForm();
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneInputError, setPhoneInputError] = useState("");
   const { updateSetting, busy } = useManageSetting();
+  const { errors, validateForm, clearError, validatePhoneNumber } =
+    useFormValidation(setting);
+
+  const handleAddPhone = () => {
+    const phoneError = validatePhoneNumber(phoneNumber);
+    if (phoneError) {
+      setPhoneInputError(phoneError);
+      return;
+    }
+    if (setting.phones!.includes(phoneNumber.trim())) {
+      setPhoneInputError(dict.contact_settings.validation.phoneNumberDuplicate);
+      return;
+    }
+    setSetting({
+      phones: [...setting.phones!, phoneNumber],
+    });
+    setPhoneNumber("");
+    setPhoneInputError("");
+  };
+
+  const handleSave = () => {
+    if (validateForm()) {
+      updateSetting();
+    }
+  };
 
   return (
     <PageWrapper>
       <PageBar title={dict.contact_settings.title}>
         <SaveButton
           type={SaveButtonType.Settings}
-          onPress={() => {
-            updateSetting();
-          }}
+          onPress={handleSave}
           isDisabled={busy}
           isLoading={busy}
         />
@@ -42,15 +67,12 @@ export const ContactManagement = () => {
                   value={phoneNumber}
                   onChange={(value: string): void => {
                     setPhoneNumber(value);
+                    setPhoneInputError("");
                   }}
+                  errorMessage={phoneInputError || errors.phones}
                 />
                 <PrimaryButton
-                  onPress={() => {
-                    setSetting({
-                      phones: [...setting.phones!, phoneNumber],
-                    });
-                    setPhoneNumber("");
-                  }}
+                  onPress={handleAddPhone}
                   className="mb-2 self-end"
                   startContent={<AddIcon className="size-5" />}
                   isDisabled={phoneNumber.trim() === ""}
@@ -70,8 +92,9 @@ export const ContactManagement = () => {
                         .phone_number
                     }
                     value={phone}
-                    onChange={(value: string): void => {}}
+                    onChange={(): void => {}}
                     readOnly
+                    errorMessage={errors[`phone_${index}`]}
                   />
                   <PrimaryButton
                     onPress={() => {
@@ -82,7 +105,7 @@ export const ContactManagement = () => {
                         phones: updatedPhones,
                       });
                     }}
-                    className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
+                    className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
                   >
                     <DeleteIcon className="size-5.5" />
@@ -101,7 +124,9 @@ export const ContactManagement = () => {
                 setSetting({
                   whatsappNumber: value,
                 });
+                clearError("whatsappNumber");
               }}
+              errorMessage={errors.whatsappNumber}
             />
 
             <FormInput
@@ -114,7 +139,9 @@ export const ContactManagement = () => {
                 setSetting({
                   email: value,
                 });
+                clearError("email");
               }}
+              errorMessage={errors.email}
             />
           </div>
         </FormSection>
@@ -149,6 +176,7 @@ export const ContactManagement = () => {
                       setSetting({
                         socialMediaLinks: updatedSocialMediaLinks,
                       });
+                      clearError(`socialMedia_name_${index}`);
                     }}
                     startContent={
                       <div className="border-dashboard-border h-5 w-5 rounded-full border" />
@@ -156,6 +184,7 @@ export const ContactManagement = () => {
                     classNames={{
                       inputWrapper: "shadow-none",
                     }}
+                    errorMessage={errors[`socialMedia_name_${index}`]}
                   />
                   <FormInput
                     label={""}
@@ -169,10 +198,12 @@ export const ContactManagement = () => {
                       setSetting({
                         socialMediaLinks: updatedSocialMediaLinks,
                       });
+                      clearError(`socialMedia_link_${index}`);
                     }}
                     classNames={{
                       inputWrapper: "bg-white shadow-none",
                     }}
+                    errorMessage={errors[`socialMedia_link_${index}`]}
                   />
                   <PrimaryButton
                     onPress={() => {

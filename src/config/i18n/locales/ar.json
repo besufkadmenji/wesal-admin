@@ -1471,6 +1471,17 @@
     },
     "messages": {
       "updateSuccess": "تم تحديث الإعدادات بنجاح."
+    },
+    "validation": {
+      "phoneNumberRequired": "رقم الهاتف مطلوب.",
+      "phoneNumberInvalidSaudi": "يجب أن يكون رقم الهاتف سعوديًا صالحًا (مثال: 5XXXXXXXX).",
+      "phoneNumberDuplicate": "تم إضافة هذا الرقم مسبقًا.",
+      "whatsappInvalidSaudi": "يجب أن يكون رقم الواتساب سعوديًا صالحًا (مثال: 5XXXXXXXX).",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صالح.",
+      "socialMediaNameRequired": "اسم المنصة مطلوب.",
+      "socialMediaLinkRequired": "رابط المنصة مطلوب.",
+      "socialMediaLinkInvalid": "يرجى إدخال رابط صالح (مثال: https://example.com).",
+      "atLeastOnePhone": "يجب إضافة رقم هاتف واحد على الأقل."
     }
   },
   "about_platform": {

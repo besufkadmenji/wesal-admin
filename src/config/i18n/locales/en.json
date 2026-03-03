@@ -1472,6 +1472,17 @@
     },
     "messages": {
       "updateSuccess": "Settings updated successfully."
+    },
+    "validation": {
+      "phoneNumberRequired": "Phone number is required.",
+      "phoneNumberInvalidSaudi": "Phone number must be a valid Saudi number (e.g. 5XXXXXXXX).",
+      "phoneNumberDuplicate": "This phone number has already been added.",
+      "whatsappInvalidSaudi": "WhatsApp number must be a valid Saudi number (e.g. 5XXXXXXXX).",
+      "emailInvalid": "Please enter a valid email address.",
+      "socialMediaNameRequired": "Platform name is required.",
+      "socialMediaLinkRequired": "Platform link is required.",
+      "socialMediaLinkInvalid": "Please enter a valid URL (e.g. https://example.com).",
+      "atLeastOnePhone": "At least one phone number is required."
     }
   },
   "about_platform": {

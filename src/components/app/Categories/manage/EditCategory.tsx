@@ -30,7 +30,7 @@ export const EditCategory = ({ id }: { id: string }) => {
   const { errors, validateForm, clearError } = useFormValidation({
     ...form,
     image: imageFile,
-    existingImage: category?.image || null,
+    existingImage: form?.image || null,
   });
   useEffect(() => {
     return () => {

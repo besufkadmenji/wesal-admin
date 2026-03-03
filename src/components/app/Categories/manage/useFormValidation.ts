@@ -89,37 +89,37 @@ export const useFormValidation = (form: CategoryForm) => {
     [dict],
   );
 
-  const validateRulesAr = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return dict.add_new_category_form.validation.rulesArRequired;
-      }
-      if (value.trim().length < RULES_MIN_LENGTH) {
-        return dict.add_new_category_form.validation.rulesArMinLength;
-      }
-      if (value.trim().length > RULES_MAX_LENGTH) {
-        return dict.add_new_category_form.validation.rulesArMaxLength;
-      }
-      return null;
-    },
-    [dict],
-  );
+  // const validateRulesAr = useCallback(
+  //   (value: string): string | null => {
+  //     if (!value || value.trim() === "") {
+  //       return dict.add_new_category_form.validation.rulesArRequired;
+  //     }
+  //     if (value.trim().length < RULES_MIN_LENGTH) {
+  //       return dict.add_new_category_form.validation.rulesArMinLength;
+  //     }
+  //     if (value.trim().length > RULES_MAX_LENGTH) {
+  //       return dict.add_new_category_form.validation.rulesArMaxLength;
+  //     }
+  //     return null;
+  //   },
+  //   [dict],
+  // );
 
-  const validateRulesEn = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return dict.add_new_category_form.validation.rulesEnRequired;
-      }
-      if (value.trim().length < RULES_MIN_LENGTH) {
-        return dict.add_new_category_form.validation.rulesEnMinLength;
-      }
-      if (value.trim().length > RULES_MAX_LENGTH) {
-        return dict.add_new_category_form.validation.rulesEnMaxLength;
-      }
-      return null;
-    },
-    [dict],
-  );
+  // const validateRulesEn = useCallback(
+  //   (value: string): string | null => {
+  //     if (!value || value.trim() === "") {
+  //       return dict.add_new_category_form.validation.rulesEnRequired;
+  //     }
+  //     if (value.trim().length < RULES_MIN_LENGTH) {
+  //       return dict.add_new_category_form.validation.rulesEnMinLength;
+  //     }
+  //     if (value.trim().length > RULES_MAX_LENGTH) {
+  //       return dict.add_new_category_form.validation.rulesEnMaxLength;
+  //     }
+  //     return null;
+  //   },
+  //   [dict],
+  // );
 
   const validateImage = useCallback(
     (
@@ -160,11 +160,11 @@ export const useFormValidation = (form: CategoryForm) => {
     const descriptionEnError = validateDescriptionEn(form.descriptionEn);
     if (descriptionEnError) newErrors.descriptionEn = descriptionEnError;
 
-    const rulesArError = validateRulesAr(form.rulesAr || "");
-    if (rulesArError) newErrors.rulesAr = rulesArError;
+    // const rulesArError = validateRulesAr(form.rulesAr || "");
+    // if (rulesArError) newErrors.rulesAr = rulesArError;
 
-    const rulesEnError = validateRulesEn(form.rulesEn || "");
-    if (rulesEnError) newErrors.rulesEn = rulesEnError;
+    // const rulesEnError = validateRulesEn(form.rulesEn || "");
+    // if (rulesEnError) newErrors.rulesEn = rulesEnError;
 
     const imageError = validateImage(form.image, form.existingImage);
     if (imageError) newErrors.image = imageError;
@@ -176,16 +176,14 @@ export const useFormValidation = (form: CategoryForm) => {
     form.nameEn,
     form.descriptionAr,
     form.descriptionEn,
-    form.rulesAr,
-    form.rulesEn,
     form.image,
     form.existingImage,
     validateNameAr,
     validateNameEn,
     validateDescriptionAr,
     validateDescriptionEn,
-    validateRulesAr,
-    validateRulesEn,
+    // validateRulesAr,
+    // validateRulesEn,
     validateImage,
   ]);
 
@@ -194,8 +192,8 @@ export const useFormValidation = (form: CategoryForm) => {
     const nameEnError = validateNameEn(form.nameEn);
     const descriptionArError = validateDescriptionAr(form.descriptionAr);
     const descriptionEnError = validateDescriptionEn(form.descriptionEn);
-    const rulesArError = validateRulesAr(form.rulesAr || "");
-    const rulesEnError = validateRulesEn(form.rulesEn || "");
+    // const rulesArError = validateRulesAr(form.rulesAr || "");
+    // const rulesEnError = validateRulesEn(form.rulesEn || "");
     const imageError = validateImage(form.image, form.existingImage);
 
     return (
@@ -203,8 +201,8 @@ export const useFormValidation = (form: CategoryForm) => {
       !nameEnError &&
       !descriptionArError &&
       !descriptionEnError &&
-      !rulesArError &&
-      !rulesEnError &&
+      // !rulesArError &&
+      // !rulesEnError &&
       !imageError
     );
   }, [
@@ -212,16 +210,14 @@ export const useFormValidation = (form: CategoryForm) => {
     form.nameEn,
     form.descriptionAr,
     form.descriptionEn,
-    form.rulesAr,
-    form.rulesEn,
     form.image,
     form.existingImage,
     validateNameAr,
     validateNameEn,
     validateDescriptionAr,
     validateDescriptionEn,
-    validateRulesAr,
-    validateRulesEn,
+    // validateRulesAr,
+    // validateRulesEn,
     validateImage,
   ]);
 
@@ -242,12 +238,12 @@ export const useFormValidation = (form: CategoryForm) => {
         case "descriptionEn":
           error = validateDescriptionEn(value as string) || "";
           break;
-        case "rulesAr":
-          error = validateRulesAr(value as string) || "";
-          break;
-        case "rulesEn":
-          error = validateRulesEn(value as string) || "";
-          break;
+        // case "rulesAr":
+        //   error = validateRulesAr(value as string) || "";
+        //   break;
+        // case "rulesEn":
+        //   error = validateRulesEn(value as string) || "";
+        //   break;
         case "image":
           error =
             validateImage(
@@ -272,8 +268,8 @@ export const useFormValidation = (form: CategoryForm) => {
       validateNameEn,
       validateDescriptionAr,
       validateDescriptionEn,
-      validateRulesAr,
-      validateRulesEn,
+      // validateRulesAr,
+      // validateRulesEn,
       validateImage,
       form.existingImage,
     ],
