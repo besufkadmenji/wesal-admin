@@ -192,6 +192,7 @@
       "email": "Email",
       "type": "Type",
       "registration_date": "Registration Date",
+      "businessName": "Business Name",
       "status": "Status",
       "contactStatus": "Contract Status",
       "actions": "Actions"

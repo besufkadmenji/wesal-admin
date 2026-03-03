@@ -190,6 +190,7 @@
       "email": "البريد الإلكتروني",
       "type": "النوع",
       "registration_date": "تاريخ التسجيل",
+      "businessName": "اسم المؤسسة",
       "status": "الحالة",
       "contactStatus": "حالة العقد",
       "actions": "الإجراءات"

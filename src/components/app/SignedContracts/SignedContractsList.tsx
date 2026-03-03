@@ -35,6 +35,10 @@ export const SignedContractsList = () => {
       label: dict.users_page.table_headers.email,
     },
     {
+      key: "businessName",
+      label: dict.users_page.table_headers.businessName,
+    },
+    {
       key: "date",
       label: dict.users_page.table_headers.registration_date,
       align: "center",
@@ -65,6 +69,7 @@ export const SignedContractsList = () => {
         name: signedContract.provider?.name ?? "-",
         phone: signedContract.provider?.phone ?? "-",
         email: signedContract.provider?.email ?? "-",
+        businessName: signedContract.provider?.commercialName ?? "-",
         date: DateTimeHelpers.formatDate(signedContract.createdAt),
         status: signedContract.status || "",
       }))}
