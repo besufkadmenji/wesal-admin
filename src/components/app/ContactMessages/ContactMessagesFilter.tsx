@@ -9,6 +9,7 @@ import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import CalendarIcon from "@/assets/icons/app/calendar.svg";
 import moment from "moment";
 import { DateRangeFilter } from "@/components/app/ContactMessages/DateRangeFilter";
+import { SenderType } from "@/gql/graphql";
 
 export const ContactMessagesFilter = () => {
   const dict = useDict();
@@ -25,16 +26,21 @@ export const ContactMessagesFilter = () => {
       label,
     }),
   );
-
+  const senderMap = {
+    [SenderType.Guest]: dict.contact_message_page.sender_types.guest,
+    [SenderType.User]: dict.contact_message_page.sender_types.user,
+    [SenderType.Provider]: dict.contact_message_page.sender_types.provider,
+  };
   const [status, setStatus] = useQueryState("status");
   const [messageType, setMessageType] = useQueryState("messageType");
+  const [senderType, setSenderType] = useQueryState("senderType");
   const [dateFrom, setDateFrom] = useQueryState("dateFrom");
   const [dateTo, setDateTo] = useQueryState("dateTo");
   const [query, setQuery] = useQueryState("search");
 
   return (
-    <div className="grid grid-cols-[auto_1fr_1fr_1fr_auto] items-center gap-4">
-      <SearchInput className="w-full" noClear key={query} />
+    <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr_auto_auto] items-center gap-4">
+      <SearchInput className="w-full lg:min-w-0" noClear key={query} />
       <FilterSelect
         options={statusOptions}
         placeholder={d.filter_placeholder}
@@ -59,6 +65,21 @@ export const ContactMessagesFilter = () => {
           setMessageType(values[0] || null);
         }}
       />
+      <FilterSelect
+        options={Object.entries(senderMap).map(([key, label]) => ({
+          key,
+          label,
+        }))}
+        placeholder={dict.contact_message_page.sender_type}
+        className="w-full"
+        classNames={{
+          innerWrapper: "min-w-0",
+        }}
+        values={senderType ? [senderType] : []}
+        onValueChange={(values) => {
+          setSenderType(values[0] || null);
+        }}
+      />
       <DateRangeFilter
         key={`${dateFrom}${dateTo}`}
         dateFrom={dateFrom}
@@ -70,7 +91,8 @@ export const ContactMessagesFilter = () => {
           setDateTo(date);
         }}
       />
-      {(status || messageType || dateFrom || dateTo || query) && (
+
+      {(status || messageType || dateFrom || dateTo || query || senderType) && (
         <Button
           onPress={() => {
             setStatus(null);
@@ -78,6 +100,7 @@ export const ContactMessagesFilter = () => {
             setDateFrom(null);
             setDateTo(null);
             setQuery(null);
+            setSenderType(null);
           }}
           className="bg-primary/10 text-primary font-medium"
         >

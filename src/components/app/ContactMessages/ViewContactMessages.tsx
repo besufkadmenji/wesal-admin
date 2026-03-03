@@ -17,15 +17,28 @@ import { Button } from "@heroui/react";
 import ReplyIcon from "@/assets/icons/app/reply.svg";
 import { SendReply } from "@/components/app/ContactMessages/SendReply";
 import { useQueryState } from "nuqs";
+import { ContactMessageStatus, SenderType, MessageType } from "@/gql/graphql";
 
 export const ViewContactMessages = ({ id }: { id: string }) => {
   const { data } = useContactMessage(id);
   const [sendReply, setSendReply] = useQueryState("sendReply");
 
   const dict = useDict();
-
+  const senderMap = {
+    [SenderType.Guest]: dict.contact_message_page.sender_types.guest,
+    [SenderType.User]: dict.contact_message_page.sender_types.user,
+    [SenderType.Provider]: dict.contact_message_page.sender_types.provider,
+  };
+  const messageTypeMap = {
+    [MessageType.Request]: dict.contact_message_page.message_types.REQUEST,
+    [MessageType.Inquiry]: dict.contact_message_page.message_types.INQUIRY,
+    [MessageType.Complaint]: dict.contact_message_page.message_types.COMPLAINT,
+    [MessageType.Suggestion]:
+      dict.contact_message_page.message_types.SUGGESTION,
+    [MessageType.Other]: dict.contact_message_page.message_types.OTHER,
+  };
   useEffect(() => {
-    if (data && !data.isRead) {
+    if (data && data.status === ContactMessageStatus.Sent) {
       ContactMessageService.markAsRead(id);
     }
     return () => {};
@@ -77,9 +90,16 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
               readOnly
             />
             <FormInput
+              label={dict.contact_message_page.table_headers.senderType}
+              placeholder={dict.contact_message_page.table_headers.senderType}
+              value={senderMap[data.senderType]}
+              onChange={(value: string): void => {}}
+              readOnly
+            />
+            <FormInput
               label={dict.contact_message_page.table_headers.messageType}
               placeholder={dict.contact_message_page.table_headers.messageType}
-              value={data.messageType}
+              value={messageTypeMap[data.messageType]}
               onChange={(value: string): void => {}}
               readOnly
             />

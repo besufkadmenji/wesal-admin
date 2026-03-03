@@ -1285,6 +1285,7 @@
     "total_count": "messages",
     "search_placeholder": "Search",
     "attachment": "Attachment",
+    "sender_type": "Sender Type",
     "table_headers": {
       "name": "Name",
       "email": "Email",
@@ -1305,6 +1306,13 @@
       "guest": "Guest",
       "user": "User",
       "provider": "Provider"
+    },
+    "message_types": {
+      "REQUEST": "Request",
+      "INQUIRY": "Inquiry",
+      "COMPLAINT": "Complaint",
+      "SUGGESTION": "Suggestion",
+      "OTHER": "Other"
     },
     "actions": {
       "view": "View",

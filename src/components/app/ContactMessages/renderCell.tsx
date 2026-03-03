@@ -4,7 +4,7 @@ import Dictionary from "@/config/i18n/types";
 import { Button } from "@heroui/react";
 import { Key } from "react";
 import ReplyIcon from "@/assets/icons/app/reply.svg";
-import { ContactMessageStatus, SenderType } from "@/gql/graphql";
+import { ContactMessageStatus, MessageType, SenderType } from "@/gql/graphql";
 import { twMerge } from "tailwind-merge";
 
 export const renderCell = (
@@ -26,6 +26,14 @@ export const renderCell = (
     [SenderType.Guest]: dict.contact_message_page.sender_types.guest,
     [SenderType.User]: dict.contact_message_page.sender_types.user,
     [SenderType.Provider]: dict.contact_message_page.sender_types.provider,
+  };
+  const messageTypeMap = {
+    [MessageType.Request]: dict.contact_message_page.message_types.REQUEST,
+    [MessageType.Inquiry]: dict.contact_message_page.message_types.INQUIRY,
+    [MessageType.Complaint]: dict.contact_message_page.message_types.COMPLAINT,
+    [MessageType.Suggestion]:
+      dict.contact_message_page.message_types.SUGGESTION,
+    [MessageType.Other]: dict.contact_message_page.message_types.OTHER,
   };
   if (column === "action") {
     return (
@@ -65,7 +73,7 @@ export const renderCell = (
     return (
       <div
         className={twMerge(
-          "rounded-xl px-2 py-1 text-sm font-medium justify-self-start",
+          "justify-self-start rounded-xl px-2 py-1 text-sm font-medium",
           row.senderType === SenderType.Guest && "bg-teal-50 text-teal-600",
           row.senderType === SenderType.User && "bg-orange-50 text-orange-600",
           row.senderType === SenderType.Provider &&
@@ -73,6 +81,24 @@ export const renderCell = (
         )}
       >
         {senderMap[row.senderType as SenderType]}
+      </div>
+    );
+  } else if (column === "messageType") {
+    return (
+      <div
+        className={twMerge(
+          "justify-self-start rounded-xl px-2 py-1 text-sm font-medium",
+          row.messageType === MessageType.Request && "bg-teal-50 text-teal-600",
+          row.messageType === MessageType.Inquiry &&
+            "bg-orange-50 text-orange-600",
+          row.messageType === MessageType.Complaint &&
+            "bg-indigo-50 text-indigo-600",
+          row.messageType === MessageType.Suggestion &&
+            "bg-purple-50 text-purple-600",
+          row.messageType === MessageType.Other && "bg-gray-50 text-gray-600",
+        )}
+      >
+        {messageTypeMap[row.messageType as MessageType]}
       </div>
     );
   }

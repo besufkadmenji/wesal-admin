@@ -1284,6 +1284,7 @@
     "total_count": "رسالة",
     "search_placeholder": "البحث",
     "attachment": "مرفق",
+    "sender_type": "نوع المرسل",
     "table_headers": {
       "name": "الاسم",
       "email": "البريد الإلكتروني",
@@ -1304,6 +1305,13 @@
       "guest": "زائر",
       "user": "مستخدم",
       "provider": "مقدم خدمة"
+    },
+    "message_types": {
+      "REQUEST": "طلب",
+      "INQUIRY": "استفسار",
+      "COMPLAINT": "شكوى",
+      "SUGGESTION": "اقتراح",
+      "OTHER": "أخرى"
     },
     "actions": {
       "view": "عرض",

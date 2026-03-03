@@ -4,6 +4,7 @@ import {
   ContactMessageStatus,
   MessageType,
   PaginatedContactMessageResponse,
+  SenderType,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
 import ContactMessageService from "@/services/contact.message.service";
@@ -19,6 +20,7 @@ export const useContactMessages = (): UseQueryResult<
   const [status] = useQueryState("status");
   const [search] = useQueryState("search");
   const [messageType] = useQueryState("messageType");
+  const [senderType] = useQueryState("senderType");
   const [dateFrom] = useQueryState("dateFrom");
   const [dateTo] = useQueryState("dateTo");
 
@@ -29,6 +31,7 @@ export const useContactMessages = (): UseQueryResult<
     ...(search && { search }),
     ...(status && { status: status as ContactMessageStatus }),
     ...(messageType && { messageType: messageType as MessageType }),
+    ...(senderType && { senderType: senderType as SenderType }),
     ...(dateFrom && { dateFrom }),
     ...(dateTo && { dateTo }),
   };
@@ -44,6 +47,7 @@ export const useContactMessages = (): UseQueryResult<
       dateFrom,
       dateTo,
       search,
+      senderType,
     ],
     queryFn: () => ContactMessageService.contactMessages(params),
   });
