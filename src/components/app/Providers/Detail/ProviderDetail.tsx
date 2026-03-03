@@ -17,6 +17,8 @@ import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { useProvider } from "../useProvider";
 import { useAppRouter } from "@/hooks/useAppRouter";
+import { DocumentDisplay } from "@/components/app/ProviderRequests/Detail/DocumentDisplay";
+import { dataUrl } from "@/config/url";
 
 const Marker = ({}: { lat: number; lng: number }) => (
   <DefaultMarkerIcon className="size-16 origin-center -translate-y-[80%] ltr:-translate-x-1/2 rtl:translate-x-1/2" />
@@ -186,14 +188,15 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                   {dict.view_provider_form.labels.commercial_registration_image}
                 </p>
                 <div className="relative mt-2 h-40 w-60">
-                  {provider.commercialRegistrationFilename && (
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.commercialRegistrationFilename}`}
-                      alt="Commercial Registration"
-                      fill
-                      className="object-contain"
-                    />
-                  )}
+                  <div className="grid justify-center p-4">
+                    {provider.commercialRegistrationFilename ? (
+                      <DocumentDisplay
+                        documentPath={`${dataUrl}/files/${provider.commercialRegistrationFilename}`}
+                      />
+                    ) : (
+                      <p>-</p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

@@ -172,13 +172,13 @@ export const RequestDetail = ({ id }: { id: string }) => {
             }
           >
             <div className="grid justify-center p-4">
-              <DocumentDisplay
-                documentPath={
-                  request.commercialRegistrationFilename
-                    ? `${dataUrl}/files/${request.commercialRegistrationFilename}`
-                    : "-"
-                }
-              />
+              {request.commercialRegistrationFilename ? (
+                <DocumentDisplay
+                  documentPath={`${dataUrl}/files/${request.commercialRegistrationFilename}`}
+                />
+              ) : (
+                <p>-</p>
+              )}
             </div>
           </FormSection>
         </AppForm>
