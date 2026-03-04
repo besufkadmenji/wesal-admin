@@ -2093,7 +2093,8 @@
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
-    "terminatedByProvider": "تم الإنهاء من قبل مقدم الخدمة"
+    "terminatedByProvider": "تم الإنهاء من قبل مقدم الخدمة",
+    "waitingForResigning": "في انتظار الاستقالة"
   },
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك",

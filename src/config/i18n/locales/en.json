@@ -2094,7 +2094,8 @@
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
-    "terminatedByProvider": "Terminated by Provider"
+    "terminatedByProvider": "Terminated by Provider",
+    "waitingForResigning": "Waiting for Resigning"
   },
   "noData": {
     "subscriberRequests": "No subscription requests found",

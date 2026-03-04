@@ -301,12 +301,14 @@ const ContactStatus = ({ status }: { status: SignedContractStatus }) => {
       dict.contract_status.terminatedByAdmin,
     [SignedContractStatus.TerminatedByProvider]:
       dict.contract_status.terminatedByProvider,
+    [SignedContractStatus.Pending]: dict.contract_status.waitingForResigning,
   };
   const statusClassMap = {
     [SignedContractStatus.Active]: "text-green-600 bg-green-100",
     [SignedContractStatus.Expired]: "text-yellow-600 bg-yellow-100",
     [SignedContractStatus.TerminatedByAdmin]: "text-red-600 bg-red-100",
     [SignedContractStatus.TerminatedByProvider]: "text-red-600 bg-red-100",
+    [SignedContractStatus.Pending]: "text-gray-600 bg-gray-100",
   };
   return (
     <div
