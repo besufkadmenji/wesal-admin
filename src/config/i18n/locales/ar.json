@@ -144,7 +144,7 @@
   "navigation": {
     "home": "الرئيسية",
     "system_managers": "إدارة مديري النظام",
-    "categories": "إدارة الفئات",
+    "categories": "ادارة الإقسام",
     "cities": "إدارة المدن",
     "users": "إدارة المستخدمين",
     "providers": "إدارة مزودي الخدمات",
@@ -320,7 +320,7 @@
     "success": {
       "subscription_approved": "تم قبول طلب الانضمام بنجاح.",
       "subscription_rejected": "تم رفض طلب الانضمام بنجاح.",
-      "admin_added_successfully": "تم إضافة ادمين بنجاح."
+      "admin_added_successfully": "تم إضافة مدير نظام بنجاح."
     }
   },
   "reject_subscription_form": {
@@ -511,7 +511,7 @@
   "system_managers_page": {
     "title": "ادارة مديرين النظام",
     "total_managers": "مدير ين النظام الكلى",
-    "total_count": "ادمين",
+    "total_count": "مدير نظام",
     "buttons": {
       "add_new_manager": "إضافة مستخدم جديد",
       "save": "حفظ"
@@ -540,11 +540,11 @@
       "delete": "حذف"
     },
     "messages": {
-      "createSuccess": "تم إنشاء الادمين بنجاح.",
-      "updateSuccess": "تم تحديث الادمين بنجاح.",
+      "createSuccess": "تم إنشاء المدير نظام بنجاح.",
+      "updateSuccess": "تم تحديث المدير نظام بنجاح.",
       "activateSuccess": "تم إضافة مورد/صاحب مستودع بنجاح.",
-      "deactivateSuccess": "تم تعطيل الادمين بنجاح.",
-      "deleteSuccess": "تم حذف الادمين بنجاح."
+      "deactivateSuccess": "تم تعطيل المدير نظام بنجاح.",
+      "deleteSuccess": "تم حذف المدير نظام بنجاح."
     },
     "status_labels": {
       "approved": "موافق",
@@ -552,7 +552,7 @@
     }
   },
   "add_new_admin_form": {
-    "title": "إضافة ادمين جديد",
+    "title": "إضافة مدير نظام جديد",
     "buttons": {
       "save": "حفظ"
     },
@@ -563,12 +563,12 @@
       "upload_tax_document": "ارفق صورة السجل الضريبي"
     },
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات المدير نظام",
       "login_information": "معلومات الدخول",
       "permissions": "الصلاحيات"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير نظام",
       "organization_name": "اسم المؤسسة",
       "type": "النوع",
       "commercial_registration_number": "رقم التسجيل التجاري",
@@ -580,7 +580,7 @@
       "confirm_password": "تأكيد كلمة المرور"
     },
     "placeholders": {
-      "admin_name": "ادخل اسم الادمين",
+      "admin_name": "ادخل اسم المدير نظام",
       "phone_number": "ادخل رقم الهاتف"
     },
     "permissions": {
@@ -592,9 +592,9 @@
       "description": "تم رفع ملفك بنجاح"
     },
     "validation": {
-      "fullNameRequired": "اسم الادمين مطلوب",
-      "fullNameMinLength": "يجب أن يكون اسم الادمين 3 أحرف على الأقل",
-      "fullNameMaxLength": "لا يجب أن يتجاوز اسم الادمين 100 حرف",
+      "fullNameRequired": "اسم المدير نظام مطلوب",
+      "fullNameMinLength": "يجب أن يكون اسم المدير نظام 3 أحرف على الأقل",
+      "fullNameMaxLength": "لا يجب أن يتجاوز اسم المدير نظام 100 حرف",
       "emailRequired": "البريد الإلكتروني مطلوب",
       "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
       "phoneNumberRequired": "رقم الهاتف مطلوب",
@@ -664,14 +664,14 @@
     }
   },
   "admin_permissions_management": {
-    "title": "إدارة صلاحيات الادمين",
+    "title": "إدارة صلاحيات المدير نظام",
     "permissions_label": "الصلاحيات",
     "restricted_permissions": "الصلاحيات المقيدة",
     "buttons": {
       "save": "حفظ"
     },
     "permission_modules": {
-      "system_managers_management": "إدارة مديري النظام/الادمين",
+      "system_managers_management": "إدارة مديري النظام/المدير نظام",
       "sellers_management": "إدارة البائعات",
       "subscription_requests": "طلبات الاشتراكات",
       "reports": "التقارير",
@@ -744,16 +744,16 @@
     }
   },
   "deactivate_admin_confirmation": {
-    "title": "تعطيل الادمين",
-    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "title": "تعطيل المدير نظام",
+    "description": "هل أنت تريد بتعطيل هذا المدير نظام ?",
     "buttons": {
       "cancel": "تراجع",
       "deactivate": "تعطيل"
     }
   },
   "delete_admin_confirmation": {
-    "title": "حذف الادمين",
-    "description": "هل أنت تريد بحذف هذا الادمين ?",
+    "title": "حذف المدير نظام",
+    "description": "هل أنت تريد بحذف هذا المدير نظام ?",
     "buttons": {
       "cancel": "تراجع",
       "delete": "حذف"
@@ -774,8 +774,8 @@
     }
   },
   "deactivate_admin_reason_form": {
-    "title": "تعطيل الادمين",
-    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "title": "تعطيل المدير نظام",
+    "description": "هل أنت تريد بتعطيل هذا المدير نظام ?",
     "labels": {
       "deactivation_reason": "سبب التعطيل"
     },
@@ -846,12 +846,12 @@
   "admin_detail_page": {
     "title": "بيانات المشترك",
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات المدير نظام",
       "login_information": "معلومات الدخول",
       "commercial_registration_information": "معلومات السجل الضريبي"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير نظام",
       "organization_name": "اسم المؤسسة",
       "type": "النوع",
       "commercial_registration_number": "رقم التسجيل التجاري",
@@ -862,31 +862,31 @@
     }
   },
   "edit_admin": {
-    "title": "تعديل الادمين"
+    "title": "تعديل المدير نظام"
   },
   "edit_admin_form": {
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات المدير نظام",
       "login_information": "معلومات الدخول"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير نظام",
       "phone_number": "رقم الهاتف",
       "email": "البريد الإلكتروني",
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور"
     },
     "placeholders": {
-      "admin_name": "ادخل اسم الادمين",
+      "admin_name": "ادخل اسم المدير نظام",
       "phone_number": "ادخل رقم الهاتف"
     },
     "image": {
       "attach": "ارفق صورة",
-      "desc": "ارفع صورة ملف شخصي للادمين"
+      "desc": "ارفع صورة ملف شخصي للمدير نظام"
     }
   },
   "view_admin": {
-    "title": "عرض الادمين"
+    "title": "عرض المدير نظام"
   },
   "edit_category": {
     "title": "تعديل الفئة"
@@ -920,8 +920,8 @@
   },
   "deleteConfirmation": {
     "deleteAdmin": {
-      "title": "حذف الادمين",
-      "message": "هل تريد بتأكيد حذف هذا الادمين؟ لا يمكن التراجع عن هذا الإجراء."
+      "title": "حذف المدير نظام",
+      "message": "هل تريد بتأكيد حذف هذا المدير نظام؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "deleteSubscriber": {
       "title": "حذف المشترك",
@@ -1973,6 +1973,11 @@
       "activateSuccess": "تم تفعيل الإعلان بنجاح.",
       "deactivateSuccess": "تم تعطيل الإعلان بنجاح."
     }
+  },
+  "signed_contracts_page": {
+    "title": "ادارة العقود الالتكرونية",
+    "total_signed_contracts": "اجمالي عدد العقود",
+    "total_count":"عقد"
   },
   "view_listing": {
     "title": "عرض الإعلان"

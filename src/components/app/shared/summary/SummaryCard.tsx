@@ -30,6 +30,7 @@ export enum SummaryCardType {
   LISTINGS = "LISTINGS",
   PROVIDER_REQUESTS = "PROVIDER_REQUESTS",
   PROVIDERS = "PROVIDERS",
+  SIGNED_CONTRACTS = "SIGNED_CONTRACTS",
 }
 
 const iconMap = {
@@ -52,6 +53,7 @@ const iconMap = {
     <SubscriberRequestsIcon className="size-8.5" />
   ),
   [SummaryCardType.PROVIDERS]: <SubscribersIcon className="size-8.5" />,
+  [SummaryCardType.SIGNED_CONTRACTS]: <SubscribersIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -79,6 +81,8 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.PROVIDER_REQUESTS]:
     dict.providers_request_page.total_requests,
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_providers,
+  [SummaryCardType.SIGNED_CONTRACTS]:
+    dict.signed_contracts_page.total_signed_contracts,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -99,6 +103,7 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.LISTINGS]: dict.listings_page.total_count,
   [SummaryCardType.PROVIDER_REQUESTS]: dict.providers_request_page.total_count,
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_count,
+  [SummaryCardType.SIGNED_CONTRACTS]: dict.signed_contracts_page.total_count,
 });
 
 export const SummaryCard = ({

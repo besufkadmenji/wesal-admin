@@ -27,7 +27,7 @@ export const SignedContracts = () => {
   return (
     <PageWrapper>
       <PageBar
-        title={dict.users_page.title}
+        title={dict.signed_contracts_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
       >
         <ExportButton model={ExportModel.SignedContracts} />
@@ -37,7 +37,7 @@ export const SignedContracts = () => {
         <SummaryCardSkeleton />
       ) : (
         <SummaryCard
-          type={SummaryCardType.USERS}
+          type={SummaryCardType.SIGNED_CONTRACTS}
           value={data?.meta.total ?? 0}
         />
       )}

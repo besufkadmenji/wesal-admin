@@ -1975,6 +1975,11 @@
       "deactivateSuccess": "Listing deactivated successfully."
     }
   },
+  "signed_contracts_page": {
+    "title": "Contracts Management",
+    "total_signed_contracts": "Total Contracts Count",
+    "total_count": "contracts"
+  },
   "view_listing": {
     "title": "View Listing"
   },
