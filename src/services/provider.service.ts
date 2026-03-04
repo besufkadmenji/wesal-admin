@@ -1,12 +1,11 @@
 import {
-  AdminSignContractInput,
   DeleteProviderInput,
   PaginatedProviderResponse,
   Provider,
-  ProviderPaginationInput,
+  ProviderPaginationInput
 } from "@/gql/graphql";
 import { ACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/activateProvider";
-import { SIGN_CONTRACT_MUTATION } from "@/graphql/provider/adminSignContract";
+import { ADMIN_REACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/adminReactivateProvider";
 import { TERMINATE_CONTRACT_MUTATION } from "@/graphql/provider/adminTerminateContract";
 import { DEACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/deactivateProvider";
 import { PROVIDER_QUERY } from "@/graphql/provider/provider";
@@ -14,8 +13,8 @@ import { PROVIDERS_QUERY } from "@/graphql/provider/providers";
 import { REJECT_PROVIDER_JOIN_REQUEST_MUTATION } from "@/graphql/provider/rejectProviderJoinRequest";
 import { REMOVE_PROVIDER_MUTATION } from "@/graphql/provider/removeProvider";
 import client from "@/utils/apollo.client";
-import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
+import { parseGraphQLError } from "@/utils/parse-graphql-error";
 
 class ProviderService {
   static providers = async (
@@ -103,21 +102,6 @@ class ProviderService {
     }
   };
 
-  static signContact = async (input: AdminSignContractInput) => {
-    try {
-      const removeAvatarResponse = await client().mutate({
-        mutation: SIGN_CONTRACT_MUTATION,
-        variables: {
-          input,
-        },
-      });
-      return removeAvatarResponse.data?.adminSignProviderContract ?? null;
-    } catch (error) {
-      // Parse and throw the error with a readable message
-      const errorMessage = parseGraphQLError(error);
-      throw new Error(errorMessage);
-    }
-  };
   static terminateContact = async (
     providerId: string,
     terminationReason: string,
@@ -137,6 +121,22 @@ class ProviderService {
     }
   };
 
+  static reactivateProvider = async (providerId: string) => {
+    try {
+      const result = await client().mutate({
+        mutation: ADMIN_REACTIVATE_PROVIDER_MUTATION,
+        variables: { providerId },
+      });
+      return (
+        (result.data as { adminReactivateProvider?: unknown })
+          ?.adminReactivateProvider ?? null
+      );
+    } catch (error) {
+      const errorMessage = parseGraphQLError(error);
+      throw new Error(errorMessage);
+    }
+  };
+
   static exportProviders = async (fields?: string[]): Promise<Blob> => {
     const params =
       fields && fields.length > 0 ? { fields: fields.join(",") } : {};
@@ -147,10 +147,7 @@ class ProviderService {
     return new Blob([response.data], { type: "text/csv" });
   };
 
-  static rejectJoinRequest = async (
-    id: string,
-    reason: string,
-  ) => {
+  static rejectJoinRequest = async (id: string, reason: string) => {
     try {
       const result = await client().mutate({
         mutation: REJECT_PROVIDER_JOIN_REQUEST_MUTATION,

@@ -112,7 +112,8 @@
     "active": "نشط",
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
-    "terminatedByUser": "تم الإنهاء من قبل المستخدم"
+    "terminatedByUser": "تم الإنهاء من قبل المستخدم",
+    "waitingForResigning": "في انتظار الاستقالة"
   },
   "auth": {
     "welcome_back": "أهلا بعودتك من جديد",
@@ -465,6 +466,14 @@
     "error": {
       "signatureRequired": "توقيع مدير المنصة مطلوب",
       "cancelReasonRequired": "يرجى تقديم سبب لفسخ العقد"
+    },
+    "reactivateContract": "إعادة تفعيل المزود",
+    "reactivateProviderSuccessfully": "تم إعادة تفعيل مزود الخدمة بنجاح",
+    "reactivateReason": {
+      "title": "إعادة تفعيل مزود الخدمة",
+      "subtitle": "هل أنت متأكد من رغبتك في إعادة تفعيل هذا المزود؟ سيحتاج إلى توقيع عقد جديد قبل استئناف أنشطته.",
+      "confirm": "إعادة تفعيل",
+      "cancel": "إلغاء"
     }
   },
   "admin_forgot_password_form": {
@@ -1182,6 +1191,7 @@
       "personal_profile": "الملف الشخصي"
     },
     "labels": {
+      "platformManager": "مدير المنصة",
       "trial_period_duration": "مدة الفترة التجريبية",
       "full_name": "اسم المستخدم",
       "account_number": "رقم الحساب",
@@ -1191,7 +1201,8 @@
       "confirm_password": "تأكيد كلمة المرور",
       "profile_image": "صورة الملف الشخصي",
       "vat_rate": "نسبة ضريبة القيمة المضافة",
-      "signature": "التوقيع"
+      "signature": "التوقيع",
+      "platformManagerName": "اسم مدير المنصة"
     },
     "placeholders": {
       "full_name": "ادخل اسم المستخدم",
@@ -1536,6 +1547,7 @@
     "title": "الإعدادات",
     "rules": "قواعد المنصة",
     "saveRules": "حفظ القواعد",
+    "savePlatformManager": "حفظ مدير المنصة",
     "labels": {
       "rulesAr": "القواعد (العربية)",
       "rulesEn": "القواعد (الإنجليزية)"
@@ -1977,7 +1989,7 @@
   "signed_contracts_page": {
     "title": "ادارة العقود الالتكرونية",
     "total_signed_contracts": "اجمالي عدد العقود",
-    "total_count":"عقد"
+    "total_count": "عقد"
   },
   "view_listing": {
     "title": "عرض الإعلان"

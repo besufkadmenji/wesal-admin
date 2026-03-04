@@ -10,6 +10,7 @@ export const statusMap = (dict: Dictionary) => ({
   [SignedContractStatus.Expired]: dict.common.expired,
   [SignedContractStatus.TerminatedByAdmin]: dict.common.terminatedByAdmin,
   [SignedContractStatus.TerminatedByProvider]: dict.common.terminatedByUser,
+  [SignedContractStatus.Pending]: dict.common.waitingForResigning,
 });
 export const renderCell = (
   row: RowType,
@@ -36,6 +37,8 @@ export const renderCell = (
             "bg-purple-50 text-purple-600",
           row.status === SignedContractStatus.TerminatedByProvider &&
             "bg-orange-50 text-orange-600",
+          row.status === SignedContractStatus.Pending &&
+            "bg-yellow-50 text-yellow-600",
         )}
       >
         {statusMap(dict)[row.status as keyof typeof statusMap] ?? row.status}

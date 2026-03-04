@@ -22,6 +22,8 @@ export const SET_SETTING_MUTATION: TypedDocumentNode<
       whatsappNumber
       rulesAr
       rulesEn
+      platformManagerName
+      platformManagerSignature
     }
   }
 `;

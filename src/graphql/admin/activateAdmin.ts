@@ -23,7 +23,6 @@ export const ACTIVATE_ADMIN_MUTATION: TypedDocumentNode<
       status
       updatedAt
       userType
-      platformManagerSignature
     }
   }
 `;

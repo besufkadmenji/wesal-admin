@@ -21,27 +21,55 @@ export const useManageSetting = () => {
   const [, setChangePassword] = useQueryState("changePassword");
   const { reset } = useChangePasswordForm();
   const { me } = useMe();
-  const { avatarFile, updateProfile, signatureFile } = useManageSettingsForm();
-  const updateSetting = async () => {
+  const {
+    updateProfile,
+    avatarFile,
+    signatureFile,
+    platformManagerName,
+    platformManagerSignature,
+  } = useManageSettingsForm();
+  const updateProfileInfo = async () => {
+    if (!me) return;
     setBusy(true);
     try {
-      let avatarFilename = updateProfile.avatarFilename;
-      let signature = updateProfile.platformManagerSignature;
+      let avatarFilename = updateProfile.avatarFilename ?? "";
       if (avatarFile) {
         const uploadResult = await uploadFile(avatarFile);
         avatarFilename = uploadResult.filename;
       }
+      await AdminService.updateAdmin(me.id, {
+        ...updateProfile,
+        avatarFilename,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["me"],
+      });
+      showSuccessMessage(dict.settings_page.messages.updateSuccess);
+    } catch (error) {
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const updateSetting = async () => {
+    setBusy(true);
+    try {
+      let signature = platformManagerSignature;
       if (signatureFile) {
         const uploadResult = await uploadFile(signatureFile);
         signature = uploadResult.filename;
       }
-      await AdminService.updateAdmin(me?.id ?? "", {
-        ...updateProfile,
-        avatarFilename,
+      await SettingService.setSetting({
+        platformManagerName,
         platformManagerSignature: signature,
       });
       queryClient.invalidateQueries({
         queryKey: ["me"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["setting"],
       });
       showSuccessMessage(dict.settings_page.messages.updateSuccess);
     } catch (error) {
@@ -91,6 +119,7 @@ export const useManageSetting = () => {
   return {
     busy,
     changingPassword,
+    updateProfileInfo,
     updateSetting,
     changePassword,
     updateRules,

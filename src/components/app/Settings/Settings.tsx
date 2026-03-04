@@ -1,8 +1,11 @@
 "use client";
 import PasswordIcon from "@/assets/icons/app/password.key.svg";
 import { ChangePassword } from "@/components/app/Settings/ChangePassword";
+import { Rules } from "@/components/app/Settings/Rules";
+import { SignatureInput } from "@/components/app/Settings/SignatureInput";
 import { useManageSettingsForm } from "@/components/app/Settings/useForm";
 import { useManageSetting } from "@/components/app/Settings/useManageSetting";
+import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { PageBar } from "@/components/app/shared/PageBar";
@@ -12,9 +15,6 @@ import { useDict } from "@/hooks/useDict";
 import { useMe } from "@/hooks/useMe";
 import { useQueryState } from "nuqs";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
-import { Rules } from "@/components/app/Settings/Rules";
-import { SignatureInput } from "@/components/app/Settings/SignatureInput";
-import { AdminPermissionType } from "@/gql/graphql";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
@@ -25,10 +25,13 @@ export const Settings = () => {
     setAvatarFile,
     signatureFile,
     setSignatureFile,
+    platformManagerName,
+    platformManagerSignature,
+    setPlatformManagerName,
+    setPlatformManagerSignature,
   } = useManageSettingsForm();
-  const { updateSetting, busy } = useManageSetting();
+  const { updateSetting, updateProfileInfo, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
-  console.log("me.permissionType", me?.permissionType,me?.id);
   return (
     <>
       <PageWrapper>
@@ -36,7 +39,7 @@ export const Settings = () => {
           <SaveButton
             type={SaveButtonType.Settings}
             onPress={() => {
-              updateSetting();
+              updateProfileInfo();
             }}
             isDisabled={busy}
             isLoading={busy}
@@ -105,22 +108,43 @@ export const Settings = () => {
                   }
                   className="md:col-span-2"
                 />
-                {me.permissionType === AdminPermissionType.SuperAdmin && (
-                  <SignatureInput
-                    label={dict.settings_page.labels.signature}
-                    file={signatureFile ?? null}
-                    initUrl={updateProfile.platformManagerSignature}
-                    onChange={(file?: File): void => {
-                      setSignatureFile(file || null);
-                      if (!file) {
-                        setUpdateProfile({ platformManagerSignature: "" });
-                      }
-                    }}
-                  />
-                )}
               </div>
             )}
           </FormSection>
+
+          <FormSection title={dict.settings_page.labels.platformManager}>
+            <div className="grid grid-cols-1 gap-4">
+              <FormInput
+                label={dict.settings_page.labels.platformManagerName}
+                placeholder={dict.settings_page.labels.platformManagerName}
+                value={platformManagerName}
+                onChange={(value: string): void => {
+                  setPlatformManagerName(value);
+                }}
+                className="md:col-span-2"
+              />
+              <SignatureInput
+                label={dict.settings_page.labels.signature}
+                file={signatureFile ?? null}
+                initUrl={platformManagerSignature}
+                onChange={(file?: File): void => {
+                  setSignatureFile(file || null);
+                  if (!file) {
+                    setPlatformManagerSignature("");
+                  }
+                }}
+              />
+              <PrimaryButton
+                onPress={() => updateSetting()}
+                isDisabled={busy}
+                isLoading={busy}
+                className="justify-self-center px-20"
+              >
+                {dict.settings.savePlatformManager}
+              </PrimaryButton>
+            </div>
+          </FormSection>
+
           <Rules />
         </div>
       </PageWrapper>

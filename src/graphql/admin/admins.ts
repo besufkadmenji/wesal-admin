@@ -27,7 +27,6 @@ export const ADMINS_QUERY: TypedDocumentNode<
         updatedAt
         userType
         phoneNumber
-        platformManagerSignature
       }
     }
   }

@@ -114,7 +114,8 @@
     "active": "Active",
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
-    "terminatedByUser": "Terminated by User"
+    "terminatedByUser": "Terminated by User",
+    "waitingForResigning": "Waiting for Resigning"
   },
   "auth": {
     "welcome_back": "Welcome back again",
@@ -467,6 +468,14 @@
     "error": {
       "signatureRequired": "Platform manager signature is required",
       "cancelReasonRequired": "Please provide a reason for contract termination"
+    },
+    "reactivateContract": "Reactivate Provider",
+    "reactivateProviderSuccessfully": "Provider has been reactivated successfully",
+    "reactivateReason": {
+      "title": "Reactivate Provider",
+      "subtitle": "Are you sure you want to reactivate this provider? They will need to sign a new contract before resuming activities.",
+      "confirm": "Reactivate",
+      "cancel": "Cancel"
     }
   },
   "admin_forgot_password_form": {
@@ -1184,6 +1193,7 @@
       "personal_profile": "Personal Profile"
     },
     "labels": {
+      "platformManager": "Platform Manager",
       "trial_period_duration": "Trial Period Duration",
       "full_name": "Full Name",
       "account_number": "Account Number",
@@ -1193,7 +1203,8 @@
       "confirm_password": "Confirm Password",
       "profile_image": "Profile Image",
       "vat_rate": "VAT rate",
-      "signature": "Signature"
+      "signature": "Signature",
+      "platformManagerName": "Platform Manager Name"
     },
     "placeholders": {
       "full_name": "Enter full name",
@@ -1537,6 +1548,7 @@
     "title": "Settings",
     "rules": "Platform Rules",
     "saveRules": "Save Rules",
+    "savePlatformManager": "Save Platform Manager",
     "labels": {
       "rulesAr": "Rules (Arabic)",
       "rulesEn": "Rules (English)"

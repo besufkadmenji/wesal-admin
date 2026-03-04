@@ -1,8 +1,9 @@
 "use client";
 import CheckGreenIcon from "@/assets/icons/check.green.svg";
-import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
 import DownloadIcon from "@/assets/icons/download.svg";
 import MapPointIcon from "@/assets/icons/map.point.svg";
+import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
+import { SignedContractStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
@@ -15,9 +16,9 @@ import { useEffect, useRef } from "react";
 import { useSignedContract } from "../useSignedContract";
 import { CancelContract } from "./CancelContact";
 import { FormInput } from "./FormInput";
+import { ReactivateProvider } from "./ReactivateProvider";
 import { SignatureInput } from "./SignatureInput";
 import { useContractStore } from "./useForm";
-import { useSignSignature } from "./useSignSignature";
 
 const defaultProps = {
   center: { lat: 21.636981, lng: 39.181078 },
@@ -35,8 +36,10 @@ export const SignedContract = ({ id }: { id: string }) => {
   const { data: signedContract } = useSignedContract(id);
   const provider = signedContract?.provider;
   const contractRef = useRef<HTMLDivElement | null>(null);
-  const { saveSignature, busy } = useSignSignature();
   const [open, setOpen] = useQueryState("cancelContract", {
+    defaultValue: "false",
+  });
+  const [, setReactivateOpen] = useQueryState("reactivateProvider", {
     defaultValue: "false",
   });
   const form = useContractStore((state) => state.form);
@@ -53,6 +56,9 @@ export const SignedContract = ({ id }: { id: string }) => {
   useEffect(() => {
     return () => {};
   }, []);
+
+  const isTerminatedByAdmin =
+    signedContract?.status === SignedContractStatus.TerminatedByAdmin;
 
   return (
     provider && (
@@ -73,7 +79,7 @@ export const SignedContract = ({ id }: { id: string }) => {
               />
               <FormInput
                 label={dict.contract.phoneNumber}
-                value={`${provider.dialCode}${provider.phone}` || ""}
+                value={`${provider.phone}` || ""}
               />
               <FormInput
                 label={dict.contract.category}
@@ -117,7 +123,10 @@ export const SignedContract = ({ id }: { id: string }) => {
               </Button>
             </div>
             {showMap && (
-              <div data-html2canvas-ignore className="grid h-80 grid-cols-1 overflow-hidden rounded-2xl">
+              <div
+                data-html2canvas-ignore
+                className="grid h-80 grid-cols-1 overflow-hidden rounded-2xl"
+              >
                 <GoogleMapReact
                   bootstrapURLKeys={{
                     key: process.env.NEXT_PUBLIC_MAPS_API_KEY || "",
@@ -138,10 +147,7 @@ export const SignedContract = ({ id }: { id: string }) => {
                   yesIWantToUseGoogleMapApiInternals
                 >
                   {provider.latitude && provider.longitude && (
-                    <Marker
-                      lat={provider.latitude}
-                      lng={provider.longitude}
-                    />
+                    <Marker lat={provider.latitude} lng={provider.longitude} />
                   )}
                 </GoogleMapReact>
               </div>
@@ -161,11 +167,7 @@ export const SignedContract = ({ id }: { id: string }) => {
                 isRequired
               />
               <SignatureInput
-                initUrl={
-                  signedContract?.platformManagerSignature ||
-                  me?.platformManagerSignature ||
-                  null
-                }
+                initUrl={signedContract?.platformManagerSignature || null}
                 file={form.platformManagerSignature}
                 onChange={(f) => {
                   setPlatformManagerSignature(f);
@@ -209,17 +211,27 @@ export const SignedContract = ({ id }: { id: string }) => {
             </div>
           </div>
 
-          {signedContract?.platformManagerSignature ? (
-            <div className="grid grid-cols-2 gap-3 justify-self-center px-27">
+          <div className="grid grid-cols-2 gap-3 justify-self-center px-27">
+            <Button
+              className="bg-primary h-12.5 rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
+              onPress={() => {
+                downloadPDF(contractRef);
+              }}
+            >
+              <DownloadIcon className="size-5" />
+              {dict.contract.exportPDF}
+            </Button>
+            {isTerminatedByAdmin ? (
               <Button
-                className="bg-primary h-12.5 rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
+                className="bg-green-main border-green-main h-12.5 rounded-[20px] px-24 font-semibold text-white!"
                 onPress={() => {
-                  downloadPDF(contractRef);
+                  setReactivateOpen("true");
                 }}
+                variant={"bordered"}
               >
-                <DownloadIcon className="size-5" />
-                {dict.contract.exportPDF}
+                {dict.contract.reactivateContract}
               </Button>
+            ) : (
               <Button
                 className="h-12.5 rounded-[20px] border-[#FBEAE9] bg-[#FBEAE9]! px-24 font-semibold text-[#B3251E]!"
                 onPress={() => {
@@ -229,21 +241,11 @@ export const SignedContract = ({ id }: { id: string }) => {
               >
                 {dict.contract.cancelContract}
               </Button>
-            </div>
-          ) : (
-            <Button
-              className="bg-primary h-12.5 justify-self-center rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
-              onPress={() => {
-                saveSignature(provider.id);
-              }}
-              isDisabled={busy}
-              isLoading={busy}
-            >
-              {dict.contract.signContract}
-            </Button>
-          )}
+            )}
+          </div>
         </div>
         <CancelContract userId={provider.id} />
+        <ReactivateProvider providerId={provider.id} />
       </>
     )
   );
