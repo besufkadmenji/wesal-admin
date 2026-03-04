@@ -139,6 +139,7 @@ export const AddCategory = () => {
                   file={imageFile}
                   onChange={(file?: File): void => {
                     setImageFile(file || null);
+                    clearError("image");
                   }}
                   accept={{
                     "image/jpeg": [],
