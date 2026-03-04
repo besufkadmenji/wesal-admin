@@ -11,7 +11,7 @@ export const FormSelect = ({
   errorMessage,
   readOnly,
 }: {
-  label: string;
+  label?: string;
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
@@ -22,9 +22,11 @@ export const FormSelect = ({
 }) => {
   return (
     <div className="grid grid-cols-1 gap-2">
-      <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
-        {label}
-      </p>
+      {label && (
+        <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
+          {label}
+        </p>
+      )}
       <Select
         aria-label={label}
         placeholder={placeholder}

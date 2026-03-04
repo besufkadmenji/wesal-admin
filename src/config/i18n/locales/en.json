@@ -1473,9 +1473,11 @@
         "platform_link": "Enter site link"
       },
       "platforms": {
-        "facebook": "Facebook",
-        "instagram": "Instagram",
-        "snapchat": "Snapchat"
+        "FACEBOOK": "Facebook",
+        "INSTAGRAM": "Instagram",
+        "TWITTER": "Twitter",
+        "LINKEDIN": "LinkedIn",
+        "TIKTOK": "TikTok"
       },
       "buttons": {
         "add": "Add"

@@ -2697,13 +2697,21 @@ export enum SignedContractStatus {
 
 export type SocialMediaLink = {
   link: Scalars['String']['output'];
-  name: Scalars['String']['output'];
+  name: SocialMediaPlatform;
 };
 
 export type SocialMediaLinkInput = {
   link: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name: SocialMediaPlatform;
 };
+
+export enum SocialMediaPlatform {
+  Facebook = 'FACEBOOK',
+  Instagram = 'INSTAGRAM',
+  Linkedin = 'LINKEDIN',
+  Tiktok = 'TIKTOK',
+  Twitter = 'TWITTER'
+}
 
 /** Sort order direction */
 export enum SortOrder {
@@ -3543,14 +3551,14 @@ export type RemoveProviderMutation = { removeProvider: { address?: string | null
 export type GetSettingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSettingQuery = { getSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: string }> } };
+export type GetSettingQuery = { getSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
 
 export type SetSettingMutationVariables = Exact<{
   input: SettingInput;
 }>;
 
 
-export type SetSettingMutation = { setSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: string }> } };
+export type SetSettingMutation = { setSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
 
 export type SignedContractByIdQueryVariables = Exact<{
   signedContractByIdId: Scalars['String']['input'];

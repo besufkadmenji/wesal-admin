@@ -1472,9 +1472,11 @@
         "platform_link": "ادخل رابط الموقع"
       },
       "platforms": {
-        "facebook": "فيسبوك",
-        "instagram": "انستجرام",
-        "snapchat": "سناب شات"
+        "FACEBOOK": "فيسبوك",
+        "INSTAGRAM": "انستجرام",
+        "TWITTER": "تويتر",
+        "LINKEDIN": "لينكدإن",
+        "TIKTOK": "تيك توك"
       },
       "buttons": {
         "add": "اضف"

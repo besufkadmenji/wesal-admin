@@ -3,8 +3,10 @@ import AddIcon from "@/assets/icons/app/add.svg";
 import DeleteIcon from "@/assets/icons/app/trash.svg";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
+import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
+import { SocialMediaPlatform } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
@@ -161,34 +163,41 @@ export const ContactManagement = () => {
             <div className="grid grid-cols-1 gap-4">
               {setting.socialMediaLinks!.map((link, index) => (
                 <div
-                  className="grid grid-cols-[1fr_2fr_auto] gap-2"
+                  className="grid grid-cols-[1fr_2fr_auto] items-start gap-2"
                   key={`${index}`}
                 >
-                  <FormInput
-                    label={""}
-                    placeholder={""}
+                  <FormSelect
+                    placeholder={
+                      dict.contact_settings.social_media.labels.platform_name
+                    }
                     value={link.name}
                     onChange={(value: string): void => {
                       const updatedSocialMediaLinks = [
                         ...setting.socialMediaLinks!,
                       ];
-                      updatedSocialMediaLinks[index].name = value;
+                      updatedSocialMediaLinks[index].name =
+                        value as SocialMediaPlatform;
                       setSetting({
                         socialMediaLinks: updatedSocialMediaLinks,
                       });
                       clearError(`socialMedia_name_${index}`);
                     }}
-                    startContent={
-                      <div className="border-dashboard-border h-5 w-5 rounded-full border" />
-                    }
-                    classNames={{
-                      inputWrapper: "shadow-none",
-                    }}
+                    options={Object.values(SocialMediaPlatform).map(
+                      (platform) => ({
+                        key: platform,
+                        label:
+                          dict.contact_settings.social_media.platforms[
+                            platform as keyof typeof dict.contact_settings.social_media.platforms
+                          ],
+                      }),
+                    )}
                     errorMessage={errors[`socialMedia_name_${index}`]}
                   />
                   <FormInput
                     label={""}
-                    placeholder={""}
+                    placeholder={
+                      dict.contact_settings.social_media.labels.platform_link
+                    }
                     value={link.link}
                     onChange={(value: string): void => {
                       const updatedSocialMediaLinks = [
@@ -228,7 +237,7 @@ export const ContactManagement = () => {
               setSetting({
                 socialMediaLinks: [
                   ...setting.socialMediaLinks!,
-                  { name: "", link: "" },
+                  { name: SocialMediaPlatform.Facebook, link: "" },
                 ],
               });
             }}
