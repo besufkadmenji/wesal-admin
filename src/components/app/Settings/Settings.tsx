@@ -30,7 +30,15 @@ export const Settings = () => {
     setPlatformManagerName,
     setPlatformManagerSignature,
   } = useManageSettingsForm();
-  const { updateSetting, updateProfileInfo, busy } = useManageSetting();
+  const {
+    updateSetting,
+    updateProfileInfo,
+    busy,
+    profileErrors,
+    validateProfileEmail,
+    validateProfilePhoneNumber,
+    clearProfileError,
+  } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
   return (
     <>
@@ -65,15 +73,27 @@ export const Settings = () => {
                   value={updateProfile.email ?? ""}
                   onChange={(value: string): void => {
                     setUpdateProfile({ email: value });
+                    clearProfileError("email");
                   }}
+                  onBlur={() => validateProfileEmail(updateProfile.email ?? "")}
+                  errorMessage={profileErrors.email}
+                  type="email"
                 />
                 <FormInput
                   label={dict.settings_page.labels.phone_number}
                   placeholder={dict.settings_page.labels.phone_number}
                   value={updateProfile.phoneNumber ?? ""}
                   onChange={(value: string): void => {
-                    setUpdateProfile({ phoneNumber: value });
+                    setUpdateProfile({
+                      phoneNumber: value.replace(/\D/g, "").slice(0, 10),
+                    });
+                    clearProfileError("phoneNumber");
                   }}
+                  onBlur={() =>
+                    validateProfilePhoneNumber(updateProfile.phoneNumber ?? "")
+                  }
+                  errorMessage={profileErrors.phoneNumber}
+                  type="tel"
                 />
 
                 <div className="md:col-span-2">

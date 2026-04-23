@@ -1,10 +1,16 @@
 import { sar } from "@/assets/fonts/sar";
 import RatingIcon from "@/assets/icons/rating.svg";
-import { Listing } from "@/gql/graphql";
+import { Listing, RatingStatistics } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { moneyFormatter } from "@/utils/formatter";
 import { twMerge } from "tailwind-merge";
-export const MainInfo = ({ listing }: { listing: Listing }) => {
+export const MainInfo = ({
+  listing,
+  ratingStatistics,
+}: {
+  listing: Listing;
+  ratingStatistics?: RatingStatistics | null;
+}) => {
   const dict = useDict();
   return (
     <div className="grid grid-cols-1 gap-6">
@@ -17,7 +23,10 @@ export const MainInfo = ({ listing }: { listing: Listing }) => {
           <h1 className="text-2xl font-semibold text-[#1A1A1A]">
             {listing.name}
           </h1>
-          <Ratings rating={4.5} />
+          <Ratings
+            rating={ratingStatistics?.averageRating ?? 0}
+            total={ratingStatistics?.totalRatings ?? 0}
+          />
         </div>
       </div>
       <div className="grid grid-cols-1 gap-1">
@@ -60,7 +69,7 @@ export const Ratings = ({
         ))}
       </div>
 
-      {!hideInfo && total ? (
+      {!hideInfo && total !== undefined ? (
         <div className="flex items-center gap-1">
           <p>{rating}</p>
           <p className="text-gray text-sm leading-6">

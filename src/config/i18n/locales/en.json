@@ -1839,9 +1839,11 @@
       "nameEnRequired": "English name is required",
       "nameEnMinLength": "English name must be at least 2 characters",
       "nameEnMaxLength": "English name must not exceed 100 characters",
+      "nameEnInvalidCharacters": "English name must contain English letters only",
       "nameArRequired": "Arabic name is required",
       "nameArMinLength": "Arabic name must be at least 2 characters",
       "nameArMaxLength": "Arabic name must not exceed 100 characters",
+      "nameArInvalidCharacters": "Arabic name must contain Arabic letters only",
       "statusRequired": "Status is required",
       "statusInvalid": "Invalid status value"
     },
@@ -1921,9 +1923,11 @@
       "nameEnRequired": "English name is required",
       "nameEnMinLength": "English name must be at least 2 characters",
       "nameEnMaxLength": "English name must not exceed 100 characters",
+      "nameEnInvalidCharacters": "English name must contain English letters and numbers only",
       "nameArRequired": "Arabic name is required",
       "nameArMinLength": "Arabic name must be at least 2 characters",
       "nameArMaxLength": "Arabic name must not exceed 100 characters",
+      "nameArInvalidCharacters": "Arabic name must contain Arabic letters and numbers only",
       "statusRequired": "Status is required",
       "statusInvalid": "Invalid status value"
     },

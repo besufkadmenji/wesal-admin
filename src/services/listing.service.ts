@@ -1,6 +1,7 @@
 import {
   Listing,
   ListingPaginationInput,
+  ListingType,
   PaginatedListingResponse,
 } from "@/gql/graphql";
 import { ACTIVATE_LISTING_MUTATION } from "@/graphql/listing/activateListing";
@@ -14,7 +15,7 @@ import axiosClient from "@/utils/axios.client";
 
 class ListingService {
   static listings = async (
-    input: ListingPaginationInput,
+    input: ListingPaginationInput & { type?: ListingType },
   ): Promise<PaginatedListingResponse | null> => {
     try {
       const listingResult = await client().query({
@@ -95,12 +96,13 @@ class ListingService {
   };
 
   static exportListings = async (fields?: string[]): Promise<Blob> => {
-    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
-    const response = await axiosClient.get('/listings/export', {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/listings/export", {
       params,
-      responseType: 'blob',
+      responseType: "blob",
     });
-    return new Blob([response.data], { type: 'text/csv' });
+    return new Blob([response.data], { type: "text/csv" });
   };
 }
 

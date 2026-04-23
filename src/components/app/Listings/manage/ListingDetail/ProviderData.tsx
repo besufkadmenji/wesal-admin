@@ -1,9 +1,15 @@
-import { Provider } from "@/gql/graphql";
+import { Provider, RatingStatistics } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
 import { Ratings } from "./MainInfo";
 
-export const ProviderData = ({ provider }: { provider: Provider }) => {
+export const ProviderData = ({
+  provider,
+  ratingStatistics,
+}: {
+  provider: Provider;
+  ratingStatistics?: RatingStatistics | null;
+}) => {
   const dict = useDict();
   return (
     <div className="grid grid-cols-1 gap-6 rounded-[20px] bg-white p-5">
@@ -22,7 +28,7 @@ export const ProviderData = ({ provider }: { provider: Provider }) => {
             {provider.name}
           </p>
           <Ratings
-            rating={4.5}
+            rating={ratingStatistics?.averageRating ?? 0}
             classNames={{
               rating: "size-4",
               info: "text-sm text-gray",

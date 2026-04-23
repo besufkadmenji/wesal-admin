@@ -1,26 +1,35 @@
 "use client";
-import { ListingPaginationInput, ListingStatus } from "@/gql/graphql";
-import { useLang } from "@/hooks/useLang";
+import {
+  ListingPaginationInput,
+  ListingStatus,
+  ListingType,
+} from "@/gql/graphql";
 import ListingService from "@/services/listing.service";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
-export const useListings = (initialParams?: ListingPaginationInput) => {
-  const lang = useLang();
+type ListingListParams = Omit<ListingPaginationInput, "type"> & {
+  type?: ListingType;
+};
+
+export const useListings = (initialParams?: ListingListParams) => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
+  const [type] = useQueryState("type", parseAsString.withDefault(""));
   const [status] = useQueryState("status", parseAsString.withDefault(""));
+  const typeValue = type ? (type as ListingType) : undefined;
   const statusValue = status as ListingStatus | undefined;
-  const params: ListingPaginationInput = {
+  const params: ListingListParams = {
+    ...initialParams,
     page,
     limit,
     ...(search && { search }),
+    ...(type && { type: typeValue }),
     ...(status && { status: statusValue as ListingStatus }),
-    ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["listings", params, page, limit, search, status],
+    queryKey: ["listings", params, page, limit, search, type, status],
     queryFn: () => ListingService.listings(params),
   });
 

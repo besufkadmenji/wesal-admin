@@ -13,9 +13,17 @@ import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 
+const ASCII_EMAIL_REGEX =
+  /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
+const SAUDI_MOBILE_REGEX = /^05\d{8}$/;
+
 export const useManageSetting = () => {
   const [busy, setBusy] = useState(false);
   const [changingPassword, setChangingPassword] = useState(false);
+  const [profileErrors, setProfileErrors] = useState<{
+    email?: string;
+    phoneNumber?: string;
+  }>({});
   const lang = useLang();
   const dict = useDict();
   const [, setChangePassword] = useQueryState("changePassword");
@@ -28,8 +36,63 @@ export const useManageSetting = () => {
     platformManagerName,
     platformManagerSignature,
   } = useManageSettingsForm();
+
+  const validateProfileEmail = (email: string): boolean => {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !ASCII_EMAIL_REGEX.test(trimmedEmail)) {
+      setProfileErrors({
+        email:
+          lang === "ar"
+            ? "يرجى إدخال بريد إلكتروني صالح."
+            : "Please enter a valid email address.",
+      });
+      return false;
+    }
+
+    setProfileErrors((errors) => {
+      const nextErrors = { ...errors };
+      delete nextErrors.email;
+      return nextErrors;
+    });
+    return true;
+  };
+
+  const validateProfilePhoneNumber = (phoneNumber: string): boolean => {
+    const trimmedPhoneNumber = phoneNumber.trim();
+    if (!SAUDI_MOBILE_REGEX.test(trimmedPhoneNumber)) {
+      setProfileErrors((errors) => ({
+        ...errors,
+        phoneNumber:
+          lang === "ar"
+            ? "يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 05 ويتكون من 10 أرقام."
+            : "Please enter a valid Saudi mobile number starting with 05 and containing 10 digits.",
+      }));
+      return false;
+    }
+
+    setProfileErrors((errors) => {
+      const nextErrors = { ...errors };
+      delete nextErrors.phoneNumber;
+      return nextErrors;
+    });
+    return true;
+  };
+
+  const clearProfileError = (field: keyof typeof profileErrors) => {
+    setProfileErrors((errors) => {
+      const nextErrors = { ...errors };
+      delete nextErrors[field];
+      return nextErrors;
+    });
+  };
+
   const updateProfileInfo = async () => {
     if (!me) return;
+    const isEmailValid = validateProfileEmail(updateProfile.email ?? "");
+    const isPhoneValid = validateProfilePhoneNumber(
+      updateProfile.phoneNumber ?? "",
+    );
+    if (!isEmailValid || !isPhoneValid) return;
     setBusy(true);
     try {
       let avatarFilename = updateProfile.avatarFilename ?? "";
@@ -119,6 +182,10 @@ export const useManageSetting = () => {
   return {
     busy,
     changingPassword,
+    profileErrors,
+    validateProfileEmail,
+    validateProfilePhoneNumber,
+    clearProfileError,
     updateProfileInfo,
     updateSetting,
     changePassword,

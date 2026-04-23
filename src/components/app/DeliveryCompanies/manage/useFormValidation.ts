@@ -7,6 +7,8 @@ import { useCallback, useMemo, useState } from "react";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 100;
+const ENGLISH_NAME_REGEX = /^[A-Za-z0-9\s]+$/;
+const ARABIC_NAME_REGEX = /^[\p{Script=Arabic}0-9٠-٩\s]+$/u;
 
 export const useFormValidation = (form: CreateDeliveryCompanyInput) => {
   const dict = useDict();
@@ -23,6 +25,9 @@ export const useFormValidation = (form: CreateDeliveryCompanyInput) => {
       if (value.trim().length > NAME_MAX_LENGTH) {
         return dict.delivery_companies_page.validation.nameEnMaxLength;
       }
+      if (!ENGLISH_NAME_REGEX.test(value.trim())) {
+        return dict.delivery_companies_page.validation.nameEnInvalidCharacters;
+      }
       return null;
     },
     [dict],
@@ -38,6 +43,9 @@ export const useFormValidation = (form: CreateDeliveryCompanyInput) => {
       }
       if (value.trim().length > NAME_MAX_LENGTH) {
         return dict.delivery_companies_page.validation.nameArMaxLength;
+      }
+      if (!ARABIC_NAME_REGEX.test(value.trim())) {
+        return dict.delivery_companies_page.validation.nameArInvalidCharacters;
       }
       return null;
     },

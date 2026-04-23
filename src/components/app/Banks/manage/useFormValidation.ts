@@ -4,6 +4,8 @@ import { useCallback, useMemo, useState } from "react";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 100;
+const ARABIC_NAME_REGEX = /^[\p{Script=Arabic}\s]+$/u;
+const ENGLISH_NAME_REGEX = /^[A-Za-z\s]+$/;
 
 export const useFormValidation = (form: CreateBankInput) => {
   const dict = useDict();
@@ -20,6 +22,9 @@ export const useFormValidation = (form: CreateBankInput) => {
       if (value.trim().length > NAME_MAX_LENGTH) {
         return dict.banks_page.validation.nameEnMaxLength;
       }
+      if (!ENGLISH_NAME_REGEX.test(value.trim())) {
+        return dict.banks_page.validation.nameEnInvalidCharacters;
+      }
       return null;
     },
     [dict],
@@ -35,6 +40,9 @@ export const useFormValidation = (form: CreateBankInput) => {
       }
       if (value.trim().length > NAME_MAX_LENGTH) {
         return dict.banks_page.validation.nameArMaxLength;
+      }
+      if (!ARABIC_NAME_REGEX.test(value.trim())) {
+        return dict.banks_page.validation.nameArInvalidCharacters;
       }
       return null;
     },
