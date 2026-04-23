@@ -86,14 +86,14 @@ export const ViewCategory = ({ id }: { id: string }) => {
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_ar}
               placeholder={dict.add_new_category_form.placeholders.rules_ar}
-              value={form.rulesAr}
+              value={form.rulesAr ?? "-"}
               onChange={(value: string): void => {}}
               readOnly
             />
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_en}
               placeholder={dict.add_new_category_form.placeholders.rules_en}
-              value={form.rulesEn}
+              value={form.rulesEn ?? "-"}
               onChange={(value: string): void => {}}
               readOnly
             />

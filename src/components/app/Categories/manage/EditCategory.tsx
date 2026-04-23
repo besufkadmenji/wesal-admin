@@ -29,6 +29,8 @@ export const EditCategory = ({ id }: { id: string }) => {
   const { busy, updateCategory } = useManageCategory();
   const { errors, validateForm, clearError } = useFormValidation({
     ...form,
+    rulesAr: form.rulesAr ?? undefined,
+    rulesEn: form.rulesEn ?? undefined,
     image: imageFile,
     existingImage: form?.image || null,
   });
@@ -110,7 +112,7 @@ export const EditCategory = ({ id }: { id: string }) => {
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_ar}
               placeholder={dict.add_new_category_form.placeholders.rules_ar}
-              value={form.rulesAr}
+              value={form.rulesAr ?? ""}
               onChange={(value: string): void => {
                 setForm({ rulesAr: value });
                 clearError("rulesAr");
@@ -120,7 +122,7 @@ export const EditCategory = ({ id }: { id: string }) => {
             <FormAreaInput
               label={dict.add_new_category_form.labels.rules_en}
               placeholder={dict.add_new_category_form.placeholders.rules_en}
-              value={form.rulesEn}
+              value={form.rulesEn ?? ""}
               onChange={(value: string): void => {
                 setForm({ rulesEn: value });
                 clearError("rulesEn");
