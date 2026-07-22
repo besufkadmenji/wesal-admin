@@ -1,4 +1,4 @@
-import { Setting, SettingInput } from "@/gql/graphql";
+import { GetSettingQuery, SettingInput } from "@/gql/graphql";
 import { GET_SETTING_QUERY } from "@/graphql/setting/getSetting";
 import { SET_SETTING_MUTATION } from "@/graphql/setting/setSetting";
 import client from "@/utils/apollo.client";
@@ -6,7 +6,9 @@ import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
 
 export class SettingService {
-  static getSetting = async (): Promise<Setting | null> => {
+  static getSetting = async (): Promise<
+    GetSettingQuery["getSetting"] | null
+  > => {
     try {
       const userResult = await client().query({
         query: GET_SETTING_QUERY,
@@ -36,11 +38,12 @@ export class SettingService {
   };
 
   static exportSettings = async (fields?: string[]): Promise<Blob> => {
-    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
-    const response = await axiosClient.get('/settings/export', {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/settings/export", {
       params,
-      responseType: 'blob',
+      responseType: "blob",
     });
-    return new Blob([response.data], { type: 'text/csv' });
+    return new Blob([response.data], { type: "text/csv" });
   };
 }

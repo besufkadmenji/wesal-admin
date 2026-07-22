@@ -1,6 +1,7 @@
 import { sar } from "@/assets/fonts/sar";
 import RatingIcon from "@/assets/icons/rating.svg";
-import { Listing, RatingStatistics } from "@/gql/graphql";
+import { RatingStatistics } from "@/gql/graphql";
+import type { ListingDetails } from "@/graphql/listing/types";
 import { useDict } from "@/hooks/useDict";
 import { moneyFormatter } from "@/utils/formatter";
 import { twMerge } from "tailwind-merge";
@@ -8,7 +9,7 @@ export const MainInfo = ({
   listing,
   ratingStatistics,
 }: {
-  listing: Listing;
+  listing: ListingDetails;
   ratingStatistics?: RatingStatistics | null;
 }) => {
   const dict = useDict();

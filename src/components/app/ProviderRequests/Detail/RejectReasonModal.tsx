@@ -7,7 +7,11 @@ import { useState } from "react";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { useManageProvider } from "./useManageProvider";
-export const RejectReasonModal = ({ request }: { request: Provider }) => {
+export const RejectReasonModal = ({
+  request,
+}: {
+  request: Pick<Provider, "id">;
+}) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();

@@ -1,8 +1,8 @@
 import {
   DeleteProviderInput,
-  PaginatedProviderResponse,
-  Provider,
-  ProviderPaginationInput
+  ProviderPaginationInput,
+  ProviderQuery,
+  ProvidersQuery,
 } from "@/gql/graphql";
 import { ACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/activateProvider";
 import { ADMIN_REACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/adminReactivateProvider";
@@ -19,7 +19,7 @@ import { parseGraphQLError } from "@/utils/parse-graphql-error";
 class ProviderService {
   static providers = async (
     input: ProviderPaginationInput,
-  ): Promise<PaginatedProviderResponse | null> => {
+  ): Promise<ProvidersQuery["providers"] | null> => {
     try {
       const providerResult = await client().query({
         query: PROVIDERS_QUERY,
@@ -33,7 +33,9 @@ class ProviderService {
     }
     return null;
   };
-  static provider = async (providerId: string): Promise<Provider | null> => {
+  static provider = async (
+    providerId: string,
+  ): Promise<ProviderQuery["provider"] | null> => {
     try {
       const providerResult = await client().query({
         query: PROVIDER_QUERY,

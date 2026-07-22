@@ -1,8 +1,8 @@
 import {
-  PaginatedProviderResponse,
-  Provider,
   ProviderPaginationInput,
-  ProviderStatus
+  ProviderQuery,
+  ProvidersQuery,
+  ProviderStatus,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
 import ProviderService from "@/services/provider.service";
@@ -11,7 +11,7 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
 export const useProviders = (
   initialParams?: ProviderPaginationInput,
-): UseQueryResult<PaginatedProviderResponse | null, Error> => {
+): UseQueryResult<ProvidersQuery["providers"] | null, Error> => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(10));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
@@ -38,7 +38,7 @@ export const useProviders = (
 
 export const useProvider = (
   id: string,
-): UseQueryResult<Provider | null, Error> => {
+): UseQueryResult<ProviderQuery["provider"] | null, Error> => {
   const lang = useLang();
 
   return useQuery({

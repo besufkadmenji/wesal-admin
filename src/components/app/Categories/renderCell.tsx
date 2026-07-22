@@ -1,6 +1,6 @@
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
-import { Category } from "@/gql/graphql";
+import { CategoriesQuery } from "@/gql/graphql";
 import Image from "next/image";
 import { Key } from "react";
 import { AppSwitch } from "../shared/AppSwitch";
@@ -12,7 +12,7 @@ export const renderCell = (
     category,
     action,
   }: {
-    category: Category;
+    category: CategoriesQuery["categories"]["items"][number];
     action: {
       onView: () => void;
       onEdit: () => void;
@@ -40,7 +40,7 @@ export const renderCell = (
     );
   } else if (column === "image") {
     return (
-      <div className="relative h-10 aspect-video">
+      <div className="relative aspect-video h-10">
         <Image
           src={`${process.env.NEXT_PUBLIC_DATA}/files/${row["image"] as string}`}
           alt="Category Image"
@@ -52,4 +52,3 @@ export const renderCell = (
   }
   return <p className="w-max">{row[column as string]}</p>;
 };
-

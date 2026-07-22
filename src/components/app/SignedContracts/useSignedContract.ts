@@ -1,6 +1,6 @@
 import {
   PaginatedSignedContractResponse,
-  SignedContract,
+  SignedContractByIdQuery,
   SignedContractPaginationInput,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
@@ -31,7 +31,7 @@ export const useSignedContracts = (): UseQueryResult<
 
 export const useSignedContract = (
   id: string,
-): UseQueryResult<SignedContract | null, Error> => {
+): UseQueryResult<SignedContractByIdQuery["signedContractById"], Error> => {
   const lang = useLang();
 
   return useQuery({

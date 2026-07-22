@@ -1,6 +1,6 @@
 import {
   PaginatedSignedContractResponse,
-  SignedContract,
+  SignedContractByIdQuery,
   SignedContractPaginationInput,
 } from "@/gql/graphql";
 import { SIGNED_CONTRACT_BY_ID } from "@/graphql/signedContract/signedContractById";
@@ -27,7 +27,7 @@ class SignedContractService {
   };
   static signedContract = async (
     id: string,
-  ): Promise<SignedContract | null> => {
+  ): Promise<SignedContractByIdQuery["signedContractById"]> => {
     try {
       const signedContractByUserIdResult = await client().query({
         query: SIGNED_CONTRACT_BY_ID,
@@ -43,12 +43,13 @@ class SignedContractService {
   };
 
   static exportSignedContracts = async (fields?: string[]): Promise<Blob> => {
-    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
-    const response = await axiosClient.get('/signed-contracts/export', {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/signed-contracts/export", {
       params,
-      responseType: 'blob',
+      responseType: "blob",
     });
-    return new Blob([response.data], { type: 'text/csv' });
+    return new Blob([response.data], { type: "text/csv" });
   };
 }
 

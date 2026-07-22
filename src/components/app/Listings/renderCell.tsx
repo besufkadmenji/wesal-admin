@@ -1,7 +1,7 @@
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
-import { Listing } from "@/gql/graphql";
+import type { ListingListItem } from "@/graphql/listing/types";
 import { Key } from "react";
 import { AppSwitch } from "../shared/AppSwitch";
 export const statusMap = (
@@ -21,7 +21,7 @@ export const renderCell = (
     dict,
     action,
   }: {
-    listing: Listing;
+    listing: ListingListItem;
     dict: Dictionary;
     action: {
       onView: () => void;

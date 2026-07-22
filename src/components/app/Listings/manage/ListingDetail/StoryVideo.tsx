@@ -1,10 +1,10 @@
 import { dataUrl } from "@/config/url";
-import { Listing } from "@/gql/graphql";
+import type { ListingDetails } from "@/graphql/listing/types";
 import { useDict } from "@/hooks/useDict";
 import ReactPlayer from "react-player";
 import PlayVideoIcon from "@/assets/icons/play.video.svg";
 import { useState } from "react";
-export const StoryVideo = ({ listing }: { listing: Listing }) => {
+export const StoryVideo = ({ listing }: { listing: ListingDetails }) => {
   const dict = useDict();
   const [playing, setPlaying] = useState(false);
   return (

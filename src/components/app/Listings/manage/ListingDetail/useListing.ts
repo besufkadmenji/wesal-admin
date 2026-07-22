@@ -1,9 +1,9 @@
-import { Listing } from "@/gql/graphql";
+import type { ListingDetails } from "@/graphql/listing/types";
 import ListingService from "@/services/listing.service";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 export const useListing = (): {
-  listing: Listing | null | undefined;
+  listing: ListingDetails | null | undefined;
   isLoading: boolean;
   isError: boolean;
 } => {

@@ -1,8 +1,8 @@
 import {
-  Category,
+  CategoriesQuery,
   CategoryPaginationInput,
+  CategoryQuery,
   CreateCategoryInput,
-  PaginatedCategoryResponse,
   UpdateCategoryInput,
 } from "@/gql/graphql";
 import { CATEGORIES_QUERY } from "@/graphql/category/categories";
@@ -19,7 +19,7 @@ import axiosClient from "@/utils/axios.client";
 class CategoryService {
   static categories = async (
     input: CategoryPaginationInput,
-  ): Promise<PaginatedCategoryResponse | null> => {
+  ): Promise<CategoriesQuery["categories"] | null> => {
     try {
       const categoryResult = await client().query({
         query: CATEGORIES_QUERY,
@@ -33,7 +33,9 @@ class CategoryService {
     }
     return null;
   };
-  static category = async (categoryId: string): Promise<Category | null> => {
+  static category = async (
+    categoryId: string,
+  ): Promise<CategoryQuery["category"] | null> => {
     try {
       const categoryResult = await client().query({
         query: CATEGORY_QUERY,
@@ -96,12 +98,13 @@ class CategoryService {
   };
 
   static exportCategories = async (fields?: string[]): Promise<Blob> => {
-    const params = fields && fields.length > 0 ? { fields: fields.join(',') } : {};
-    const response = await axiosClient.get('/categories/export', {
+    const params =
+      fields && fields.length > 0 ? { fields: fields.join(",") } : {};
+    const response = await axiosClient.get("/categories/export", {
       params,
-      responseType: 'blob',
+      responseType: "blob",
     });
-    return new Blob([response.data], { type: 'text/csv' });
+    return new Blob([response.data], { type: "text/csv" });
   };
 
   static activateCategory = async (activateCategoryId: string) => {

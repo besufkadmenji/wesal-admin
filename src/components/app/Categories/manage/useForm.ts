@@ -1,4 +1,4 @@
-import { Category, CreateCategoryInput } from "@/gql/graphql";
+import { CategoryQuery, CreateCategoryInput } from "@/gql/graphql";
 import { useEffect } from "react";
 import { create } from "zustand";
 
@@ -44,7 +44,10 @@ export const useForm = create<FormState>((set) => ({
     })),
 }));
 
-export const useManageForm = (id: string, category?: Category | null) => {
+export const useManageForm = (
+  id: string,
+  category?: CategoryQuery["category"] | null,
+) => {
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const reset = useForm((state) => state.reset);

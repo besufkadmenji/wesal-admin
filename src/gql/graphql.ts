@@ -18,6 +18,14 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: any; output: any; }
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: { input: any; output: any; }
+};
+
+export type AcceptContractInput = {
+  contractId: Scalars['String']['input'];
+  deliveryTimeDays: Scalars['Int']['input'];
+  signatureData: Scalars['String']['input'];
 };
 
 /** Type of user action (view or click) */
@@ -179,13 +187,29 @@ export type BulkUpdateFaqOrderInput = {
 };
 
 export type Category = {
+  commissionEnabled: Scalars['Boolean']['output'];
+  commissionPercent?: Maybe<Scalars['Float']['output']>;
+  contractDocumentEnabled: Scalars['Boolean']['output'];
+  contractDocumentText: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
+  customerConversationFee?: Maybe<Scalars['Float']['output']>;
+  customerConversationFeeEnabled: Scalars['Boolean']['output'];
+  depositEnabled: Scalars['Boolean']['output'];
+  depositPercent?: Maybe<Scalars['Float']['output']>;
   descriptionAr: Scalars['String']['output'];
   descriptionEn: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   image: Scalars['String']['output'];
+  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
+  maxCompletionDaysEnabled: Scalars['Boolean']['output'];
+  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
+  maxTerminationDaysEnabled: Scalars['Boolean']['output'];
+  minCommissionAmount?: Maybe<Scalars['Float']['output']>;
+  minCommissionEnabled: Scalars['Boolean']['output'];
   nameAr: Scalars['String']['output'];
   nameEn: Scalars['String']['output'];
+  providerConversationFee?: Maybe<Scalars['Float']['output']>;
+  providerConversationFeeEnabled: Scalars['Boolean']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
   rulesAr: Scalars['String']['output'];
   rulesEn: Scalars['String']['output'];
@@ -274,55 +298,62 @@ export enum CityStatus {
 }
 
 export type Complaint = {
-  adminResponse?: Maybe<Scalars['String']['output']>;
+  attachments: Scalars['JSON']['output'];
+  contract?: Maybe<Contract>;
+  contractId?: Maybe<Scalars['ID']['output']>;
+  conversation: Conversation;
+  conversationId: Scalars['ID']['output'];
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   listing: Listing;
-  listingId: Scalars['String']['output'];
+  listingId: Scalars['ID']['output'];
+  messages: Array<ComplaintMessage>;
   publicId?: Maybe<Scalars['Int']['output']>;
-  reason: ComplaintReason;
+  reporterId: Scalars['ID']['output'];
+  reporterType: ComplaintReporterType;
   reviewedAt?: Maybe<Scalars['DateTime']['output']>;
-  reviewedBy?: Maybe<Scalars['String']['output']>;
-  reviewer?: Maybe<User>;
+  reviewedByAdminId?: Maybe<Scalars['ID']['output']>;
+  reviewer?: Maybe<Admin>;
   status: ComplaintStatus;
+  title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
 };
 
+export type ComplaintMessage = {
+  authorId: Scalars['ID']['output'];
+  authorType: ComplaintMessageAuthorType;
+  complaintId: Scalars['ID']['output'];
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+};
+
+export enum ComplaintMessageAuthorType {
+  Admin = 'ADMIN',
+  Reporter = 'REPORTER'
+}
+
 export type ComplaintPaginationInput = {
+  conversationId?: InputMaybe<Scalars['String']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
-  reason?: InputMaybe<ComplaintReason>;
-  reviewedBy?: InputMaybe<Scalars['String']['input']>;
-  /** Sort field name */
+  search?: InputMaybe<Scalars['String']['input']>;
   sortBy?: InputMaybe<ComplaintSortField>;
   /** Sort order: ASC or DESC */
   sortOrder?: InputMaybe<SortOrder>;
   status?: InputMaybe<ComplaintStatus>;
-  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Reason for complaint */
-export enum ComplaintReason {
-  CopyrightViolation = 'COPYRIGHT_VIOLATION',
-  Fraud = 'FRAUD',
-  InappropriateContent = 'INAPPROPRIATE_CONTENT',
-  MisleadingInformation = 'MISLEADING_INFORMATION',
-  Offensive = 'OFFENSIVE',
-  Other = 'OTHER',
-  Spam = 'SPAM'
+export enum ComplaintReporterType {
+  Provider = 'PROVIDER',
+  User = 'USER'
 }
 
-/** Available fields to sort complaints by */
 export enum ComplaintSortField {
   CreatedAt = 'createdAt',
-  Id = 'id',
-  Reason = 'reason',
   Status = 'status',
   UpdatedAt = 'updatedAt'
 }
@@ -335,6 +366,11 @@ export enum ComplaintStatus {
   Resolved = 'RESOLVED',
   UnderReview = 'UNDER_REVIEW'
 }
+
+export type CompleteContractInput = {
+  contractId: Scalars['String']['input'];
+  signatureData: Scalars['String']['input'];
+};
 
 export type ContactMessage = {
   attachmentFilename?: Maybe<Scalars['String']['output']>;
@@ -388,20 +424,51 @@ export enum ContactMessageStatus {
 }
 
 export type Contract = {
+  acceptedAt?: Maybe<Scalars['DateTime']['output']>;
   agreedPrice: Scalars['Float']['output'];
+  categoryId: Scalars['String']['output'];
+  categoryRulesAr: Scalars['String']['output'];
+  categoryRulesEn: Scalars['String']['output'];
   client: User;
   clientId: Scalars['String']['output'];
+  commissionAmount: Scalars['Float']['output'];
+  commissionPercent: Scalars['Float']['output'];
+  contractDocumentText: Scalars['String']['output'];
   conversation: Conversation;
   conversationId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
+  customerAddress: Scalars['String']['output'];
+  customerLatitude?: Maybe<Scalars['Float']['output']>;
+  customerLongitude?: Maybe<Scalars['Float']['output']>;
+  deliveryCompanyId?: Maybe<Scalars['ID']['output']>;
+  deliveryCompanyNameAr?: Maybe<Scalars['String']['output']>;
+  deliveryCompanyNameEn?: Maybe<Scalars['String']['output']>;
+  deliveryTimeDays?: Maybe<Scalars['Int']['output']>;
+  depositPercent: Scalars['Float']['output'];
   downPayment: Scalars['Float']['output'];
   id: Scalars['ID']['output'];
+  listingId: Scalars['String']['output'];
+  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
+  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
+  pricingVersion: Scalars['Int']['output'];
   provider: Provider;
+  providerAddress?: Maybe<Scalars['String']['output']>;
   providerId: Scalars['String']['output'];
+  providerLatitude?: Maybe<Scalars['Float']['output']>;
+  providerLongitude?: Maybe<Scalars['Float']['output']>;
+  providerNetAmount: Scalars['Float']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
-  signatures?: Maybe<Array<ContractSignature>>;
+  rejectedAt?: Maybe<Scalars['DateTime']['output']>;
+  rejectionReason?: Maybe<Scalars['String']['output']>;
+  signatures: Array<ContractSignature>;
   status: ContractStatus;
+  supersedesContract?: Maybe<Contract>;
+  supersedesContractId?: Maybe<Scalars['ID']['output']>;
+  totalPayable: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  vatAmount: Scalars['Float']['output'];
+  vatRate: Scalars['Float']['output'];
+  version: Scalars['Int']['output'];
 };
 
 export type ContractPaginationInput = {
@@ -419,6 +486,31 @@ export type ContractPaginationInput = {
   status?: InputMaybe<ContractStatus>;
 };
 
+export type ContractPaymentResponse = {
+  contract: Contract;
+  payment: Payment;
+};
+
+export type ContractQuote = {
+  agreedPrice: Scalars['Float']['output'];
+  commissionAmount: Scalars['Float']['output'];
+  commissionPercent: Scalars['Float']['output'];
+  contractDocumentText: Scalars['String']['output'];
+  depositPercent: Scalars['Float']['output'];
+  downPayment: Scalars['Float']['output'];
+  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
+  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
+  providerNetAmount: Scalars['Float']['output'];
+  totalPayable: Scalars['Float']['output'];
+  vatAmount: Scalars['Float']['output'];
+  vatRate: Scalars['Float']['output'];
+};
+
+export type ContractQuoteInput = {
+  agreedPrice: Scalars['Float']['input'];
+  conversationId: Scalars['String']['input'];
+};
+
 export type ContractRule = {
   label: Scalars['String']['output'];
   value: Scalars['String']['output'];
@@ -434,15 +526,24 @@ export type ContractSignature = {
   contractId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   signatureData: Scalars['String']['output'];
+  signatureType: ContractSignatureType;
   signedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
+  signerId: Scalars['String']['output'];
+  signerType: ContractSignerType;
 };
 
-export type ContractSignatureInput = {
-  signatureData: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
-};
+/** Sprint 3 contract signature purpose */
+export enum ContractSignatureType {
+  CustomerAcceptance = 'CUSTOMER_ACCEPTANCE',
+  CustomerCompletion = 'CUSTOMER_COMPLETION',
+  ProviderAcceptance = 'PROVIDER_ACCEPTANCE'
+}
+
+/** Entity type of the contract signer */
+export enum ContractSignerType {
+  Provider = 'PROVIDER',
+  User = 'USER'
+}
 
 /** Available fields to sort contracts by */
 export enum ContractSortField {
@@ -459,28 +560,73 @@ export enum ContractStatus {
   Accepted = 'ACCEPTED',
   Cancelled = 'CANCELLED',
   Completed = 'COMPLETED',
+  Draft = 'DRAFT',
   InProgress = 'IN_PROGRESS',
   Pending = 'PENDING',
   Rejected = 'REJECTED'
 }
 
 export type Conversation = {
+  access?: Maybe<ConversationAccess>;
+  closeReason?: Maybe<Scalars['String']['output']>;
+  closedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
+  customerFeePaidAt?: Maybe<Scalars['DateTime']['output']>;
+  customerLastReadAt?: Maybe<Scalars['DateTime']['output']>;
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  feeCycle: Scalars['Int']['output'];
   id: Scalars['ID']['output'];
-  isPaid: Scalars['Boolean']['output'];
+  lastActivityAt: Scalars['DateTime']['output'];
+  lastMessage?: Maybe<Message>;
   listing: Listing;
   listingId: Scalars['String']['output'];
   messages?: Maybe<Array<Message>>;
-  provider: User;
+  provider: Provider;
+  providerFeePaidAt?: Maybe<Scalars['DateTime']['output']>;
   providerId: Scalars['String']['output'];
+  providerLastReadAt?: Maybe<Scalars['DateTime']['output']>;
   publicId?: Maybe<Scalars['Int']['output']>;
+  status: ConversationStatus;
+  unreadCount: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
   user: User;
   userId: Scalars['String']['output'];
 };
 
+export type ConversationAccess = {
+  canSend: Scalars['Boolean']['output'];
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  feeAmount: Scalars['Float']['output'];
+  feeCycle: Scalars['Float']['output'];
+  feeRequired: Scalars['Boolean']['output'];
+  paidAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ConversationFeePaymentResponse = {
+  access: ConversationAccess;
+  conversation: Conversation;
+  payment?: Maybe<Payment>;
+};
+
+export type ConversationFeeReport = {
+  items: Array<ConversationFeeReportRow>;
+  meta: ReportPageMeta;
+  totalCustomerFees: Scalars['Float']['output'];
+  totalProviderFees: Scalars['Float']['output'];
+};
+
+export type ConversationFeeReportRow = {
+  conversationId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  customerFee: Scalars['Float']['output'];
+  customerName?: Maybe<Scalars['String']['output']>;
+  paymentId: Scalars['String']['output'];
+  providerFee: Scalars['Float']['output'];
+  providerName?: Maybe<Scalars['String']['output']>;
+  status: Scalars['String']['output'];
+};
+
 export type ConversationPaginationInput = {
-  isPaid?: InputMaybe<Scalars['Boolean']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
   listingId?: InputMaybe<Scalars['String']['input']>;
@@ -491,15 +637,30 @@ export type ConversationPaginationInput = {
   sortBy?: InputMaybe<ConversationSortField>;
   /** Sort order: ASC or DESC */
   sortOrder?: InputMaybe<SortOrder>;
+  status?: InputMaybe<ConversationStatus>;
   userId?: InputMaybe<Scalars['String']['input']>;
 };
+
+/** Whether a message sender is a User, Provider, or the platform */
+export enum ConversationSenderType {
+  Provider = 'PROVIDER',
+  System = 'SYSTEM',
+  User = 'USER'
+}
 
 /** Available fields to sort conversations by */
 export enum ConversationSortField {
   CreatedAt = 'createdAt',
   Id = 'id',
-  IsPaid = 'isPaid',
+  LastActivityAt = 'lastActivityAt',
+  Status = 'status',
   UpdatedAt = 'updatedAt'
+}
+
+/** Conversation lifecycle status */
+export enum ConversationStatus {
+  Active = 'ACTIVE',
+  Closed = 'CLOSED'
 }
 
 export type Country = {
@@ -553,11 +714,27 @@ export type CreateBankInput = {
 };
 
 export type CreateCategoryInput = {
+  commissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  commissionPercent?: InputMaybe<Scalars['Float']['input']>;
+  contractDocumentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  contractDocumentText?: InputMaybe<Scalars['String']['input']>;
+  customerConversationFee?: InputMaybe<Scalars['Float']['input']>;
+  customerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  depositEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  depositPercent?: InputMaybe<Scalars['Float']['input']>;
   descriptionAr: Scalars['String']['input'];
   descriptionEn: Scalars['String']['input'];
   image: Scalars['String']['input'];
+  maxCompletionDays?: InputMaybe<Scalars['Int']['input']>;
+  maxCompletionDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  maxTerminationDays?: InputMaybe<Scalars['Int']['input']>;
+  maxTerminationDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  minCommissionAmount?: InputMaybe<Scalars['Float']['input']>;
+  minCommissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   nameAr: Scalars['String']['input'];
   nameEn: Scalars['String']['input'];
+  providerConversationFee?: InputMaybe<Scalars['Float']['input']>;
+  providerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   rulesAr?: InputMaybe<Scalars['String']['input']>;
   rulesEn?: InputMaybe<Scalars['String']['input']>;
 };
@@ -570,11 +747,10 @@ export type CreateCityInput = {
 };
 
 export type CreateComplaintInput = {
+  contractId?: InputMaybe<Scalars['ID']['input']>;
+  conversationId: Scalars['ID']['input'];
   description: Scalars['String']['input'];
-  listingId: Scalars['String']['input'];
-  reason: ComplaintReason;
-  status?: InputMaybe<ComplaintStatus>;
-  userId: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type CreateContactMessageInput = {
@@ -589,19 +765,17 @@ export type CreateContactMessageInput = {
 
 export type CreateContractInput = {
   agreedPrice: Scalars['Float']['input'];
-  clientId: Scalars['String']['input'];
+  contractId?: InputMaybe<Scalars['String']['input']>;
   conversationId: Scalars['String']['input'];
-  downPayment: Scalars['Float']['input'];
-  providerId: Scalars['String']['input'];
-  signatures?: InputMaybe<Array<ContractSignatureInput>>;
-  status?: InputMaybe<ContractStatus>;
+  customerAddress: Scalars['String']['input'];
+  customerLatitude?: InputMaybe<Scalars['Float']['input']>;
+  customerLongitude?: InputMaybe<Scalars['Float']['input']>;
+  deliveryCompanyId?: InputMaybe<Scalars['String']['input']>;
+  signatureData: Scalars['String']['input'];
 };
 
 export type CreateConversationInput = {
-  isPaid?: InputMaybe<Scalars['Boolean']['input']>;
   listingId: Scalars['String']['input'];
-  providerId: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
 };
 
 export type CreateCountryInput = {
@@ -622,11 +796,6 @@ export type CreateFaqInput = {
   order?: InputMaybe<Scalars['Float']['input']>;
   questionAr: Scalars['String']['input'];
   questionEn: Scalars['String']['input'];
-};
-
-export type CreateFavoriteInput = {
-  listingId: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
 };
 
 export type CreateListingInput = {
@@ -653,7 +822,6 @@ export type CreateListingMediaInput = {
 export type CreateMessageInput = {
   content: Scalars['String']['input'];
   conversationId: Scalars['String']['input'];
-  senderId: Scalars['String']['input'];
 };
 
 export type CreateNotificationInput = {
@@ -663,16 +831,6 @@ export type CreateNotificationInput = {
   relatedEntityType?: InputMaybe<Scalars['String']['input']>;
   title: Scalars['String']['input'];
   type: NotificationType;
-  userId: Scalars['String']['input'];
-};
-
-export type CreatePaymentInput = {
-  amount: Scalars['Float']['input'];
-  contractId: Scalars['String']['input'];
-  notes?: InputMaybe<Scalars['String']['input']>;
-  paymentMethod: PaymentMethod;
-  status?: InputMaybe<PaymentStatus>;
-  transactionReference?: InputMaybe<Scalars['String']['input']>;
   userId: Scalars['String']['input'];
 };
 
@@ -782,8 +940,8 @@ export type Faq = {
 export type Favorite = {
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  listing: Listing;
-  listingId: Scalars['String']['output'];
+  provider: Provider;
+  providerId: Scalars['String']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
   user: User;
   userId: Scalars['String']['output'];
@@ -792,14 +950,12 @@ export type Favorite = {
 export type FavoritePaginationInput = {
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   /** Sort field name */
   sortBy?: InputMaybe<FavoriteSortField>;
   /** Sort order: ASC or DESC */
   sortOrder?: InputMaybe<SortOrder>;
-  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Available fields to sort favorites by */
@@ -808,8 +964,30 @@ export enum FavoriteSortField {
   Id = 'id'
 }
 
+export type FeeReportInput = {
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  conversationId?: InputMaybe<Scalars['String']['input']>;
+  customerId?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Number of items per page */
+  limit?: Scalars['Int']['input'];
+  listingId?: InputMaybe<Scalars['String']['input']>;
+  /** Page number (1-based) */
+  page?: Scalars['Int']['input'];
+  providerId?: InputMaybe<Scalars['String']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Sort order: ASC or DESC */
+  sortOrder?: InputMaybe<SortOrder>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  to?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type ForgotPasswordInput = {
   emailOrPhone: Scalars['String']['input'];
+};
+
+export type InitializeContractInput = {
+  conversationId: Scalars['String']['input'];
 };
 
 export type Listing = {
@@ -820,10 +998,14 @@ export type Listing = {
   createdAt: Scalars['DateTime']['output'];
   deactivationReason?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
+  featuredEndsAt?: Maybe<Scalars['DateTime']['output']>;
+  featuredStartsAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   photos: Array<ListingMedia>;
   price: Scalars['Float']['output'];
+  promotionCycle: Scalars['Int']['output'];
+  promotionStatus: PromotionStatus;
   provider?: Maybe<Provider>;
   providerId: Scalars['String']['output'];
   status: ListingStatus;
@@ -873,7 +1055,8 @@ export enum ListingSortField {
 /** Listing publication status */
 export enum ListingStatus {
   Active = 'ACTIVE',
-  Inactive = 'INACTIVE'
+  Inactive = 'INACTIVE',
+  PendingPayment = 'PENDING_PAYMENT'
 }
 
 /** Listing type (free or featured) */
@@ -904,11 +1087,27 @@ export type Message = {
   conversationId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  kind: MessageKind;
+  metadata?: Maybe<Scalars['JSON']['output']>;
   publicId?: Maybe<Scalars['Int']['output']>;
-  sender: User;
-  senderId: Scalars['String']['output'];
+  /** The message sender, either a User (customer) or a Provider */
+  sender?: Maybe<MessageSender>;
+  senderId?: Maybe<Scalars['ID']['output']>;
+  senderType: ConversationSenderType;
   updatedAt: Scalars['DateTime']['output'];
 };
+
+/** User text or a typed system event in a conversation */
+export enum MessageKind {
+  ChatFeePaid = 'CHAT_FEE_PAID',
+  ContractAccepted = 'CONTRACT_ACCEPTED',
+  ContractCompleted = 'CONTRACT_COMPLETED',
+  ContractCreated = 'CONTRACT_CREATED',
+  ContractPaid = 'CONTRACT_PAID',
+  ContractRejected = 'CONTRACT_REJECTED',
+  ContractResent = 'CONTRACT_RESENT',
+  Text = 'TEXT'
+}
 
 export type MessagePaginationInput = {
   conversationId?: InputMaybe<Scalars['String']['input']>;
@@ -922,6 +1121,8 @@ export type MessagePaginationInput = {
   /** Sort order: ASC or DESC */
   sortOrder?: InputMaybe<SortOrder>;
 };
+
+export type MessageSender = Provider | User;
 
 /** Available fields to sort messages by */
 export enum MessageSortField {
@@ -940,6 +1141,8 @@ export enum MessageType {
 }
 
 export type Mutation = {
+  /** Provider accepts a pending contract */
+  acceptContract: Contract;
   activateAdmin: Admin;
   activateBank: Bank;
   activateCategory: Category;
@@ -950,12 +1153,15 @@ export type Mutation = {
   activateProvider: Provider;
   /** Activate user by ID */
   activateUser: User;
+  addComplaintMessage: ComplaintMessage;
   adminChangePassword: Scalars['Boolean']['output'];
   adminForgotPassword: Scalars['Boolean']['output'];
   adminLogin: AdminAuthResponse;
   /** Admin reactivates a provider whose contract was terminated by admin */
   adminReactivateProvider: Provider;
+  adminReplyToComplaint: ComplaintMessage;
   adminResetPassword: Scalars['Boolean']['output'];
+  adminSetComplaintStatus: Complaint;
   /** Admin terminates provider contract */
   adminTerminateProviderContract: Provider;
   adminVerifyPasswordResetOtp: VerifyAdminPasswordResetOtpResponse;
@@ -968,6 +1174,8 @@ export type Mutation = {
   changePassword: Scalars['Boolean']['output'];
   /** Change password for authenticated provider */
   changeProviderPassword: Scalars['Boolean']['output'];
+  /** Customer signs and completes an in-progress contract */
+  completeContract: Contract;
   createAdmin: Admin;
   createBank: Bank;
   createCategory: Category;
@@ -981,11 +1189,9 @@ export type Mutation = {
   createDeliveryCompany: DeliveryCompany;
   /** Create FAQ (admin only) */
   createFaq: Faq;
-  createFavorite: Favorite;
   createListing: Listing;
   createMessage: Message;
   createNotification: Notification;
-  createPayment: Payment;
   createPermission: Permission;
   /** Create a new provider */
   createProvider: Provider;
@@ -1007,6 +1213,8 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean']['output'];
   /** Request password reset OTP for provider */
   forgotProviderPassword: Scalars['Boolean']['output'];
+  /** Creates or returns the customer draft for a conversation so the contract ID and public number are available before submission */
+  initializeContract: Contract;
   /** Initiate email change - sends OTP to new email and returns change token */
   initiateEmailChange: ChangeEmailResponse;
   /** Initiate phone change - sends OTP to new phone and returns change token */
@@ -1023,20 +1231,26 @@ export type Mutation = {
   markAllNotificationsAsRead: Scalars['Boolean']['output'];
   /** Mark message as read (admin only) */
   markAsRead: ContactMessage;
+  /** Mark the conversation as read for the authenticated side */
+  markConversationRead: Conversation;
   /** Mark multiple notifications as read */
   markMultipleNotificationsAsRead: Scalars['Boolean']['output'];
   /** Mark a notification as read */
   markNotificationAsRead: Notification;
   /** Mark a notification as unread */
   markNotificationAsUnread: Notification;
-  /** Process a refund for a completed payment */
-  refundPayment: Payment;
+  /** Settle an accepted contract using the Sprint 3 mock */
+  payContract: ContractPaymentResponse;
+  /** Settle the authenticated participant conversation fee */
+  payConversationFee: ConversationFeePaymentResponse;
+  /** Settle and activate a featured advertisement using the mock */
+  payPremiumAd: PremiumAdPaymentResponse;
   /** Register a new user and send verification OTPs */
   register: User;
   /** Register a new provider and send verification OTPs */
   registerProvider: Provider;
-  /** Reject a complaint */
-  rejectComplaint: Complaint;
+  /** Provider rejects a pending contract */
+  rejectContract: Contract;
   /** Reject a pending provider join request */
   rejectProviderJoinRequest: Provider;
   removeAdmin: Scalars['Boolean']['output'];
@@ -1045,24 +1259,16 @@ export type Mutation = {
   removeBank: Bank;
   removeCategory: Category;
   removeCity: City;
-  removeComplaint: Complaint;
   /** Delete contact message (admin only) */
   removeContactMessage: Scalars['Boolean']['output'];
-  removeContract: Contract;
-  removeConversation: Conversation;
   removeCountry: Country;
   removeDeliveryCompany: DeliveryCompany;
   /** Remove FAQ (admin only) */
   removeFaq: Scalars['Boolean']['output'];
-  removeFavorite: Favorite;
-  /** Remove favorite by user and listing IDs */
-  removeFavoriteByUserAndListing: Favorite;
   removeListing: RemoveListingResponse;
-  removeMessage: Message;
   /** Remove own avatar (self-service) */
   removeMyAvatar: Scalars['Boolean']['output'];
   removeNotification: Notification;
-  removePayment: Payment;
   removePermission: Scalars['Boolean']['output'];
   /** Remove provider */
   removeProvider: Provider;
@@ -1073,6 +1279,9 @@ export type Mutation = {
   removeUser: User;
   /** Reply to contact message (admin only) */
   replyToContactMessage: ContactMessage;
+  requestFeaturedPromotion: Listing;
+  /** Customer resends a rejected contract as a new version */
+  resendContract: Contract;
   /** Resend OTP for email or phone verification */
   resendOtp: Scalars['Boolean']['output'];
   /** Resend OTP for provider email or phone verification */
@@ -1081,10 +1290,11 @@ export type Mutation = {
   resetPassword: Scalars['Boolean']['output'];
   /** Reset provider password using reset token */
   resetProviderPassword: Scalars['Boolean']['output'];
-  /** Review and resolve a complaint */
-  reviewComplaint: Complaint;
+  /** Restart an expired conversation using a new fee cycle */
+  restartConversation: Conversation;
   revokeAllPermissionsFromAdmin: Scalars['Boolean']['output'];
   revokePermissionFromAdmin: Scalars['Boolean']['output'];
+  setProviderFavorite: Scalars['Boolean']['output'];
   /** Create or update application settings (admin only) */
   setSetting: Setting;
   /** Sign contract as provider */
@@ -1096,11 +1306,8 @@ export type Mutation = {
   updateBank: Bank;
   updateCategory: Category;
   updateCity: City;
-  updateComplaint: Complaint;
   /** Update contact message (admin only) */
   updateContactMessage: ContactMessage;
-  updateContract: Contract;
-  updateConversation: Conversation;
   updateCountry: Country;
   updateDeliveryCompany: DeliveryCompany;
   /** Update FAQ (admin only) */
@@ -1108,8 +1315,6 @@ export type Mutation = {
   updateListing: Listing;
   /** Update own profile (self-service) */
   updateMe: User;
-  updateMessage: Message;
-  updatePayment: Payment;
   updatePermission: Permission;
   /** Update provider */
   updateProvider: Provider;
@@ -1132,6 +1337,11 @@ export type Mutation = {
   verifyProviderPasswordResetOtp: VerifyPasswordResetOtpResponse;
   /** Verify phone change with OTP and change token */
   verifyProviderPhoneChange: Scalars['Boolean']['output'];
+};
+
+
+export type MutationAcceptContractArgs = {
+  input: AcceptContractInput;
 };
 
 
@@ -1175,6 +1385,12 @@ export type MutationActivateUserArgs = {
 };
 
 
+export type MutationAddComplaintMessageArgs = {
+  complaintId: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+};
+
+
 export type MutationAdminChangePasswordArgs = {
   input: AdminChangePasswordInput;
 };
@@ -1195,8 +1411,20 @@ export type MutationAdminReactivateProviderArgs = {
 };
 
 
+export type MutationAdminReplyToComplaintArgs = {
+  complaintId: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+};
+
+
 export type MutationAdminResetPasswordArgs = {
   input: AdminResetPasswordInput;
+};
+
+
+export type MutationAdminSetComplaintStatusArgs = {
+  complaintId: Scalars['String']['input'];
+  status: ComplaintStatus;
 };
 
 
@@ -1241,6 +1469,11 @@ export type MutationChangeProviderPasswordArgs = {
 };
 
 
+export type MutationCompleteContractArgs = {
+  input: CompleteContractInput;
+};
+
+
 export type MutationCreateAdminArgs = {
   createAdminInput: CreateAdminInput;
 };
@@ -1262,6 +1495,7 @@ export type MutationCreateCityArgs = {
 
 
 export type MutationCreateComplaintArgs = {
+  evidence?: InputMaybe<Array<Scalars['Upload']['input']>>;
   input: CreateComplaintInput;
 };
 
@@ -1296,11 +1530,6 @@ export type MutationCreateFaqArgs = {
 };
 
 
-export type MutationCreateFavoriteArgs = {
-  input: CreateFavoriteInput;
-};
-
-
 export type MutationCreateListingArgs = {
   createListingInput: CreateListingInput;
 };
@@ -1313,11 +1542,6 @@ export type MutationCreateMessageArgs = {
 
 export type MutationCreateNotificationArgs = {
   input: CreateNotificationInput;
-};
-
-
-export type MutationCreatePaymentArgs = {
-  input: CreatePaymentInput;
 };
 
 
@@ -1402,6 +1626,11 @@ export type MutationForgotProviderPasswordArgs = {
 };
 
 
+export type MutationInitializeContractArgs = {
+  input: InitializeContractInput;
+};
+
+
 export type MutationInitiateEmailChangeArgs = {
   input: ChangeEmailInput;
 };
@@ -1442,6 +1671,11 @@ export type MutationMarkAsReadArgs = {
 };
 
 
+export type MutationMarkConversationReadArgs = {
+  conversationId: Scalars['String']['input'];
+};
+
+
 export type MutationMarkMultipleNotificationsAsReadArgs = {
   ids: Array<Scalars['String']['input']>;
 };
@@ -1457,8 +1691,18 @@ export type MutationMarkNotificationAsUnreadArgs = {
 };
 
 
-export type MutationRefundPaymentArgs = {
-  id: Scalars['String']['input'];
+export type MutationPayContractArgs = {
+  contractId: Scalars['String']['input'];
+};
+
+
+export type MutationPayConversationFeeArgs = {
+  conversationId: Scalars['String']['input'];
+};
+
+
+export type MutationPayPremiumAdArgs = {
+  listingId: Scalars['String']['input'];
 };
 
 
@@ -1472,10 +1716,8 @@ export type MutationRegisterProviderArgs = {
 };
 
 
-export type MutationRejectComplaintArgs = {
-  complaintId: Scalars['String']['input'];
-  reason: Scalars['String']['input'];
-  reviewerId: Scalars['String']['input'];
+export type MutationRejectContractArgs = {
+  input: RejectContractInput;
 };
 
 
@@ -1510,23 +1752,8 @@ export type MutationRemoveCityArgs = {
 };
 
 
-export type MutationRemoveComplaintArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type MutationRemoveContactMessageArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveContractArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveConversationArgs = {
-  id: Scalars['String']['input'];
 };
 
 
@@ -1545,33 +1772,12 @@ export type MutationRemoveFaqArgs = {
 };
 
 
-export type MutationRemoveFavoriteArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveFavoriteByUserAndListingArgs = {
-  listingId: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
-};
-
-
 export type MutationRemoveListingArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type MutationRemoveMessageArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type MutationRemoveNotificationArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemovePaymentArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -1609,6 +1815,16 @@ export type MutationReplyToContactMessageArgs = {
 };
 
 
+export type MutationRequestFeaturedPromotionArgs = {
+  listingId: Scalars['ID']['input'];
+};
+
+
+export type MutationResendContractArgs = {
+  input: ResendContractInput;
+};
+
+
 export type MutationResendOtpArgs = {
   input: ResendOtpInput;
 };
@@ -1629,8 +1845,8 @@ export type MutationResetProviderPasswordArgs = {
 };
 
 
-export type MutationReviewComplaintArgs = {
-  input: ReviewComplaintInput;
+export type MutationRestartConversationArgs = {
+  conversationId: Scalars['String']['input'];
 };
 
 
@@ -1642,6 +1858,12 @@ export type MutationRevokeAllPermissionsFromAdminArgs = {
 export type MutationRevokePermissionFromAdminArgs = {
   adminId: Scalars['ID']['input'];
   permissionId: Scalars['ID']['input'];
+};
+
+
+export type MutationSetProviderFavoriteArgs = {
+  favorite: Scalars['Boolean']['input'];
+  providerId: Scalars['String']['input'];
 };
 
 
@@ -1686,23 +1908,8 @@ export type MutationUpdateCityArgs = {
 };
 
 
-export type MutationUpdateComplaintArgs = {
-  input: UpdateComplaintInput;
-};
-
-
 export type MutationUpdateContactMessageArgs = {
   updateContactMessageInput: UpdateContactMessageInput;
-};
-
-
-export type MutationUpdateContractArgs = {
-  input: UpdateContractInput;
-};
-
-
-export type MutationUpdateConversationArgs = {
-  input: UpdateConversationInput;
 };
 
 
@@ -1728,16 +1935,6 @@ export type MutationUpdateListingArgs = {
 
 export type MutationUpdateMeArgs = {
   updateMeInput: UpdateMeInput;
-};
-
-
-export type MutationUpdateMessageArgs = {
-  input: UpdateMessageInput;
-};
-
-
-export type MutationUpdatePaymentArgs = {
-  input: UpdatePaymentInput;
 };
 
 
@@ -2012,21 +2209,39 @@ export type PaginationMeta = {
   totalPages: Scalars['Int']['output'];
 };
 
+/** Entity type that owns the payment */
+export enum PayerType {
+  Provider = 'PROVIDER',
+  User = 'USER'
+}
+
 export type Payment = {
   amount: Scalars['Float']['output'];
-  contract: Contract;
-  contractId: Scalars['String']['output'];
+  categoryId?: Maybe<Scalars['ID']['output']>;
+  commissionAmount: Scalars['Float']['output'];
+  commissionPercent: Scalars['Float']['output'];
+  configSnapshot?: Maybe<Scalars['JSON']['output']>;
+  contract?: Maybe<Contract>;
+  contractId?: Maybe<Scalars['ID']['output']>;
+  conversation?: Maybe<Conversation>;
+  conversationId?: Maybe<Scalars['ID']['output']>;
   createdAt: Scalars['DateTime']['output'];
   gatewayResponse?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  listing?: Maybe<Listing>;
+  listingId?: Maybe<Scalars['ID']['output']>;
   notes?: Maybe<Scalars['String']['output']>;
+  payer?: Maybe<PaymentPayer>;
+  payerId: Scalars['String']['output'];
+  payerType: PayerType;
   paymentMethod: PaymentMethod;
   publicId?: Maybe<Scalars['Int']['output']>;
+  purpose: PaymentPurpose;
   status: PaymentStatus;
   transactionReference?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
+  vatAmount: Scalars['Float']['output'];
+  vatRate: Scalars['Float']['output'];
 };
 
 /** Payment method */
@@ -2035,23 +2250,35 @@ export enum PaymentMethod {
   Cash = 'CASH',
   CreditCard = 'CREDIT_CARD',
   DebitCard = 'DEBIT_CARD',
+  Mock = 'MOCK',
   Wallet = 'WALLET'
 }
 
 export type PaymentPaginationInput = {
   contractId?: InputMaybe<Scalars['String']['input']>;
+  conversationId?: InputMaybe<Scalars['String']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   paymentMethod?: InputMaybe<PaymentMethod>;
+  purpose?: InputMaybe<PaymentPurpose>;
   /** Sort field name */
   sortBy?: InputMaybe<PaymentSortField>;
   /** Sort order: ASC or DESC */
   sortOrder?: InputMaybe<SortOrder>;
   status?: InputMaybe<PaymentStatus>;
-  userId?: InputMaybe<Scalars['String']['input']>;
 };
+
+export type PaymentPayer = Provider | User;
+
+/** Business obligation settled by a payment */
+export enum PaymentPurpose {
+  ChatCustomer = 'CHAT_CUSTOMER',
+  ChatProvider = 'CHAT_PROVIDER',
+  Contract = 'CONTRACT',
+  PremiumAd = 'PREMIUM_AD'
+}
 
 /** Available fields to sort payments by */
 export enum PaymentSortField {
@@ -2091,6 +2318,36 @@ export type Permission = {
 export enum PermissionPlatform {
   Admin = 'ADMIN',
   Global = 'GLOBAL'
+}
+
+export type PremiumAdFeeReport = {
+  items: Array<PremiumAdFeeReportRow>;
+  meta: ReportPageMeta;
+  totalFees: Scalars['Float']['output'];
+};
+
+export type PremiumAdFeeReportRow = {
+  createdAt: Scalars['DateTime']['output'];
+  fee: Scalars['Float']['output'];
+  listingId: Scalars['String']['output'];
+  listingName: Scalars['String']['output'];
+  paymentId: Scalars['String']['output'];
+  providerName?: Maybe<Scalars['String']['output']>;
+  providerPhone?: Maybe<Scalars['String']['output']>;
+  status: Scalars['String']['output'];
+};
+
+export type PremiumAdPaymentResponse = {
+  listing: Listing;
+  payment: Payment;
+};
+
+/** Featured advertisement payment and expiry state */
+export enum PromotionStatus {
+  Active = 'ACTIVE',
+  Expired = 'EXPIRED',
+  None = 'NONE',
+  PendingPayment = 'PENDING_PAYMENT'
 }
 
 export type Provider = {
@@ -2154,7 +2411,15 @@ export enum ProviderStatus {
 }
 
 export type Query = {
+  /** Active delivery companies available to authenticated users */
+  activeDeliveryCompanies: Array<DeliveryCompany>;
   admin: Admin;
+  adminComplaint: Complaint;
+  adminComplaints: PaginatedComplaintResponse;
+  adminContract: Contract;
+  adminContracts: PaginatedContractResponse;
+  adminConversation: Conversation;
+  adminConversations: PaginatedConversationResponse;
   adminPermissions: Array<AdminPermission>;
   admins: PaginatedAdminResponse;
   bank: Bank;
@@ -2166,15 +2431,16 @@ export type Query = {
   /** Get cities by country with pagination */
   citiesByCountry: PaginatedCityResponse;
   city: City;
-  complaint: Complaint;
-  complaints: PaginatedComplaintResponse;
   /** Get single contact message (admin only) */
   contactMessage: ContactMessage;
   /** Get contact messages (admin only) with pagination */
   contactMessages: PaginatedContactMessageResponse;
   contract: Contract;
+  /** Preview server-calculated contract financial terms */
+  contractQuote: ContractQuote;
   contracts: PaginatedContractResponse;
   conversation: Conversation;
+  conversationFeeReport: ConversationFeeReport;
   conversations: PaginatedConversationResponse;
   /** Get all countries with pagination */
   countries: PaginatedCountryResponse;
@@ -2184,12 +2450,9 @@ export type Query = {
   faq: Faq;
   /** Get all active FAQs (or all if admin) */
   faqs: Array<Faq>;
-  favorite: Favorite;
-  favorites: PaginatedFavoriteResponse;
   /** Get application settings */
   getSetting: Setting;
-  /** Check if listing is favorited by user */
-  isFavorite: Scalars['Boolean']['output'];
+  isProviderFavorite: Scalars['Boolean']['output'];
   listing?: Maybe<Listing>;
   listings: PaginatedListingResponse;
   meAdmin: Admin;
@@ -2199,6 +2462,9 @@ export type Query = {
   meUser: User;
   message: Message;
   messages: PaginatedMessageResponse;
+  myComplaint: Complaint;
+  myComplaints: PaginatedComplaintResponse;
+  myFavoriteProviders: PaginatedFavoriteResponse;
   myListings: PaginatedListingResponse;
   myPopularCategories: Array<Scalars['String']['output']>;
   myPopularListings: Array<Scalars['String']['output']>;
@@ -2211,6 +2477,7 @@ export type Query = {
   permission: Permission;
   permissionAdmins: Array<AdminPermission>;
   permissions: Array<Permission>;
+  premiumAdFeeReport: PremiumAdFeeReport;
   /** Get provider by ID */
   provider: Provider;
   /** Get provider by email */
@@ -2235,6 +2502,36 @@ export type Query = {
 
 export type QueryAdminArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryAdminComplaintArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryAdminComplaintsArgs = {
+  input?: InputMaybe<ComplaintPaginationInput>;
+};
+
+
+export type QueryAdminContractArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryAdminContractsArgs = {
+  input?: InputMaybe<ContractPaginationInput>;
+};
+
+
+export type QueryAdminConversationArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryAdminConversationsArgs = {
+  input?: InputMaybe<ConversationPaginationInput>;
 };
 
 
@@ -2284,16 +2581,6 @@ export type QueryCityArgs = {
 };
 
 
-export type QueryComplaintArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryComplaintsArgs = {
-  input?: InputMaybe<ComplaintPaginationInput>;
-};
-
-
 export type QueryContactMessageArgs = {
   id: Scalars['ID']['input'];
 };
@@ -2309,6 +2596,11 @@ export type QueryContractArgs = {
 };
 
 
+export type QueryContractQuoteArgs = {
+  input: ContractQuoteInput;
+};
+
+
 export type QueryContractsArgs = {
   input?: InputMaybe<ContractPaginationInput>;
 };
@@ -2316,6 +2608,11 @@ export type QueryContractsArgs = {
 
 export type QueryConversationArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryConversationFeeReportArgs = {
+  input?: InputMaybe<FeeReportInput>;
 };
 
 
@@ -2349,19 +2646,8 @@ export type QueryFaqArgs = {
 };
 
 
-export type QueryFavoriteArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryFavoritesArgs = {
-  input?: InputMaybe<FavoritePaginationInput>;
-};
-
-
-export type QueryIsFavoriteArgs = {
-  listingId: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
+export type QueryIsProviderFavoriteArgs = {
+  providerId: Scalars['String']['input'];
 };
 
 
@@ -2382,6 +2668,21 @@ export type QueryMessageArgs = {
 
 export type QueryMessagesArgs = {
   input?: InputMaybe<MessagePaginationInput>;
+};
+
+
+export type QueryMyComplaintArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryMyComplaintsArgs = {
+  input?: InputMaybe<ComplaintPaginationInput>;
+};
+
+
+export type QueryMyFavoriteProvidersArgs = {
+  input?: InputMaybe<FavoritePaginationInput>;
 };
 
 
@@ -2432,6 +2733,11 @@ export type QueryPermissionArgs = {
 
 export type QueryPermissionAdminsArgs = {
   permissionId: Scalars['ID']['input'];
+};
+
+
+export type QueryPremiumAdFeeReportArgs = {
+  input?: InputMaybe<FeeReportInput>;
 };
 
 
@@ -2576,9 +2882,30 @@ export type RegisterProviderInput = {
   withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type RejectContractInput = {
+  contractId: Scalars['String']['input'];
+  reason: Scalars['String']['input'];
+};
+
 export type RemoveListingResponse = {
   message: Scalars['String']['output'];
   success: Scalars['Boolean']['output'];
+};
+
+export type ReportPageMeta = {
+  limit: Scalars['Int']['output'];
+  page: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type ResendContractInput = {
+  agreedPrice: Scalars['Float']['input'];
+  customerAddress: Scalars['String']['input'];
+  customerLatitude?: InputMaybe<Scalars['Float']['input']>;
+  customerLongitude?: InputMaybe<Scalars['Float']['input']>;
+  deliveryCompanyId?: InputMaybe<Scalars['String']['input']>;
+  rejectedContractId: Scalars['String']['input'];
+  signatureData: Scalars['String']['input'];
 };
 
 export type ResendOtpInput = {
@@ -2591,13 +2918,6 @@ export type ResetPasswordWithTokenInput = {
   resetToken: Scalars['String']['input'];
 };
 
-export type ReviewComplaintInput = {
-  action?: InputMaybe<Scalars['String']['input']>;
-  adminResponse: Scalars['String']['input'];
-  complaintId: Scalars['String']['input'];
-  reviewerId: Scalars['String']['input'];
-};
-
 /** Type of contact message sender */
 export enum SenderType {
   Guest = 'GUEST',
@@ -2608,10 +2928,15 @@ export enum SenderType {
 export type Setting = {
   aboutAr: Scalars['String']['output'];
   aboutEn: Scalars['String']['output'];
+  contractAcceptanceWindowDays: Scalars['Int']['output'];
+  contractAcceptanceWindowEnabled: Scalars['Boolean']['output'];
   email: Scalars['String']['output'];
   phones: Array<Scalars['String']['output']>;
   platformManagerName?: Maybe<Scalars['String']['output']>;
   platformManagerSignature?: Maybe<Scalars['String']['output']>;
+  premiumAdDurationDays: Scalars['Int']['output'];
+  premiumAdEnabled: Scalars['Boolean']['output'];
+  premiumAdFee: Scalars['Float']['output'];
   privacyPolicyAr: Scalars['String']['output'];
   privacyPolicyEn: Scalars['String']['output'];
   publicId?: Maybe<Scalars['Int']['output']>;
@@ -2620,16 +2945,23 @@ export type Setting = {
   socialMediaLinks: Array<SocialMediaLink>;
   termsAr: Scalars['String']['output'];
   termsEn: Scalars['String']['output'];
+  vatEnabled: Scalars['Boolean']['output'];
+  vatRate: Scalars['Float']['output'];
   whatsappNumber: Scalars['String']['output'];
 };
 
 export type SettingInput = {
   aboutAr?: InputMaybe<Scalars['String']['input']>;
   aboutEn?: InputMaybe<Scalars['String']['input']>;
+  contractAcceptanceWindowDays?: InputMaybe<Scalars['Int']['input']>;
+  contractAcceptanceWindowEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   phones?: InputMaybe<Array<Scalars['String']['input']>>;
   platformManagerName?: InputMaybe<Scalars['String']['input']>;
   platformManagerSignature?: InputMaybe<Scalars['String']['input']>;
+  premiumAdDurationDays?: InputMaybe<Scalars['Int']['input']>;
+  premiumAdEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  premiumAdFee?: InputMaybe<Scalars['Float']['input']>;
   privacyPolicyAr?: InputMaybe<Scalars['String']['input']>;
   privacyPolicyEn?: InputMaybe<Scalars['String']['input']>;
   rulesAr?: InputMaybe<Scalars['String']['input']>;
@@ -2637,6 +2969,8 @@ export type SettingInput = {
   socialMediaLinks?: InputMaybe<Array<SocialMediaLinkInput>>;
   termsAr?: InputMaybe<Scalars['String']['input']>;
   termsEn?: InputMaybe<Scalars['String']['input']>;
+  vatEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  vatRate?: InputMaybe<Scalars['Float']['input']>;
   whatsappNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2721,10 +3055,17 @@ export enum SortOrder {
 }
 
 export type Subscription = {
+  /** Subscribe to new messages in a conversation (participants only) */
+  messageAdded: Message;
   /** Subscribe to real-time updates for the authenticated provider */
   providerUpdated: Provider;
   /** Subscribe to real-time updates for the authenticated user */
   userUpdated: User;
+};
+
+
+export type SubscriptionMessageAddedArgs = {
+  conversationId: Scalars['String']['input'];
 };
 
 /** Type of target being tracked (category or listing) */
@@ -2771,12 +3112,28 @@ export type UpdateBankInput = {
 };
 
 export type UpdateCategoryInput = {
+  commissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  commissionPercent?: InputMaybe<Scalars['Float']['input']>;
+  contractDocumentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  contractDocumentText?: InputMaybe<Scalars['String']['input']>;
+  customerConversationFee?: InputMaybe<Scalars['Float']['input']>;
+  customerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  depositEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  depositPercent?: InputMaybe<Scalars['Float']['input']>;
   descriptionAr?: InputMaybe<Scalars['String']['input']>;
   descriptionEn?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
   image?: InputMaybe<Scalars['String']['input']>;
+  maxCompletionDays?: InputMaybe<Scalars['Int']['input']>;
+  maxCompletionDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  maxTerminationDays?: InputMaybe<Scalars['Int']['input']>;
+  maxTerminationDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  minCommissionAmount?: InputMaybe<Scalars['Float']['input']>;
+  minCommissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   nameAr?: InputMaybe<Scalars['String']['input']>;
   nameEn?: InputMaybe<Scalars['String']['input']>;
+  providerConversationFee?: InputMaybe<Scalars['Float']['input']>;
+  providerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   rulesAr?: InputMaybe<Scalars['String']['input']>;
   rulesEn?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2789,15 +3146,6 @@ export type UpdateCityInput = {
   nameEn?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type UpdateComplaintInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
-  reason?: InputMaybe<ComplaintReason>;
-  status?: InputMaybe<ComplaintStatus>;
-  userId?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type UpdateContactMessageInput = {
   attachmentFilename?: InputMaybe<Scalars['String']['input']>;
   dialCode?: InputMaybe<Scalars['String']['input']>;
@@ -2807,25 +3155,6 @@ export type UpdateContactMessageInput = {
   messageType?: InputMaybe<MessageType>;
   name?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateContractInput = {
-  agreedPrice?: InputMaybe<Scalars['Float']['input']>;
-  clientId?: InputMaybe<Scalars['String']['input']>;
-  conversationId?: InputMaybe<Scalars['String']['input']>;
-  downPayment?: InputMaybe<Scalars['Float']['input']>;
-  id: Scalars['String']['input'];
-  providerId?: InputMaybe<Scalars['String']['input']>;
-  signatures?: InputMaybe<Array<ContractSignatureInput>>;
-  status?: InputMaybe<ContractStatus>;
-};
-
-export type UpdateConversationInput = {
-  id: Scalars['String']['input'];
-  isPaid?: InputMaybe<Scalars['Boolean']['input']>;
-  listingId?: InputMaybe<Scalars['String']['input']>;
-  providerId?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateCountryInput = {
@@ -2885,24 +3214,6 @@ export type UpdateMeInput = {
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type UpdateMessageInput = {
-  content?: InputMaybe<Scalars['String']['input']>;
-  conversationId?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  senderId?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdatePaymentInput = {
-  amount?: InputMaybe<Scalars['Float']['input']>;
-  contractId?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  notes?: InputMaybe<Scalars['String']['input']>;
-  paymentMethod?: InputMaybe<PaymentMethod>;
-  status?: InputMaybe<PaymentStatus>;
-  transactionReference?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdatePermissionInput = {

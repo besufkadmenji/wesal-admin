@@ -1,10 +1,11 @@
-import { Listing, ListingMedia } from "@/gql/graphql";
+import { ListingMedia } from "@/gql/graphql";
+import type { ListingDetails } from "@/graphql/listing/types";
 import Image from "next/image";
 import { useState } from "react";
 import { dataUrl } from "@/config/url";
 import ViewAllIcon from "@/assets/icons/view.all.svg";
 import { useDict } from "@/hooks/useDict";
-export const ListingImages = ({ listing }: { listing: Listing }) => {
+export const ListingImages = ({ listing }: { listing: ListingDetails }) => {
   const [image, setImage] = useState(0);
   const [showAll, setShowAll] = useState(false);
   const images = listing.photos || [];

@@ -1,7 +1,7 @@
 import {
-  PaginatedProviderResponse,
-  Provider,
   ProviderPaginationInput,
+  ProviderQuery,
+  ProvidersQuery,
   ProviderStatus,
 } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
@@ -10,7 +10,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
 export const useProviders = (): UseQueryResult<
-  PaginatedProviderResponse | null,
+  ProvidersQuery["providers"] | null,
   Error
 > => {
   const [page] = useQueryState("page", parseAsInteger.withDefault(1));
@@ -33,7 +33,7 @@ export const useProviders = (): UseQueryResult<
 
 export const useProvider = (
   id: string,
-): UseQueryResult<Provider | null, Error> => {
+): UseQueryResult<ProviderQuery["provider"] | null, Error> => {
   const lang = useLang();
 
   return useQuery({

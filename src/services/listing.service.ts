@@ -1,13 +1,9 @@
-import {
-  Listing,
-  ListingPaginationInput,
-  ListingType,
-  PaginatedListingResponse,
-} from "@/gql/graphql";
+import { ListingPaginationInput, ListingType } from "@/gql/graphql";
 import { ACTIVATE_LISTING_MUTATION } from "@/graphql/listing/activateListing";
 import { DEACTIVATE_LISTING_MUTATION } from "@/graphql/listing/deactivateListing";
 import { LISTING_QUERY } from "@/graphql/listing/listing";
 import { LISTINGS_QUERY } from "@/graphql/listing/listings";
+import type { ListingDetails, ListingsResult } from "@/graphql/listing/types";
 import { REMOVE_LISTING_MUTATION } from "@/graphql/listing/removeListing";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
@@ -16,7 +12,7 @@ import axiosClient from "@/utils/axios.client";
 class ListingService {
   static listings = async (
     input: ListingPaginationInput & { type?: ListingType },
-  ): Promise<PaginatedListingResponse | null> => {
+  ): Promise<ListingsResult | null> => {
     try {
       const listingResult = await client().query({
         query: LISTINGS_QUERY,
@@ -30,7 +26,9 @@ class ListingService {
     }
     return null;
   };
-  static listing = async (listingId: string): Promise<Listing | null> => {
+  static listing = async (
+    listingId: string,
+  ): Promise<ListingDetails | null> => {
     try {
       const listingResult = await client().query({
         query: LISTING_QUERY,

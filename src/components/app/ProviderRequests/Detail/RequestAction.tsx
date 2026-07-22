@@ -6,7 +6,11 @@ import moment from "moment";
 import { useQueryState } from "nuqs";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { useManageProvider } from "./useManageProvider";
-export const RequestAction = ({ request }: { request: Provider }) => {
+export const RequestAction = ({
+  request,
+}: {
+  request: Pick<Provider, "id" | "createdAt">;
+}) => {
   const dict = useDict();
   const { activateProvider, busy } = useManageProvider();
   const [showRejectModal, setShowRejectModal] =
