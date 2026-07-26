@@ -17,6 +17,7 @@ import { useCategoryById } from "../useCategories";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCategory } from "./useManageCategory";
+import { CategoryContractSettingsFields } from "./CategoryContractSettingsFields";
 
 export const EditCategory = ({ id }: { id: string }) => {
   const { category } = useCategoryById(id);
@@ -152,6 +153,9 @@ export const EditCategory = ({ id }: { id: string }) => {
               />
             </div>
           </div>
+        </FormSection>
+        <FormSection title="Contract, fees, and lifecycle settings">
+          <CategoryContractSettingsFields form={form} setForm={setForm} />
         </FormSection>
       </AppForm>
     </div>

@@ -19,6 +19,28 @@ export const CATEGORY_QUERY: TypedDocumentNode<
       image
       updatedAt
       publicId
+      commissionPercent
+      commissionEnabled
+      minCommissionAmount
+      minCommissionEnabled
+      depositPercent
+      depositEnabled
+      customerConversationFee
+      customerConversationFeeEnabled
+      providerConversationFee
+      providerConversationFeeEnabled
+      maxCompletionDays
+      maxCompletionDaysEnabled
+      maxTerminationDays
+      maxTerminationDaysEnabled
+      contractDocumentEnabled
+      contractDocumentText
+      undertakingTextAr
+      undertakingTextEn
+      undertakingEnabled
+      refundPolicyAr
+      refundPolicyEn
+      refundPolicyEnabled
     }
   }
 `;

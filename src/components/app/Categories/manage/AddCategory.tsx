@@ -16,6 +16,7 @@ import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageCategory } from "./useManageCategory";
+import { CategoryContractSettingsFields } from "./CategoryContractSettingsFields";
 
 export const AddCategory = () => {
   const { form, setForm, reset, imageFile, setImageFile } = useForm();
@@ -151,6 +152,9 @@ export const AddCategory = () => {
                 />
               </div>
             </div>
+          </FormSection>
+          <FormSection title="Contract, fees, and lifecycle settings">
+            <CategoryContractSettingsFields form={form} setForm={setForm} />
           </FormSection>
         </AppForm>
       </div>

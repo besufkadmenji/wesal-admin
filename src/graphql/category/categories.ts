@@ -28,6 +28,28 @@ export const CATEGORIES_QUERY: TypedDocumentNode<
         updatedAt
         rulesEn
         rulesAr
+        commissionPercent
+        commissionEnabled
+        minCommissionAmount
+        minCommissionEnabled
+        depositPercent
+        depositEnabled
+        customerConversationFee
+        customerConversationFeeEnabled
+        providerConversationFee
+        providerConversationFeeEnabled
+        maxCompletionDays
+        maxCompletionDaysEnabled
+        maxTerminationDays
+        maxTerminationDaysEnabled
+        contractDocumentEnabled
+        contractDocumentText
+        undertakingTextAr
+        undertakingTextEn
+        undertakingEnabled
+        refundPolicyAr
+        refundPolicyEn
+        refundPolicyEnabled
       }
     }
   }
