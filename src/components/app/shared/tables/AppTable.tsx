@@ -1,9 +1,5 @@
 import { AppCheckbox } from "@/components/app/shared/AppCheckbox";
 import {
-  cn,
-  Pagination,
-  PaginationItemRenderProps,
-  PaginationItemType,
   Table,
   TableBody,
   TableCell,
@@ -12,9 +8,13 @@ import {
   TableRow,
 } from "@heroui/react";
 import { Key, ReactNode, useState } from "react";
-import ChevronRightIcon from "@/assets/icons/app/chevron.right.svg";
-import ChevronLeftIcon from "@/assets/icons/app/chevron.left.svg";
 import { twMerge } from "tailwind-merge";
+import {
+  AppPagination,
+  PaginationType,
+} from "@/components/app/shared/tables/AppPagination";
+
+export type { PaginationType } from "@/components/app/shared/tables/AppPagination";
 
 export type ColumnType = {
   key: string;
@@ -27,11 +27,6 @@ export type RowType = {
   [key: string]: string;
 };
 
-export type PaginationType = {
-  page: number;
-  total: number;
-  onChange: (page: number) => void;
-};
 export const AppTable = ({
   columns,
   rows,
@@ -45,6 +40,7 @@ export const AppTable = ({
   classNames,
   disableSelect = true,
   rowClick,
+  emptyContent,
 }: {
   columns: ColumnType[];
   rows: RowType[];
@@ -63,6 +59,7 @@ export const AppTable = ({
     tr?: string;
   };
   rowClick?: (row: RowType) => void;
+  emptyContent?: ReactNode;
 }) => {
   const [innerSelectedRows, setInnerSelectedRows] = useState<RowType[]>(
     selectedRows || [],
@@ -126,7 +123,7 @@ export const AppTable = ({
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={rows}>
+        <TableBody items={rows} emptyContent={emptyContent}>
           {(item) => (
             <TableRow key={item.key} onClick={() => rowClick?.(item)}>
               {(columnKey) => (
@@ -168,91 +165,5 @@ export const AppTable = ({
       </Table>
       {pagination && <AppPagination pagination={pagination} />}
     </div>
-  );
-};
-
-const AppPagination = ({ pagination }: { pagination: PaginationType }) => {
-  const hasNext = pagination.page < pagination.total;
-  const hasPrevious = pagination.page > 1;
-  const renderItem = ({
-    ref,
-    key,
-    value,
-    isActive,
-    onNext,
-    onPrevious,
-    setPage,
-    className,
-  }: PaginationItemRenderProps) => {
-    if (value === PaginationItemType.NEXT) {
-      return hasNext ? (
-        <button
-          key={key}
-          className={cn(
-            className,
-            "text-app-primary size-8 min-w-8 bg-[#5DD5C412]",
-          )}
-          onClick={onNext}
-        >
-          <ChevronRightIcon className="size-5 rtl:rotate-180" />
-        </button>
-      ) : (
-        <div key={"next"} />
-      );
-    }
-
-    if (value === PaginationItemType.PREV) {
-      return hasPrevious ? (
-        <button
-          key={key}
-          className={cn(
-            className,
-            "text-app-primary size-8 min-w-8 bg-[#5DD5C412]",
-          )}
-          onClick={onPrevious}
-        >
-          <ChevronLeftIcon className="size-5 rtl:rotate-180" />
-        </button>
-      ) : (
-        <div key={"prev"} />
-      );
-    }
-
-    if (value === PaginationItemType.DOTS) {
-      return (
-        <button key={key} className={className}>
-          ...
-        </button>
-      );
-    }
-
-    return (
-      <button
-        key={key}
-        ref={ref}
-        className={cn(className)}
-        onClick={() => setPage(value)}
-      >
-        {value}
-      </button>
-    );
-  };
-
-  return (
-    <Pagination
-      page={pagination.page}
-      total={pagination.total}
-      onChange={pagination.onChange}
-      renderItem={renderItem}
-      showControls
-      className="mx-2 my-3"
-      classNames={{
-        cursor:
-          "bg-app-primary rounded-lg text-sm font-semibold leading-5 tracking-tight size-8",
-        item: "rounded-lg bg-[#5DD5C412] text-app-primary size-8 text-sm font-semibold leading-5 tracking-tight",
-        prev: "size-8 bg-[#5DD5C412] text-app-primary",
-        wrapper: "gap-2",
-      }}
-    />
   );
 };

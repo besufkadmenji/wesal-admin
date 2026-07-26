@@ -4,7 +4,7 @@ import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import CalendarIcon from "@/assets/icons/app/calendar.svg";
 import moment from "moment";
 import { useDict } from "@/hooks/useDict";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export const DateRangeFilter = ({
   dateFrom,
   dateTo,
@@ -29,9 +29,9 @@ export const DateRangeFilter = ({
     >
       <PopoverTrigger>
         <Button
-          startContent={<CalendarIcon className="size-4" />}
+          startContent={<CalendarIcon className="size-4 text-app-primary" />}
           variant="bordered"
-          className="border bg-white"
+          className="border border-gray-border-alt bg-white data-[hover=true]:border-app-primary"
         >
           {localDateFrom
             ? moment(localDateFrom).format("MMM D, YYYY")
@@ -51,7 +51,7 @@ export const DateRangeFilter = ({
               caption_label: twMerge(
                 "text-sm font-medium text-[#8B8D97] flex items-center gap-3 ltr:mr-6 rtl:ml-6",
               ),
-              chevron: "text-[#000000] size-4",
+              chevron: "text-app-primary size-4 fill-app-primary",
             }}
             formatters={{
               formatWeekdayName: (date, options) =>
@@ -64,7 +64,6 @@ export const DateRangeFilter = ({
               to: localDateTo ? new Date(localDateTo) : undefined,
             }}
             onSelect={(v) => {
-              console.log(v?.from?.toISOString(), v?.to?.toISOString());
               setLocalDateFrom(v?.from ? v.from.toISOString() : null);
               setLocalDateTo(v?.to ? v.to.toISOString() : null);
             }}
@@ -75,7 +74,7 @@ export const DateRangeFilter = ({
               setDateTo(localDateTo);
               setIsOpen(false);
             }}
-            className="bg-primary text-white"
+            className="bg-app-primary text-white"
           >
             {dict.common.actions.apply}
           </Button>

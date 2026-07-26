@@ -10,12 +10,14 @@ export const SearchInput = ({
   value,
   onChange,
   noClear,
+  onSubmit,
 }: {
   className?: string;
   noSubmit?: boolean;
   value?: string;
   onChange?: (value: string) => void;
   noClear?: boolean;
+  onSubmit?: (value: string) => void;
 }) => {
   const dict = useDict();
   const [query, setQuery] = useQueryState("search", { defaultValue: "" });
@@ -41,6 +43,7 @@ export const SearchInput = ({
         onKeyDown={(e) => {
           if (e.key === "Enter" && !noSubmit) {
             setQuery(localQuery.trim(), { history: "push" });
+            onSubmit?.(localQuery.trim());
           }
         }}
       />
@@ -49,6 +52,7 @@ export const SearchInput = ({
           onPress={() => {
             setQuery(null);
             setLocalQuery("");
+            onSubmit?.("");
           }}
           variant="solid"
           className="bg-primary text-xs font-medium text-white"

@@ -1,9 +1,9 @@
 import L from "leaflet";
-let ORIGINAL_DRAW_LOCAL: any | null = null;
+let ORIGINAL_DRAW_LOCAL: typeof L.drawLocal | null = null;
 // Call this before creating L.Control.Draw
 export const setLeafletDrawArabic = () => {
   const LA = L as unknown as {
-    drawLocal: any;
+    drawLocal: typeof L.drawLocal;
     __draw_ar_set?: boolean;
   };
 
@@ -95,7 +95,7 @@ export const setLeafletDrawArabic = () => {
 };
 
 export const restoreLeafletDrawEnglish = () => {
-  const LA = L as any;
+  const LA = L as typeof L & { drawLocal: typeof L.drawLocal };
   if (ORIGINAL_DRAW_LOCAL) {
     LA.drawLocal = structuredClone(ORIGINAL_DRAW_LOCAL);
   }

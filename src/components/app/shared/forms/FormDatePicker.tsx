@@ -1,7 +1,6 @@
 import CalendarIcon from "@/assets/icons/app/calendar.svg";
 import { cn, DatePicker, DateValue } from "@heroui/react";
-import { getLocalTimeZone, parseDate } from "@internationalized/date";
-import moment from "moment";
+import { parseDate } from "@internationalized/date";
 import { ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -29,7 +28,7 @@ export const FormDatePicker = ({
   errorMessage?: string;
 }) => {
   const [value, setValue] = useState<DateValue | null>(
-    initial ? parseDate(initial) : null,
+    initial ? (parseDate(initial) as unknown as DateValue) : null,
   );
 
   return (
@@ -42,13 +41,14 @@ export const FormDatePicker = ({
       selectorIcon={
         selectorIcon ?? <CalendarIcon className="size-3! text-white" />
       }
-      value={value}
-      onChange={(date) => {
+      value={value as never}
+      onChange={(date: unknown) => {
         if (!date) {
           return;
         }
-        setValue(date);
-        onChange(moment(date.toDate(getLocalTimeZone())).format("YYYY-MM-DD"));
+        const selected = date as DateValue;
+        setValue(selected);
+        onChange(String(selected));
       }}
       isDisabled={readOnly}
       classNames={{

@@ -61,7 +61,7 @@ const NavItem = ({
       onPress={onClick}
       className={twMerge(
         "text-subTitle h-full min-h-0 min-w-0 rounded-md bg-inherit p-0 px-3 py-1.5 text-sm leading-5 font-medium tracking-tight dark:text-white",
-        active && "bg-[#DEDEFA] text-[#4543AE] dark:text-[#4543AE]",
+        active && "bg-app-primary/15 text-app-primary dark:text-app-primary",
       )}
       size="lg"
     >
