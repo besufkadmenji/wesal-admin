@@ -15,6 +15,7 @@ import { useDict } from "@/hooks/useDict";
 import { useMe } from "@/hooks/useMe";
 import { useQueryState } from "nuqs";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
+import { LifecycleSettingsSection } from "./LifecycleSettingsSection";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
@@ -166,6 +167,7 @@ export const Settings = () => {
           </FormSection>
 
           <Rules />
+          <LifecycleSettingsSection />
         </div>
       </PageWrapper>
       <ChangePassword />

@@ -3,18 +3,22 @@ import MenuIcon from "@/assets/icons/menu.svg";
 import {
   AdminsIcon,
   BankIcon,
+  CategoryIcon,
+  ChatIcon,
   CmsIcon,
+  ComplainIcon,
+  ContractIcon,
   HomeIcon,
   ListingIcon,
   LogoutIcon,
   MapPinIcon,
   ProvidersIcon,
+  ReportIcon,
   SettingsIcon,
   ShippingIcon,
   UsersIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
-import { CategoryIcon } from "@/assets/icons/sidebar/index";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -46,6 +50,10 @@ export const Sidebar = ({ className }: { className?: string }) => {
   const canReadSettings = useCanAccess("setting", "read");
   const canReadContactMessages = useCanAccess("contact_message", "read");
   const canReadFaq = useCanAccess("faq", "read");
+  const canReadContracts = useCanAccess("contract", "read");
+  const canReadConversations = useCanAccess("conversation", "read");
+  const canReadComplaints = useCanAccess("complaint", "read");
+  const canReadReports = useCanAccess("report", "read");
   return (
     <aside
       className={twMerge(
@@ -133,6 +141,47 @@ export const Sidebar = ({ className }: { className?: string }) => {
             href="/delivery-companies"
             icon={<ShippingIcon className="size-5" />}
             label={dict.navigation.delivery_companies}
+          />
+        )}
+        {canReadContracts && (
+          <OptionLink
+            href="/contracts"
+            icon={<ContractIcon className="size-5" />}
+            label={dict.navigation.contracts}
+          />
+        )}
+        {canReadConversations && (
+          <OptionLink
+            href="/conversations"
+            icon={<ChatIcon className="size-5" />}
+            label={dict.navigation.conversations}
+          />
+        )}
+        {canReadComplaints && (
+          <OptionLink
+            href="/complaints"
+            icon={<ComplainIcon className="size-5" />}
+            label={dict.navigation.complaints}
+          />
+        )}
+        {canReadReports && (
+          <ExpandableOption
+            icon={<ReportIcon className="size-5" />}
+            label={dict.navigation.reports}
+            options={[
+              {
+                href: "/reports/contracts",
+                label: dict.navigation.contract_financial_report,
+              },
+              {
+                href: "/reports/conversations",
+                label: dict.navigation.conversation_fee_report,
+              },
+              {
+                href: "/reports/premium",
+                label: dict.navigation.premium_ad_report,
+              },
+            ]}
           />
         )}
         {canReadSettings && (

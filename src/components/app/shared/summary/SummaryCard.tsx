@@ -1,11 +1,15 @@
 import AdminsIcon from "@/assets/icons/app/summary/admins.svg";
 import BanksIcon from "@/assets/icons/app/summary/banks.svg";
 import CategoryIcon from "@/assets/icons/app/summary/category.summary.svg";
+import ChatIcon from "@/assets/icons/app/summary/chat.svg";
 import CitiesIcon from "@/assets/icons/app/summary/cities.svg";
 import ClientsIcon from "@/assets/icons/app/summary/clients.svg";
+import ComplaintIcon from "@/assets/icons/app/summary/complaint.svg";
+import ContractIcon from "@/assets/icons/app/summary/contract.svg";
 import FeaturesIcon from "@/assets/icons/app/summary/features.svg";
 import MessagesIcon from "@/assets/icons/app/summary/messages.svg";
 import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
+import ReportsIcon from "@/assets/icons/app/summary/reports.svg";
 import ShippingIcon from "@/assets/icons/app/summary/shipping.svg";
 import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.requests.svg";
 import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
@@ -31,6 +35,10 @@ export enum SummaryCardType {
   PROVIDER_REQUESTS = "PROVIDER_REQUESTS",
   PROVIDERS = "PROVIDERS",
   SIGNED_CONTRACTS = "SIGNED_CONTRACTS",
+  CONTRACTS = "CONTRACTS",
+  CONVERSATIONS = "CONVERSATIONS",
+  COMPLAINTS = "COMPLAINTS",
+  REPORTS = "REPORTS",
 }
 
 const iconMap = {
@@ -53,12 +61,17 @@ const iconMap = {
     <SubscriberRequestsIcon className="size-8.5" />
   ),
   [SummaryCardType.PROVIDERS]: <SubscribersIcon className="size-8.5" />,
-  [SummaryCardType.SIGNED_CONTRACTS]: <SubscribersIcon className="size-8.5" />,
+  [SummaryCardType.SIGNED_CONTRACTS]: <ContractIcon className="size-8.5" />,
+  [SummaryCardType.CONTRACTS]: <ContractIcon className="size-8.5" />,
+  [SummaryCardType.CONVERSATIONS]: <ChatIcon className="size-8.5" />,
+  [SummaryCardType.COMPLAINTS]: <ComplaintIcon className="size-8.5" />,
+  [SummaryCardType.REPORTS]: <ReportsIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
   type: SummaryCardType;
   title?: string;
+  subTitle?: string;
   value?: string | number;
 };
 
@@ -83,6 +96,10 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_providers,
   [SummaryCardType.SIGNED_CONTRACTS]:
     dict.signed_contracts_page.total_signed_contracts,
+  [SummaryCardType.CONTRACTS]: "Total contracts",
+  [SummaryCardType.CONVERSATIONS]: "Total conversations",
+  [SummaryCardType.COMPLAINTS]: "Total complaints",
+  [SummaryCardType.REPORTS]: "Total reports",
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -104,22 +121,30 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.PROVIDER_REQUESTS]: dict.providers_request_page.total_count,
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_count,
   [SummaryCardType.SIGNED_CONTRACTS]: dict.signed_contracts_page.total_count,
+  [SummaryCardType.CONTRACTS]: "contracts",
+  [SummaryCardType.CONVERSATIONS]: "conversations",
+  [SummaryCardType.COMPLAINTS]: "complaints",
+  [SummaryCardType.REPORTS]: "reports",
 });
 
 export const SummaryCard = ({
   type,
   value,
   endContent,
+  title,
+  subTitle,
 }: {
   type: SummaryCardType;
   value: number;
   endContent?: ReactNode;
+  title?: string;
+  subTitle?: string;
 }) => {
   const dict = useDict();
   const icon = iconMap[type];
 
-  const label = labelMap(dict)[type];
-  const subLabel = subLabelMap(dict)[type];
+  const label = title ?? labelMap(dict)[type];
+  const subLabel = subTitle ?? subLabelMap(dict)[type];
 
   return (
     <div className="border-gray-border-alt dark:border-dark-border dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-lg border bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)] lg:grid-cols-[1fr_auto]">

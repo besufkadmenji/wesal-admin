@@ -21,6 +21,14 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       rulesEn
       platformManagerName
       platformManagerSignature
+      vatRate
+      vatEnabled
+      contractAcceptanceWindowDays
+      contractAcceptanceWindowEnabled
+      completionConfirmationGraceHours
+      premiumAdFee
+      premiumAdDurationDays
+      premiumAdEnabled
     }
   }
 `;

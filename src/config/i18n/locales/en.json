@@ -173,7 +173,13 @@
     "electronicContracts": "Electronic Contracts",
     "banks": "Banks Management",
     "delivery_companies": "Delivery Companies Management",
-    "ads": "Ads Management"
+    "ads": "Ads Management",
+    "contracts": "Contracts Management",
+    "conversations": "Conversation Management",
+    "complaints": "Complaints Department",
+    "contract_financial_report": "Contract Financial Report",
+    "conversation_fee_report": "Conversation Fee Report",
+    "premium_ad_report": "Premium Advertising Report"
   },
   "users_page": {
     "title": "Users Management",

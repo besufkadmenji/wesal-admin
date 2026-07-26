@@ -171,7 +171,13 @@
     "electronicContracts": "العقود الإلكترونية",
     "banks": "إدارة البنوك",
     "delivery_companies": "إدارة شركات التوصيل",
-    "ads": "إدارة الإعلانات"
+    "ads": "إدارة الإعلانات",
+    "contracts": "إدارة التعاقدات",
+    "conversations": "إدارة المحادثات",
+    "complaints": "قسم الشكاوى",
+    "contract_financial_report": "التقرير المالي للتعاقدات",
+    "conversation_fee_report": "التقرير المالي لرسوم المحادثات",
+    "premium_ad_report": "التقرير المالي للإعلانات المميزة"
   },
   "users_page": {
     "title": "إدارة المستخدمين",

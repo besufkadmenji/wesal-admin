@@ -17,3 +17,7 @@ export { default as UsersIcon } from "./users.svg";
 export { default as BankIcon } from "./bank.svg";
 export { default as ShippingIcon } from "./truck.svg";
 export { default as ListingIcon } from "./listings.svg";
+export { default as ChatIcon } from "./chat.svg";
+export { default as ComplainIcon } from "./complain.svg";
+export { default as ContractIcon } from "./contract.svg";
+export { default as ReportIcon } from "./report.svg";
