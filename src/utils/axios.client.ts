@@ -13,7 +13,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
   if (typeof window === "undefined") return config;
 
-  const accessToken = Cookie.get("accessToken");
+  const accessToken = Cookie.get("token") ?? Cookie.get("accessToken");
   const refreshToken = Cookie.get("refreshToken");
   const accessTokenExpiry = Cookie.get("accessTokenExpiry");
   const lang = Cookie.get("lang");
@@ -30,6 +30,7 @@ axiosClient.interceptors.request.use(async (config) => {
       const res = await axios.post("/api/proxy/auth/refresh-token", {
         refreshToken,
       });
+      Cookie.set("token", res.data.accessToken);
       Cookie.set("accessToken", res.data.accessToken);
       Cookie.set("accessTokenExpiry", res.data.accessTokenExpiry);
       tokenToUse = res.data.accessToken;

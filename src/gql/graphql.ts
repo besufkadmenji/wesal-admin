@@ -1,99 +1,35 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = T | null | undefined;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+/** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-  DateTime: { input: any; output: any; }
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any; }
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: { input: any; output: any; }
-};
-
-export type AcceptContractInput = {
-  contractId: Scalars['String']['input'];
-  deliveryTimeDays: Scalars['Int']['input'];
-  signatureData: Scalars['String']['input'];
-};
-
-/** Type of user action (view or click) */
-export enum ActionType {
-  Click = 'CLICK',
-  View = 'VIEW'
-}
-
-export type Admin = {
-  adminPermissions?: Maybe<Array<AdminPermission>>;
-  avatarFilename?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  fullName: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  organizationName: Scalars['String']['output'];
-  permissionType: AdminPermissionType;
-  phoneNumber: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  roleName: Scalars['String']['output'];
-  status: AdminStatus;
-  updatedAt: Scalars['DateTime']['output'];
-  userType: AdminUserType;
-};
-
-export type AdminAuthResponse = {
-  accessToken: Scalars['String']['output'];
-  admin: Admin;
-};
-
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type AdminChangePasswordInput = {
-  currentPassword: Scalars['String']['input'];
-  newPassword: Scalars['String']['input'];
+  currentPassword: string;
+  newPassword: string;
 };
 
 export type AdminForgotPasswordInput = {
-  email: Scalars['String']['input'];
+  email: string;
 };
 
 export type AdminLoginInput = {
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+  email: string;
+  password: string;
 };
 
 export type AdminPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  permissionType?: InputMaybe<AdminPermissionType>;
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  permissionType?: AdminPermissionType | null | undefined;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<AdminSortField>;
+  sortBy?: AdminSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<AdminStatus>;
-};
-
-export type AdminPermission = {
-  admin?: Maybe<Admin>;
-  adminId: Scalars['ID']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  permission: Permission;
-  permissionId: Scalars['ID']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
+  sortOrder?: SortOrder | null | undefined;
+  status?: AdminStatus | null | undefined;
 };
 
 /** Admin permission types */
@@ -106,8 +42,14 @@ export enum AdminPermissionType {
 }
 
 export type AdminResetPasswordInput = {
-  newPassword: Scalars['String']['input'];
-  resetToken: Scalars['String']['input'];
+  newPassword: string;
+  resetToken: string;
+};
+
+export type AdminResolveContractInput = {
+  contractId: string;
+  reason: string;
+  resolution: ContractResolution;
 };
 
 /** Available fields to sort admins by */
@@ -130,8 +72,8 @@ export enum AdminStatus {
 }
 
 export type AdminTerminateContractInput = {
-  providerId: Scalars['String']['input'];
-  terminationReason: Scalars['String']['input'];
+  providerId: string;
+  terminationReason: string;
 };
 
 /** Admin user types */
@@ -140,35 +82,15 @@ export enum AdminUserType {
   Platform = 'PLATFORM'
 }
 
-export type AssignPermissionInput = {
-  adminId: Scalars['ID']['input'];
-  permissionId: Scalars['ID']['input'];
-};
-
-export type AuthResponse = {
-  accessToken: Scalars['String']['output'];
-  user: User;
-};
-
-export type Bank = {
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  nameAr: Scalars['String']['output'];
-  nameEn: Scalars['String']['output'];
-  status: BankStatus;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type BankPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<BankStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: BankStatus | null | undefined;
 };
 
 /** Status of the bank */
@@ -178,54 +100,23 @@ export enum BankStatus {
 }
 
 export type BulkAssignPermissionsInput = {
-  adminId: Scalars['ID']['input'];
-  permissionIds: Array<Scalars['ID']['input']>;
+  adminId: string;
+  permissionIds: Array<string>;
 };
 
 export type BulkUpdateFaqOrderInput = {
   items: Array<UpdateFaqOrderInput>;
 };
 
-export type Category = {
-  commissionEnabled: Scalars['Boolean']['output'];
-  commissionPercent?: Maybe<Scalars['Float']['output']>;
-  contractDocumentEnabled: Scalars['Boolean']['output'];
-  contractDocumentText: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  customerConversationFee?: Maybe<Scalars['Float']['output']>;
-  customerConversationFeeEnabled: Scalars['Boolean']['output'];
-  depositEnabled: Scalars['Boolean']['output'];
-  depositPercent?: Maybe<Scalars['Float']['output']>;
-  descriptionAr: Scalars['String']['output'];
-  descriptionEn: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  image: Scalars['String']['output'];
-  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
-  maxCompletionDaysEnabled: Scalars['Boolean']['output'];
-  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
-  maxTerminationDaysEnabled: Scalars['Boolean']['output'];
-  minCommissionAmount?: Maybe<Scalars['Float']['output']>;
-  minCommissionEnabled: Scalars['Boolean']['output'];
-  nameAr: Scalars['String']['output'];
-  nameEn: Scalars['String']['output'];
-  providerConversationFee?: Maybe<Scalars['Float']['output']>;
-  providerConversationFeeEnabled: Scalars['Boolean']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  rulesAr: Scalars['String']['output'];
-  rulesEn: Scalars['String']['output'];
-  status: CategoryStatus;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type CategoryPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<CategoryStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: CategoryStatus | null | undefined;
 };
 
 /** Category publication status */
@@ -234,51 +125,17 @@ export enum CategoryStatus {
   Inactive = 'INACTIVE'
 }
 
-export type ChangeEmailInput = {
-  newEmail: Scalars['String']['input'];
-};
-
-export type ChangeEmailResponse = {
-  changeToken: Scalars['String']['output'];
-};
-
-export type ChangePasswordInput = {
-  newPassword: Scalars['String']['input'];
-};
-
-export type ChangePhoneInput = {
-  countryCode: Scalars['String']['input'];
-  newPhone: Scalars['String']['input'];
-};
-
-export type ChangePhoneResponse = {
-  changeToken: Scalars['String']['output'];
-};
-
-export type City = {
-  country?: Maybe<Country>;
-  countryId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  geoBoundary?: Maybe<Scalars['JSON']['output']>;
-  id: Scalars['ID']['output'];
-  nameAr: Scalars['String']['output'];
-  nameEn: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  status: CityStatus;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type CityPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<CitySortField>;
+  sortBy?: CitySortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<CityStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: CityStatus | null | undefined;
 };
 
 /** Available fields to sort cities by */
@@ -297,54 +154,26 @@ export enum CityStatus {
   Inactive = 'INACTIVE'
 }
 
-export type Complaint = {
-  attachments: Scalars['JSON']['output'];
-  contract?: Maybe<Contract>;
-  contractId?: Maybe<Scalars['ID']['output']>;
-  conversation: Conversation;
-  conversationId: Scalars['ID']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  listing: Listing;
-  listingId: Scalars['ID']['output'];
-  messages: Array<ComplaintMessage>;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  reporterId: Scalars['ID']['output'];
-  reporterType: ComplaintReporterType;
-  reviewedAt?: Maybe<Scalars['DateTime']['output']>;
-  reviewedByAdminId?: Maybe<Scalars['ID']['output']>;
-  reviewer?: Maybe<Admin>;
-  status: ComplaintStatus;
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type ComplaintMessage = {
-  authorId: Scalars['ID']['output'];
-  authorType: ComplaintMessageAuthorType;
-  complaintId: Scalars['ID']['output'];
-  content: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-};
-
 export enum ComplaintMessageAuthorType {
   Admin = 'ADMIN',
   Reporter = 'REPORTER'
 }
 
 export type ComplaintPaginationInput = {
-  conversationId?: InputMaybe<Scalars['String']['input']>;
+  conversationId?: string | null | undefined;
+  from?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
-  sortBy?: InputMaybe<ComplaintSortField>;
+  page?: number;
+  reporterType?: ComplaintReporterType | null | undefined;
+  reviewerId?: string | null | undefined;
+  search?: string | null | undefined;
+  sortBy?: ComplaintSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<ComplaintStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: ComplaintStatus | null | undefined;
+  to?: string | null | undefined;
 };
 
 export enum ComplaintReporterType {
@@ -367,46 +196,23 @@ export enum ComplaintStatus {
   UnderReview = 'UNDER_REVIEW'
 }
 
-export type CompleteContractInput = {
-  contractId: Scalars['String']['input'];
-  signatureData: Scalars['String']['input'];
-};
-
-export type ContactMessage = {
-  attachmentFilename?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  dialCode?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  messageContent: Scalars['String']['output'];
-  messageType: MessageType;
-  name: Scalars['String']['output'];
-  phone: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  reply: Scalars['String']['output'];
-  senderId?: Maybe<Scalars['String']['output']>;
-  senderType: SenderType;
-  status: ContactMessageStatus;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type ContactMessagePaginationInput = {
   /** Filter messages from this date */
-  dateFrom?: InputMaybe<Scalars['DateTime']['input']>;
+  dateFrom?: string | null | undefined;
   /** Filter messages until this date */
-  dateTo?: InputMaybe<Scalars['DateTime']['input']>;
+  dateTo?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  messageType?: InputMaybe<MessageType>;
+  limit?: number;
+  messageType?: MessageType | null | undefined;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
+  page?: number;
   /** Search across name, email, phone, and message content */
-  search?: InputMaybe<Scalars['String']['input']>;
-  senderType?: InputMaybe<SenderType>;
-  sortBy?: InputMaybe<ContactMessageSortField>;
+  search?: string | null | undefined;
+  senderType?: SenderType | null | undefined;
+  sortBy?: ContactMessageSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<ContactMessageStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: ContactMessageStatus | null | undefined;
 };
 
 /** Fields to sort contact messages by */
@@ -423,120 +229,71 @@ export enum ContactMessageStatus {
   Sent = 'SENT'
 }
 
-export type Contract = {
-  acceptedAt?: Maybe<Scalars['DateTime']['output']>;
-  agreedPrice: Scalars['Float']['output'];
-  categoryId: Scalars['String']['output'];
-  categoryRulesAr: Scalars['String']['output'];
-  categoryRulesEn: Scalars['String']['output'];
-  client: User;
-  clientId: Scalars['String']['output'];
-  commissionAmount: Scalars['Float']['output'];
-  commissionPercent: Scalars['Float']['output'];
-  contractDocumentText: Scalars['String']['output'];
-  conversation: Conversation;
-  conversationId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  customerAddress: Scalars['String']['output'];
-  customerLatitude?: Maybe<Scalars['Float']['output']>;
-  customerLongitude?: Maybe<Scalars['Float']['output']>;
-  deliveryCompanyId?: Maybe<Scalars['ID']['output']>;
-  deliveryCompanyNameAr?: Maybe<Scalars['String']['output']>;
-  deliveryCompanyNameEn?: Maybe<Scalars['String']['output']>;
-  deliveryTimeDays?: Maybe<Scalars['Int']['output']>;
-  depositPercent: Scalars['Float']['output'];
-  downPayment: Scalars['Float']['output'];
-  id: Scalars['ID']['output'];
-  listingId: Scalars['String']['output'];
-  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
-  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
-  pricingVersion: Scalars['Int']['output'];
-  provider: Provider;
-  providerAddress?: Maybe<Scalars['String']['output']>;
-  providerId: Scalars['String']['output'];
-  providerLatitude?: Maybe<Scalars['Float']['output']>;
-  providerLongitude?: Maybe<Scalars['Float']['output']>;
-  providerNetAmount: Scalars['Float']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  rejectedAt?: Maybe<Scalars['DateTime']['output']>;
-  rejectionReason?: Maybe<Scalars['String']['output']>;
-  signatures: Array<ContractSignature>;
-  status: ContractStatus;
-  supersedesContract?: Maybe<Contract>;
-  supersedesContractId?: Maybe<Scalars['ID']['output']>;
-  totalPayable: Scalars['Float']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  vatAmount: Scalars['Float']['output'];
-  vatRate: Scalars['Float']['output'];
-  version: Scalars['Int']['output'];
-};
+export enum ContractActorType {
+  Admin = 'ADMIN',
+  Provider = 'PROVIDER',
+  System = 'SYSTEM',
+  User = 'USER'
+}
+
+export enum ContractAuditAction {
+  CancellationRequested = 'CANCELLATION_REQUESTED',
+  ContractAccepted = 'CONTRACT_ACCEPTED',
+  ContractCreated = 'CONTRACT_CREATED',
+  ContractRejected = 'CONTRACT_REJECTED',
+  ContractResent = 'CONTRACT_RESENT',
+  CustomerCompleted = 'CUSTOMER_COMPLETED',
+  DeliveryRefused = 'DELIVERY_REFUSED',
+  DeliveryStarted = 'DELIVERY_STARTED',
+  DisputeRefunded = 'DISPUTE_REFUNDED',
+  DisputeReleased = 'DISPUTE_RELEASED',
+  PaymentCompleted = 'PAYMENT_COMPLETED',
+  ProviderCompleted = 'PROVIDER_COMPLETED',
+  TimeoutCancelled = 'TIMEOUT_CANCELLED',
+  TimeoutCompleted = 'TIMEOUT_COMPLETED'
+}
 
 export type ContractPaginationInput = {
-  clientId?: InputMaybe<Scalars['String']['input']>;
-  conversationId?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: string | null | undefined;
+  clientId?: string | null | undefined;
+  conversationId?: string | null | undefined;
+  from?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  providerId?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  providerId?: string | null | undefined;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<ContractSortField>;
+  sortBy?: ContractSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<ContractStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: ContractStatus | null | undefined;
+  to?: string | null | undefined;
 };
 
-export type ContractPaymentResponse = {
-  contract: Contract;
-  payment: Payment;
-};
+export enum ContractResolution {
+  Cancel = 'CANCEL',
+  Complete = 'COMPLETE',
+  RefundCustomer = 'REFUND_CUSTOMER',
+  ReleaseProvider = 'RELEASE_PROVIDER'
+}
 
-export type ContractQuote = {
-  agreedPrice: Scalars['Float']['output'];
-  commissionAmount: Scalars['Float']['output'];
-  commissionPercent: Scalars['Float']['output'];
-  contractDocumentText: Scalars['String']['output'];
-  depositPercent: Scalars['Float']['output'];
-  downPayment: Scalars['Float']['output'];
-  maxCompletionDays?: Maybe<Scalars['Int']['output']>;
-  maxTerminationDays?: Maybe<Scalars['Int']['output']>;
-  providerNetAmount: Scalars['Float']['output'];
-  totalPayable: Scalars['Float']['output'];
-  vatAmount: Scalars['Float']['output'];
-  vatRate: Scalars['Float']['output'];
-};
+/** Append-only mock allocation of a settled contract payment */
+export enum ContractSettlementType {
+  CustomerRefund = 'CUSTOMER_REFUND',
+  Hold = 'HOLD',
+  PlatformCommission = 'PLATFORM_COMMISSION',
+  ProviderRelease = 'PROVIDER_RELEASE',
+  Vat = 'VAT'
+}
 
-export type ContractQuoteInput = {
-  agreedPrice: Scalars['Float']['input'];
-  conversationId: Scalars['String']['input'];
-};
-
-export type ContractRule = {
-  label: Scalars['String']['output'];
-  value: Scalars['String']['output'];
-};
-
-export type ContractRuleInput = {
-  label: Scalars['String']['input'];
-  value: Scalars['String']['input'];
-};
-
-export type ContractSignature = {
-  contract: Contract;
-  contractId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  signatureData: Scalars['String']['output'];
-  signatureType: ContractSignatureType;
-  signedAt: Scalars['DateTime']['output'];
-  signerId: Scalars['String']['output'];
-  signerType: ContractSignerType;
-};
-
-/** Sprint 3 contract signature purpose */
+/** Contract acceptance or completion signature purpose */
 export enum ContractSignatureType {
   CustomerAcceptance = 'CUSTOMER_ACCEPTANCE',
   CustomerCompletion = 'CUSTOMER_COMPLETION',
-  ProviderAcceptance = 'PROVIDER_ACCEPTANCE'
+  ProviderAcceptance = 'PROVIDER_ACCEPTANCE',
+  ProviderCompletion = 'PROVIDER_COMPLETION'
 }
 
 /** Entity type of the contract signer */
@@ -558,87 +315,34 @@ export enum ContractSortField {
 /** Contract status */
 export enum ContractStatus {
   Accepted = 'ACCEPTED',
+  AwaitingCustomerConfirmation = 'AWAITING_CUSTOMER_CONFIRMATION',
+  CancellationRequested = 'CANCELLATION_REQUESTED',
   Cancelled = 'CANCELLED',
   Completed = 'COMPLETED',
+  DeliveryInProgress = 'DELIVERY_IN_PROGRESS',
+  Disputed = 'DISPUTED',
   Draft = 'DRAFT',
   InProgress = 'IN_PROGRESS',
   Pending = 'PENDING',
   Rejected = 'REJECTED'
 }
 
-export type Conversation = {
-  access?: Maybe<ConversationAccess>;
-  closeReason?: Maybe<Scalars['String']['output']>;
-  closedAt?: Maybe<Scalars['DateTime']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  customerFeePaidAt?: Maybe<Scalars['DateTime']['output']>;
-  customerLastReadAt?: Maybe<Scalars['DateTime']['output']>;
-  expiresAt?: Maybe<Scalars['DateTime']['output']>;
-  feeCycle: Scalars['Int']['output'];
-  id: Scalars['ID']['output'];
-  lastActivityAt: Scalars['DateTime']['output'];
-  lastMessage?: Maybe<Message>;
-  listing: Listing;
-  listingId: Scalars['String']['output'];
-  messages?: Maybe<Array<Message>>;
-  provider: Provider;
-  providerFeePaidAt?: Maybe<Scalars['DateTime']['output']>;
-  providerId: Scalars['String']['output'];
-  providerLastReadAt?: Maybe<Scalars['DateTime']['output']>;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  status: ConversationStatus;
-  unreadCount: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type ConversationAccess = {
-  canSend: Scalars['Boolean']['output'];
-  expiresAt?: Maybe<Scalars['DateTime']['output']>;
-  feeAmount: Scalars['Float']['output'];
-  feeCycle: Scalars['Float']['output'];
-  feeRequired: Scalars['Boolean']['output'];
-  paidAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ConversationFeePaymentResponse = {
-  access: ConversationAccess;
-  conversation: Conversation;
-  payment?: Maybe<Payment>;
-};
-
-export type ConversationFeeReport = {
-  items: Array<ConversationFeeReportRow>;
-  meta: ReportPageMeta;
-  totalCustomerFees: Scalars['Float']['output'];
-  totalProviderFees: Scalars['Float']['output'];
-};
-
-export type ConversationFeeReportRow = {
-  conversationId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  customerFee: Scalars['Float']['output'];
-  customerName?: Maybe<Scalars['String']['output']>;
-  paymentId: Scalars['String']['output'];
-  providerFee: Scalars['Float']['output'];
-  providerName?: Maybe<Scalars['String']['output']>;
-  status: Scalars['String']['output'];
-};
-
 export type ConversationPaginationInput = {
+  from?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
+  limit?: number;
+  listingId?: string | null | undefined;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  providerId?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  providerId?: string | null | undefined;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<ConversationSortField>;
+  sortBy?: ConversationSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<ConversationStatus>;
-  userId?: InputMaybe<Scalars['String']['input']>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: ConversationStatus | null | undefined;
+  to?: string | null | undefined;
+  userId?: string | null | undefined;
 };
 
 /** Whether a message sender is a User, Provider, or the platform */
@@ -663,26 +367,15 @@ export enum ConversationStatus {
   Closed = 'CLOSED'
 }
 
-export type Country = {
-  code: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  dialCode?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  nameAr: Scalars['String']['output'];
-  nameEn: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type CountryPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
+  page?: number;
   /** Sort field name */
-  sortBy?: InputMaybe<CountrySortField>;
+  sortBy?: CountrySortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
+  sortOrder?: SortOrder | null | undefined;
 };
 
 /** Available fields to sort countries by */
@@ -695,227 +388,111 @@ export enum CountrySortField {
 }
 
 export type CreateAdminInput = {
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  fullName: Scalars['String']['input'];
-  organizationName: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+  avatarFilename?: string | null | undefined;
+  email: string;
+  fullName: string;
+  organizationName: string;
+  password: string;
   permissionType: AdminPermissionType;
-  phoneNumber: Scalars['String']['input'];
-  roleName: Scalars['String']['input'];
+  phoneNumber: string;
+  roleName: string;
   status?: AdminStatus;
   userType: AdminUserType;
 };
 
 export type CreateBankInput = {
-  nameAr: Scalars['String']['input'];
-  nameEn: Scalars['String']['input'];
+  nameAr: string;
+  nameEn: string;
   status: BankStatus;
 };
 
 export type CreateCategoryInput = {
-  commissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  commissionPercent?: InputMaybe<Scalars['Float']['input']>;
-  contractDocumentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  contractDocumentText?: InputMaybe<Scalars['String']['input']>;
-  customerConversationFee?: InputMaybe<Scalars['Float']['input']>;
-  customerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  depositEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  depositPercent?: InputMaybe<Scalars['Float']['input']>;
-  descriptionAr: Scalars['String']['input'];
-  descriptionEn: Scalars['String']['input'];
-  image: Scalars['String']['input'];
-  maxCompletionDays?: InputMaybe<Scalars['Int']['input']>;
-  maxCompletionDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  maxTerminationDays?: InputMaybe<Scalars['Int']['input']>;
-  maxTerminationDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  minCommissionAmount?: InputMaybe<Scalars['Float']['input']>;
-  minCommissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  nameAr: Scalars['String']['input'];
-  nameEn: Scalars['String']['input'];
-  providerConversationFee?: InputMaybe<Scalars['Float']['input']>;
-  providerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  rulesAr?: InputMaybe<Scalars['String']['input']>;
-  rulesEn?: InputMaybe<Scalars['String']['input']>;
+  commissionEnabled?: boolean | null | undefined;
+  commissionPercent?: number | null | undefined;
+  contractDocumentEnabled?: boolean | null | undefined;
+  contractDocumentText?: string | null | undefined;
+  customerConversationFee?: number | null | undefined;
+  customerConversationFeeEnabled?: boolean | null | undefined;
+  depositEnabled?: boolean | null | undefined;
+  depositPercent?: number | null | undefined;
+  descriptionAr: string;
+  descriptionEn: string;
+  image: string;
+  maxCompletionDays?: number | null | undefined;
+  maxCompletionDaysEnabled?: boolean | null | undefined;
+  maxTerminationDays?: number | null | undefined;
+  maxTerminationDaysEnabled?: boolean | null | undefined;
+  minCommissionAmount?: number | null | undefined;
+  minCommissionEnabled?: boolean | null | undefined;
+  nameAr: string;
+  nameEn: string;
+  providerConversationFee?: number | null | undefined;
+  providerConversationFeeEnabled?: boolean | null | undefined;
+  refundPolicyAr?: string | null | undefined;
+  refundPolicyEn?: string | null | undefined;
+  refundPolicyEnabled?: boolean | null | undefined;
+  rulesAr?: string | null | undefined;
+  rulesEn?: string | null | undefined;
+  undertakingEnabled?: boolean | null | undefined;
+  undertakingTextAr?: string | null | undefined;
+  undertakingTextEn?: string | null | undefined;
 };
 
 export type CreateCityInput = {
-  countryId: Scalars['ID']['input'];
-  geoBoundary?: InputMaybe<Scalars['JSON']['input']>;
-  nameAr: Scalars['String']['input'];
-  nameEn: Scalars['String']['input'];
-};
-
-export type CreateComplaintInput = {
-  contractId?: InputMaybe<Scalars['ID']['input']>;
-  conversationId: Scalars['ID']['input'];
-  description: Scalars['String']['input'];
-  title: Scalars['String']['input'];
-};
-
-export type CreateContactMessageInput = {
-  attachmentFilename?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  messageContent: Scalars['String']['input'];
-  messageType?: MessageType;
-  name: Scalars['String']['input'];
-  phone: Scalars['String']['input'];
-};
-
-export type CreateContractInput = {
-  agreedPrice: Scalars['Float']['input'];
-  contractId?: InputMaybe<Scalars['String']['input']>;
-  conversationId: Scalars['String']['input'];
-  customerAddress: Scalars['String']['input'];
-  customerLatitude?: InputMaybe<Scalars['Float']['input']>;
-  customerLongitude?: InputMaybe<Scalars['Float']['input']>;
-  deliveryCompanyId?: InputMaybe<Scalars['String']['input']>;
-  signatureData: Scalars['String']['input'];
-};
-
-export type CreateConversationInput = {
-  listingId: Scalars['String']['input'];
-};
-
-export type CreateCountryInput = {
-  code: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  countryId: string;
+  geoBoundary?: unknown;
+  nameAr: string;
+  nameEn: string;
 };
 
 export type CreateDeliveryCompanyInput = {
-  nameAr: Scalars['String']['input'];
-  nameEn: Scalars['String']['input'];
+  nameAr: string;
+  nameEn: string;
   status: DeliveryCompanyStatus;
 };
 
 export type CreateFaqInput = {
-  answerAr: Scalars['String']['input'];
-  answerEn: Scalars['String']['input'];
-  isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  order?: InputMaybe<Scalars['Float']['input']>;
-  questionAr: Scalars['String']['input'];
-  questionEn: Scalars['String']['input'];
-};
-
-export type CreateListingInput = {
-  categoryId: Scalars['String']['input'];
-  cityId: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  photos?: InputMaybe<Array<CreateListingMediaInput>>;
-  price: Scalars['Float']['input'];
-  status?: InputMaybe<ListingStatus>;
-  story?: InputMaybe<CreateListingMediaInput>;
-  type: ListingType;
-};
-
-export type CreateListingMediaInput = {
-  filename: Scalars['String']['input'];
-  id: Scalars['String']['input'];
-  originalFilename: Scalars['String']['input'];
-  size: Scalars['Int']['input'];
-  sortOrder: Scalars['Int']['input'];
-  type: MediaType;
-};
-
-export type CreateMessageInput = {
-  content: Scalars['String']['input'];
-  conversationId: Scalars['String']['input'];
-};
-
-export type CreateNotificationInput = {
-  isRead?: InputMaybe<Scalars['Boolean']['input']>;
-  message: Scalars['String']['input'];
-  relatedEntityId?: InputMaybe<Scalars['String']['input']>;
-  relatedEntityType?: InputMaybe<Scalars['String']['input']>;
-  title: Scalars['String']['input'];
-  type: NotificationType;
-  userId: Scalars['String']['input'];
-};
-
-export type CreatePermissionInput = {
-  action: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  module: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  nameAr: Scalars['String']['input'];
-  permissionPlatform?: PermissionPlatform;
-  resource: Scalars['String']['input'];
-};
-
-export type CreateProviderInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName?: InputMaybe<Scalars['String']['input']>;
-  categoryIds?: InputMaybe<Array<Scalars['String']['input']>>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  commercialName?: InputMaybe<Scalars['String']['input']>;
-  commercialRegistrationFilename?: InputMaybe<Scalars['String']['input']>;
-  commercialRegistrationNumber?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  ibanNumber?: InputMaybe<Scalars['String']['input']>;
-  languageCode?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  password: Scalars['String']['input'];
-  phone: Scalars['String']['input'];
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type CreateRatingInput = {
-  comment?: InputMaybe<Scalars['String']['input']>;
-  listingId: Scalars['String']['input'];
-  rating: Scalars['Int']['input'];
-  userId: Scalars['String']['input'];
+  answerAr: string;
+  answerEn: string;
+  isActive?: boolean | null | undefined;
+  order?: number | null | undefined;
+  questionAr: string;
+  questionEn: string;
 };
 
 export type DeactivateAdminInput = {
-  reason?: InputMaybe<Scalars['String']['input']>;
+  reason?: string | null | undefined;
 };
 
 export type DeactivateBankInput = {
-  reason: Scalars['String']['input'];
+  reason: string;
 };
 
 export type DeactivateDeliveryCompanyInput = {
-  reason: Scalars['String']['input'];
+  reason: string;
 };
 
 export type DeactivateUserInput = {
-  reason?: InputMaybe<Scalars['String']['input']>;
+  reason?: string | null | undefined;
 };
 
 export type DeleteProviderInput = {
-  reason?: InputMaybe<Scalars['String']['input']>;
+  reason?: string | null | undefined;
 };
 
 export type DeleteUserInput = {
-  reason?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type DeliveryCompany = {
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  nameAr: Scalars['String']['output'];
-  nameEn: Scalars['String']['output'];
-  status: DeliveryCompanyStatus;
-  updatedAt: Scalars['DateTime']['output'];
+  reason?: string | null | undefined;
 };
 
 export type DeliveryCompanyPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<DeliveryCompanyStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: DeliveryCompanyStatus | null | undefined;
 };
 
 /** Status of the delivery company */
@@ -924,122 +501,40 @@ export enum DeliveryCompanyStatus {
   Inactive = 'INACTIVE'
 }
 
-export type Faq = {
-  answerAr: Scalars['String']['output'];
-  answerEn: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  isActive: Scalars['Boolean']['output'];
-  order: Scalars['Float']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  questionAr: Scalars['String']['output'];
-  questionEn: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type Favorite = {
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  provider: Provider;
-  providerId: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type FavoritePaginationInput = {
-  /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  /** Sort field name */
-  sortBy?: InputMaybe<FavoriteSortField>;
-  /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-};
-
-/** Available fields to sort favorites by */
-export enum FavoriteSortField {
-  CreatedAt = 'createdAt',
-  Id = 'id'
-}
-
 export type FeeReportInput = {
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  conversationId?: InputMaybe<Scalars['String']['input']>;
-  customerId?: InputMaybe<Scalars['String']['input']>;
-  from?: InputMaybe<Scalars['DateTime']['input']>;
+  categoryId?: string | null | undefined;
+  conversationId?: string | null | undefined;
+  customerId?: string | null | undefined;
+  from?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
+  limit?: number;
+  listingId?: string | null | undefined;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  providerId?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  providerId?: string | null | undefined;
+  search?: string | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<Scalars['String']['input']>;
-  to?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type ForgotPasswordInput = {
-  emailOrPhone: Scalars['String']['input'];
-};
-
-export type InitializeContractInput = {
-  conversationId: Scalars['String']['input'];
-};
-
-export type Listing = {
-  category?: Maybe<Category>;
-  categoryId: Scalars['String']['output'];
-  city?: Maybe<City>;
-  cityId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  description: Scalars['String']['output'];
-  featuredEndsAt?: Maybe<Scalars['DateTime']['output']>;
-  featuredStartsAt?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  photos: Array<ListingMedia>;
-  price: Scalars['Float']['output'];
-  promotionCycle: Scalars['Int']['output'];
-  promotionStatus: PromotionStatus;
-  provider?: Maybe<Provider>;
-  providerId: Scalars['String']['output'];
-  status: ListingStatus;
-  story: ListingMedia;
-  tags: Scalars['String']['output'];
-  type: ListingType;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type ListingMedia = {
-  filename: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  originalFilename: Scalars['String']['output'];
-  size: Scalars['Int']['output'];
-  sortOrder: Scalars['Float']['output'];
-  type: MediaType;
+  sortOrder?: SortOrder | null | undefined;
+  status?: string | null | undefined;
+  to?: string | null | undefined;
 };
 
 export type ListingPaginationInput = {
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: string | null | undefined;
+  cityId?: string | null | undefined;
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  maxPrice?: InputMaybe<Scalars['Float']['input']>;
-  minPrice?: InputMaybe<Scalars['Float']['input']>;
+  limit?: number;
+  maxPrice?: number | null | undefined;
+  minPrice?: number | null | undefined;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<ListingSortField>;
+  sortBy?: ListingSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<ListingStatus>;
-  type?: InputMaybe<ListingType>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: ListingStatus | null | undefined;
+  type?: ListingType | null | undefined;
 };
 
 /** Available fields to sort listings by */
@@ -1065,70 +560,27 @@ export enum ListingType {
   Free = 'FREE'
 }
 
-export type LoginInput = {
-  emailOrPhone: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
-export type LoginProviderInput = {
-  emailOrPhone: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
 /** Media file type */
 export enum MediaType {
   Image = 'IMAGE',
   Video = 'VIDEO'
 }
 
-export type Message = {
-  content: Scalars['String']['output'];
-  conversation: Conversation;
-  conversationId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  kind: MessageKind;
-  metadata?: Maybe<Scalars['JSON']['output']>;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  /** The message sender, either a User (customer) or a Provider */
-  sender?: Maybe<MessageSender>;
-  senderId?: Maybe<Scalars['ID']['output']>;
-  senderType: ConversationSenderType;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 /** User text or a typed system event in a conversation */
 export enum MessageKind {
   ChatFeePaid = 'CHAT_FEE_PAID',
   ContractAccepted = 'CONTRACT_ACCEPTED',
+  ContractCancellationRequested = 'CONTRACT_CANCELLATION_REQUESTED',
+  ContractCancelled = 'CONTRACT_CANCELLED',
   ContractCompleted = 'CONTRACT_COMPLETED',
   ContractCreated = 'CONTRACT_CREATED',
+  ContractDeliveryStarted = 'CONTRACT_DELIVERY_STARTED',
+  ContractDisputed = 'CONTRACT_DISPUTED',
   ContractPaid = 'CONTRACT_PAID',
+  ContractProviderCompleted = 'CONTRACT_PROVIDER_COMPLETED',
   ContractRejected = 'CONTRACT_REJECTED',
   ContractResent = 'CONTRACT_RESENT',
   Text = 'TEXT'
-}
-
-export type MessagePaginationInput = {
-  conversationId?: InputMaybe<Scalars['String']['input']>;
-  /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  senderId?: InputMaybe<Scalars['String']['input']>;
-  /** Sort field name */
-  sortBy?: InputMaybe<MessageSortField>;
-  /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-};
-
-export type MessageSender = Provider | User;
-
-/** Available fields to sort messages by */
-export enum MessageSortField {
-  CreatedAt = 'createdAt',
-  Id = 'id',
-  UpdatedAt = 'updatedAt'
 }
 
 /** Type of contact message */
@@ -1140,1264 +592,19 @@ export enum MessageType {
   Suggestion = 'SUGGESTION'
 }
 
-export type Mutation = {
-  /** Provider accepts a pending contract */
-  acceptContract: Contract;
-  activateAdmin: Admin;
-  activateBank: Bank;
-  activateCategory: Category;
-  activateCity: City;
-  activateDeliveryCompany: DeliveryCompany;
-  activateListing: Listing;
-  /** Activate provider by ID */
-  activateProvider: Provider;
-  /** Activate user by ID */
-  activateUser: User;
-  addComplaintMessage: ComplaintMessage;
-  adminChangePassword: Scalars['Boolean']['output'];
-  adminForgotPassword: Scalars['Boolean']['output'];
-  adminLogin: AdminAuthResponse;
-  /** Admin reactivates a provider whose contract was terminated by admin */
-  adminReactivateProvider: Provider;
-  adminReplyToComplaint: ComplaintMessage;
-  adminResetPassword: Scalars['Boolean']['output'];
-  adminSetComplaintStatus: Complaint;
-  /** Admin terminates provider contract */
-  adminTerminateProviderContract: Provider;
-  adminVerifyPasswordResetOtp: VerifyAdminPasswordResetOtpResponse;
-  assignPermissionToAdmin: AdminPermission;
-  bulkAssignPermissionsToAdmin: Array<AdminPermission>;
-  bulkRevokePermissionsFromAdmin: Scalars['Boolean']['output'];
-  /** Bulk update FAQ order (admin only) */
-  bulkUpdateOrder: Array<Faq>;
-  /** Change password for authenticated user */
-  changePassword: Scalars['Boolean']['output'];
-  /** Change password for authenticated provider */
-  changeProviderPassword: Scalars['Boolean']['output'];
-  /** Customer signs and completes an in-progress contract */
-  completeContract: Contract;
-  createAdmin: Admin;
-  createBank: Bank;
-  createCategory: Category;
-  createCity: City;
-  createComplaint: Complaint;
-  /** Create contact message (public) */
-  createContactMessage: ContactMessage;
-  createContract: Contract;
-  createConversation: Conversation;
-  createCountry: Country;
-  createDeliveryCompany: DeliveryCompany;
-  /** Create FAQ (admin only) */
-  createFaq: Faq;
-  createListing: Listing;
-  createMessage: Message;
-  createNotification: Notification;
-  createPermission: Permission;
-  /** Create a new provider */
-  createProvider: Provider;
-  createRating: Rating;
-  deactivateAdmin: Admin;
-  deactivateBank: Bank;
-  deactivateCategory: Category;
-  deactivateCity: City;
-  deactivateDeliveryCompany: DeliveryCompany;
-  deactivateListing: Listing;
-  /** Deactivate provider */
-  deactivateProvider: Provider;
-  /** Deactivate user by ID */
-  deactivateUser: User;
-  /** Delete all notifications for a user */
-  deleteAllNotificationsForUser: Scalars['Boolean']['output'];
-  deleteSignedContract: SignedContract;
-  /** Request password reset OTP */
-  forgotPassword: Scalars['Boolean']['output'];
-  /** Request password reset OTP for provider */
-  forgotProviderPassword: Scalars['Boolean']['output'];
-  /** Creates or returns the customer draft for a conversation so the contract ID and public number are available before submission */
-  initializeContract: Contract;
-  /** Initiate email change - sends OTP to new email and returns change token */
-  initiateEmailChange: ChangeEmailResponse;
-  /** Initiate phone change - sends OTP to new phone and returns change token */
-  initiatePhoneChange: ChangePhoneResponse;
-  /** Initiate provider email change - sends OTP to new email and returns change token */
-  initiateProviderEmailChange: ChangeEmailResponse;
-  /** Initiate provider phone change - sends OTP to new phone and returns change token */
-  initiateProviderPhoneChange: ChangePhoneResponse;
-  /** Login with email and password */
-  login: AuthResponse;
-  /** Login as provider with email/phone and password */
-  loginProvider: ProviderAuthResponse;
-  /** Mark all notifications as read for a user */
-  markAllNotificationsAsRead: Scalars['Boolean']['output'];
-  /** Mark message as read (admin only) */
-  markAsRead: ContactMessage;
-  /** Mark the conversation as read for the authenticated side */
-  markConversationRead: Conversation;
-  /** Mark multiple notifications as read */
-  markMultipleNotificationsAsRead: Scalars['Boolean']['output'];
-  /** Mark a notification as read */
-  markNotificationAsRead: Notification;
-  /** Mark a notification as unread */
-  markNotificationAsUnread: Notification;
-  /** Settle an accepted contract using the Sprint 3 mock */
-  payContract: ContractPaymentResponse;
-  /** Settle the authenticated participant conversation fee */
-  payConversationFee: ConversationFeePaymentResponse;
-  /** Settle and activate a featured advertisement using the mock */
-  payPremiumAd: PremiumAdPaymentResponse;
-  /** Register a new user and send verification OTPs */
-  register: User;
-  /** Register a new provider and send verification OTPs */
-  registerProvider: Provider;
-  /** Provider rejects a pending contract */
-  rejectContract: Contract;
-  /** Reject a pending provider join request */
-  rejectProviderJoinRequest: Provider;
-  removeAdmin: Scalars['Boolean']['output'];
-  /** Delete user avatar by ID */
-  removeAvatar: Scalars['Boolean']['output'];
-  removeBank: Bank;
-  removeCategory: Category;
-  removeCity: City;
-  /** Delete contact message (admin only) */
-  removeContactMessage: Scalars['Boolean']['output'];
-  removeCountry: Country;
-  removeDeliveryCompany: DeliveryCompany;
-  /** Remove FAQ (admin only) */
-  removeFaq: Scalars['Boolean']['output'];
-  removeListing: RemoveListingResponse;
-  /** Remove own avatar (self-service) */
-  removeMyAvatar: Scalars['Boolean']['output'];
-  removeNotification: Notification;
-  removePermission: Scalars['Boolean']['output'];
-  /** Remove provider */
-  removeProvider: Provider;
-  /** Delete provider avatar by ID */
-  removeProviderAvatar: Scalars['Boolean']['output'];
-  removeRating: Rating;
-  /** Delete user by ID */
-  removeUser: User;
-  /** Reply to contact message (admin only) */
-  replyToContactMessage: ContactMessage;
-  requestFeaturedPromotion: Listing;
-  /** Customer resends a rejected contract as a new version */
-  resendContract: Contract;
-  /** Resend OTP for email or phone verification */
-  resendOtp: Scalars['Boolean']['output'];
-  /** Resend OTP for provider email or phone verification */
-  resendProviderOtp: Scalars['Boolean']['output'];
-  /** Reset password using reset token */
-  resetPassword: Scalars['Boolean']['output'];
-  /** Reset provider password using reset token */
-  resetProviderPassword: Scalars['Boolean']['output'];
-  /** Restart an expired conversation using a new fee cycle */
-  restartConversation: Conversation;
-  revokeAllPermissionsFromAdmin: Scalars['Boolean']['output'];
-  revokePermissionFromAdmin: Scalars['Boolean']['output'];
-  setProviderFavorite: Scalars['Boolean']['output'];
-  /** Create or update application settings (admin only) */
-  setSetting: Setting;
-  /** Sign contract as provider */
-  signProviderContract: Provider;
-  /** Terminate provider contract */
-  terminateProviderContract: Provider;
-  trackAction: Tracking;
-  updateAdmin: Admin;
-  updateBank: Bank;
-  updateCategory: Category;
-  updateCity: City;
-  /** Update contact message (admin only) */
-  updateContactMessage: ContactMessage;
-  updateCountry: Country;
-  updateDeliveryCompany: DeliveryCompany;
-  /** Update FAQ (admin only) */
-  updateFaq: Faq;
-  updateListing: Listing;
-  /** Update own profile (self-service) */
-  updateMe: User;
-  updatePermission: Permission;
-  /** Update provider */
-  updateProvider: Provider;
-  updateRating: Rating;
-  /** Update user */
-  updateUser: User;
-  /** Verify email change with OTP and change token */
-  verifyEmailChange: Scalars['Boolean']['output'];
-  /** Verify email or phone with OTP */
-  verifyOtp: Scalars['Boolean']['output'];
-  /** Verify password reset OTP and get reset token */
-  verifyPasswordResetOtp: VerifyPasswordResetOtpResponse;
-  /** Verify phone change with OTP and change token */
-  verifyPhoneChange: Scalars['Boolean']['output'];
-  /** Verify email change with OTP and change token */
-  verifyProviderEmailChange: Scalars['Boolean']['output'];
-  /** Verify provider email or phone with OTP */
-  verifyProviderOtp: Scalars['Boolean']['output'];
-  /** Verify provider password reset OTP and get reset token */
-  verifyProviderPasswordResetOtp: VerifyPasswordResetOtpResponse;
-  /** Verify phone change with OTP and change token */
-  verifyProviderPhoneChange: Scalars['Boolean']['output'];
-};
-
-
-export type MutationAcceptContractArgs = {
-  input: AcceptContractInput;
-};
-
-
-export type MutationActivateAdminArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateBankArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateCategoryArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateCityArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateDeliveryCompanyArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateListingArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateProviderArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationActivateUserArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationAddComplaintMessageArgs = {
-  complaintId: Scalars['String']['input'];
-  content: Scalars['String']['input'];
-};
-
-
-export type MutationAdminChangePasswordArgs = {
-  input: AdminChangePasswordInput;
-};
-
-
-export type MutationAdminForgotPasswordArgs = {
-  input: AdminForgotPasswordInput;
-};
-
-
-export type MutationAdminLoginArgs = {
-  input: AdminLoginInput;
-};
-
-
-export type MutationAdminReactivateProviderArgs = {
-  providerId: Scalars['ID']['input'];
-};
-
-
-export type MutationAdminReplyToComplaintArgs = {
-  complaintId: Scalars['String']['input'];
-  content: Scalars['String']['input'];
-};
-
-
-export type MutationAdminResetPasswordArgs = {
-  input: AdminResetPasswordInput;
-};
-
-
-export type MutationAdminSetComplaintStatusArgs = {
-  complaintId: Scalars['String']['input'];
-  status: ComplaintStatus;
-};
-
-
-export type MutationAdminTerminateProviderContractArgs = {
-  input: AdminTerminateContractInput;
-};
-
-
-export type MutationAdminVerifyPasswordResetOtpArgs = {
-  input: VerifyAdminPasswordResetOtpInput;
-};
-
-
-export type MutationAssignPermissionToAdminArgs = {
-  input: AssignPermissionInput;
-};
-
-
-export type MutationBulkAssignPermissionsToAdminArgs = {
-  input: BulkAssignPermissionsInput;
-};
-
-
-export type MutationBulkRevokePermissionsFromAdminArgs = {
-  adminId: Scalars['ID']['input'];
-  permissionIds: Array<Scalars['ID']['input']>;
-};
-
-
-export type MutationBulkUpdateOrderArgs = {
-  input: BulkUpdateFaqOrderInput;
-};
-
-
-export type MutationChangePasswordArgs = {
-  input: ChangePasswordInput;
-};
-
-
-export type MutationChangeProviderPasswordArgs = {
-  input: ChangePasswordInput;
-};
-
-
-export type MutationCompleteContractArgs = {
-  input: CompleteContractInput;
-};
-
-
-export type MutationCreateAdminArgs = {
-  createAdminInput: CreateAdminInput;
-};
-
-
-export type MutationCreateBankArgs = {
-  input: CreateBankInput;
-};
-
-
-export type MutationCreateCategoryArgs = {
-  input: CreateCategoryInput;
-};
-
-
-export type MutationCreateCityArgs = {
-  input: CreateCityInput;
-};
-
-
-export type MutationCreateComplaintArgs = {
-  evidence?: InputMaybe<Array<Scalars['Upload']['input']>>;
-  input: CreateComplaintInput;
-};
-
-
-export type MutationCreateContactMessageArgs = {
-  createContactMessageInput: CreateContactMessageInput;
-};
-
-
-export type MutationCreateContractArgs = {
-  input: CreateContractInput;
-};
-
-
-export type MutationCreateConversationArgs = {
-  input: CreateConversationInput;
-};
-
-
-export type MutationCreateCountryArgs = {
-  input: CreateCountryInput;
-};
-
-
-export type MutationCreateDeliveryCompanyArgs = {
-  input: CreateDeliveryCompanyInput;
-};
-
-
-export type MutationCreateFaqArgs = {
-  createFaqInput: CreateFaqInput;
-};
-
-
-export type MutationCreateListingArgs = {
-  createListingInput: CreateListingInput;
-};
-
-
-export type MutationCreateMessageArgs = {
-  input: CreateMessageInput;
-};
-
-
-export type MutationCreateNotificationArgs = {
-  input: CreateNotificationInput;
-};
-
-
-export type MutationCreatePermissionArgs = {
-  createPermissionInput: CreatePermissionInput;
-};
-
-
-export type MutationCreateProviderArgs = {
-  createProviderInput: CreateProviderInput;
-};
-
-
-export type MutationCreateRatingArgs = {
-  input: CreateRatingInput;
-};
-
-
-export type MutationDeactivateAdminArgs = {
-  id: Scalars['ID']['input'];
-  input: DeactivateAdminInput;
-};
-
-
-export type MutationDeactivateBankArgs = {
-  id: Scalars['ID']['input'];
-  input: DeactivateBankInput;
-};
-
-
-export type MutationDeactivateCategoryArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeactivateCityArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeactivateDeliveryCompanyArgs = {
-  id: Scalars['ID']['input'];
-  input: DeactivateDeliveryCompanyInput;
-};
-
-
-export type MutationDeactivateListingArgs = {
-  id: Scalars['ID']['input'];
-  reason: Scalars['String']['input'];
-};
-
-
-export type MutationDeactivateProviderArgs = {
-  id: Scalars['ID']['input'];
-  reason?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationDeactivateUserArgs = {
-  id: Scalars['ID']['input'];
-  input: DeactivateUserInput;
-};
-
-
-export type MutationDeleteAllNotificationsForUserArgs = {
-  userId: Scalars['String']['input'];
-};
-
-
-export type MutationDeleteSignedContractArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationForgotPasswordArgs = {
-  input: ForgotPasswordInput;
-};
-
-
-export type MutationForgotProviderPasswordArgs = {
-  input: ForgotPasswordInput;
-};
-
-
-export type MutationInitializeContractArgs = {
-  input: InitializeContractInput;
-};
-
-
-export type MutationInitiateEmailChangeArgs = {
-  input: ChangeEmailInput;
-};
-
-
-export type MutationInitiatePhoneChangeArgs = {
-  input: ChangePhoneInput;
-};
-
-
-export type MutationInitiateProviderEmailChangeArgs = {
-  input: ChangeEmailInput;
-};
-
-
-export type MutationInitiateProviderPhoneChangeArgs = {
-  input: ChangePhoneInput;
-};
-
-
-export type MutationLoginArgs = {
-  input: LoginInput;
-};
-
-
-export type MutationLoginProviderArgs = {
-  input: LoginProviderInput;
-};
-
-
-export type MutationMarkAllNotificationsAsReadArgs = {
-  userId: Scalars['String']['input'];
-};
-
-
-export type MutationMarkAsReadArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationMarkConversationReadArgs = {
-  conversationId: Scalars['String']['input'];
-};
-
-
-export type MutationMarkMultipleNotificationsAsReadArgs = {
-  ids: Array<Scalars['String']['input']>;
-};
-
-
-export type MutationMarkNotificationAsReadArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationMarkNotificationAsUnreadArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationPayContractArgs = {
-  contractId: Scalars['String']['input'];
-};
-
-
-export type MutationPayConversationFeeArgs = {
-  conversationId: Scalars['String']['input'];
-};
-
-
-export type MutationPayPremiumAdArgs = {
-  listingId: Scalars['String']['input'];
-};
-
-
-export type MutationRegisterArgs = {
-  input: RegisterInput;
-};
-
-
-export type MutationRegisterProviderArgs = {
-  input: RegisterProviderInput;
-};
-
-
-export type MutationRejectContractArgs = {
-  input: RejectContractInput;
-};
-
-
-export type MutationRejectProviderJoinRequestArgs = {
-  id: Scalars['ID']['input'];
-  reason: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveAdminArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveAvatarArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveBankArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveCategoryArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveCityArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveContactMessageArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveCountryArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveDeliveryCompanyArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveFaqArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveListingArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveNotificationArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemovePermissionArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveProviderArgs = {
-  id: Scalars['ID']['input'];
-  input: DeleteProviderInput;
-};
-
-
-export type MutationRemoveProviderAvatarArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveRatingArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveUserArgs = {
-  id: Scalars['ID']['input'];
-  input: DeleteUserInput;
-};
-
-
-export type MutationReplyToContactMessageArgs = {
-  id: Scalars['ID']['input'];
-  message: Scalars['String']['input'];
-};
-
-
-export type MutationRequestFeaturedPromotionArgs = {
-  listingId: Scalars['ID']['input'];
-};
-
-
-export type MutationResendContractArgs = {
-  input: ResendContractInput;
-};
-
-
-export type MutationResendOtpArgs = {
-  input: ResendOtpInput;
-};
-
-
-export type MutationResendProviderOtpArgs = {
-  input: ResendOtpInput;
-};
-
-
-export type MutationResetPasswordArgs = {
-  input: ResetPasswordWithTokenInput;
-};
-
-
-export type MutationResetProviderPasswordArgs = {
-  input: ResetPasswordWithTokenInput;
-};
-
-
-export type MutationRestartConversationArgs = {
-  conversationId: Scalars['String']['input'];
-};
-
-
-export type MutationRevokeAllPermissionsFromAdminArgs = {
-  adminId: Scalars['ID']['input'];
-};
-
-
-export type MutationRevokePermissionFromAdminArgs = {
-  adminId: Scalars['ID']['input'];
-  permissionId: Scalars['ID']['input'];
-};
-
-
-export type MutationSetProviderFavoriteArgs = {
-  favorite: Scalars['Boolean']['input'];
-  providerId: Scalars['String']['input'];
-};
-
-
-export type MutationSetSettingArgs = {
-  input: SettingInput;
-};
-
-
-export type MutationSignProviderContractArgs = {
-  input: SignContractInput;
-};
-
-
-export type MutationTerminateProviderContractArgs = {
-  terminationReason: Scalars['String']['input'];
-};
-
-
-export type MutationTrackActionArgs = {
-  input: TrackActionInput;
-};
-
-
-export type MutationUpdateAdminArgs = {
-  id: Scalars['ID']['input'];
-  updateAdminInput: UpdateAdminInput;
-};
-
-
-export type MutationUpdateBankArgs = {
-  input: UpdateBankInput;
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  input: UpdateCategoryInput;
-};
-
-
-export type MutationUpdateCityArgs = {
-  input: UpdateCityInput;
-};
-
-
-export type MutationUpdateContactMessageArgs = {
-  updateContactMessageInput: UpdateContactMessageInput;
-};
-
-
-export type MutationUpdateCountryArgs = {
-  input: UpdateCountryInput;
-};
-
-
-export type MutationUpdateDeliveryCompanyArgs = {
-  input: UpdateDeliveryCompanyInput;
-};
-
-
-export type MutationUpdateFaqArgs = {
-  updateFaqInput: UpdateFaqInput;
-};
-
-
-export type MutationUpdateListingArgs = {
-  updateListingInput: UpdateListingInput;
-};
-
-
-export type MutationUpdateMeArgs = {
-  updateMeInput: UpdateMeInput;
-};
-
-
-export type MutationUpdatePermissionArgs = {
-  id: Scalars['ID']['input'];
-  updatePermissionInput: UpdatePermissionInput;
-};
-
-
-export type MutationUpdateProviderArgs = {
-  updateProviderInput: UpdateProviderInput;
-};
-
-
-export type MutationUpdateRatingArgs = {
-  input: UpdateRatingInput;
-};
-
-
-export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
-};
-
-
-export type MutationVerifyEmailChangeArgs = {
-  input: VerifyChangeEmailInput;
-};
-
-
-export type MutationVerifyOtpArgs = {
-  input: VerifyOtpInput;
-};
-
-
-export type MutationVerifyPasswordResetOtpArgs = {
-  input: VerifyPasswordResetOtpInput;
-};
-
-
-export type MutationVerifyPhoneChangeArgs = {
-  input: VerifyChangePhoneInput;
-};
-
-
-export type MutationVerifyProviderEmailChangeArgs = {
-  input: VerifyChangeEmailInput;
-};
-
-
-export type MutationVerifyProviderOtpArgs = {
-  input: VerifyOtpInput;
-};
-
-
-export type MutationVerifyProviderPasswordResetOtpArgs = {
-  input: VerifyPasswordResetOtpInput;
-};
-
-
-export type MutationVerifyProviderPhoneChangeArgs = {
-  input: VerifyChangePhoneInput;
-};
-
-export type Notification = {
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  isRead: Scalars['Boolean']['output'];
-  message: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  readAt?: Maybe<Scalars['DateTime']['output']>;
-  relatedEntityId?: Maybe<Scalars['String']['output']>;
-  relatedEntityType?: Maybe<Scalars['String']['output']>;
-  title: Scalars['String']['output'];
-  type: NotificationType;
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type NotificationPaginationInput = {
-  isRead?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  /** Sort field name */
-  sortBy?: InputMaybe<NotificationSortField>;
-  /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  type?: InputMaybe<NotificationType>;
-  userId?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Available fields to sort notifications by */
-export enum NotificationSortField {
-  CreatedAt = 'createdAt',
-  Id = 'id',
-  IsRead = 'isRead',
-  Type = 'type'
-}
-
-export type NotificationStats = {
-  readCount: Scalars['Int']['output'];
-  totalNotifications: Scalars['Int']['output'];
-  unreadCount: Scalars['Int']['output'];
-};
-
-/** Type of notification */
-export enum NotificationType {
-  ComplaintResolved = 'COMPLAINT_RESOLVED',
-  ComplaintSubmitted = 'COMPLAINT_SUBMITTED',
-  ContractCreated = 'CONTRACT_CREATED',
-  ContractSigned = 'CONTRACT_SIGNED',
-  ListingApproved = 'LISTING_APPROVED',
-  ListingRejected = 'LISTING_REJECTED',
-  NewMessage = 'NEW_MESSAGE',
-  NewRating = 'NEW_RATING',
-  PaymentCompleted = 'PAYMENT_COMPLETED',
-  PaymentReceived = 'PAYMENT_RECEIVED',
-  SystemAnnouncement = 'SYSTEM_ANNOUNCEMENT'
-}
-
-/** Type of OTP */
-export enum OtpType {
-  EmailVerification = 'EMAIL_VERIFICATION',
-  PasswordReset = 'PASSWORD_RESET',
-  PhoneVerification = 'PHONE_VERIFICATION'
-}
-
-export type PaginatedAdminResponse = {
-  /** List of items */
-  items: Array<Admin>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedBankResponse = {
-  /** List of items */
-  items: Array<Bank>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedCategoryResponse = {
-  /** List of items */
-  items: Array<Category>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedCityResponse = {
-  /** List of items */
-  items: Array<City>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedComplaintResponse = {
-  /** List of items */
-  items: Array<Complaint>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedContactMessageResponse = {
-  /** List of items */
-  items: Array<ContactMessage>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedContractResponse = {
-  /** List of items */
-  items: Array<Contract>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedConversationResponse = {
-  /** List of items */
-  items: Array<Conversation>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedCountryResponse = {
-  /** List of items */
-  items: Array<Country>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedDeliveryCompanyResponse = {
-  /** List of items */
-  items: Array<DeliveryCompany>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedFavoriteResponse = {
-  /** List of items */
-  items: Array<Favorite>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedListingResponse = {
-  /** List of items */
-  items: Array<Listing>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedMessageResponse = {
-  /** List of items */
-  items: Array<Message>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedNotificationResponse = {
-  /** List of items */
-  items: Array<Notification>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedPaymentResponse = {
-  /** List of items */
-  items: Array<Payment>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedProviderResponse = {
-  items: Array<Provider>;
-  meta: PaginationMeta;
-};
-
-export type PaginatedRatingResponse = {
-  /** List of items */
-  items: Array<Rating>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedSignedContractResponse = {
-  /** List of items */
-  items: Array<SignedContract>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginatedUserResponse = {
-  /** List of items */
-  items: Array<User>;
-  /** Pagination metadata */
-  meta: PaginationMeta;
-};
-
-export type PaginationMeta = {
-  /** Whether there is a next page */
-  hasNext: Scalars['Boolean']['output'];
-  /** Whether there is a previous page */
-  hasPrevious: Scalars['Boolean']['output'];
-  /** Number of items per page */
-  limit: Scalars['Int']['output'];
-  /** Current page number */
-  page: Scalars['Int']['output'];
-  /** Total number of items */
-  total: Scalars['Int']['output'];
-  /** Total number of pages */
-  totalPages: Scalars['Int']['output'];
-};
-
-/** Entity type that owns the payment */
-export enum PayerType {
-  Provider = 'PROVIDER',
-  User = 'USER'
-}
-
-export type Payment = {
-  amount: Scalars['Float']['output'];
-  categoryId?: Maybe<Scalars['ID']['output']>;
-  commissionAmount: Scalars['Float']['output'];
-  commissionPercent: Scalars['Float']['output'];
-  configSnapshot?: Maybe<Scalars['JSON']['output']>;
-  contract?: Maybe<Contract>;
-  contractId?: Maybe<Scalars['ID']['output']>;
-  conversation?: Maybe<Conversation>;
-  conversationId?: Maybe<Scalars['ID']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  gatewayResponse?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  listing?: Maybe<Listing>;
-  listingId?: Maybe<Scalars['ID']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  payer?: Maybe<PaymentPayer>;
-  payerId: Scalars['String']['output'];
-  payerType: PayerType;
-  paymentMethod: PaymentMethod;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  purpose: PaymentPurpose;
-  status: PaymentStatus;
-  transactionReference?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-  vatAmount: Scalars['Float']['output'];
-  vatRate: Scalars['Float']['output'];
-};
-
-/** Payment method */
-export enum PaymentMethod {
-  BankTransfer = 'BANK_TRANSFER',
-  Cash = 'CASH',
-  CreditCard = 'CREDIT_CARD',
-  DebitCard = 'DEBIT_CARD',
-  Mock = 'MOCK',
-  Wallet = 'WALLET'
-}
-
-export type PaymentPaginationInput = {
-  contractId?: InputMaybe<Scalars['String']['input']>;
-  conversationId?: InputMaybe<Scalars['String']['input']>;
-  /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  paymentMethod?: InputMaybe<PaymentMethod>;
-  purpose?: InputMaybe<PaymentPurpose>;
-  /** Sort field name */
-  sortBy?: InputMaybe<PaymentSortField>;
-  /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<PaymentStatus>;
-};
-
-export type PaymentPayer = Provider | User;
-
-/** Business obligation settled by a payment */
-export enum PaymentPurpose {
-  ChatCustomer = 'CHAT_CUSTOMER',
-  ChatProvider = 'CHAT_PROVIDER',
-  Contract = 'CONTRACT',
-  PremiumAd = 'PREMIUM_AD'
-}
-
-/** Available fields to sort payments by */
-export enum PaymentSortField {
-  Amount = 'amount',
-  CreatedAt = 'createdAt',
-  Id = 'id',
-  PaymentMethod = 'paymentMethod',
-  Status = 'status',
-  UpdatedAt = 'updatedAt'
-}
-
-/** Payment status */
-export enum PaymentStatus {
-  Cancelled = 'CANCELLED',
-  Completed = 'COMPLETED',
-  Failed = 'FAILED',
-  Pending = 'PENDING',
-  Processing = 'PROCESSING',
-  Refunded = 'REFUNDED'
-}
-
-export type Permission = {
-  action: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  module: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  nameAr: Scalars['String']['output'];
-  permissionPlatform: PermissionPlatform;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  resource: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 /** Permission platform types */
 export enum PermissionPlatform {
   Admin = 'ADMIN',
   Global = 'GLOBAL'
 }
 
-export type PremiumAdFeeReport = {
-  items: Array<PremiumAdFeeReportRow>;
-  meta: ReportPageMeta;
-  totalFees: Scalars['Float']['output'];
-};
-
-export type PremiumAdFeeReportRow = {
-  createdAt: Scalars['DateTime']['output'];
-  fee: Scalars['Float']['output'];
-  listingId: Scalars['String']['output'];
-  listingName: Scalars['String']['output'];
-  paymentId: Scalars['String']['output'];
-  providerName?: Maybe<Scalars['String']['output']>;
-  providerPhone?: Maybe<Scalars['String']['output']>;
-  status: Scalars['String']['output'];
-};
-
-export type PremiumAdPaymentResponse = {
-  listing: Listing;
-  payment: Payment;
-};
-
-/** Featured advertisement payment and expiry state */
-export enum PromotionStatus {
-  Active = 'ACTIVE',
-  Expired = 'EXPIRED',
-  None = 'NONE',
-  PendingPayment = 'PENDING_PAYMENT'
-}
-
-export type Provider = {
-  address?: Maybe<Scalars['String']['output']>;
-  avatarFilename?: Maybe<Scalars['String']['output']>;
-  bankName?: Maybe<Scalars['String']['output']>;
-  categories?: Maybe<Array<Category>>;
-  city?: Maybe<City>;
-  cityId?: Maybe<Scalars['String']['output']>;
-  commercialName?: Maybe<Scalars['String']['output']>;
-  commercialRegistrationFilename?: Maybe<Scalars['String']['output']>;
-  commercialRegistrationNumber?: Maybe<Scalars['String']['output']>;
-  country?: Maybe<Country>;
-  countryId?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  deleteReason?: Maybe<Scalars['String']['output']>;
-  deletedAt?: Maybe<Scalars['String']['output']>;
-  dialCode?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  emailVerified: Scalars['Boolean']['output'];
-  ibanNumber?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  isActive: Scalars['Boolean']['output'];
-  languageCode?: Maybe<Scalars['String']['output']>;
-  latitude?: Maybe<Scalars['Float']['output']>;
-  longitude?: Maybe<Scalars['Float']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  phone: Scalars['String']['output'];
-  phoneVerified: Scalars['Boolean']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  rejectionReason?: Maybe<Scalars['String']['output']>;
-  signedContract?: Maybe<SignedContract>;
-  status: ProviderStatus;
-  updatedAt: Scalars['DateTime']['output'];
-  withAbsher?: Maybe<Scalars['Boolean']['output']>;
-};
-
-export type ProviderAuthResponse = {
-  accessToken: Scalars['String']['output'];
-  provider: Provider;
-};
-
 export type ProviderPaginationInput = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-  sortBy?: InputMaybe<Scalars['String']['input']>;
-  sortOrder?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<ProviderStatus>;
+  limit?: number | null | undefined;
+  page?: number | null | undefined;
+  search?: string | null | undefined;
+  sortBy?: string | null | undefined;
+  sortOrder?: string | null | undefined;
+  status?: ProviderStatus | null | undefined;
 };
 
 /** Provider status enumeration */
@@ -2410,422 +617,19 @@ export enum ProviderStatus {
   Suspended = 'SUSPENDED'
 }
 
-export type Query = {
-  /** Active delivery companies available to authenticated users */
-  activeDeliveryCompanies: Array<DeliveryCompany>;
-  admin: Admin;
-  adminComplaint: Complaint;
-  adminComplaints: PaginatedComplaintResponse;
-  adminContract: Contract;
-  adminContracts: PaginatedContractResponse;
-  adminConversation: Conversation;
-  adminConversations: PaginatedConversationResponse;
-  adminPermissions: Array<AdminPermission>;
-  admins: PaginatedAdminResponse;
-  bank: Bank;
-  banks: PaginatedBankResponse;
-  categories: PaginatedCategoryResponse;
-  category: Category;
-  /** Get all cities with pagination */
-  cities: PaginatedCityResponse;
-  /** Get cities by country with pagination */
-  citiesByCountry: PaginatedCityResponse;
-  city: City;
-  /** Get single contact message (admin only) */
-  contactMessage: ContactMessage;
-  /** Get contact messages (admin only) with pagination */
-  contactMessages: PaginatedContactMessageResponse;
-  contract: Contract;
-  /** Preview server-calculated contract financial terms */
-  contractQuote: ContractQuote;
-  contracts: PaginatedContractResponse;
-  conversation: Conversation;
-  conversationFeeReport: ConversationFeeReport;
-  conversations: PaginatedConversationResponse;
-  /** Get all countries with pagination */
-  countries: PaginatedCountryResponse;
-  country: Country;
-  deliveryCompanies: PaginatedDeliveryCompanyResponse;
-  deliveryCompany: DeliveryCompany;
-  faq: Faq;
-  /** Get all active FAQs (or all if admin) */
-  faqs: Array<Faq>;
-  /** Get application settings */
-  getSetting: Setting;
-  isProviderFavorite: Scalars['Boolean']['output'];
-  listing?: Maybe<Listing>;
-  listings: PaginatedListingResponse;
-  meAdmin: Admin;
-  /** Get current authenticated provider */
-  meProvider: Provider;
-  /** Get current authenticated user */
-  meUser: User;
-  message: Message;
-  messages: PaginatedMessageResponse;
-  myComplaint: Complaint;
-  myComplaints: PaginatedComplaintResponse;
-  myFavoriteProviders: PaginatedFavoriteResponse;
-  myListings: PaginatedListingResponse;
-  myPopularCategories: Array<Scalars['String']['output']>;
-  myPopularListings: Array<Scalars['String']['output']>;
-  notification: Notification;
-  /** Get notification statistics for a user */
-  notificationStats: NotificationStats;
-  notifications: PaginatedNotificationResponse;
-  payment: Payment;
-  payments: PaginatedPaymentResponse;
-  permission: Permission;
-  permissionAdmins: Array<AdminPermission>;
-  permissions: Array<Permission>;
-  premiumAdFeeReport: PremiumAdFeeReport;
-  /** Get provider by ID */
-  provider: Provider;
-  /** Get provider by email */
-  providerByEmail: Provider;
-  /** Get provider by phone */
-  providerByPhone: Provider;
-  /** Get all providers with pagination */
-  providers: PaginatedProviderResponse;
-  rating: Rating;
-  /** Get rating statistics for an listing */
-  ratingStatistics: RatingStatistics;
-  ratings: PaginatedRatingResponse;
-  signedContractById?: Maybe<SignedContract>;
-  signedContractByProviderId?: Maybe<SignedContract>;
-  signedContracts: PaginatedSignedContractResponse;
-  /** Get user by ID */
-  user: User;
-  /** Get all users with pagination by role */
-  users: PaginatedUserResponse;
-};
-
-
-export type QueryAdminArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryAdminComplaintArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryAdminComplaintsArgs = {
-  input?: InputMaybe<ComplaintPaginationInput>;
-};
-
-
-export type QueryAdminContractArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryAdminContractsArgs = {
-  input?: InputMaybe<ContractPaginationInput>;
-};
-
-
-export type QueryAdminConversationArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryAdminConversationsArgs = {
-  input?: InputMaybe<ConversationPaginationInput>;
-};
-
-
-export type QueryAdminPermissionsArgs = {
-  adminId: Scalars['ID']['input'];
-};
-
-
-export type QueryAdminsArgs = {
-  paginationInput?: InputMaybe<AdminPaginationInput>;
-};
-
-
-export type QueryBankArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryBanksArgs = {
-  input?: InputMaybe<BankPaginationInput>;
-};
-
-
-export type QueryCategoriesArgs = {
-  input?: InputMaybe<CategoryPaginationInput>;
-};
-
-
-export type QueryCategoryArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryCitiesArgs = {
-  pagination?: InputMaybe<CityPaginationInput>;
-};
-
-
-export type QueryCitiesByCountryArgs = {
-  countryId: Scalars['ID']['input'];
-  pagination?: InputMaybe<CityPaginationInput>;
-};
-
-
-export type QueryCityArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryContactMessageArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryContactMessagesArgs = {
-  paginationInput?: InputMaybe<ContactMessagePaginationInput>;
-};
-
-
-export type QueryContractArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryContractQuoteArgs = {
-  input: ContractQuoteInput;
-};
-
-
-export type QueryContractsArgs = {
-  input?: InputMaybe<ContractPaginationInput>;
-};
-
-
-export type QueryConversationArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryConversationFeeReportArgs = {
-  input?: InputMaybe<FeeReportInput>;
-};
-
-
-export type QueryConversationsArgs = {
-  input?: InputMaybe<ConversationPaginationInput>;
-};
-
-
-export type QueryCountriesArgs = {
-  pagination?: InputMaybe<CountryPaginationInput>;
-};
-
-
-export type QueryCountryArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryDeliveryCompaniesArgs = {
-  input?: InputMaybe<DeliveryCompanyPaginationInput>;
-};
-
-
-export type QueryDeliveryCompanyArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryFaqArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryIsProviderFavoriteArgs = {
-  providerId: Scalars['String']['input'];
-};
-
-
-export type QueryListingArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryListingsArgs = {
-  paginationInput: ListingPaginationInput;
-};
-
-
-export type QueryMessageArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryMessagesArgs = {
-  input?: InputMaybe<MessagePaginationInput>;
-};
-
-
-export type QueryMyComplaintArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryMyComplaintsArgs = {
-  input?: InputMaybe<ComplaintPaginationInput>;
-};
-
-
-export type QueryMyFavoriteProvidersArgs = {
-  input?: InputMaybe<FavoritePaginationInput>;
-};
-
-
-export type QueryMyListingsArgs = {
-  paginationInput: ListingPaginationInput;
-};
-
-
-export type QueryMyPopularCategoriesArgs = {
-  limit?: InputMaybe<Scalars['Float']['input']>;
-};
-
-
-export type QueryMyPopularListingsArgs = {
-  limit?: InputMaybe<Scalars['Float']['input']>;
-};
-
-
-export type QueryNotificationArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryNotificationStatsArgs = {
-  userId: Scalars['String']['input'];
-};
-
-
-export type QueryNotificationsArgs = {
-  input?: InputMaybe<NotificationPaginationInput>;
-};
-
-
-export type QueryPaymentArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryPaymentsArgs = {
-  input?: InputMaybe<PaymentPaginationInput>;
-};
-
-
-export type QueryPermissionArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryPermissionAdminsArgs = {
-  permissionId: Scalars['ID']['input'];
-};
-
-
-export type QueryPremiumAdFeeReportArgs = {
-  input?: InputMaybe<FeeReportInput>;
-};
-
-
-export type QueryProviderArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryProviderByEmailArgs = {
-  email: Scalars['String']['input'];
-};
-
-
-export type QueryProviderByPhoneArgs = {
-  phone: Scalars['String']['input'];
-};
-
-
-export type QueryProvidersArgs = {
-  pagination: ProviderPaginationInput;
-};
-
-
-export type QueryRatingArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QueryRatingStatisticsArgs = {
-  listingId: Scalars['String']['input'];
-};
-
-
-export type QueryRatingsArgs = {
-  input?: InputMaybe<RatingPaginationInput>;
-};
-
-
-export type QuerySignedContractByIdArgs = {
-  id: Scalars['String']['input'];
-};
-
-
-export type QuerySignedContractByProviderIdArgs = {
-  providerId: Scalars['String']['input'];
-};
-
-
-export type QuerySignedContractsArgs = {
-  input?: InputMaybe<SignedContractPaginationInput>;
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryUsersArgs = {
-  pagination: UserPaginationInput;
-};
-
-export type Rating = {
-  comment?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  listing: Listing;
-  listingId: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  rating: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
 export type RatingPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
-  maxRating?: InputMaybe<Scalars['Int']['input']>;
-  minRating?: InputMaybe<Scalars['Int']['input']>;
+  limit?: number;
+  listingId?: string | null | undefined;
+  maxRating?: number | null | undefined;
+  minRating?: number | null | undefined;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
+  page?: number;
   /** Sort field name */
-  sortBy?: InputMaybe<RatingSortField>;
+  sortBy?: RatingSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  userId?: InputMaybe<Scalars['String']['input']>;
+  sortOrder?: SortOrder | null | undefined;
+  userId?: string | null | undefined;
 };
 
 /** Available fields to sort ratings by */
@@ -2836,88 +640,6 @@ export enum RatingSortField {
   UpdatedAt = 'updatedAt'
 }
 
-export type RatingStatistics = {
-  averageRating: Scalars['Float']['output'];
-  fiveStars: Scalars['Int']['output'];
-  fourStars: Scalars['Int']['output'];
-  oneStar: Scalars['Int']['output'];
-  threeStars: Scalars['Int']['output'];
-  totalRatings: Scalars['Int']['output'];
-  twoStars: Scalars['Int']['output'];
-};
-
-export type RegisterInput = {
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName: Scalars['String']['input'];
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  ibanNumber: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  phone: Scalars['String']['input'];
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type RegisterProviderInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName?: InputMaybe<Scalars['String']['input']>;
-  categoryIds?: InputMaybe<Array<Scalars['String']['input']>>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  commercialName: Scalars['String']['input'];
-  commercialRegistrationFilename?: InputMaybe<Scalars['String']['input']>;
-  commercialRegistrationNumber?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  ibanNumber?: InputMaybe<Scalars['String']['input']>;
-  languageCode?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  phone: Scalars['String']['input'];
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type RejectContractInput = {
-  contractId: Scalars['String']['input'];
-  reason: Scalars['String']['input'];
-};
-
-export type RemoveListingResponse = {
-  message: Scalars['String']['output'];
-  success: Scalars['Boolean']['output'];
-};
-
-export type ReportPageMeta = {
-  limit: Scalars['Int']['output'];
-  page: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type ResendContractInput = {
-  agreedPrice: Scalars['Float']['input'];
-  customerAddress: Scalars['String']['input'];
-  customerLatitude?: InputMaybe<Scalars['Float']['input']>;
-  customerLongitude?: InputMaybe<Scalars['Float']['input']>;
-  deliveryCompanyId?: InputMaybe<Scalars['String']['input']>;
-  rejectedContractId: Scalars['String']['input'];
-  signatureData: Scalars['String']['input'];
-};
-
-export type ResendOtpInput = {
-  target: Scalars['String']['input'];
-  type: OtpType;
-};
-
-export type ResetPasswordWithTokenInput = {
-  newPassword: Scalars['String']['input'];
-  resetToken: Scalars['String']['input'];
-};
-
 /** Type of contact message sender */
 export enum SenderType {
   Guest = 'GUEST',
@@ -2925,92 +647,42 @@ export enum SenderType {
   User = 'USER'
 }
 
-export type Setting = {
-  aboutAr: Scalars['String']['output'];
-  aboutEn: Scalars['String']['output'];
-  contractAcceptanceWindowDays: Scalars['Int']['output'];
-  contractAcceptanceWindowEnabled: Scalars['Boolean']['output'];
-  email: Scalars['String']['output'];
-  phones: Array<Scalars['String']['output']>;
-  platformManagerName?: Maybe<Scalars['String']['output']>;
-  platformManagerSignature?: Maybe<Scalars['String']['output']>;
-  premiumAdDurationDays: Scalars['Int']['output'];
-  premiumAdEnabled: Scalars['Boolean']['output'];
-  premiumAdFee: Scalars['Float']['output'];
-  privacyPolicyAr: Scalars['String']['output'];
-  privacyPolicyEn: Scalars['String']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  rulesAr: Scalars['String']['output'];
-  rulesEn: Scalars['String']['output'];
-  socialMediaLinks: Array<SocialMediaLink>;
-  termsAr: Scalars['String']['output'];
-  termsEn: Scalars['String']['output'];
-  vatEnabled: Scalars['Boolean']['output'];
-  vatRate: Scalars['Float']['output'];
-  whatsappNumber: Scalars['String']['output'];
-};
-
 export type SettingInput = {
-  aboutAr?: InputMaybe<Scalars['String']['input']>;
-  aboutEn?: InputMaybe<Scalars['String']['input']>;
-  contractAcceptanceWindowDays?: InputMaybe<Scalars['Int']['input']>;
-  contractAcceptanceWindowEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  phones?: InputMaybe<Array<Scalars['String']['input']>>;
-  platformManagerName?: InputMaybe<Scalars['String']['input']>;
-  platformManagerSignature?: InputMaybe<Scalars['String']['input']>;
-  premiumAdDurationDays?: InputMaybe<Scalars['Int']['input']>;
-  premiumAdEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  premiumAdFee?: InputMaybe<Scalars['Float']['input']>;
-  privacyPolicyAr?: InputMaybe<Scalars['String']['input']>;
-  privacyPolicyEn?: InputMaybe<Scalars['String']['input']>;
-  rulesAr?: InputMaybe<Scalars['String']['input']>;
-  rulesEn?: InputMaybe<Scalars['String']['input']>;
-  socialMediaLinks?: InputMaybe<Array<SocialMediaLinkInput>>;
-  termsAr?: InputMaybe<Scalars['String']['input']>;
-  termsEn?: InputMaybe<Scalars['String']['input']>;
-  vatEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  vatRate?: InputMaybe<Scalars['Float']['input']>;
-  whatsappNumber?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type SignContractInput = {
-  acceptedRulesAr?: InputMaybe<Array<ContractRuleInput>>;
-  acceptedRulesEn?: InputMaybe<Array<ContractRuleInput>>;
-  serviceProviderSignature: Scalars['String']['input'];
-};
-
-export type SignedContract = {
-  acceptedRulesAr?: Maybe<Array<ContractRule>>;
-  acceptedRulesEn?: Maybe<Array<ContractRule>>;
-  contractExpiresAt?: Maybe<Scalars['String']['output']>;
-  contractSignedAt: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  deleteReason?: Maybe<Scalars['String']['output']>;
-  deletedAt?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  platformManagerName?: Maybe<Scalars['String']['output']>;
-  platformManagerSignature?: Maybe<Scalars['String']['output']>;
-  provider?: Maybe<Provider>;
-  providerId?: Maybe<Scalars['String']['output']>;
-  publicId?: Maybe<Scalars['Int']['output']>;
-  serviceProviderSignature: Scalars['String']['output'];
-  status: SignedContractStatus;
-  terminationReason?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
+  aboutAr?: string | null | undefined;
+  aboutEn?: string | null | undefined;
+  completionConfirmationGraceHours?: number | null | undefined;
+  contractAcceptanceWindowDays?: number | null | undefined;
+  contractAcceptanceWindowEnabled?: boolean | null | undefined;
+  email?: string | null | undefined;
+  phones?: Array<string> | null | undefined;
+  platformManagerName?: string | null | undefined;
+  platformManagerSignature?: string | null | undefined;
+  premiumAdDurationDays?: number | null | undefined;
+  premiumAdEnabled?: boolean | null | undefined;
+  premiumAdFee?: number | null | undefined;
+  privacyPolicyAr?: string | null | undefined;
+  privacyPolicyEn?: string | null | undefined;
+  rulesAr?: string | null | undefined;
+  rulesEn?: string | null | undefined;
+  socialMediaLinks?: Array<SocialMediaLinkInput> | null | undefined;
+  termsAr?: string | null | undefined;
+  termsEn?: string | null | undefined;
+  vatEnabled?: boolean | null | undefined;
+  vatRate?: number | null | undefined;
+  whatsappNumber?: string | null | undefined;
 };
 
 export type SignedContractPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  providerId?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  providerId?: string | null | undefined;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<SignedContractSortField>;
+  sortBy?: SignedContractSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
+  sortOrder?: SortOrder | null | undefined;
 };
 
 /** Available fields to sort signed contracts by */
@@ -3030,13 +702,8 @@ export enum SignedContractStatus {
   TerminatedByProvider = 'TERMINATED_BY_PROVIDER'
 }
 
-export type SocialMediaLink = {
-  link: Scalars['String']['output'];
-  name: SocialMediaPlatform;
-};
-
 export type SocialMediaLinkInput = {
-  link: Scalars['String']['input'];
+  link: string;
   name: SocialMediaPlatform;
 };
 
@@ -3054,269 +721,99 @@ export enum SortOrder {
   Desc = 'DESC'
 }
 
-export type Subscription = {
-  /** Subscribe to new messages in a conversation (participants only) */
-  messageAdded: Message;
-  /** Subscribe to real-time updates for the authenticated provider */
-  providerUpdated: Provider;
-  /** Subscribe to real-time updates for the authenticated user */
-  userUpdated: User;
-};
-
-
-export type SubscriptionMessageAddedArgs = {
-  conversationId: Scalars['String']['input'];
-};
-
-/** Type of target being tracked (category or listing) */
-export enum TargetType {
-  Category = 'CATEGORY',
-  Listing = 'LISTING'
-}
-
-export type TrackActionInput = {
-  actionType: ActionType;
-  targetId: Scalars['String']['input'];
-  targetType: TargetType;
-};
-
-export type Tracking = {
-  actionType: ActionType;
-  count: Scalars['Int']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  targetId: Scalars['String']['output'];
-  targetType: TargetType;
-  updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
 export type UpdateAdminInput = {
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  fullName?: InputMaybe<Scalars['String']['input']>;
-  organizationName?: InputMaybe<Scalars['String']['input']>;
-  permissionType?: InputMaybe<AdminPermissionType>;
-  phoneNumber: Scalars['String']['input'];
-  roleName?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<AdminStatus>;
-  userType?: InputMaybe<AdminUserType>;
+  avatarFilename?: string | null | undefined;
+  email?: string | null | undefined;
+  fullName?: string | null | undefined;
+  organizationName?: string | null | undefined;
+  permissionType?: AdminPermissionType | null | undefined;
+  phoneNumber: string;
+  roleName?: string | null | undefined;
+  status?: AdminStatus | null | undefined;
+  userType?: AdminUserType | null | undefined;
 };
 
 export type UpdateBankInput = {
-  id: Scalars['String']['input'];
-  nameAr?: InputMaybe<Scalars['String']['input']>;
-  nameEn?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<BankStatus>;
+  id: string;
+  nameAr?: string | null | undefined;
+  nameEn?: string | null | undefined;
+  status?: BankStatus | null | undefined;
 };
 
 export type UpdateCategoryInput = {
-  commissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  commissionPercent?: InputMaybe<Scalars['Float']['input']>;
-  contractDocumentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  contractDocumentText?: InputMaybe<Scalars['String']['input']>;
-  customerConversationFee?: InputMaybe<Scalars['Float']['input']>;
-  customerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  depositEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  depositPercent?: InputMaybe<Scalars['Float']['input']>;
-  descriptionAr?: InputMaybe<Scalars['String']['input']>;
-  descriptionEn?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  image?: InputMaybe<Scalars['String']['input']>;
-  maxCompletionDays?: InputMaybe<Scalars['Int']['input']>;
-  maxCompletionDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  maxTerminationDays?: InputMaybe<Scalars['Int']['input']>;
-  maxTerminationDaysEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  minCommissionAmount?: InputMaybe<Scalars['Float']['input']>;
-  minCommissionEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  nameAr?: InputMaybe<Scalars['String']['input']>;
-  nameEn?: InputMaybe<Scalars['String']['input']>;
-  providerConversationFee?: InputMaybe<Scalars['Float']['input']>;
-  providerConversationFeeEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  rulesAr?: InputMaybe<Scalars['String']['input']>;
-  rulesEn?: InputMaybe<Scalars['String']['input']>;
+  commissionEnabled?: boolean | null | undefined;
+  commissionPercent?: number | null | undefined;
+  contractDocumentEnabled?: boolean | null | undefined;
+  contractDocumentText?: string | null | undefined;
+  customerConversationFee?: number | null | undefined;
+  customerConversationFeeEnabled?: boolean | null | undefined;
+  depositEnabled?: boolean | null | undefined;
+  depositPercent?: number | null | undefined;
+  descriptionAr?: string | null | undefined;
+  descriptionEn?: string | null | undefined;
+  id: string;
+  image?: string | null | undefined;
+  maxCompletionDays?: number | null | undefined;
+  maxCompletionDaysEnabled?: boolean | null | undefined;
+  maxTerminationDays?: number | null | undefined;
+  maxTerminationDaysEnabled?: boolean | null | undefined;
+  minCommissionAmount?: number | null | undefined;
+  minCommissionEnabled?: boolean | null | undefined;
+  nameAr?: string | null | undefined;
+  nameEn?: string | null | undefined;
+  providerConversationFee?: number | null | undefined;
+  providerConversationFeeEnabled?: boolean | null | undefined;
+  refundPolicyAr?: string | null | undefined;
+  refundPolicyEn?: string | null | undefined;
+  refundPolicyEnabled?: boolean | null | undefined;
+  rulesAr?: string | null | undefined;
+  rulesEn?: string | null | undefined;
+  undertakingEnabled?: boolean | null | undefined;
+  undertakingTextAr?: string | null | undefined;
+  undertakingTextEn?: string | null | undefined;
 };
 
 export type UpdateCityInput = {
-  countryId?: InputMaybe<Scalars['ID']['input']>;
-  geoBoundary?: InputMaybe<Scalars['JSON']['input']>;
-  id: Scalars['ID']['input'];
-  nameAr?: InputMaybe<Scalars['String']['input']>;
-  nameEn?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateContactMessageInput = {
-  attachmentFilename?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  messageContent?: InputMaybe<Scalars['String']['input']>;
-  messageType?: InputMaybe<MessageType>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateCountryInput = {
-  code?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
+  countryId?: string | null | undefined;
+  geoBoundary?: unknown;
+  id: string;
+  nameAr?: string | null | undefined;
+  nameEn?: string | null | undefined;
 };
 
 export type UpdateDeliveryCompanyInput = {
-  id: Scalars['String']['input'];
-  nameAr?: InputMaybe<Scalars['String']['input']>;
-  nameEn?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<DeliveryCompanyStatus>;
+  id: string;
+  nameAr?: string | null | undefined;
+  nameEn?: string | null | undefined;
+  status?: DeliveryCompanyStatus | null | undefined;
 };
 
 export type UpdateFaqInput = {
-  answerAr?: InputMaybe<Scalars['String']['input']>;
-  answerEn?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  order?: InputMaybe<Scalars['Float']['input']>;
-  questionAr?: InputMaybe<Scalars['String']['input']>;
-  questionEn?: InputMaybe<Scalars['String']['input']>;
+  answerAr?: string | null | undefined;
+  answerEn?: string | null | undefined;
+  id: string;
+  isActive?: boolean | null | undefined;
+  order?: number | null | undefined;
+  questionAr?: string | null | undefined;
+  questionEn?: string | null | undefined;
 };
 
 export type UpdateFaqOrderInput = {
-  id: Scalars['String']['input'];
-  order: Scalars['Int']['input'];
-};
-
-export type UpdateListingInput = {
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  photos?: InputMaybe<Array<CreateListingMediaInput>>;
-  price?: InputMaybe<Scalars['Float']['input']>;
-  status?: InputMaybe<ListingStatus>;
-  story?: InputMaybe<CreateListingMediaInput>;
-  type?: InputMaybe<ListingType>;
-};
-
-export type UpdateMeInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  ibanNumber?: InputMaybe<Scalars['String']['input']>;
-  languageCode?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type UpdatePermissionInput = {
-  action?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  module?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  nameAr?: InputMaybe<Scalars['String']['input']>;
-  permissionPlatform?: InputMaybe<PermissionPlatform>;
-  resource?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateProviderInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName?: InputMaybe<Scalars['String']['input']>;
-  categoryIds?: InputMaybe<Array<Scalars['String']['input']>>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  commercialName?: InputMaybe<Scalars['String']['input']>;
-  commercialRegistrationFilename?: InputMaybe<Scalars['String']['input']>;
-  commercialRegistrationNumber?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  ibanNumber?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  languageCode?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type UpdateRatingInput = {
-  comment?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  listingId?: InputMaybe<Scalars['String']['input']>;
-  rating?: InputMaybe<Scalars['Int']['input']>;
-  userId?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateUserInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  avatarFilename?: InputMaybe<Scalars['String']['input']>;
-  bankName?: InputMaybe<Scalars['String']['input']>;
-  cityId?: InputMaybe<Scalars['String']['input']>;
-  countryId?: InputMaybe<Scalars['String']['input']>;
-  dialCode?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  ibanNumber?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  languageCode?: InputMaybe<Scalars['String']['input']>;
-  latitude?: InputMaybe<Scalars['Float']['input']>;
-  longitude?: InputMaybe<Scalars['Float']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type User = {
-  address?: Maybe<Scalars['String']['output']>;
-  avatarFilename?: Maybe<Scalars['String']['output']>;
-  bankName?: Maybe<Scalars['String']['output']>;
-  city?: Maybe<City>;
-  cityId?: Maybe<Scalars['String']['output']>;
-  country?: Maybe<Country>;
-  countryId?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deactivationReason?: Maybe<Scalars['String']['output']>;
-  deleteReason?: Maybe<Scalars['String']['output']>;
-  deletedAt?: Maybe<Scalars['String']['output']>;
-  dialCode?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  emailVerified: Scalars['Boolean']['output'];
-  ibanNumber?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  isActive: Scalars['Boolean']['output'];
-  languageCode?: Maybe<Scalars['String']['output']>;
-  latitude?: Maybe<Scalars['Float']['output']>;
-  longitude?: Maybe<Scalars['Float']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  phone: Scalars['String']['output'];
-  phoneVerified: Scalars['Boolean']['output'];
-  publicId?: Maybe<Scalars['Int']['output']>;
-  status: UserStatus;
-  updatedAt: Scalars['DateTime']['output'];
-  withAbsher?: Maybe<Scalars['Boolean']['output']>;
+  id: string;
+  order: number;
 };
 
 export type UserPaginationInput = {
   /** Number of items per page */
-  limit?: Scalars['Int']['input'];
+  limit?: number;
   /** Page number (1-based) */
-  page?: Scalars['Int']['input'];
-  search?: InputMaybe<Scalars['String']['input']>;
+  page?: number;
+  search?: string | null | undefined;
   /** Sort field name */
-  sortBy?: InputMaybe<UserSortField>;
+  sortBy?: UserSortField | null | undefined;
   /** Sort order: ASC or DESC */
-  sortOrder?: InputMaybe<SortOrder>;
-  status?: InputMaybe<UserStatus>;
+  sortOrder?: SortOrder | null | undefined;
+  status?: UserStatus | null | undefined;
 };
 
 /** Available fields to sort users by */
@@ -3340,95 +837,65 @@ export enum UserStatus {
 }
 
 export type VerifyAdminPasswordResetOtpInput = {
-  code: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-};
-
-export type VerifyAdminPasswordResetOtpResponse = {
-  resetToken: Scalars['String']['output'];
-};
-
-export type VerifyChangeEmailInput = {
-  changeToken: Scalars['String']['input'];
-  code: Scalars['String']['input'];
-};
-
-export type VerifyChangePhoneInput = {
-  changeToken: Scalars['String']['input'];
-  code: Scalars['String']['input'];
-  countryCode: Scalars['String']['input'];
-};
-
-export type VerifyOtpInput = {
-  code: Scalars['String']['input'];
-  target: Scalars['String']['input'];
-  type: OtpType;
-};
-
-export type VerifyPasswordResetOtpInput = {
-  code: Scalars['String']['input'];
-  target: Scalars['String']['input'];
-};
-
-export type VerifyPasswordResetOtpResponse = {
-  resetToken: Scalars['String']['output'];
+  code: string;
+  email: string;
 };
 
 export type ActivateAdminMutationVariables = Exact<{
-  activateAdminId: Scalars['ID']['input'];
+  activateAdminId: string;
 }>;
 
 
-export type ActivateAdminMutation = { activateAdmin: { avatarFilename?: string | null, createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType } };
+export type ActivateAdminMutation = { activateAdmin: { avatarFilename: string | null, createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType } };
 
 export type AdminQueryVariables = Exact<{
-  adminId: Scalars['ID']['input'];
+  adminId: string;
 }>;
 
 
-export type AdminQuery = { admin: { createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType, phoneNumber: string } };
+export type AdminQuery = { admin: { createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType, phoneNumber: string } };
 
 export type AdminsQueryVariables = Exact<{
-  paginationInput?: InputMaybe<AdminPaginationInput>;
+  paginationInput?: AdminPaginationInput | null | undefined;
 }>;
 
 
-export type AdminsQuery = { admins: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType, phoneNumber: string }> } };
+export type AdminsQuery = { admins: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType, phoneNumber: string }> } };
 
 export type CreateAdminMutationVariables = Exact<{
   createAdminInput: CreateAdminInput;
 }>;
 
 
-export type CreateAdminMutation = { createAdmin: { createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType, phoneNumber: string } };
+export type CreateAdminMutation = { createAdmin: { createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType, phoneNumber: string } };
 
 export type DeactivateAdminMutationVariables = Exact<{
-  deactivateAdminId: Scalars['ID']['input'];
+  deactivateAdminId: string;
   input: DeactivateAdminInput;
 }>;
 
 
-export type DeactivateAdminMutation = { deactivateAdmin: { avatarFilename?: string | null, createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType } };
+export type DeactivateAdminMutation = { deactivateAdmin: { avatarFilename: string | null, createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType } };
 
 export type MeAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeAdminQuery = { meAdmin: { id: string, createdAt: any, email: string, fullName: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType, phoneNumber: string, avatarFilename?: string | null, adminPermissions?: Array<{ id: string, adminId: string, permissionId: string, publicId?: number | null, updatedAt: any, createdAt: any, permission: { module: string, action: string, createdAt: any, description: string, id: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: any } }> | null } };
+export type MeAdminQuery = { meAdmin: { id: string, createdAt: string, email: string, fullName: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType, phoneNumber: string, avatarFilename: string | null, adminPermissions: Array<{ id: string, adminId: string, permissionId: string, publicId: number | null, updatedAt: string, createdAt: string, permission: { module: string, action: string, createdAt: string, description: string, id: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: string } }> | null } };
 
 export type RemoveAdminMutationVariables = Exact<{
-  removeAdminId: Scalars['ID']['input'];
+  removeAdminId: string;
 }>;
 
 
 export type RemoveAdminMutation = { removeAdmin: boolean };
 
 export type UpdateAdminMutationVariables = Exact<{
-  updateAdminId: Scalars['ID']['input'];
+  updateAdminId: string;
   updateAdminInput: UpdateAdminInput;
 }>;
 
 
-export type UpdateAdminMutation = { updateAdmin: { createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType, phoneNumber: string } };
+export type UpdateAdminMutation = { updateAdmin: { createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType, phoneNumber: string } };
 
 export type AdminChangePasswordMutationVariables = Exact<{
   input: AdminChangePasswordInput;
@@ -3466,274 +933,339 @@ export type AdminVerifyPasswordResetOtpMutationVariables = Exact<{
 export type AdminVerifyPasswordResetOtpMutation = { adminVerifyPasswordResetOtp: { resetToken: string } };
 
 export type ActivateBankMutationVariables = Exact<{
-  activateBankId: Scalars['ID']['input'];
+  activateBankId: string;
 }>;
 
 
-export type ActivateBankMutation = { activateBank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type ActivateBankMutation = { activateBank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type BankQueryVariables = Exact<{
-  bankId: Scalars['ID']['input'];
+  bankId: string;
 }>;
 
 
-export type BankQuery = { bank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type BankQuery = { bank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type BanksQueryVariables = Exact<{
-  input?: InputMaybe<BankPaginationInput>;
+  input?: BankPaginationInput | null | undefined;
 }>;
 
 
-export type BanksQuery = { banks: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any }> } };
+export type BanksQuery = { banks: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string }> } };
 
 export type CreateBankMutationVariables = Exact<{
   input: CreateBankInput;
 }>;
 
 
-export type CreateBankMutation = { createBank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type CreateBankMutation = { createBank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type DeactivateBankMutationVariables = Exact<{
-  deactivateBankId: Scalars['ID']['input'];
+  deactivateBankId: string;
   input: DeactivateBankInput;
 }>;
 
 
-export type DeactivateBankMutation = { deactivateBank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type DeactivateBankMutation = { deactivateBank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type RemoveBankMutationVariables = Exact<{
-  removeBankId: Scalars['ID']['input'];
+  removeBankId: string;
 }>;
 
 
-export type RemoveBankMutation = { removeBank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type RemoveBankMutation = { removeBank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type UpdateBankMutationVariables = Exact<{
   input: UpdateBankInput;
 }>;
 
 
-export type UpdateBankMutation = { updateBank: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: any } };
+export type UpdateBankMutation = { updateBank: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: BankStatus, updatedAt: string } };
 
 export type ActivateCategoryMutationVariables = Exact<{
-  activateCategoryId: Scalars['ID']['input'];
+  activateCategoryId: string;
 }>;
 
 
-export type ActivateCategoryMutation = { activateCategory: { id: string, createdAt: any, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: any, rulesEn: string, rulesAr: string } };
+export type ActivateCategoryMutation = { activateCategory: { id: string, createdAt: string, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: string, rulesEn: string, rulesAr: string } };
 
 export type CategoriesQueryVariables = Exact<{
-  input?: InputMaybe<CategoryPaginationInput>;
+  input?: CategoryPaginationInput | null | undefined;
 }>;
 
 
-export type CategoriesQuery = { categories: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ publicId?: number | null, createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: any, rulesEn: string, rulesAr: string }> } };
+export type CategoriesQuery = { categories: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ publicId: number | null, createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: string, rulesEn: string, rulesAr: string, commissionPercent: number | null, commissionEnabled: boolean, minCommissionAmount: number | null, minCommissionEnabled: boolean, depositPercent: number | null, depositEnabled: boolean, customerConversationFee: number | null, customerConversationFeeEnabled: boolean, providerConversationFee: number | null, providerConversationFeeEnabled: boolean, maxCompletionDays: number | null, maxCompletionDaysEnabled: boolean, maxTerminationDays: number | null, maxTerminationDaysEnabled: boolean, contractDocumentEnabled: boolean, contractDocumentText: string, undertakingTextAr: string, undertakingTextEn: string, undertakingEnabled: boolean, refundPolicyAr: string, refundPolicyEn: string, refundPolicyEnabled: boolean }> } };
 
 export type CategoryQueryVariables = Exact<{
-  categoryId: Scalars['String']['input'];
+  categoryId: string;
 }>;
 
 
-export type CategoryQuery = { category: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, rulesEn: string, rulesAr: string, status: CategoryStatus, image: string, updatedAt: any, publicId?: number | null } };
+export type CategoryQuery = { category: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, rulesEn: string, rulesAr: string, status: CategoryStatus, image: string, updatedAt: string, publicId: number | null, commissionPercent: number | null, commissionEnabled: boolean, minCommissionAmount: number | null, minCommissionEnabled: boolean, depositPercent: number | null, depositEnabled: boolean, customerConversationFee: number | null, customerConversationFeeEnabled: boolean, providerConversationFee: number | null, providerConversationFeeEnabled: boolean, maxCompletionDays: number | null, maxCompletionDaysEnabled: boolean, maxTerminationDays: number | null, maxTerminationDaysEnabled: boolean, contractDocumentEnabled: boolean, contractDocumentText: string, undertakingTextAr: string, undertakingTextEn: string, undertakingEnabled: boolean, refundPolicyAr: string, refundPolicyEn: string, refundPolicyEnabled: boolean } };
 
 export type CreateCategoryMutationVariables = Exact<{
   input: CreateCategoryInput;
 }>;
 
 
-export type CreateCategoryMutation = { createCategory: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any, rulesEn: string, rulesAr: string } };
+export type CreateCategoryMutation = { createCategory: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string, rulesEn: string, rulesAr: string } };
 
 export type DeactivateCategoryMutationVariables = Exact<{
-  deactivateCategoryId: Scalars['ID']['input'];
+  deactivateCategoryId: string;
 }>;
 
 
-export type DeactivateCategoryMutation = { deactivateCategory: { id: string, createdAt: any, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: any, rulesEn: string, rulesAr: string } };
+export type DeactivateCategoryMutation = { deactivateCategory: { id: string, createdAt: string, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, status: CategoryStatus, updatedAt: string, rulesEn: string, rulesAr: string } };
 
 export type RemoveCategoryMutationVariables = Exact<{
-  removeCategoryId: Scalars['String']['input'];
+  removeCategoryId: string;
 }>;
 
 
-export type RemoveCategoryMutation = { removeCategory: { id: string, createdAt: any, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, updatedAt: any, rulesEn: string, rulesAr: string } };
+export type RemoveCategoryMutation = { removeCategory: { id: string, createdAt: string, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, image: string, updatedAt: string, rulesEn: string, rulesAr: string } };
 
 export type UpdateCategoryMutationVariables = Exact<{
   input: UpdateCategoryInput;
 }>;
 
 
-export type UpdateCategoryMutation = { updateCategory: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any, rulesEn: string, rulesAr: string } };
+export type UpdateCategoryMutation = { updateCategory: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string, rulesEn: string, rulesAr: string } };
 
 export type ActivateCityMutationVariables = Exact<{
-  activateCityId: Scalars['ID']['input'];
+  activateCityId: string;
 }>;
 
 
-export type ActivateCityMutation = { activateCity: { id: string, nameAr: string, nameEn: string, status: CityStatus, countryId: string, createdAt: any, updatedAt: any } };
+export type ActivateCityMutation = { activateCity: { id: string, nameAr: string, nameEn: string, status: CityStatus, countryId: string, createdAt: string, updatedAt: string } };
 
 export type CitiesQueryVariables = Exact<{
-  pagination?: InputMaybe<CityPaginationInput>;
+  pagination?: CityPaginationInput | null | undefined;
 }>;
 
 
-export type CitiesQuery = { cities: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, status: CityStatus, updatedAt: any, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null }> } };
+export type CitiesQuery = { cities: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, status: CityStatus, updatedAt: string, country: { code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string } | null }> } };
 
 export type CityQueryVariables = Exact<{
-  cityId: Scalars['ID']['input'];
+  cityId: string;
 }>;
 
 
-export type CityQuery = { city: { id: string, nameAr: string, nameEn: string, status: CityStatus, updatedAt: any, createdAt: any, countryId: string, geoBoundary?: any | null, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type CityQuery = { city: { id: string, nameAr: string, nameEn: string, status: CityStatus, updatedAt: string, createdAt: string, countryId: string, geoBoundary: unknown, country: { code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type CountriesQueryVariables = Exact<{
-  pagination?: InputMaybe<CountryPaginationInput>;
+  pagination?: CountryPaginationInput | null | undefined;
 }>;
 
 
-export type CountriesQuery = { countries: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any }> } };
+export type CountriesQuery = { countries: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string }> } };
 
 export type CreateCityMutationVariables = Exact<{
   input: CreateCityInput;
 }>;
 
 
-export type CreateCityMutation = { createCity: { id: string, countryId: string, createdAt: any, nameAr: string, nameEn: string, updatedAt: any, geoBoundary?: any | null, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type CreateCityMutation = { createCity: { id: string, countryId: string, createdAt: string, nameAr: string, nameEn: string, updatedAt: string, geoBoundary: unknown, country: { code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type DeactivateCityMutationVariables = Exact<{
-  deactivateCityId: Scalars['ID']['input'];
+  deactivateCityId: string;
 }>;
 
 
-export type DeactivateCityMutation = { deactivateCity: { id: string, nameAr: string, nameEn: string, status: CityStatus, countryId: string, createdAt: any, updatedAt: any } };
+export type DeactivateCityMutation = { deactivateCity: { id: string, nameAr: string, nameEn: string, status: CityStatus, countryId: string, createdAt: string, updatedAt: string } };
 
 export type RemoveCityMutationVariables = Exact<{
-  removeCityId: Scalars['ID']['input'];
+  removeCityId: string;
 }>;
 
 
-export type RemoveCityMutation = { removeCity: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type RemoveCityMutation = { removeCity: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, country: { code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type UpdateCityMutationVariables = Exact<{
   input: UpdateCityInput;
 }>;
 
 
-export type UpdateCityMutation = { updateCity: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, geoBoundary?: any | null, country?: { code: string, createdAt: any, dialCode?: string | null, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type UpdateCityMutation = { updateCity: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, geoBoundary: unknown, country: { code: string, createdAt: string, dialCode: string | null, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
+
+export type AdminLifecycleComplaintQueryVariables = Exact<{
+  id: string;
+}>;
+
+
+export type AdminLifecycleComplaintQuery = { adminComplaint: { id: string, publicId: number | null, status: ComplaintStatus, reporterType: ComplaintReporterType, title: string, description: string, attachments: unknown, createdAt: string, reviewedAt: string | null, conversation: { id: string, publicId: number | null, user: { name: string | null, phone: string }, provider: { commercialName: string | null, phone: string } }, contract: { id: string, publicId: number | null } | null, listing: { name: string }, reviewer: { fullName: string } | null, messages: Array<{ id: string, authorType: ComplaintMessageAuthorType, content: string, createdAt: string }> } };
+
+export type AdminLifecycleComplaintsQueryVariables = Exact<{
+  input?: ComplaintPaginationInput | null | undefined;
+}>;
+
+
+export type AdminLifecycleComplaintsQuery = { adminComplaints: { items: Array<{ id: string, publicId: number | null, title: string, description: string, reporterType: ComplaintReporterType, status: ComplaintStatus, createdAt: string, conversation: { publicId: number | null }, listing: { name: string }, reviewer: { fullName: string } | null }>, meta: { total: number, page: number, limit: number, totalPages: number } } };
+
+export type AdminLifecycleReplyComplaintMutationVariables = Exact<{
+  id: string;
+  content: string;
+}>;
+
+
+export type AdminLifecycleReplyComplaintMutation = { adminReplyToComplaint: { id: string } };
+
+export type AdminLifecycleStatusComplaintMutationVariables = Exact<{
+  id: string;
+  status: ComplaintStatus;
+}>;
+
+
+export type AdminLifecycleStatusComplaintMutation = { adminSetComplaintStatus: { id: string, status: ComplaintStatus } };
 
 export type ContactMessageQueryVariables = Exact<{
-  contactMessageId: Scalars['ID']['input'];
+  contactMessageId: string;
 }>;
 
 
-export type ContactMessageQuery = { contactMessage: { attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: any, reply: string, publicId?: number | null, senderId?: string | null, senderType: SenderType, status: ContactMessageStatus } };
+export type ContactMessageQuery = { contactMessage: { attachmentFilename: string | null, createdAt: string, dialCode: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: string, reply: string, publicId: number | null, senderId: string | null, senderType: SenderType, status: ContactMessageStatus } };
 
 export type ContactMessagesQueryVariables = Exact<{
-  paginationInput?: InputMaybe<ContactMessagePaginationInput>;
+  paginationInput?: ContactMessagePaginationInput | null | undefined;
 }>;
 
 
-export type ContactMessagesQuery = { contactMessages: { items: Array<{ attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: any, reply: string, publicId?: number | null, senderId?: string | null, senderType: SenderType, status: ContactMessageStatus }>, meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number } } };
+export type ContactMessagesQuery = { contactMessages: { items: Array<{ attachmentFilename: string | null, createdAt: string, dialCode: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: string, reply: string, publicId: number | null, senderId: string | null, senderType: SenderType, status: ContactMessageStatus }>, meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number } } };
 
 export type MarkAsReadMutationVariables = Exact<{
-  markAsReadId: Scalars['ID']['input'];
+  markAsReadId: string;
 }>;
 
 
-export type MarkAsReadMutation = { markAsRead: { attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: any, reply: string, publicId?: number | null, senderId?: string | null, senderType: SenderType, status: ContactMessageStatus } };
+export type MarkAsReadMutation = { markAsRead: { attachmentFilename: string | null, createdAt: string, dialCode: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: string, reply: string, publicId: number | null, senderId: string | null, senderType: SenderType, status: ContactMessageStatus } };
 
 export type RemoveContactMessageMutationVariables = Exact<{
-  removeContactMessageId: Scalars['ID']['input'];
+  removeContactMessageId: string;
 }>;
 
 
 export type RemoveContactMessageMutation = { removeContactMessage: boolean };
 
 export type ReplyToContactMessageMutationVariables = Exact<{
-  replyToContactMessageId: Scalars['ID']['input'];
-  message: Scalars['String']['input'];
+  replyToContactMessageId: string;
+  message: string;
 }>;
 
 
-export type ReplyToContactMessageMutation = { replyToContactMessage: { attachmentFilename?: string | null, createdAt: any, dialCode?: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: any, reply: string, publicId?: number | null, senderId?: string | null, senderType: SenderType, status: ContactMessageStatus } };
+export type ReplyToContactMessageMutation = { replyToContactMessage: { attachmentFilename: string | null, createdAt: string, dialCode: string | null, email: string, id: string, messageContent: string, messageType: MessageType, name: string, phone: string, updatedAt: string, reply: string, publicId: number | null, senderId: string | null, senderType: SenderType, status: ContactMessageStatus } };
+
+export type AdminLifecycleContractQueryVariables = Exact<{
+  id: string;
+}>;
+
+
+export type AdminLifecycleContractQuery = { adminContract: { id: string, publicId: number | null, version: number, status: ContractStatus, agreedPrice: number, depositPercent: number, downPayment: number, commissionPercent: number, commissionAmount: number, vatRate: number, vatAmount: number, totalPayable: number, providerNetAmount: number, customerAddress: string, providerAddress: string | null, deliveryCompanyNameAr: string | null, deliveryCompanyNameEn: string | null, deliveryEstimateDays: number | null, confirmationDeadlineAt: string | null, cancellationReason: string | null, disputeReason: string | null, contractDocumentText: string, undertakingTextAr: string, undertakingTextEn: string, refundPolicyAr: string, refundPolicyEn: string, createdAt: string, acceptedAt: string | null, paidAt: string | null, providerCompletedAt: string | null, deliveryStartedAt: string | null, completedAt: string | null, cancelledAt: string | null, client: { name: string | null, phone: string }, provider: { commercialName: string | null, phone: string }, conversation: { id: string, publicId: number | null, listing: { id: string, name: string } }, signatures: Array<{ id: string, signerType: ContractSignerType, signatureType: ContractSignatureType, signatureData: string, signedAt: string }>, settlements: Array<{ id: string, type: ContractSettlementType, amount: number, reason: string | null, createdAt: string }>, audits: Array<{ id: string, actorType: ContractActorType, action: ContractAuditAction, previousStatus: ContractStatus, newStatus: ContractStatus, reason: string | null, createdAt: string }>, document: { id: string, version: number, sha256: string, createdAt: string } | null } };
+
+export type AdminLifecycleContractsQueryVariables = Exact<{
+  input?: ContractPaginationInput | null | undefined;
+}>;
+
+
+export type AdminLifecycleContractsQuery = { adminContracts: { items: Array<{ id: string, publicId: number | null, status: ContractStatus, version: number, totalPayable: number, createdAt: string, client: { name: string | null, phone: string }, provider: { commercialName: string | null, phone: string }, conversation: { listing: { name: string } } }>, meta: { total: number, page: number, limit: number, totalPages: number } } };
+
+export type AdminLifecycleResolveContractMutationVariables = Exact<{
+  input: AdminResolveContractInput;
+}>;
+
+
+export type AdminLifecycleResolveContractMutation = { adminResolveContract: { id: string, status: ContractStatus } };
+
+export type AdminLifecycleConversationQueryVariables = Exact<{
+  id: string;
+}>;
+
+
+export type AdminLifecycleConversationQuery = { adminConversation: { id: string, publicId: number | null, status: ConversationStatus, feeCycle: number, createdAt: string, closedAt: string | null, customerFeePaidAt: string | null, providerFeePaidAt: string | null, user: { name: string | null, phone: string }, provider: { commercialName: string | null, phone: string }, listing: { id: string, name: string }, messages: Array<{ id: string, senderType: ConversationSenderType, content: string, kind: MessageKind, createdAt: string }> | null }, adminContracts: { items: Array<{ id: string, publicId: number | null, status: ContractStatus }> }, adminComplaints: { items: Array<{ id: string, publicId: number | null, status: ComplaintStatus }> } };
+
+export type AdminLifecycleConversationsQueryVariables = Exact<{
+  input?: ConversationPaginationInput | null | undefined;
+}>;
+
+
+export type AdminLifecycleConversationsQuery = { adminConversations: { items: Array<{ id: string, publicId: number | null, status: ConversationStatus, feeCycle: number, createdAt: string, closedAt: string | null, user: { name: string | null, phone: string }, provider: { commercialName: string | null, phone: string }, listing: { name: string } }>, meta: { total: number, page: number, limit: number, totalPages: number } } };
 
 export type ActivateDeliveryCompanyMutationVariables = Exact<{
-  activateDeliveryCompanyId: Scalars['ID']['input'];
+  activateDeliveryCompanyId: string;
 }>;
 
 
-export type ActivateDeliveryCompanyMutation = { activateDeliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type ActivateDeliveryCompanyMutation = { activateDeliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type CreateDeliveryCompanyMutationVariables = Exact<{
   input: CreateDeliveryCompanyInput;
 }>;
 
 
-export type CreateDeliveryCompanyMutation = { createDeliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type CreateDeliveryCompanyMutation = { createDeliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type DeactivateDeliveryCompanyMutationVariables = Exact<{
-  deactivateDeliveryCompanyId: Scalars['ID']['input'];
+  deactivateDeliveryCompanyId: string;
   input: DeactivateDeliveryCompanyInput;
 }>;
 
 
-export type DeactivateDeliveryCompanyMutation = { deactivateDeliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type DeactivateDeliveryCompanyMutation = { deactivateDeliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type DeliveryCompaniesQueryVariables = Exact<{
-  input?: InputMaybe<DeliveryCompanyPaginationInput>;
+  input?: DeliveryCompanyPaginationInput | null | undefined;
 }>;
 
 
-export type DeliveryCompaniesQuery = { deliveryCompanies: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any }> } };
+export type DeliveryCompaniesQuery = { deliveryCompanies: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string }> } };
 
 export type DeliveryCompanyQueryVariables = Exact<{
-  deliveryCompanyId: Scalars['ID']['input'];
+  deliveryCompanyId: string;
 }>;
 
 
-export type DeliveryCompanyQuery = { deliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type DeliveryCompanyQuery = { deliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type RemoveDeliveryCompanyMutationVariables = Exact<{
-  removeDeliveryCompanyId: Scalars['ID']['input'];
+  removeDeliveryCompanyId: string;
 }>;
 
 
-export type RemoveDeliveryCompanyMutation = { removeDeliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type RemoveDeliveryCompanyMutation = { removeDeliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type UpdateDeliveryCompanyMutationVariables = Exact<{
   input: UpdateDeliveryCompanyInput;
 }>;
 
 
-export type UpdateDeliveryCompanyMutation = { updateDeliveryCompany: { createdAt: any, deactivationReason?: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: any } };
+export type UpdateDeliveryCompanyMutation = { updateDeliveryCompany: { createdAt: string, deactivationReason: string | null, id: string, nameAr: string, nameEn: string, status: DeliveryCompanyStatus, updatedAt: string } };
 
 export type BulkUpdateOrderMutationVariables = Exact<{
   input: BulkUpdateFaqOrderInput;
 }>;
 
 
-export type BulkUpdateOrderMutation = { bulkUpdateOrder: Array<{ answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any }> };
+export type BulkUpdateOrderMutation = { bulkUpdateOrder: Array<{ answerAr: string, answerEn: string, createdAt: string, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: string }> };
 
 export type CreateFaqMutationVariables = Exact<{
   createFaqInput: CreateFaqInput;
 }>;
 
 
-export type CreateFaqMutation = { createFaq: { id: string, answerAr: string, answerEn: string, createdAt: any, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+export type CreateFaqMutation = { createFaq: { id: string, answerAr: string, answerEn: string, createdAt: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: string } };
 
 export type FaqQueryVariables = Exact<{
-  faqId: Scalars['ID']['input'];
+  faqId: string;
 }>;
 
 
-export type FaqQuery = { faq: { answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+export type FaqQuery = { faq: { answerAr: string, answerEn: string, createdAt: string, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: string } };
 
 export type FaqsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FaqsQuery = { faqs: Array<{ answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any }> };
+export type FaqsQuery = { faqs: Array<{ answerAr: string, answerEn: string, createdAt: string, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: string }> };
 
 export type RemoveFaqMutationVariables = Exact<{
-  removeFaqId: Scalars['ID']['input'];
+  removeFaqId: string;
 }>;
 
 
@@ -3744,205 +1276,226 @@ export type UpdateFaqMutationVariables = Exact<{
 }>;
 
 
-export type UpdateFaqMutation = { updateFaq: { answerAr: string, answerEn: string, createdAt: any, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: any } };
+export type UpdateFaqMutation = { updateFaq: { answerAr: string, answerEn: string, createdAt: string, id: string, isActive: boolean, order: number, questionAr: string, questionEn: string, updatedAt: string } };
 
 export type ActivateListingMutationVariables = Exact<{
-  activateListingId: Scalars['ID']['input'];
+  activateListingId: string;
 }>;
 
 
-export type ActivateListingMutation = { activateListing: { createdAt: any, deactivationReason?: string | null, id: string, status: ListingStatus, updatedAt: any, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, withAbsher?: boolean | null, updatedAt: any, status: ProviderStatus, publicId?: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, publicId?: number | null, updatedAt: any } | null, category?: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId?: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: any } | null } };
+export type ActivateListingMutation = { activateListing: { createdAt: string, deactivationReason: string | null, id: string, status: ListingStatus, updatedAt: string, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, withAbsher: boolean | null, updatedAt: string, status: ProviderStatus, publicId: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, publicId: number | null, updatedAt: string } | null, category: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: string } | null } };
 
 export type DeactivateListingMutationVariables = Exact<{
-  deactivateListingId: Scalars['ID']['input'];
-  reason: Scalars['String']['input'];
+  deactivateListingId: string;
+  reason: string;
 }>;
 
 
-export type DeactivateListingMutation = { deactivateListing: { createdAt: any, deactivationReason?: string | null, id: string, status: ListingStatus, updatedAt: any, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, withAbsher?: boolean | null, updatedAt: any, status: ProviderStatus, publicId?: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, publicId?: number | null, updatedAt: any } | null, category?: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId?: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: any } | null } };
+export type DeactivateListingMutation = { deactivateListing: { createdAt: string, deactivationReason: string | null, id: string, status: ListingStatus, updatedAt: string, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, withAbsher: boolean | null, updatedAt: string, status: ProviderStatus, publicId: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, publicId: number | null, updatedAt: string } | null, category: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: string } | null } };
 
 export type ListingQueryVariables = Exact<{
-  listingId: Scalars['ID']['input'];
+  listingId: string;
 }>;
 
 
-export type ListingQuery = { listing?: { createdAt: any, deactivationReason?: string | null, id: string, status: ListingStatus, updatedAt: any, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, withAbsher?: boolean | null, updatedAt: any, status: ProviderStatus, publicId?: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, publicId?: number | null, updatedAt: any, status: CityStatus } | null, category?: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId?: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: any } | null } | null };
+export type ListingQuery = { listing: { createdAt: string, deactivationReason: string | null, id: string, status: ListingStatus, updatedAt: string, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, withAbsher: boolean | null, updatedAt: string, status: ProviderStatus, publicId: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, publicId: number | null, updatedAt: string, status: CityStatus } | null, category: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: string } | null } | null };
 
 export type ListingsQueryVariables = Exact<{
   input: ListingPaginationInput;
 }>;
 
 
-export type ListingsQuery = { listings: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: any, deactivationReason?: string | null, id: string, status: ListingStatus, updatedAt: any, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, withAbsher?: boolean | null, updatedAt: any, status: ProviderStatus, publicId?: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, publicId?: number | null, updatedAt: any, status: CityStatus } | null, category?: { createdAt: any, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId?: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: any } | null }> } };
+export type ListingsQuery = { listings: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ createdAt: string, deactivationReason: string | null, id: string, status: ListingStatus, updatedAt: string, categoryId: string, cityId: string, description: string, name: string, price: number, tags: string, type: ListingType, providerId: string, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, withAbsher: boolean | null, updatedAt: string, status: ProviderStatus, publicId: number | null, phoneVerified: boolean } | null, story: { filename: string, id: string, originalFilename: string, size: number, sortOrder: number, type: MediaType }, photos: Array<{ filename: string, id: string, originalFilename: string, sortOrder: number, type: MediaType, size: number }>, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, publicId: number | null, updatedAt: string, status: CityStatus } | null, category: { createdAt: string, descriptionAr: string, descriptionEn: string, id: string, image: string, nameAr: string, nameEn: string, publicId: number | null, rulesAr: string, rulesEn: string, status: CategoryStatus, updatedAt: string } | null }> } };
 
 export type RemoveListingMutationVariables = Exact<{
-  removeListingId: Scalars['ID']['input'];
+  removeListingId: string;
 }>;
 
 
 export type RemoveListingMutation = { removeListing: { message: string, success: boolean } };
 
 export type AdminPermissionsQueryVariables = Exact<{
-  adminId: Scalars['ID']['input'];
+  adminId: string;
 }>;
 
 
-export type AdminPermissionsQuery = { adminPermissions: Array<{ adminId: string, createdAt: any, id: string, permissionId: string, updatedAt: any, permission: { action: string, createdAt: any, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: any }, admin?: { createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType } | null }> };
+export type AdminPermissionsQuery = { adminPermissions: Array<{ adminId: string, createdAt: string, id: string, permissionId: string, updatedAt: string, permission: { action: string, createdAt: string, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: string }, admin: { createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType } | null }> };
 
 export type BulkAssignPermissionsToAdminMutationVariables = Exact<{
   input: BulkAssignPermissionsInput;
 }>;
 
 
-export type BulkAssignPermissionsToAdminMutation = { bulkAssignPermissionsToAdmin: Array<{ adminId: string, createdAt: any, id: string, permissionId: string, updatedAt: any, permission: { resource: string, action: string, createdAt: any, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, updatedAt: any }, admin?: { createdAt: any, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: any, userType: AdminUserType } | null }> };
+export type BulkAssignPermissionsToAdminMutation = { bulkAssignPermissionsToAdmin: Array<{ adminId: string, createdAt: string, id: string, permissionId: string, updatedAt: string, permission: { resource: string, action: string, createdAt: string, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, updatedAt: string }, admin: { createdAt: string, email: string, fullName: string, id: string, organizationName: string, permissionType: AdminPermissionType, phoneNumber: string, roleName: string, status: AdminStatus, updatedAt: string, userType: AdminUserType } | null }> };
 
 export type PermissionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PermissionsQuery = { permissions: Array<{ action: string, createdAt: any, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: any }> };
+export type PermissionsQuery = { permissions: Array<{ action: string, createdAt: string, description: string, id: string, module: string, name: string, nameAr: string, permissionPlatform: PermissionPlatform, resource: string, updatedAt: string }> };
 
 export type ActivateProviderMutationVariables = Exact<{
-  activateProviderId: Scalars['ID']['input'];
+  activateProviderId: string;
 }>;
 
 
-export type ActivateProviderMutation = { activateProvider: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type ActivateProviderMutation = { activateProvider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type AdminReactivateProviderMutationVariables = Exact<{
-  providerId: Scalars['ID']['input'];
+  providerId: string;
 }>;
 
 
-export type AdminReactivateProviderMutation = { adminReactivateProvider: { id: string, name?: string | null, isActive: boolean, status: ProviderStatus, email: string, phone: string, deactivationReason?: string | null, signedContract?: { id: string, status: SignedContractStatus, terminationReason?: string | null, contractSignedAt: string, contractExpiresAt?: string | null, platformManagerSignature?: string | null, serviceProviderSignature: string } | null } };
+export type AdminReactivateProviderMutation = { adminReactivateProvider: { id: string, name: string | null, isActive: boolean, status: ProviderStatus, email: string, phone: string, deactivationReason: string | null, signedContract: { id: string, status: SignedContractStatus, terminationReason: string | null, contractSignedAt: string, contractExpiresAt: string | null, platformManagerSignature: string | null, serviceProviderSignature: string } | null } };
 
 export type AdminTerminateProviderContractMutationVariables = Exact<{
   input: AdminTerminateContractInput;
 }>;
 
 
-export type AdminTerminateProviderContractMutation = { adminTerminateProviderContract: { id: string, name?: string | null, isActive: boolean, languageCode?: string | null, address?: string | null, avatarFilename?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, latitude?: number | null, longitude?: number | null, phone: string, phoneVerified: boolean, updatedAt: any, ibanNumber?: string | null, bankName?: string | null, commercialRegistrationNumber?: string | null, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, categories?: Array<{ id: string, createdAt: any, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, updatedAt: any }> | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus } | null } };
+export type AdminTerminateProviderContractMutation = { adminTerminateProviderContract: { id: string, name: string | null, isActive: boolean, languageCode: string | null, address: string | null, avatarFilename: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, latitude: number | null, longitude: number | null, phone: string, phoneVerified: boolean, updatedAt: string, ibanNumber: string | null, bankName: string | null, commercialRegistrationNumber: string | null, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, categories: Array<{ id: string, createdAt: string, descriptionAr: string, descriptionEn: string, nameAr: string, nameEn: string, updatedAt: string }> | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus } | null } };
 
 export type DeactivateProviderMutationVariables = Exact<{
-  deactivateProviderId: Scalars['ID']['input'];
-  reason: Scalars['String']['input'];
+  deactivateProviderId: string;
+  reason: string;
 }>;
 
 
-export type DeactivateProviderMutation = { deactivateProvider: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null } | null } };
+export type DeactivateProviderMutation = { deactivateProvider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null } | null } };
 
 export type ProviderQueryVariables = Exact<{
-  providerId: Scalars['ID']['input'];
+  providerId: string;
 }>;
 
 
-export type ProviderQuery = { provider: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, publicId?: number | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any, rulesEn: string, rulesAr: string, status: CategoryStatus }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, status: CityStatus } | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null, platformManagerName?: string | null, id: string, createdAt: any, publicId?: number | null, updatedAt: any, providerId?: string | null, acceptedRulesAr?: Array<{ label: string, value: string }> | null, acceptedRulesEn?: Array<{ label: string, value: string }> | null } | null } };
+export type ProviderQuery = { provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, publicId: number | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string, rulesEn: string, rulesAr: string, status: CategoryStatus }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, status: CityStatus } | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null, platformManagerName: string | null, id: string, createdAt: string, publicId: number | null, updatedAt: string, providerId: string | null, acceptedRulesAr: Array<{ label: string, value: string }> | null, acceptedRulesEn: Array<{ label: string, value: string }> | null } | null } };
 
 export type ProvidersQueryVariables = Exact<{
   pagination: ProviderPaginationInput;
 }>;
 
 
-export type ProvidersQuery = { providers: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, publicId?: number | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any, rulesEn: string, rulesAr: string, status: CategoryStatus }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, status: CityStatus } | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null, platformManagerName?: string | null, id: string, createdAt: any, publicId?: number | null, updatedAt: any, providerId?: string | null, acceptedRulesAr?: Array<{ label: string, value: string }> | null, acceptedRulesEn?: Array<{ label: string, value: string }> | null } | null }> } };
+export type ProvidersQuery = { providers: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, publicId: number | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string, rulesEn: string, rulesAr: string, status: CategoryStatus }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, status: CityStatus } | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null, platformManagerName: string | null, id: string, createdAt: string, publicId: number | null, updatedAt: string, providerId: string | null, acceptedRulesAr: Array<{ label: string, value: string }> | null, acceptedRulesEn: Array<{ label: string, value: string }> | null } | null }> } };
 
 export type RejectProviderJoinRequestMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-  reason: Scalars['String']['input'];
+  id: string;
+  reason: string;
 }>;
 
 
-export type RejectProviderJoinRequestMutation = { rejectProviderJoinRequest: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, rejectionReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null } | null } };
+export type RejectProviderJoinRequestMutation = { rejectProviderJoinRequest: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, rejectionReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null } | null } };
 
 export type RemoveProviderMutationVariables = Exact<{
-  removeProviderId: Scalars['ID']['input'];
+  removeProviderId: string;
   input: DeleteProviderInput;
 }>;
 
 
-export type RemoveProviderMutation = { removeProvider: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, withAbsher?: boolean | null, status: ProviderStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: any }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null, signedContract?: { contractExpiresAt?: string | null, contractSignedAt: string, platformManagerSignature?: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null } | null } };
+export type RemoveProviderMutation = { removeProvider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, withAbsher: boolean | null, status: ProviderStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, updatedAt: string }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null, signedContract: { contractExpiresAt: string | null, contractSignedAt: string, platformManagerSignature: string | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null } | null } };
 
 export type RatingStatisticsQueryVariables = Exact<{
-  listingId: Scalars['String']['input'];
+  listingId: string;
 }>;
 
 
 export type RatingStatisticsQuery = { ratingStatistics: { averageRating: number, totalRatings: number, fiveStars: number, fourStars: number, threeStars: number, twoStars: number, oneStar: number } };
 
 export type RatingsQueryVariables = Exact<{
-  input?: InputMaybe<RatingPaginationInput>;
+  input?: RatingPaginationInput | null | undefined;
 }>;
 
 
-export type RatingsQuery = { ratings: { items: Array<{ id: string, rating: number, comment?: string | null, createdAt: any, user: { id: string, name?: string | null, avatarFilename?: string | null } }>, meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number } } };
+export type RatingsQuery = { ratings: { items: Array<{ id: string, rating: number, comment: string | null, createdAt: string, user: { id: string, name: string | null, avatarFilename: string | null } }>, meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number } } };
+
+export type AdminContractFinancialReportQueryVariables = Exact<{
+  input?: FeeReportInput | null | undefined;
+}>;
+
+
+export type AdminContractFinancialReportQuery = { contractFinancialReport: { completedCount: number, totalProviderNet: number, totalVat: number, totalCommission: number, totalPaid: number, totalCustomerRefunds: number, totalProviderReleases: number, items: Array<{ contractId: string, contractNumber: number | null, customerName: string | null, providerName: string | null, status: string, providerNet: number, vat: number, commission: number, totalPaid: number, customerRefund: number, providerRelease: number, createdAt: string }>, meta: { total: number, page: number, limit: number } } };
+
+export type AdminConversationFeeReportQueryVariables = Exact<{
+  input?: FeeReportInput | null | undefined;
+}>;
+
+
+export type AdminConversationFeeReportQuery = { conversationFeeReport: { totalCustomerFees: number, totalProviderFees: number, items: Array<{ conversationId: string, conversationNumber: number | null, customerName: string | null, providerName: string | null, providerPhone: string | null, status: string, customerFee: number, providerFee: number, startedAt: string, endedAt: string | null }>, meta: { total: number, page: number, limit: number } } };
+
+export type AdminPremiumAdReportQueryVariables = Exact<{
+  input?: FeeReportInput | null | undefined;
+}>;
+
+
+export type AdminPremiumAdReportQuery = { premiumAdFeeReport: { totalFees: number, items: Array<{ paymentId: string, listingId: string, listingName: string, providerName: string | null, providerPhone: string | null, status: string, fee: number, createdAt: string, featuredStartsAt: string | null, featuredEndsAt: string | null }>, meta: { total: number, page: number, limit: number } } };
 
 export type GetSettingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSettingQuery = { getSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
+export type GetSettingQuery = { getSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName: string | null, platformManagerSignature: string | null, vatRate: number, vatEnabled: boolean, contractAcceptanceWindowDays: number, contractAcceptanceWindowEnabled: boolean, completionConfirmationGraceHours: number, premiumAdFee: number, premiumAdDurationDays: number, premiumAdEnabled: boolean, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
 
 export type SetSettingMutationVariables = Exact<{
   input: SettingInput;
 }>;
 
 
-export type SetSettingMutation = { setSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName?: string | null, platformManagerSignature?: string | null, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
+export type SetSettingMutation = { setSetting: { aboutAr: string, aboutEn: string, email: string, phones: Array<string>, privacyPolicyAr: string, privacyPolicyEn: string, termsAr: string, termsEn: string, whatsappNumber: string, rulesAr: string, rulesEn: string, platformManagerName: string | null, platformManagerSignature: string | null, socialMediaLinks: Array<{ link: string, name: SocialMediaPlatform }> } };
 
 export type SignedContractByIdQueryVariables = Exact<{
-  signedContractByIdId: Scalars['String']['input'];
+  signedContractByIdId: string;
 }>;
 
 
-export type SignedContractByIdQuery = { signedContractById?: { contractExpiresAt?: string | null, contractSignedAt: string, createdAt: any, id: string, platformManagerName?: string | null, platformManagerSignature?: string | null, publicId?: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null, updatedAt: any, providerId?: string | null, acceptedRulesAr?: Array<{ label: string, value: string }> | null, acceptedRulesEn?: Array<{ label: string, value: string }> | null, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, publicId?: number | null, status: ProviderStatus, updatedAt: any, withAbsher?: boolean | null, categories?: Array<{ createdAt: any, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, publicId?: number | null, rulesAr: string, rulesEn: string, updatedAt: any, status: CategoryStatus }> | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, publicId?: number | null, updatedAt: any, status: CityStatus } | null } | null } | null };
+export type SignedContractByIdQuery = { signedContractById: { contractExpiresAt: string | null, contractSignedAt: string, createdAt: string, id: string, platformManagerName: string | null, platformManagerSignature: string | null, publicId: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null, updatedAt: string, providerId: string | null, acceptedRulesAr: Array<{ label: string, value: string }> | null, acceptedRulesEn: Array<{ label: string, value: string }> | null, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, publicId: number | null, status: ProviderStatus, updatedAt: string, withAbsher: boolean | null, categories: Array<{ createdAt: string, descriptionAr: string, descriptionEn: string, id: string, nameAr: string, nameEn: string, image: string, publicId: number | null, rulesAr: string, rulesEn: string, updatedAt: string, status: CategoryStatus }> | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, publicId: number | null, updatedAt: string, status: CityStatus } | null } | null } | null };
 
 export type SignedContractByProviderIdQueryVariables = Exact<{
-  providerId: Scalars['String']['input'];
+  providerId: string;
 }>;
 
 
-export type SignedContractByProviderIdQuery = { signedContractByProviderId?: { contractExpiresAt?: string | null, contractSignedAt: string, createdAt: any, id: string, platformManagerName?: string | null, platformManagerSignature?: string | null, publicId?: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null, updatedAt: any, providerId?: string | null, acceptedRulesAr?: Array<{ label: string, value: string }> | null, acceptedRulesEn?: Array<{ label: string, value: string }> | null, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, publicId?: number | null, status: ProviderStatus, updatedAt: any, withAbsher?: boolean | null } | null } | null };
+export type SignedContractByProviderIdQuery = { signedContractByProviderId: { contractExpiresAt: string | null, contractSignedAt: string, createdAt: string, id: string, platformManagerName: string | null, platformManagerSignature: string | null, publicId: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null, updatedAt: string, providerId: string | null, acceptedRulesAr: Array<{ label: string, value: string }> | null, acceptedRulesEn: Array<{ label: string, value: string }> | null, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, publicId: number | null, status: ProviderStatus, updatedAt: string, withAbsher: boolean | null } | null } | null };
 
 export type SignedContractsQueryVariables = Exact<{
-  input?: InputMaybe<SignedContractPaginationInput>;
+  input?: SignedContractPaginationInput | null | undefined;
 }>;
 
 
-export type SignedContractsQuery = { signedContracts: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ contractExpiresAt?: string | null, contractSignedAt: string, createdAt: any, id: string, platformManagerName?: string | null, platformManagerSignature?: string | null, publicId?: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason?: string | null, updatedAt: any, providerId?: string | null, acceptedRulesAr?: Array<{ label: string, value: string }> | null, acceptedRulesEn?: Array<{ label: string, value: string }> | null, provider?: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, commercialName?: string | null, commercialRegistrationFilename?: string | null, commercialRegistrationNumber?: string | null, countryId?: string | null, createdAt: any, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, publicId?: number | null, status: ProviderStatus, updatedAt: any, withAbsher?: boolean | null } | null }> } };
+export type SignedContractsQuery = { signedContracts: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ contractExpiresAt: string | null, contractSignedAt: string, createdAt: string, id: string, platformManagerName: string | null, platformManagerSignature: string | null, publicId: number | null, serviceProviderSignature: string, status: SignedContractStatus, terminationReason: string | null, updatedAt: string, providerId: string | null, acceptedRulesAr: Array<{ label: string, value: string }> | null, acceptedRulesEn: Array<{ label: string, value: string }> | null, provider: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, commercialName: string | null, commercialRegistrationFilename: string | null, commercialRegistrationNumber: string | null, countryId: string | null, createdAt: string, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, publicId: number | null, status: ProviderStatus, updatedAt: string, withAbsher: boolean | null } | null }> } };
 
 export type ActivateUserMutationVariables = Exact<{
-  activateUserId: Scalars['ID']['input'];
+  activateUserId: string;
 }>;
 
 
-export type ActivateUserMutation = { activateUser: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: UserStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type ActivateUserMutation = { activateUser: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: UserStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type DeactivateUserMutationVariables = Exact<{
-  deactivateUserId: Scalars['ID']['input'];
+  deactivateUserId: string;
   input: DeactivateUserInput;
 }>;
 
 
-export type DeactivateUserMutation = { deactivateUser: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: UserStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type DeactivateUserMutation = { deactivateUser: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: UserStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type RemoveUserMutationVariables = Exact<{
-  removeUserId: Scalars['ID']['input'];
+  removeUserId: string;
   input: DeleteUserInput;
 }>;
 
 
-export type RemoveUserMutation = { removeUser: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: UserStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any } | null } };
+export type RemoveUserMutation = { removeUser: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: UserStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string } | null } };
 
 export type UserQueryVariables = Exact<{
-  userId: Scalars['ID']['input'];
+  userId: string;
 }>;
 
 
-export type UserQuery = { user: { address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: UserStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, publicId?: number | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, status: CityStatus } | null } };
+export type UserQuery = { user: { address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: UserStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, publicId: number | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, status: CityStatus } | null } };
 
 export type UsersQueryVariables = Exact<{
   pagination: UserPaginationInput;
 }>;
 
 
-export type UsersQuery = { users: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ address?: string | null, avatarFilename?: string | null, bankName?: string | null, cityId?: string | null, countryId?: string | null, createdAt: any, dialCode?: string | null, email: string, emailVerified: boolean, ibanNumber?: string | null, id: string, isActive: boolean, languageCode?: string | null, latitude?: number | null, longitude?: number | null, name?: string | null, phone: string, phoneVerified: boolean, updatedAt: any, status: UserStatus, deactivationReason?: string | null, deleteReason?: string | null, deletedAt?: string | null, publicId?: number | null, city?: { countryId: string, createdAt: any, id: string, nameAr: string, nameEn: string, updatedAt: any, status: CityStatus } | null }> } };
+export type UsersQuery = { users: { meta: { hasNext: boolean, hasPrevious: boolean, limit: number, page: number, total: number, totalPages: number }, items: Array<{ address: string | null, avatarFilename: string | null, bankName: string | null, cityId: string | null, countryId: string | null, createdAt: string, dialCode: string | null, email: string, emailVerified: boolean, ibanNumber: string | null, id: string, isActive: boolean, languageCode: string | null, latitude: number | null, longitude: number | null, name: string | null, phone: string, phoneVerified: boolean, updatedAt: string, status: UserStatus, deactivationReason: string | null, deleteReason: string | null, deletedAt: string | null, publicId: number | null, city: { countryId: string, createdAt: string, id: string, nameAr: string, nameEn: string, updatedAt: string, status: CityStatus } | null }> } };
 
 
 export const ActivateAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"activateAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activateAdminId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activateAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activateAdminId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"organizationName"}},{"kind":"Field","name":{"kind":"Name","value":"permissionType"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"roleName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userType"}}]}}]}}]} as unknown as DocumentNode<ActivateAdminMutation, ActivateAdminMutationVariables>;
@@ -3966,8 +1519,8 @@ export const DeactivateBankDocument = {"kind":"Document","definitions":[{"kind":
 export const RemoveBankDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeBank"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeBankId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeBank"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeBankId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<RemoveBankMutation, RemoveBankMutationVariables>;
 export const UpdateBankDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateBank"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateBankInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateBank"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<UpdateBankMutation, UpdateBankMutationVariables>;
 export const ActivateCategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"activateCategory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activateCategoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activateCategory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activateCategoryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}}]}}]}}]} as unknown as DocumentNode<ActivateCategoryMutation, ActivateCategoryMutationVariables>;
-export const CategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"categories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CategoryPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesQuery, CategoriesQueryVariables>;
-export const CategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"category"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}}]}}]}}]} as unknown as DocumentNode<CategoryQuery, CategoryQueryVariables>;
+export const CategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"categories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CategoryPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"commissionPercent"}},{"kind":"Field","name":{"kind":"Name","value":"commissionEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"minCommissionAmount"}},{"kind":"Field","name":{"kind":"Name","value":"minCommissionEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"depositPercent"}},{"kind":"Field","name":{"kind":"Name","value":"depositEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"customerConversationFee"}},{"kind":"Field","name":{"kind":"Name","value":"customerConversationFeeEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"providerConversationFee"}},{"kind":"Field","name":{"kind":"Name","value":"providerConversationFeeEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"maxCompletionDays"}},{"kind":"Field","name":{"kind":"Name","value":"maxCompletionDaysEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"maxTerminationDays"}},{"kind":"Field","name":{"kind":"Name","value":"maxTerminationDaysEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"contractDocumentEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"contractDocumentText"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextAr"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextEn"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyEnabled"}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesQuery, CategoriesQueryVariables>;
+export const CategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"category"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"commissionPercent"}},{"kind":"Field","name":{"kind":"Name","value":"commissionEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"minCommissionAmount"}},{"kind":"Field","name":{"kind":"Name","value":"minCommissionEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"depositPercent"}},{"kind":"Field","name":{"kind":"Name","value":"depositEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"customerConversationFee"}},{"kind":"Field","name":{"kind":"Name","value":"customerConversationFeeEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"providerConversationFee"}},{"kind":"Field","name":{"kind":"Name","value":"providerConversationFeeEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"maxCompletionDays"}},{"kind":"Field","name":{"kind":"Name","value":"maxCompletionDaysEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"maxTerminationDays"}},{"kind":"Field","name":{"kind":"Name","value":"maxTerminationDaysEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"contractDocumentEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"contractDocumentText"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextAr"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextEn"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyEnabled"}}]}}]}}]} as unknown as DocumentNode<CategoryQuery, CategoryQueryVariables>;
 export const CreateCategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCategory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCategoryInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCategory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}}]}}]}}]} as unknown as DocumentNode<CreateCategoryMutation, CreateCategoryMutationVariables>;
 export const DeactivateCategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deactivateCategory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deactivateCategoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deactivateCategory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deactivateCategoryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}}]}}]}}]} as unknown as DocumentNode<DeactivateCategoryMutation, DeactivateCategoryMutationVariables>;
 export const RemoveCategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeCategory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeCategoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeCategory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeCategoryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}}]}}]}}]} as unknown as DocumentNode<RemoveCategoryMutation, RemoveCategoryMutationVariables>;
@@ -3980,11 +1533,20 @@ export const CreateCityDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const DeactivateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deactivateCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deactivateCityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deactivateCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deactivateCityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeactivateCityMutation, DeactivateCityMutationVariables>;
 export const RemoveCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeCityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RemoveCityMutation, RemoveCityMutationVariables>;
 export const UpdateCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCityInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"geoBoundary"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateCityMutation, UpdateCityMutationVariables>;
+export const AdminLifecycleComplaintDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleComplaint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminComplaint"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"reporterType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"attachments"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"reviewedAt"}},{"kind":"Field","name":{"kind":"Name","value":"conversation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reviewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"messages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authorType"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleComplaintQuery, AdminLifecycleComplaintQueryVariables>;
+export const AdminLifecycleComplaintsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleComplaints"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ComplaintPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminComplaints"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"reporterType"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"conversation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publicId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reviewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleComplaintsQuery, AdminLifecycleComplaintsQueryVariables>;
+export const AdminLifecycleReplyComplaintDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AdminLifecycleReplyComplaint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminReplyToComplaint"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"complaintId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleReplyComplaintMutation, AdminLifecycleReplyComplaintMutationVariables>;
+export const AdminLifecycleStatusComplaintDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AdminLifecycleStatusComplaint"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ComplaintStatus"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminSetComplaintStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"complaintId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleStatusComplaintMutation, AdminLifecycleStatusComplaintMutationVariables>;
 export const ContactMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contactMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contactMessageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contactMessageId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"reply"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<ContactMessageQuery, ContactMessageQueryVariables>;
 export const ContactMessagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"contactMessages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paginationInput"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ContactMessagePaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactMessages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paginationInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"reply"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<ContactMessagesQuery, ContactMessagesQueryVariables>;
 export const MarkAsReadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"markAsRead"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"markAsReadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"markAsRead"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"markAsReadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"reply"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<MarkAsReadMutation, MarkAsReadMutationVariables>;
 export const RemoveContactMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeContactMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeContactMessageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeContactMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeContactMessageId"}}}]}]}}]} as unknown as DocumentNode<RemoveContactMessageMutation, RemoveContactMessageMutationVariables>;
 export const ReplyToContactMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"replyToContactMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"replyToContactMessageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"message"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"replyToContactMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"replyToContactMessageId"}}},{"kind":"Argument","name":{"kind":"Name","value":"message"},"value":{"kind":"Variable","name":{"kind":"Name","value":"message"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attachmentFilename"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"messageContent"}},{"kind":"Field","name":{"kind":"Name","value":"messageType"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"reply"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<ReplyToContactMessageMutation, ReplyToContactMessageMutationVariables>;
+export const AdminLifecycleContractDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleContract"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminContract"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"agreedPrice"}},{"kind":"Field","name":{"kind":"Name","value":"depositPercent"}},{"kind":"Field","name":{"kind":"Name","value":"downPayment"}},{"kind":"Field","name":{"kind":"Name","value":"commissionPercent"}},{"kind":"Field","name":{"kind":"Name","value":"commissionAmount"}},{"kind":"Field","name":{"kind":"Name","value":"vatRate"}},{"kind":"Field","name":{"kind":"Name","value":"vatAmount"}},{"kind":"Field","name":{"kind":"Name","value":"totalPayable"}},{"kind":"Field","name":{"kind":"Name","value":"providerNetAmount"}},{"kind":"Field","name":{"kind":"Name","value":"customerAddress"}},{"kind":"Field","name":{"kind":"Name","value":"providerAddress"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryCompanyNameAr"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryCompanyNameEn"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryEstimateDays"}},{"kind":"Field","name":{"kind":"Name","value":"confirmationDeadlineAt"}},{"kind":"Field","name":{"kind":"Name","value":"cancellationReason"}},{"kind":"Field","name":{"kind":"Name","value":"disputeReason"}},{"kind":"Field","name":{"kind":"Name","value":"contractDocumentText"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextAr"}},{"kind":"Field","name":{"kind":"Name","value":"undertakingTextEn"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"refundPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"acceptedAt"}},{"kind":"Field","name":{"kind":"Name","value":"paidAt"}},{"kind":"Field","name":{"kind":"Name","value":"providerCompletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryStartedAt"}},{"kind":"Field","name":{"kind":"Name","value":"completedAt"}},{"kind":"Field","name":{"kind":"Name","value":"cancelledAt"}},{"kind":"Field","name":{"kind":"Name","value":"client"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"conversation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"signatures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"signerType"}},{"kind":"Field","name":{"kind":"Name","value":"signatureType"}},{"kind":"Field","name":{"kind":"Name","value":"signatureData"}},{"kind":"Field","name":{"kind":"Name","value":"signedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"settlements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"audits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"actorType"}},{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"previousStatus"}},{"kind":"Field","name":{"kind":"Name","value":"newStatus"}},{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"document"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"sha256"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleContractQuery, AdminLifecycleContractQueryVariables>;
+export const AdminLifecycleContractsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleContracts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ContractPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminContracts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"totalPayable"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"client"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"conversation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleContractsQuery, AdminLifecycleContractsQueryVariables>;
+export const AdminLifecycleResolveContractDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AdminLifecycleResolveContract"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AdminResolveContractInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminResolveContract"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleResolveContractMutation, AdminLifecycleResolveContractMutationVariables>;
+export const AdminLifecycleConversationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleConversation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminConversation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"feeCycle"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"closedAt"}},{"kind":"Field","name":{"kind":"Name","value":"customerFeePaidAt"}},{"kind":"Field","name":{"kind":"Name","value":"providerFeePaidAt"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"messages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"adminContracts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"conversationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"20"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"adminComplaints"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"conversationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"20"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleConversationQuery, AdminLifecycleConversationQueryVariables>;
+export const AdminLifecycleConversationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminLifecycleConversations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConversationPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminConversations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"feeCycle"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"closedAt"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"listing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<AdminLifecycleConversationsQuery, AdminLifecycleConversationsQueryVariables>;
 export const ActivateDeliveryCompanyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"activateDeliveryCompany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activateDeliveryCompanyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activateDeliveryCompany"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activateDeliveryCompanyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ActivateDeliveryCompanyMutation, ActivateDeliveryCompanyMutationVariables>;
 export const CreateDeliveryCompanyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createDeliveryCompany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateDeliveryCompanyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createDeliveryCompany"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateDeliveryCompanyMutation, CreateDeliveryCompanyMutationVariables>;
 export const DeactivateDeliveryCompanyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deactivateDeliveryCompany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deactivateDeliveryCompanyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeactivateDeliveryCompanyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deactivateDeliveryCompany"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deactivateDeliveryCompanyId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeactivateDeliveryCompanyMutation, DeactivateDeliveryCompanyMutationVariables>;
@@ -4016,7 +1578,10 @@ export const RejectProviderJoinRequestDocument = {"kind":"Document","definitions
 export const RemoveProviderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeProvider"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeProviderId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteProviderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeProvider"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeProviderId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"withAbsher"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"signedContract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contractExpiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"contractSignedAt"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}},{"kind":"Field","name":{"kind":"Name","value":"serviceProviderSignature"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"terminationReason"}}]}},{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationFilename"}}]}}]}}]} as unknown as DocumentNode<RemoveProviderMutation, RemoveProviderMutationVariables>;
 export const RatingStatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ratingStatistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"listingId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ratingStatistics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"listingId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"listingId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"averageRating"}},{"kind":"Field","name":{"kind":"Name","value":"totalRatings"}},{"kind":"Field","name":{"kind":"Name","value":"fiveStars"}},{"kind":"Field","name":{"kind":"Name","value":"fourStars"}},{"kind":"Field","name":{"kind":"Name","value":"threeStars"}},{"kind":"Field","name":{"kind":"Name","value":"twoStars"}},{"kind":"Field","name":{"kind":"Name","value":"oneStar"}}]}}]}}]} as unknown as DocumentNode<RatingStatisticsQuery, RatingStatisticsQueryVariables>;
 export const RatingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ratings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"RatingPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ratings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"comment"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}}]}}]}}]} as unknown as DocumentNode<RatingsQuery, RatingsQueryVariables>;
-export const GetSettingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSetting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSetting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutAr"}},{"kind":"Field","name":{"kind":"Name","value":"aboutEn"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phones"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"socialMediaLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"termsAr"}},{"kind":"Field","name":{"kind":"Name","value":"termsEn"}},{"kind":"Field","name":{"kind":"Name","value":"whatsappNumber"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}}]}}]}}]} as unknown as DocumentNode<GetSettingQuery, GetSettingQueryVariables>;
+export const AdminContractFinancialReportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminContractFinancialReport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FeeReportInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contractFinancialReport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completedCount"}},{"kind":"Field","name":{"kind":"Name","value":"totalProviderNet"}},{"kind":"Field","name":{"kind":"Name","value":"totalVat"}},{"kind":"Field","name":{"kind":"Name","value":"totalCommission"}},{"kind":"Field","name":{"kind":"Name","value":"totalPaid"}},{"kind":"Field","name":{"kind":"Name","value":"totalCustomerRefunds"}},{"kind":"Field","name":{"kind":"Name","value":"totalProviderReleases"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contractId"}},{"kind":"Field","name":{"kind":"Name","value":"contractNumber"}},{"kind":"Field","name":{"kind":"Name","value":"customerName"}},{"kind":"Field","name":{"kind":"Name","value":"providerName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"providerNet"}},{"kind":"Field","name":{"kind":"Name","value":"vat"}},{"kind":"Field","name":{"kind":"Name","value":"commission"}},{"kind":"Field","name":{"kind":"Name","value":"totalPaid"}},{"kind":"Field","name":{"kind":"Name","value":"customerRefund"}},{"kind":"Field","name":{"kind":"Name","value":"providerRelease"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}}]}}]}}]}}]} as unknown as DocumentNode<AdminContractFinancialReportQuery, AdminContractFinancialReportQueryVariables>;
+export const AdminConversationFeeReportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminConversationFeeReport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FeeReportInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"conversationFeeReport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCustomerFees"}},{"kind":"Field","name":{"kind":"Name","value":"totalProviderFees"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"conversationId"}},{"kind":"Field","name":{"kind":"Name","value":"conversationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"customerName"}},{"kind":"Field","name":{"kind":"Name","value":"providerName"}},{"kind":"Field","name":{"kind":"Name","value":"providerPhone"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"customerFee"}},{"kind":"Field","name":{"kind":"Name","value":"providerFee"}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}}]}}]}}]}}]} as unknown as DocumentNode<AdminConversationFeeReportQuery, AdminConversationFeeReportQueryVariables>;
+export const AdminPremiumAdReportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdminPremiumAdReport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FeeReportInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"premiumAdFeeReport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalFees"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentId"}},{"kind":"Field","name":{"kind":"Name","value":"listingId"}},{"kind":"Field","name":{"kind":"Name","value":"listingName"}},{"kind":"Field","name":{"kind":"Name","value":"providerName"}},{"kind":"Field","name":{"kind":"Name","value":"providerPhone"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fee"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"featuredStartsAt"}},{"kind":"Field","name":{"kind":"Name","value":"featuredEndsAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}}]}}]}}]}}]} as unknown as DocumentNode<AdminPremiumAdReportQuery, AdminPremiumAdReportQueryVariables>;
+export const GetSettingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSetting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSetting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutAr"}},{"kind":"Field","name":{"kind":"Name","value":"aboutEn"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phones"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"socialMediaLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"termsAr"}},{"kind":"Field","name":{"kind":"Name","value":"termsEn"}},{"kind":"Field","name":{"kind":"Name","value":"whatsappNumber"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}},{"kind":"Field","name":{"kind":"Name","value":"vatRate"}},{"kind":"Field","name":{"kind":"Name","value":"vatEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"contractAcceptanceWindowDays"}},{"kind":"Field","name":{"kind":"Name","value":"contractAcceptanceWindowEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"completionConfirmationGraceHours"}},{"kind":"Field","name":{"kind":"Name","value":"premiumAdFee"}},{"kind":"Field","name":{"kind":"Name","value":"premiumAdDurationDays"}},{"kind":"Field","name":{"kind":"Name","value":"premiumAdEnabled"}}]}}]}}]} as unknown as DocumentNode<GetSettingQuery, GetSettingQueryVariables>;
 export const SetSettingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"setSetting"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setSetting"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutAr"}},{"kind":"Field","name":{"kind":"Name","value":"aboutEn"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phones"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyAr"}},{"kind":"Field","name":{"kind":"Name","value":"privacyPolicyEn"}},{"kind":"Field","name":{"kind":"Name","value":"socialMediaLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"termsAr"}},{"kind":"Field","name":{"kind":"Name","value":"termsEn"}},{"kind":"Field","name":{"kind":"Name","value":"whatsappNumber"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}}]}}]}}]} as unknown as DocumentNode<SetSettingMutation, SetSettingMutationVariables>;
 export const SignedContractByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signedContractById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signedContractByIdId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signedContractById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signedContractByIdId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesAr"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesEn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contractExpiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"contractSignedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"serviceProviderSignature"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"terminationReason"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationFilename"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"withAbsher"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionAr"}},{"kind":"Field","name":{"kind":"Name","value":"descriptionEn"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"rulesAr"}},{"kind":"Field","name":{"kind":"Name","value":"rulesEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"providerId"}}]}}]}}]} as unknown as DocumentNode<SignedContractByIdQuery, SignedContractByIdQueryVariables>;
 export const SignedContractByProviderIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signedContractByProviderId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"providerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signedContractByProviderId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"providerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"providerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesAr"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesEn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contractExpiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"contractSignedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"serviceProviderSignature"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"terminationReason"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationFilename"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"withAbsher"}}]}},{"kind":"Field","name":{"kind":"Name","value":"providerId"}}]}}]}}]} as unknown as DocumentNode<SignedContractByProviderIdQuery, SignedContractByProviderIdQueryVariables>;
@@ -4026,3 +1591,326 @@ export const DeactivateUserDocument = {"kind":"Document","definitions":[{"kind":
 export const RemoveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeUserId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}}]} as unknown as DocumentNode<RemoveUserMutation, RemoveUserMutationVariables>;
 export const UserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"user"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}}]}}]}}]} as unknown as DocumentNode<UserQuery, UserQueryVariables>;
 export const UsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"users"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserPaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}}]}}]}}]}}]} as unknown as DocumentNode<UsersQuery, UsersQueryVariables>;
+
+// <schema-object-types>
+export type {
+  AcceptContractInput,
+  Admin,
+  AdminAuthResponse,
+  AdminPermission,
+  AssignPermissionInput,
+  AuthResponse,
+  Bank,
+  CancelContractInput,
+  Category,
+  ChangeEmailInput,
+  ChangeEmailResponse,
+  ChangePasswordInput,
+  ChangePhoneInput,
+  ChangePhoneResponse,
+  City,
+  Complaint,
+  ComplaintMessage,
+  CompleteContractInput,
+  ContactMessage,
+  Contract,
+  ContractAudit,
+  ContractDocument,
+  ContractFinancialReport,
+  ContractFinancialReportRow,
+  ContractPaymentResponse,
+  ContractQuote,
+  ContractQuoteInput,
+  ContractRule,
+  ContractRuleInput,
+  ContractSettlement,
+  ContractSignature,
+  Conversation,
+  ConversationAccess,
+  ConversationFeePaymentResponse,
+  ConversationFeeReport,
+  ConversationFeeReportRow,
+  Country,
+  CreateComplaintInput,
+  CreateContactMessageInput,
+  CreateContractInput,
+  CreateConversationInput,
+  CreateCountryInput,
+  CreateListingInput,
+  CreateListingMediaInput,
+  CreateMessageInput,
+  CreateNotificationInput,
+  CreatePermissionInput,
+  CreateProviderInput,
+  CreateRatingInput,
+  DeliveryCompany,
+  Faq,
+  Favorite,
+  FavoritePaginationInput,
+  ForgotPasswordInput,
+  InitializeContractInput,
+  Listing,
+  ListingMedia,
+  LoginInput,
+  LoginProviderInput,
+  Message,
+  MessagePaginationInput,
+  MessageSender,
+  MutationAcceptContractArgs,
+  MutationActivateAdminArgs,
+  MutationActivateBankArgs,
+  MutationActivateCategoryArgs,
+  MutationActivateCityArgs,
+  MutationActivateDeliveryCompanyArgs,
+  MutationActivateListingArgs,
+  MutationActivateProviderArgs,
+  MutationActivateUserArgs,
+  MutationAddComplaintMessageArgs,
+  MutationAdminChangePasswordArgs,
+  MutationAdminForgotPasswordArgs,
+  MutationAdminLoginArgs,
+  MutationAdminReactivateProviderArgs,
+  MutationAdminReplyToComplaintArgs,
+  MutationAdminResetPasswordArgs,
+  MutationAdminResolveContractArgs,
+  MutationAdminSetComplaintStatusArgs,
+  MutationAdminTerminateProviderContractArgs,
+  MutationAdminVerifyPasswordResetOtpArgs,
+  MutationAssignPermissionToAdminArgs,
+  MutationBulkAssignPermissionsToAdminArgs,
+  MutationBulkRevokePermissionsFromAdminArgs,
+  MutationBulkUpdateOrderArgs,
+  MutationChangePasswordArgs,
+  MutationChangeProviderPasswordArgs,
+  MutationCompleteContractArgs,
+  MutationCreateAdminArgs,
+  MutationCreateBankArgs,
+  MutationCreateCategoryArgs,
+  MutationCreateCityArgs,
+  MutationCreateComplaintArgs,
+  MutationCreateContactMessageArgs,
+  MutationCreateContractArgs,
+  MutationCreateConversationArgs,
+  MutationCreateCountryArgs,
+  MutationCreateDeliveryCompanyArgs,
+  MutationCreateFaqArgs,
+  MutationCreateListingArgs,
+  MutationCreateMessageArgs,
+  MutationCreateNotificationArgs,
+  MutationCreatePermissionArgs,
+  MutationCreateProviderArgs,
+  MutationCreateRatingArgs,
+  MutationDeactivateAdminArgs,
+  MutationDeactivateBankArgs,
+  MutationDeactivateCategoryArgs,
+  MutationDeactivateCityArgs,
+  MutationDeactivateDeliveryCompanyArgs,
+  MutationDeactivateListingArgs,
+  MutationDeactivateProviderArgs,
+  MutationDeactivateUserArgs,
+  MutationDeleteAllNotificationsForUserArgs,
+  MutationDeleteSignedContractArgs,
+  MutationForgotPasswordArgs,
+  MutationForgotProviderPasswordArgs,
+  MutationInitializeContractArgs,
+  MutationInitiateEmailChangeArgs,
+  MutationInitiatePhoneChangeArgs,
+  MutationInitiateProviderEmailChangeArgs,
+  MutationInitiateProviderPhoneChangeArgs,
+  MutationLoginArgs,
+  MutationLoginProviderArgs,
+  MutationMarkAllNotificationsAsReadArgs,
+  MutationMarkAsReadArgs,
+  MutationMarkConversationReadArgs,
+  MutationMarkMultipleNotificationsAsReadArgs,
+  MutationMarkNotificationAsReadArgs,
+  MutationMarkNotificationAsUnreadArgs,
+  MutationPayContractArgs,
+  MutationPayConversationFeeArgs,
+  MutationProviderCompleteContractArgs,
+  MutationRefuseContractDeliveryArgs,
+  MutationRegisterArgs,
+  MutationRegisterProviderArgs,
+  MutationRejectContractArgs,
+  MutationRejectProviderJoinRequestArgs,
+  MutationRemoveAdminArgs,
+  MutationRemoveAvatarArgs,
+  MutationRemoveBankArgs,
+  MutationRemoveCategoryArgs,
+  MutationRemoveCityArgs,
+  MutationRemoveContactMessageArgs,
+  MutationRemoveCountryArgs,
+  MutationRemoveDeliveryCompanyArgs,
+  MutationRemoveFaqArgs,
+  MutationRemoveListingArgs,
+  MutationRemoveNotificationArgs,
+  MutationRemovePermissionArgs,
+  MutationRemoveProviderArgs,
+  MutationRemoveRatingArgs,
+  MutationRemoveUserArgs,
+  MutationReplyToContactMessageArgs,
+  MutationRequestContractCancellationArgs,
+  MutationResendContractArgs,
+  MutationResendOtpArgs,
+  MutationResendProviderOtpArgs,
+  MutationResetPasswordArgs,
+  MutationResetProviderPasswordArgs,
+  MutationRestartConversationArgs,
+  MutationRevokeAllPermissionsFromAdminArgs,
+  MutationRevokePermissionFromAdminArgs,
+  MutationSetProviderFavoriteArgs,
+  MutationSetSettingArgs,
+  MutationSignProviderContractArgs,
+  MutationTerminateProviderContractArgs,
+  MutationTrackActionArgs,
+  MutationUpdateAdminArgs,
+  MutationUpdateBankArgs,
+  MutationUpdateCategoryArgs,
+  MutationUpdateCityArgs,
+  MutationUpdateContactMessageArgs,
+  MutationUpdateCountryArgs,
+  MutationUpdateDeliveryCompanyArgs,
+  MutationUpdateFaqArgs,
+  MutationUpdateListingArgs,
+  MutationUpdateMeArgs,
+  MutationUpdatePermissionArgs,
+  MutationUpdateProviderArgs,
+  MutationUpdateRatingArgs,
+  MutationUpdateUserArgs,
+  MutationVerifyEmailChangeArgs,
+  MutationVerifyOtpArgs,
+  MutationVerifyPasswordResetOtpArgs,
+  MutationVerifyPhoneChangeArgs,
+  MutationVerifyProviderEmailChangeArgs,
+  MutationVerifyProviderOtpArgs,
+  MutationVerifyProviderPasswordResetOtpArgs,
+  MutationVerifyProviderPhoneChangeArgs,
+  Notification,
+  NotificationPaginationInput,
+  NotificationStats,
+  PaginatedAdminResponse,
+  PaginatedBankResponse,
+  PaginatedCategoryResponse,
+  PaginatedCityResponse,
+  PaginatedComplaintResponse,
+  PaginatedContactMessageResponse,
+  PaginatedContractResponse,
+  PaginatedConversationResponse,
+  PaginatedCountryResponse,
+  PaginatedDeliveryCompanyResponse,
+  PaginatedFavoriteResponse,
+  PaginatedListingResponse,
+  PaginatedMessageResponse,
+  PaginatedNotificationResponse,
+  PaginatedPaymentResponse,
+  PaginatedProviderResponse,
+  PaginatedRatingResponse,
+  PaginatedSignedContractResponse,
+  PaginatedUserResponse,
+  PaginationMeta,
+  Payment,
+  PaymentPaginationInput,
+  PaymentPayer,
+  Permission,
+  PremiumAdFeeReport,
+  PremiumAdFeeReportRow,
+  Provider,
+  ProviderAuthResponse,
+  ProviderCompleteContractInput,
+  QueryAdminArgs,
+  QueryAdminComplaintArgs,
+  QueryAdminComplaintsArgs,
+  QueryAdminContractArgs,
+  QueryAdminContractsArgs,
+  QueryAdminConversationArgs,
+  QueryAdminConversationsArgs,
+  QueryAdminPermissionsArgs,
+  QueryAdminsArgs,
+  QueryBankArgs,
+  QueryBanksArgs,
+  QueryCategoriesArgs,
+  QueryCategoryArgs,
+  QueryCitiesArgs,
+  QueryCitiesByCountryArgs,
+  QueryCityArgs,
+  QueryContactMessageArgs,
+  QueryContactMessagesArgs,
+  QueryContractArgs,
+  QueryContractFinancialReportArgs,
+  QueryContractQuoteArgs,
+  QueryContractsArgs,
+  QueryConversationArgs,
+  QueryConversationFeeReportArgs,
+  QueryConversationsArgs,
+  QueryCountriesArgs,
+  QueryCountryArgs,
+  QueryDeliveryCompaniesArgs,
+  QueryDeliveryCompanyArgs,
+  QueryFaqArgs,
+  QueryIsProviderFavoriteArgs,
+  QueryListingArgs,
+  QueryListingsArgs,
+  QueryMessageArgs,
+  QueryMessagesArgs,
+  QueryMyComplaintArgs,
+  QueryMyComplaintsArgs,
+  QueryMyFavoriteProvidersArgs,
+  QueryMyListingArgs,
+  QueryMyListingsArgs,
+  QueryMyPopularCategoriesArgs,
+  QueryMyPopularListingsArgs,
+  QueryNotificationArgs,
+  QueryNotificationStatsArgs,
+  QueryNotificationsArgs,
+  QueryPaymentArgs,
+  QueryPaymentsArgs,
+  QueryPermissionArgs,
+  QueryPermissionAdminsArgs,
+  QueryPremiumAdFeeReportArgs,
+  QueryProviderArgs,
+  QueryProviderByEmailArgs,
+  QueryProviderByPhoneArgs,
+  QueryProvidersArgs,
+  QueryRatingArgs,
+  QueryRatingStatisticsArgs,
+  QueryRatingsArgs,
+  QuerySignedContractByIdArgs,
+  QuerySignedContractByProviderIdArgs,
+  QuerySignedContractsArgs,
+  QueryUserArgs,
+  QueryUsersArgs,
+  Rating,
+  RatingStatistics,
+  RefuseDeliveryInput,
+  RegisterInput,
+  RegisterProviderInput,
+  RejectContractInput,
+  RemoveListingResponse,
+  ReportPageMeta,
+  ResendContractInput,
+  ResendOtpInput,
+  ResetPasswordWithTokenInput,
+  Setting,
+  SignContractInput,
+  SignedContract,
+  SocialMediaLink,
+  SubscriptionMessageAddedArgs,
+  TrackActionInput,
+  Tracking,
+  UpdateContactMessageInput,
+  UpdateCountryInput,
+  UpdateListingInput,
+  UpdateMeInput,
+  UpdatePermissionInput,
+  UpdateProviderInput,
+  UpdateRatingInput,
+  UpdateUserInput,
+  User,
+  VerifyAdminPasswordResetOtpResponse,
+  VerifyChangeEmailInput,
+  VerifyChangePhoneInput,
+  VerifyOtpInput,
+  VerifyPasswordResetOtpInput,
+  VerifyPasswordResetOtpResponse,
+} from './schema';
+// </schema-object-types>

@@ -34,20 +34,20 @@ const client = (token?: string, url?: string) => {
   const wsLink =
     typeof window !== "undefined"
       ? new GraphQLWsLink(
-          createClient({
-            url: process.env.NEXT_PUBLIC_SOCKET ?? "",
-          }),
+          createClient(
+            {
+              url: process.env.NEXT_PUBLIC_SOCKET ?? "",
+            } as Parameters<typeof createClient>[0],
+          ),
         )
       : authLink.concat(httpLink);
 
   const defaultOptions: ApolloClient.DefaultOptions = {
     watchQuery: {
       fetchPolicy: "no-cache",
-      errorPolicy: "ignore",
     },
     query: {
       fetchPolicy: "no-cache",
-      errorPolicy: "all",
     },
   };
   const link = ApolloLink.from([removeTypenameLink, httpLink]);
