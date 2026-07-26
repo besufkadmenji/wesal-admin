@@ -133,12 +133,9 @@ export const SummaryCard = ({
   endContent,
   title,
   subTitle,
-}: {
-  type: SummaryCardType;
-  value: number;
+}: SummaryCardProps & {
+  value: string | number;
   endContent?: ReactNode;
-  title?: string;
-  subTitle?: string;
 }) => {
   const dict = useDict();
   const icon = iconMap[type];
