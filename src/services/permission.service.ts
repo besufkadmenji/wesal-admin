@@ -8,6 +8,7 @@ import { BULK_ASSIGN_PERMISSIONS_TO_ADMIN_MUTATION } from "@/graphql/permission/
 import { PERMISSIONS_QUERY } from "@/graphql/permission/permissions";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 export class PermissionService {
@@ -37,7 +38,11 @@ export class PermissionService {
           input,
         },
       });
-      return createResponse.data?.bulkAssignPermissionsToAdmin ?? null;
+      return requireOperationField(
+        createResponse,
+        "bulkAssignPermissionsToAdmin",
+        "Assign admin permissions",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

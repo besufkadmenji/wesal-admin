@@ -9,6 +9,7 @@ import { MARK_AS_READ_MUTATION } from "@/graphql/contact-message/markAsRead";
 import { REMOVE_CONTACT_MESSAGE_MUTATION } from "@/graphql/contact-message/removeContactMessage";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 import { REPLY_TO_CONTACT_MESSAGE } from "@/graphql/contact-message/replyToContactMessage";
 
@@ -54,7 +55,11 @@ class ContactMessageService {
           markAsReadId,
         },
       });
-      return markAsReadResponse.data?.markAsRead ?? null;
+      return requireOperationField(
+        markAsReadResponse,
+        "markAsRead",
+        "Mark contact message as read",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -73,7 +78,11 @@ class ContactMessageService {
           message,
         },
       });
-      return replyContactMessageResponse.data?.replyToContactMessage ?? null;
+      return requireOperationField(
+        replyContactMessageResponse,
+        "replyToContactMessage",
+        "Reply to contact message",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -88,7 +97,11 @@ class ContactMessageService {
           removeContactMessageId,
         },
       });
-      return removeContactMessageResponse.data?.removeContactMessage ?? null;
+      return requireOperationField(
+        removeContactMessageResponse,
+        "removeContactMessage",
+        "Remove contact message",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

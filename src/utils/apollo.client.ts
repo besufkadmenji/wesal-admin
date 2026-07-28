@@ -49,6 +49,9 @@ const client = (token?: string, url?: string) => {
     query: {
       fetchPolicy: "no-cache",
     },
+    mutate: {
+      errorPolicy: "none",
+    },
   };
   const link = ApolloLink.from([removeTypenameLink, httpLink]);
 

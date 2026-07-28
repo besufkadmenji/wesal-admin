@@ -3,6 +3,7 @@ import { GET_SETTING_QUERY } from "@/graphql/setting/getSetting";
 import { SET_SETTING_MUTATION } from "@/graphql/setting/setSetting";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 export class SettingService {
@@ -29,7 +30,11 @@ export class SettingService {
           input,
         },
       });
-      return activateUserResponse.data?.setSetting ?? null;
+      return requireOperationField(
+        activateUserResponse,
+        "setSetting",
+        "Update settings",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

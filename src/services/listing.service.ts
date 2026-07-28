@@ -7,6 +7,7 @@ import type { ListingDetails, ListingsResult } from "@/graphql/listing/types";
 import { REMOVE_LISTING_MUTATION } from "@/graphql/listing/removeListing";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class ListingService {
@@ -51,7 +52,11 @@ class ListingService {
           activateListingId,
         },
       });
-      return activateListingResponse.data?.activateListing ?? null;
+      return requireOperationField(
+        activateListingResponse,
+        "activateListing",
+        "Activate listing",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -70,7 +75,11 @@ class ListingService {
           reason,
         },
       });
-      return deactivateListingResponse.data?.deactivateListing ?? null;
+      return requireOperationField(
+        deactivateListingResponse,
+        "deactivateListing",
+        "Deactivate listing",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -85,7 +94,11 @@ class ListingService {
           removeListingId,
         },
       });
-      return removeListingResponse.data?.removeListing ?? null;
+      return requireOperationField(
+        removeListingResponse,
+        "removeListing",
+        "Remove listing",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

@@ -1,4 +1,5 @@
 import { dataUrl } from "@/config/url";
+import { MediaType } from "@/gql/graphql";
 import type { ListingDetails } from "@/graphql/listing/types";
 import { useDict } from "@/hooks/useDict";
 import ReactPlayer from "react-player";
@@ -7,12 +8,19 @@ import { useState } from "react";
 export const StoryVideo = ({ listing }: { listing: ListingDetails }) => {
   const dict = useDict();
   const [playing, setPlaying] = useState(false);
+  const story =
+    listing.story?.type === MediaType.Video ? listing.story : null;
+
+  if (!story) {
+    return null;
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 rounded-[20px] bg-white p-5">
       <p>{dict.listingDetail.storyVideo}</p>
       <div className="relative aspect-2/1 w-full overflow-hidden rounded-xl">
         <ReactPlayer
-          src={`${dataUrl}/files/${listing.story.filename}`}
+          src={`${dataUrl}/files/${story.filename}`}
           className="object-cover"
           width={"100%"}
           height={"100%"}

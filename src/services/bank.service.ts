@@ -15,6 +15,7 @@ import { REMOVE_BANK_MUTATION } from "@/graphql/bank/removeBank";
 import { UPDATE_BANK_MUTATION } from "@/graphql/bank/updateBank";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class BankService {
@@ -57,7 +58,7 @@ class BankService {
           input,
         },
       });
-      return createResponse.data?.createBank ?? null;
+      return requireOperationField(createResponse, "createBank", "Create bank");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -72,7 +73,11 @@ class BankService {
           input,
         },
       });
-      return updateBankResponse.data?.updateBank ?? null;
+      return requireOperationField(
+        updateBankResponse,
+        "updateBank",
+        "Update bank",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -87,7 +92,11 @@ class BankService {
           activateBankId,
         },
       });
-      return activateBankResponse.data?.activateBank ?? null;
+      return requireOperationField(
+        activateBankResponse,
+        "activateBank",
+        "Activate bank",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -106,7 +115,11 @@ class BankService {
           input,
         },
       });
-      return deactivateBankResponse.data?.deactivateBank ?? null;
+      return requireOperationField(
+        deactivateBankResponse,
+        "deactivateBank",
+        "Deactivate bank",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -121,7 +134,11 @@ class BankService {
           removeBankId,
         },
       });
-      return removeBankResponse.data?.removeBank ?? null;
+      return requireOperationField(
+        removeBankResponse,
+        "removeBank",
+        "Remove bank",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

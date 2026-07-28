@@ -12,6 +12,7 @@ import { REMOVE_FAQ_MUTATION } from "@/graphql/faq/removeFaq";
 import { UPDATE_FAQ_MUTATION } from "@/graphql/faq/updateFaq";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class FaqService {
@@ -50,7 +51,7 @@ class FaqService {
           createFaqInput,
         },
       });
-      return updateFaqResponse.data?.createFaq ?? null;
+      return requireOperationField(updateFaqResponse, "createFaq", "Create FAQ");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -65,7 +66,7 @@ class FaqService {
           updateFaqInput,
         },
       });
-      return updateFaqResponse.data?.updateFaq ?? null;
+      return requireOperationField(updateFaqResponse, "updateFaq", "Update FAQ");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -80,7 +81,11 @@ class FaqService {
           input,
         },
       });
-      return faqUpdateResponse.data?.bulkUpdateOrder ?? null;
+      return requireOperationField(
+        faqUpdateResponse,
+        "bulkUpdateOrder",
+        "Update FAQ order",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -96,7 +101,7 @@ class FaqService {
           removeFaqId,
         },
       });
-      return removeFaqResponse.data?.removeFaq ?? null;
+      return requireOperationField(removeFaqResponse, "removeFaq", "Remove FAQ");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

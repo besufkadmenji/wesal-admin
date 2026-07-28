@@ -17,6 +17,7 @@ import { ACTIVATE_CITY_MUTATION } from "@/graphql/city/activateCity";
 import { DEACTIVATE_CITY_MUTATION } from "@/graphql/city/deactivateCity";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class CityService {
@@ -75,7 +76,7 @@ class CityService {
           input,
         },
       });
-      return createResponse.data?.createCity ?? null;
+      return requireOperationField(createResponse, "createCity", "Create city");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -90,7 +91,11 @@ class CityService {
           input,
         },
       });
-      return updateCityResponse.data?.updateCity ?? null;
+      return requireOperationField(
+        updateCityResponse,
+        "updateCity",
+        "Update city",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -106,7 +111,11 @@ class CityService {
           removeCityId,
         },
       });
-      return removeCityResponse.data?.removeCity ?? null;
+      return requireOperationField(
+        removeCityResponse,
+        "removeCity",
+        "Remove city",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -138,7 +147,11 @@ class CityService {
         mutation: ACTIVATE_CITY_MUTATION,
         variables: { activateCityId },
       });
-      return response.data?.activateCity ?? null;
+      return requireOperationField(
+        response,
+        "activateCity",
+        "Activate city",
+      );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
@@ -151,7 +164,11 @@ class CityService {
         mutation: DEACTIVATE_CITY_MUTATION,
         variables: { deactivateCityId },
       });
-      return response.data?.deactivateCity ?? null;
+      return requireOperationField(
+        response,
+        "deactivateCity",
+        "Deactivate city",
+      );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);

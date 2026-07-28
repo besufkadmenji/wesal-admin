@@ -14,6 +14,7 @@ import { REMOVE_CATEGORY_MUTATION } from "@/graphql/category/removeCategory";
 import { UPDATE_CATEGORY_MUTATION } from "@/graphql/category/updateCategory";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class CategoryService {
@@ -58,7 +59,11 @@ class CategoryService {
           input,
         },
       });
-      return createResponse.data?.createCategory ?? null;
+      return requireOperationField(
+        createResponse,
+        "createCategory",
+        "Create category",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -73,7 +78,11 @@ class CategoryService {
           input,
         },
       });
-      return updateCategoryResponse.data?.updateCategory ?? null;
+      return requireOperationField(
+        updateCategoryResponse,
+        "updateCategory",
+        "Update category",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -89,7 +98,11 @@ class CategoryService {
           removeCategoryId,
         },
       });
-      return removeCategoryResponse.data?.removeCategory ?? null;
+      return requireOperationField(
+        removeCategoryResponse,
+        "removeCategory",
+        "Remove category",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -113,7 +126,11 @@ class CategoryService {
         mutation: ACTIVATE_CATEGORY_MUTATION,
         variables: { activateCategoryId },
       });
-      return response.data?.activateCategory ?? null;
+      return requireOperationField(
+        response,
+        "activateCategory",
+        "Activate category",
+      );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
@@ -126,7 +143,11 @@ class CategoryService {
         mutation: DEACTIVATE_CATEGORY_MUTATION,
         variables: { deactivateCategoryId },
       });
-      return response.data?.deactivateCategory ?? null;
+      return requireOperationField(
+        response,
+        "deactivateCategory",
+        "Deactivate category",
+      );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);

@@ -17,6 +17,7 @@ import { UPDATE_ADMIN_MUTATION } from "@/graphql/admin/updateAdmin";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
+import { requireOperationField } from "@/utils/apollo.result";
 
 class AdminService {
   static meAdmin = async (): Promise<Admin | null> => {
@@ -69,7 +70,7 @@ class AdminService {
           createAdminInput: input,
         },
       });
-      return createResponse.data?.createAdmin ?? null;
+      return requireOperationField(createResponse, "createAdmin", "Create admin");
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -88,7 +89,11 @@ class AdminService {
           updateAdminInput: input,
         },
       });
-      return updateAdminResponse.data?.updateAdmin ?? null;
+      return requireOperationField(
+        updateAdminResponse,
+        "updateAdmin",
+        "Update admin",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -103,7 +108,11 @@ class AdminService {
           activateAdminId,
         },
       });
-      return activateAdminResponse.data?.activateAdmin ?? null;
+      return requireOperationField(
+        activateAdminResponse,
+        "activateAdmin",
+        "Activate admin",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -122,7 +131,11 @@ class AdminService {
           input,
         },
       });
-      return deactivateAdminResponse.data?.deactivateAdmin ?? null;
+      return requireOperationField(
+        deactivateAdminResponse,
+        "deactivateAdmin",
+        "Deactivate admin",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -137,7 +150,11 @@ class AdminService {
           removeAdminId,
         },
       });
-      return removeAdminResponse.data?.removeAdmin ?? null;
+      return requireOperationField(
+        removeAdminResponse,
+        "removeAdmin",
+        "Remove admin",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

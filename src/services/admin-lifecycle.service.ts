@@ -20,6 +20,7 @@ import { CONVERSATION_FEE_REPORT_QUERY } from "@/graphql/report/conversationFeeR
 import { PREMIUM_AD_FEE_REPORT_QUERY } from "@/graphql/report/premiumAdFeeReport";
 import client from "@/utils/apollo.client";
 import axiosClient from "@/utils/axios.client";
+import { requireOperationField } from "@/utils/apollo.result";
 
 const requireData = <T>(data: T | undefined): T => {
   if (!data) throw new Error("GraphQL response did not include data");
@@ -50,7 +51,11 @@ export class AdminLifecycleService {
       mutation: ADMIN_RESOLVE_CONTRACT_MUTATION,
       variables: { input },
     });
-    return result.data?.adminResolveContract ?? null;
+    return requireOperationField(
+      result,
+      "adminResolveContract",
+      "Resolve contract",
+    );
   }
 
   static async conversations(input: ConversationPaginationInput) {
@@ -99,7 +104,11 @@ export class AdminLifecycleService {
       mutation: ADMIN_REPLY_TO_COMPLAINT_MUTATION,
       variables: { id, content },
     });
-    return result.data?.adminReplyToComplaint ?? null;
+    return requireOperationField(
+      result,
+      "adminReplyToComplaint",
+      "Reply to complaint",
+    );
   }
 
   static async setComplaintStatus(id: string, status: ComplaintStatus) {
@@ -107,7 +116,11 @@ export class AdminLifecycleService {
       mutation: ADMIN_SET_COMPLAINT_STATUS_MUTATION,
       variables: { id, status },
     });
-    return result.data?.adminSetComplaintStatus ?? null;
+    return requireOperationField(
+      result,
+      "adminSetComplaintStatus",
+      "Set complaint status",
+    );
   }
 
   static async report(

@@ -15,6 +15,7 @@ import { REMOVE_DELIVERY_COMPANY_MUTATION } from "@/graphql/delivery-company/rem
 import { UPDATE_DELIVERY_COMPANY_MUTATION } from "@/graphql/delivery-company/updateDeliveryCompany";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class DeliveryCompanyService {
@@ -59,7 +60,11 @@ class DeliveryCompanyService {
           input,
         },
       });
-      return createResponse.data?.createDeliveryCompany ?? null;
+      return requireOperationField(
+        createResponse,
+        "createDeliveryCompany",
+        "Create delivery company",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -74,7 +79,11 @@ class DeliveryCompanyService {
           input,
         },
       });
-      return updateDeliveryCompanyResponse.data?.updateDeliveryCompany ?? null;
+      return requireOperationField(
+        updateDeliveryCompanyResponse,
+        "updateDeliveryCompany",
+        "Update delivery company",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -91,8 +100,10 @@ class DeliveryCompanyService {
           activateDeliveryCompanyId,
         },
       });
-      return (
-        activateDeliveryCompanyResponse.data?.activateDeliveryCompany ?? null
+      return requireOperationField(
+        activateDeliveryCompanyResponse,
+        "activateDeliveryCompany",
+        "Activate delivery company",
       );
     } catch (error) {
       // Parse and throw the error with a readable message
@@ -112,9 +123,10 @@ class DeliveryCompanyService {
           input,
         },
       });
-      return (
-        deactivateDeliveryCompanyResponse.data?.deactivateDeliveryCompany ??
-        null
+      return requireOperationField(
+        deactivateDeliveryCompanyResponse,
+        "deactivateDeliveryCompany",
+        "Deactivate delivery company",
       );
     } catch (error) {
       // Parse and throw the error with a readable message
@@ -130,7 +142,11 @@ class DeliveryCompanyService {
           removeDeliveryCompanyId,
         },
       });
-      return removeDeliveryCompanyResponse.data?.removeDeliveryCompany ?? null;
+      return requireOperationField(
+        removeDeliveryCompanyResponse,
+        "removeDeliveryCompany",
+        "Remove delivery company",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);

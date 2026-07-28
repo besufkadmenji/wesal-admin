@@ -3,6 +3,7 @@ import {
   ProviderPaginationInput,
   ProviderQuery,
   ProvidersQuery,
+  AdminReactivateProviderMutation,
 } from "@/gql/graphql";
 import { ACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/activateProvider";
 import { ADMIN_REACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/adminReactivateProvider";
@@ -15,6 +16,7 @@ import { REMOVE_PROVIDER_MUTATION } from "@/graphql/provider/removeProvider";
 import client from "@/utils/apollo.client";
 import axiosClient from "@/utils/axios.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 
 class ProviderService {
   static providers = async (
@@ -58,7 +60,11 @@ class ProviderService {
           activateProviderId,
         },
       });
-      return activateProviderResponse.data?.activateProvider ?? null;
+      return requireOperationField(
+        activateProviderResponse,
+        "activateProvider",
+        "Activate provider",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -77,7 +83,11 @@ class ProviderService {
           reason,
         },
       });
-      return deactivateProviderResponse.data?.deactivateProvider ?? null;
+      return requireOperationField(
+        deactivateProviderResponse,
+        "deactivateProvider",
+        "Deactivate provider",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -96,7 +106,11 @@ class ProviderService {
           input,
         },
       });
-      return removeProviderResponse.data?.removeProvider ?? null;
+      return requireOperationField(
+        removeProviderResponse,
+        "removeProvider",
+        "Remove provider",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -115,7 +129,11 @@ class ProviderService {
           input: { providerId, terminationReason },
         },
       });
-      return removeAvatarResponse.data?.adminTerminateProviderContract ?? null;
+      return requireOperationField(
+        removeAvatarResponse,
+        "adminTerminateProviderContract",
+        "Terminate provider contract",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -125,13 +143,14 @@ class ProviderService {
 
   static reactivateProvider = async (providerId: string) => {
     try {
-      const result = await client().mutate({
+      const result = await client().mutate<AdminReactivateProviderMutation>({
         mutation: ADMIN_REACTIVATE_PROVIDER_MUTATION,
         variables: { providerId },
       });
-      return (
-        (result.data as { adminReactivateProvider?: unknown })
-          ?.adminReactivateProvider ?? null
+      return requireOperationField(
+        result,
+        "adminReactivateProvider",
+        "Reactivate provider",
       );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
@@ -155,7 +174,11 @@ class ProviderService {
         mutation: REJECT_PROVIDER_JOIN_REQUEST_MUTATION,
         variables: { id, reason },
       });
-      return result.data?.rejectProviderJoinRequest ?? null;
+      return requireOperationField(
+        result,
+        "rejectProviderJoinRequest",
+        "Reject provider join request",
+      );
     } catch (error) {
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);

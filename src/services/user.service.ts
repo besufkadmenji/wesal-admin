@@ -12,6 +12,7 @@ import { USER_QUERY } from "@/graphql/user/user";
 import { USERS_QUERY } from "@/graphql/user/users";
 import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
+import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 
 class UserService {
@@ -54,7 +55,11 @@ class UserService {
           activateUserId,
         },
       });
-      return activateUserResponse.data?.activateUser ?? null;
+      return requireOperationField(
+        activateUserResponse,
+        "activateUser",
+        "Activate user",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -73,7 +78,11 @@ class UserService {
           input,
         },
       });
-      return deactivateUserResponse.data?.deactivateUser ?? null;
+      return requireOperationField(
+        deactivateUserResponse,
+        "deactivateUser",
+        "Deactivate user",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
@@ -89,7 +98,11 @@ class UserService {
           input,
         },
       });
-      return removeUserResponse.data?.removeUser ?? null;
+      return requireOperationField(
+        removeUserResponse,
+        "removeUser",
+        "Remove user",
+      );
     } catch (error) {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
