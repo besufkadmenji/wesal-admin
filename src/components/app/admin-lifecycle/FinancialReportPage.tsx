@@ -77,9 +77,12 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
         ? "all"
         : null;
 
-  useEffect(() => {
+  // Re-sync the input when the URL search param changes (render-time update, no effect).
+  const [syncedSearch, setSyncedSearch] = useState(search);
+  if (search !== syncedSearch) {
+    setSyncedSearch(search);
     setSearchInput(search);
-  }, [search]);
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
