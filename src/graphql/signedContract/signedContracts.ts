@@ -45,6 +45,8 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
           cityId
           commercialName
           commercialRegistrationFilename
+          ratingAverage
+          ratingCount
           commercialRegistrationNumber
           countryId
           createdAt

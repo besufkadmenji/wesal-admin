@@ -177,7 +177,8 @@
     "complaints": "قسم الشكاوى",
     "contract_financial_report": "التقرير المالي للتعاقدات",
     "conversation_fee_report": "التقرير المالي لرسوم المحادثات",
-    "premium_ad_report": "التقرير المالي للإعلانات المميزة"
+    "premium_ad_report": "التقرير المالي للإعلانات المميزة",
+    "comments": "إدارة التعليقات"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -2145,5 +2146,49 @@
     },
     "serviceProviderData": "بيانات مقدم الخدمة",
     "contactProvider": "المحادثة و إظهار البيانات"
+  },
+  "comments_page": {
+    "summary": {
+      "title": "إجمالي التعليقات",
+      "subTitle": "تعليق"
+    },
+    "columns": {
+      "index": "#",
+      "customer": "اسم العميل",
+      "mobile": "جوال العميل",
+      "status": "الحالة",
+      "contract": "رقم الصفقة",
+      "listing": "اسم الإعلان",
+      "provider": "الاسم التجاري",
+      "rating": "التقييم",
+      "comment": "التعليق",
+      "date": "تاريخ التعليق",
+      "action": "الإجراءات"
+    },
+    "status": {
+      "PUBLISHED": "منشور",
+      "HIDDEN": "مخفي"
+    },
+    "actions": {
+      "publish": "نشر",
+      "hide": "إخفاء"
+    },
+    "confirm": {
+      "publish": {
+        "title": "نشر التعليق",
+        "description": "سيظهر التعليق على المنصة وسيُحتسب تقييمه ضمن متوسط تقييم الإعلان ومقدم الخدمة.",
+        "action": "نشر"
+      },
+      "hide": {
+        "title": "إخفاء التعليق",
+        "description": "سيتم إخفاء التعليق وتقييمه من المنصة واستبعادهما من متوسط تقييم الإعلان ومقدم الخدمة.",
+        "action": "إخفاء"
+      }
+    },
+    "messages": {
+      "published": "تم نشر التعليق",
+      "hidden": "تم إخفاء التعليق"
+    },
+    "empty": "لا توجد تعليقات"
   }
 }

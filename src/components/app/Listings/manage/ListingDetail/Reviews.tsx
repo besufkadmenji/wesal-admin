@@ -1,7 +1,7 @@
 import { RatingStatistics } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { ListingRating } from "@/services/rating.service";
+import { AdminRating } from "@/services/rating.service";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
@@ -12,7 +12,7 @@ export const Reviews = ({
   ratingStatistics,
   isLoading,
 }: {
-  ratings: ListingRating[];
+  ratings: AdminRating[];
   ratingStatistics?: RatingStatistics | null;
   isLoading: boolean;
 }) => {
@@ -48,7 +48,7 @@ export const Reviews = ({
   );
 };
 
-const ReviewCard = ({ review }: { review: ListingRating }) => {
+const ReviewCard = ({ review }: { review: AdminRating }) => {
   return (
     <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-b-[#F2F2F2] pb-6">
       <div className="relative size-14 rounded-full">

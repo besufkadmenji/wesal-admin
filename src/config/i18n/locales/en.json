@@ -179,7 +179,8 @@
     "complaints": "Complaints Department",
     "contract_financial_report": "Contract Financial Report",
     "conversation_fee_report": "Conversation Fee Report",
-    "premium_ad_report": "Premium Advertising Report"
+    "premium_ad_report": "Premium Advertising Report",
+    "comments": "Comments Management"
   },
   "users_page": {
     "title": "Users Management",
@@ -2146,5 +2147,49 @@
     },
     "serviceProviderData": "Service Provider Data",
     "contactProvider": "Conversation and data display"
+  },
+  "comments_page": {
+    "summary": {
+      "title": "Total comments",
+      "subTitle": "comments"
+    },
+    "columns": {
+      "index": "#",
+      "customer": "Customer name",
+      "mobile": "Customer mobile",
+      "status": "Status",
+      "contract": "Deal no.",
+      "listing": "Ad name",
+      "provider": "Trade name",
+      "rating": "Rating",
+      "comment": "Comment",
+      "date": "Comment date",
+      "action": "Actions"
+    },
+    "status": {
+      "PUBLISHED": "Published",
+      "HIDDEN": "Hidden"
+    },
+    "actions": {
+      "publish": "Publish",
+      "hide": "Hide"
+    },
+    "confirm": {
+      "publish": {
+        "title": "Publish comment",
+        "description": "The comment will appear on the platform and its rating will count towards the ad and provider averages.",
+        "action": "Publish"
+      },
+      "hide": {
+        "title": "Hide comment",
+        "description": "The comment and its rating will be hidden from the platform and excluded from the ad and provider averages.",
+        "action": "Hide"
+      }
+    },
+    "messages": {
+      "published": "Comment published",
+      "hidden": "Comment hidden"
+    },
+    "empty": "No comments found"
   }
 }

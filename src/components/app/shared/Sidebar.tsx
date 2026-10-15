@@ -19,6 +19,7 @@ import {
   UsersIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
+import RatingIcon from "@/assets/icons/rating.svg";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -53,6 +54,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
   const canReadContracts = useCanAccess("contract", "read");
   const canReadConversations = useCanAccess("conversation", "read");
   const canReadComplaints = useCanAccess("complaint", "read");
+  const canReadComments = useCanAccess("rating", "read");
   const canReadReports = useCanAccess("report", "read");
   return (
     <aside
@@ -162,6 +164,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
             href="/complaints"
             icon={<ComplainIcon className="size-5" />}
             label={dict.navigation.complaints}
+          />
+        )}
+        {canReadComments && (
+          <OptionLink
+            href="/comments"
+            icon={<RatingIcon className="size-5" />}
+            label={dict.navigation.comments}
           />
         )}
         {canReadReports && (

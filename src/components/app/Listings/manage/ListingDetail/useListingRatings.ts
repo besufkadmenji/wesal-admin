@@ -1,4 +1,4 @@
-import { RatingSortField, SortOrder } from "@/gql/graphql";
+import { RatingSortField, RatingStatus, SortOrder } from "@/gql/graphql";
 import RatingService from "@/services/rating.service";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,8 +10,9 @@ export const useListingRatings = (listingId: string) => {
   } = useQuery({
     queryKey: ["listing-ratings", listingId],
     queryFn: () =>
-      RatingService.ratings({
+      RatingService.adminRatings({
         listingId,
+        status: RatingStatus.Published,
         page: 1,
         limit: 6,
         sortBy: RatingSortField.CreatedAt,

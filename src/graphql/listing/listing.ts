@@ -24,6 +24,8 @@ export const LISTING_QUERY: TypedDocumentNode<
         cityId
         commercialName
         commercialRegistrationFilename
+        ratingAverage
+        ratingCount
         commercialRegistrationNumber
         countryId
         createdAt
