@@ -1,12 +1,14 @@
 import {
   CategoriesQuery,
   CategoryPaginationInput,
+  CategoryContractDefaultsQuery,
   CategoryQuery,
   CreateCategoryInput,
   UpdateCategoryInput,
 } from "@/gql/graphql";
 import { CATEGORIES_QUERY } from "@/graphql/category/categories";
 import { CATEGORY_QUERY } from "@/graphql/category/category";
+import { CATEGORY_CONTRACT_DEFAULTS_QUERY } from "@/graphql/category/categoryContractDefaults";
 import { ACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/activateCategory";
 import { DEACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/deactivateCategory";
 import { CREATE_CATEGORY_MUTATION } from "@/graphql/category/createCategory";
@@ -47,6 +49,21 @@ class CategoryService {
       return categoryResult.data?.category ?? null;
     } catch (e) {
       console.error("categoryResult", e);
+    }
+    return null;
+  };
+
+  static contractDefaults = async (): Promise<
+    CategoryContractDefaultsQuery["categoryContractDefaults"] | null
+  > => {
+    try {
+      const result = await client().query({
+        query: CATEGORY_CONTRACT_DEFAULTS_QUERY,
+        fetchPolicy: "network-only",
+      });
+      return result.data?.categoryContractDefaults ?? null;
+    } catch (e) {
+      console.error("contractDefaults", e);
     }
     return null;
   };

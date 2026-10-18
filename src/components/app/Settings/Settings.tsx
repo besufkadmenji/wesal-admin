@@ -16,6 +16,7 @@ import { useMe } from "@/hooks/useMe";
 import { useQueryState } from "nuqs";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { LifecycleSettingsSection } from "./LifecycleSettingsSection";
+import { CategoryContractDefaultsSection } from "./CategoryContractDefaultsSection";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
@@ -168,6 +169,7 @@ export const Settings = () => {
 
           <Rules />
           <LifecycleSettingsSection />
+          <CategoryContractDefaultsSection />
         </div>
       </PageWrapper>
       <ChangePassword />

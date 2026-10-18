@@ -10,6 +10,8 @@ import { UploadInput } from "@/components/app/shared/UploadInput";
 import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
+import CategoryService from "@/services/category.service";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useSetting } from "../../Settings/useSettings";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
@@ -30,6 +32,48 @@ export const AddCategory = () => {
     image: imageFile,
     existingImage: null,
   });
+  const { data: contractDefaults } = useQuery({
+    queryKey: ["categoryContractDefaults"],
+    queryFn: CategoryService.contractDefaults,
+  });
+  useEffect(() => {
+    if (!contractDefaults) return;
+    // BRD 4.3.8: start from the Settings values and the default texts; a
+    // value is switched on when Settings gives it one.
+    const {
+      commissionPercent,
+      minCommissionAmount,
+      depositPercent,
+      maxExecutionHours,
+      maxTerminationHours,
+      customerConversationFee,
+      providerConversationFee,
+    } = contractDefaults;
+    setForm({
+      commissionPercent,
+      minCommissionAmount,
+      depositPercent,
+      maxExecutionHours,
+      maxTerminationHours,
+      customerConversationFee,
+      providerConversationFee,
+      commissionEnabled: commissionPercent > 0,
+      minCommissionEnabled: minCommissionAmount > 0,
+      depositEnabled: depositPercent > 0,
+      maxExecutionHoursEnabled: maxExecutionHours > 0,
+      maxTerminationHoursEnabled: maxTerminationHours > 0,
+      customerConversationFeeEnabled: customerConversationFee > 0,
+      providerConversationFeeEnabled: providerConversationFee > 0,
+      contractDocumentText: contractDefaults.contractDocumentText,
+      undertakingTextAr: contractDefaults.undertakingTextAr,
+      undertakingTextEn: contractDefaults.undertakingTextEn,
+      refundPolicyAr: contractDefaults.refundPolicyAr,
+      refundPolicyEn: contractDefaults.refundPolicyEn,
+      contractDocumentEnabled: true,
+      undertakingEnabled: true,
+      refundPolicyEnabled: true,
+    });
+  }, [contractDefaults, setForm]);
   const { setting } = useSetting("rules");
   const lng = useLang();
   useEffect(() => {
@@ -153,8 +197,13 @@ export const AddCategory = () => {
               </div>
             </div>
           </FormSection>
-          <FormSection title="Contract, fees, and lifecycle settings">
-            <CategoryContractSettingsFields form={form} setForm={setForm} />
+          <FormSection title={dict.category_contract_settings.section_title}>
+            <CategoryContractSettingsFields
+              form={form}
+              setForm={setForm}
+              errors={errors}
+              clearError={clearError}
+            />
           </FormSection>
         </AppForm>
       </div>

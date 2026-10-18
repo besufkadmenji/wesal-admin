@@ -19,6 +19,7 @@ import { UploadInput } from "@/components/app/shared/UploadInput";
 import { dataUrl } from "@/config/url";
 import Image from "next/image";
 import { useAppRouter } from "@/hooks/useAppRouter";
+import { CategoryContractSettingsFields } from "./CategoryContractSettingsFields";
 
 export const ViewCategory = ({ id }: { id: string }) => {
   const { category } = useCategoryById(id);
@@ -108,6 +109,9 @@ export const ViewCategory = ({ id }: { id: string }) => {
               </div>
             </div>
           </div>
+        </FormSection>
+        <FormSection title={dict.category_contract_settings.section_title}>
+          <CategoryContractSettingsFields form={form} readOnly />
         </FormSection>
       </AppForm>
     </div>

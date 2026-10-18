@@ -154,8 +154,13 @@ export const EditCategory = ({ id }: { id: string }) => {
             </div>
           </div>
         </FormSection>
-        <FormSection title="Contract, fees, and lifecycle settings">
-          <CategoryContractSettingsFields form={form} setForm={setForm} />
+        <FormSection title={dict.category_contract_settings.section_title}>
+          <CategoryContractSettingsFields
+            form={form}
+            setForm={setForm}
+            errors={errors}
+            clearError={clearError}
+          />
         </FormSection>
       </AppForm>
     </div>

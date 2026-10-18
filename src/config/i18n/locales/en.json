@@ -1375,7 +1375,11 @@
       "updateSuccess": "Category updated successfully.",
       "deleteSuccess": "Category deleted successfully.",
       "activateSuccess": "Category activated successfully.",
-      "deactivateSuccess": "Category deactivated successfully."
+      "deactivateSuccess": "Category deactivated successfully.",
+      "genericError": "Something went wrong. Please try again.",
+      "deleteFailed": "Failed to delete the category.",
+      "activateFailed": "Failed to activate the category.",
+      "deactivateFailed": "Failed to deactivate the category."
     }
   },
   "cities_page": {
@@ -2007,11 +2011,11 @@
   },
   "activate_category_confirmation": {
     "title": "Activate Category",
-    "description": "Are you sure you want to activate this category?"
+    "description": "Are you sure you want to activate this category? Its service providers will be notified."
   },
   "deactivate_category_confirmation": {
     "title": "Deactivate Category",
-    "description": "Are you sure you want to deactivate this category?"
+    "description": "Are you sure you want to deactivate this category? It can't be deactivated while service providers are linked or contracts are unfinished. Its service providers will be notified."
   },
   "activate_city_confirmation": {
     "title": "Activate City",
@@ -2216,6 +2220,35 @@
   },
   "category_contract_settings": {
     "max_execution_hours": "Max execution time (hours)",
-    "max_termination_hours": "Termination limit (hours)"
+    "max_termination_hours": "Termination limit (hours)",
+    "section_title": "Contract, fees, and time limits",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "commission_percent": "Commission (%)",
+    "min_commission_amount": "Minimum commission (SAR)",
+    "deposit_percent": "Deposit (%)",
+    "customer_conversation_fee": "Customer chat fee (SAR)",
+    "provider_conversation_fee": "Provider chat fee (SAR)",
+    "contract_document": "Binding contract text (both parties)",
+    "undertaking": "Customer undertaking",
+    "undertaking_ar": "Customer undertaking (Arabic)",
+    "undertaking_en": "Customer undertaking (English)",
+    "refund_policy": "Refund policy",
+    "refund_policy_ar": "Refund policy (Arabic)",
+    "refund_policy_en": "Refund policy (English)",
+    "placeholder_hint": "Use these placeholders where the category commission and minimum should appear. Contracts store the filled-in text:",
+    "preview": "Preview with the current values",
+    "validation": {
+      "value_required": "Enter a whole number of at least 1, or turn the field off.",
+      "min_commission_required": "Enter a whole number (0 or more), or turn the field off.",
+      "percent_max": "Must be 100 or less.",
+      "text_required": "Enter the text, or turn it off."
+    },
+    "settings": {
+      "title": "Category contract defaults",
+      "hint": "New categories start with these values. Existing categories keep their own.",
+      "save": "Save defaults",
+      "saved": "Category contract defaults saved."
+    }
   }
 }

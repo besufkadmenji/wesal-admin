@@ -1,5 +1,7 @@
+import { CreateCategoryInput } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useCallback, useMemo, useState } from "react";
+import { contractControlErrors } from "./contractControls";
 
 const NAME_MIN_LENGTH = 3;
 const NAME_MAX_LENGTH = 100;
@@ -9,7 +11,17 @@ const RULES_MIN_LENGTH = 10;
 const RULES_MAX_LENGTH = 500;
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
-interface CategoryForm {
+interface CategoryForm extends Omit<
+  Partial<CreateCategoryInput>,
+  | "image"
+  | "nameAr"
+  | "nameEn"
+  | "descriptionAr"
+  | "descriptionEn"
+  | "rulesAr"
+  | "rulesEn"
+  | "parentId"
+> {
   nameAr: string;
   nameEn: string;
   descriptionAr: string;
@@ -24,6 +36,9 @@ interface CategoryForm {
 export const useFormValidation = (form: CategoryForm) => {
   const dict = useDict();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  // Recomputed every render: the form object is rebuilt by the callers.
+  const contractErrors = contractControlErrors(form, dict);
+  const hasContractErrors = Object.keys(contractErrors).length > 0;
 
   const validateNameAr = useCallback(
     (value: string): string | null => {
@@ -146,7 +161,7 @@ export const useFormValidation = (form: CategoryForm) => {
   );
 
   const validateForm = useCallback(() => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = { ...contractErrors };
 
     const nameArError = validateNameAr(form.nameAr);
     if (nameArError) newErrors.nameAr = nameArError;
@@ -178,6 +193,7 @@ export const useFormValidation = (form: CategoryForm) => {
     form.descriptionEn,
     form.image,
     form.existingImage,
+    contractErrors,
     validateNameAr,
     validateNameEn,
     validateDescriptionAr,
@@ -203,9 +219,11 @@ export const useFormValidation = (form: CategoryForm) => {
       !descriptionEnError &&
       // !rulesArError &&
       // !rulesEnError &&
-      !imageError
+      !imageError &&
+      !hasContractErrors
     );
   }, [
+    hasContractErrors,
     form.nameAr,
     form.nameEn,
     form.descriptionAr,

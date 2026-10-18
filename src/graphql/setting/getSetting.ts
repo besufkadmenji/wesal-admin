@@ -29,6 +29,13 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       premiumAdFee
       premiumAdDurationDays
       premiumAdEnabled
+      defaultCommissionPercent
+      defaultMinCommissionAmount
+      defaultMaxExecutionHours
+      defaultMaxTerminationHours
+      defaultDepositPercent
+      defaultCustomerConversationFee
+      defaultProviderConversationFee
     }
   }
 `;

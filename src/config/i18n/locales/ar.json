@@ -1374,7 +1374,11 @@
       "updateSuccess": "تم تحديث الفئة بنجاح.",
       "deleteSuccess": "تم حذف الفئة بنجاح.",
       "activateSuccess": "تم تفعيل الفئة بنجاح.",
-      "deactivateSuccess": "تم تعطيل الفئة بنجاح."
+      "deactivateSuccess": "تم تعطيل الفئة بنجاح.",
+      "genericError": "حدث خطأ، يرجى المحاولة مرة أخرى.",
+      "deleteFailed": "تعذر حذف الفئة.",
+      "activateFailed": "تعذر تفعيل الفئة.",
+      "deactivateFailed": "تعذر تعطيل الفئة."
     }
   },
   "cities_page": {
@@ -2006,11 +2010,11 @@
   },
   "activate_category_confirmation": {
     "title": "تفعيل الفئة",
-    "description": "هل أنت متأكد من تفعيل هذه الفئة؟"
+    "description": "هل أنت متأكد من تفعيل هذه الفئة؟ سيتم إشعار مقدمي الخدمة المرتبطين بها."
   },
   "deactivate_category_confirmation": {
     "title": "تعطيل الفئة",
-    "description": "هل أنت متأكد من تعطيل هذه الفئة؟"
+    "description": "هل أنت متأكد من تعطيل هذه الفئة؟ لا يمكن تعطيلها أثناء ارتباط مقدمي خدمة بها أو وجود تعاقدات غير منتهية. سيتم إشعار مقدمي الخدمة المرتبطين بها."
   },
   "activate_city_confirmation": {
     "title": "تفعيل المدينة",
@@ -2215,6 +2219,35 @@
   },
   "category_contract_settings": {
     "max_execution_hours": "الحد الأقصى لمدة التنفيذ (ساعات)",
-    "max_termination_hours": "حد الإنهاء (ساعات)"
+    "max_termination_hours": "حد الإنهاء (ساعات)",
+    "section_title": "التعاقد والرسوم والمدد",
+    "enabled": "مفعّل",
+    "disabled": "معطّل",
+    "commission_percent": "العمولة (%)",
+    "min_commission_amount": "الحد الأدنى للعمولة (ريال)",
+    "deposit_percent": "العربون (%)",
+    "customer_conversation_fee": "رسوم المحادثة للعميل (ريال)",
+    "provider_conversation_fee": "رسوم المحادثة لمقدم الخدمة (ريال)",
+    "contract_document": "نص التعاقد الملزم للطرفين",
+    "undertaking": "تعهد العميل",
+    "undertaking_ar": "تعهد العميل (عربي)",
+    "undertaking_en": "تعهد العميل (إنجليزي)",
+    "refund_policy": "سياسة الاسترجاع",
+    "refund_policy_ar": "سياسة الاسترجاع (عربي)",
+    "refund_policy_en": "سياسة الاسترجاع (إنجليزي)",
+    "placeholder_hint": "استخدم هذه الرموز في المكان الذي تظهر فيه عمولة القسم والحد الأدنى. تحفظ التعاقدات النص بعد التعبئة:",
+    "preview": "معاينة بالقيم الحالية",
+    "validation": {
+      "value_required": "أدخل رقماً صحيحاً لا يقل عن 1، أو عطّل الحقل.",
+      "min_commission_required": "أدخل رقماً صحيحاً (0 أو أكثر)، أو عطّل الحقل.",
+      "percent_max": "يجب ألا تزيد القيمة عن 100.",
+      "text_required": "أدخل النص، أو عطّله."
+    },
+    "settings": {
+      "title": "القيم الافتراضية لتعاقدات الأقسام",
+      "hint": "تبدأ الأقسام الجديدة بهذه القيم، ولا يتغير القسم الموجود عند تعديلها.",
+      "save": "حفظ القيم الافتراضية",
+      "saved": "تم حفظ القيم الافتراضية لتعاقدات الأقسام."
+    }
   }
 }
