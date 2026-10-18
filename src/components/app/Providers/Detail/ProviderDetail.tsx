@@ -119,6 +119,18 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                 readOnly
               />
               <FormInput
+                label={dict.view_provider_form.labels.badge}
+                placeholder={dict.view_provider_form.labels.badge}
+                value={
+                  provider.badge
+                    ? dict.badges_page.tiers[provider.badge]
+                    : dict.view_provider_form.no_badge
+                }
+                onChange={(): void => {}}
+                className="col-span-2"
+                readOnly
+              />
+              <FormInput
                 label={dict.view_provider_form.labels.city}
                 placeholder={dict.view_provider_form.placeholders.city}
                 value={
