@@ -2191,7 +2191,7 @@
   },
   "charity_page": {
     "title": "Wesal Al-Khair (charity list)",
-    "description": "Contracts whose commission is at or below the category minimum. No commission is collected on them; management donates the total through the Ihsan platform.",
+    "description": "Contracts whose commission is at or below the category minimum. The commission is still deducted from the provider, but it is donated through the Ihsan platform instead of being kept; management makes the donation manually.",
     "summary": {
       "contracts": "Charity contracts",
       "completed": "Completed charity contracts",
@@ -2210,7 +2210,7 @@
       "provider_mobile": "Provider mobile",
       "category": "Category",
       "status": "Status",
-      "amount": "Waived commission"
+      "amount": "Commission for donation"
     },
     "empty": "No charity contracts yet"
   }

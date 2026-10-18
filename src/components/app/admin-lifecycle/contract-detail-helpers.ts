@@ -50,8 +50,8 @@ export const contractDetailCopy = (lang: string) => {
     commissionPercent: ar ? "نسبة العمولة" : "Commission percentage",
     commissionAmount: ar ? "مبلغ العمولة" : "Commission amount",
     charityAmount: ar
-      ? "وصال الخير — العمولة المعفاة"
-      : "Wesal Al-Khair — waived commission",
+      ? "وصال الخير — عمولة مخصصة للتبرع"
+      : "Wesal Al-Khair — commission for donation",
     vat: ar ? "ضريبة القيمة المضافة" : "VAT",
     deliveryCompany: ar ? "شركة التوصيل" : "Delivery company",
     deliveryEstimate: ar ? "مدة التوصيل التقديرية (أيام)" : "Delivery estimate (days)",
