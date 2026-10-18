@@ -57,12 +57,12 @@ export const ContractFinancialSection = ({
           value={deliveryCompany || copy.empty}
         />
         <LifecycleDetailField
-          label={copy.deliveryEstimate}
-          value={
-            contract.deliveryEstimateDays != null
-              ? contract.deliveryEstimateDays
-              : copy.empty
-          }
+          label={copy.executionHours}
+          value={contract.executionHours ?? copy.empty}
+        />
+        <LifecycleDetailField
+          label={copy.deliveryHours}
+          value={contract.deliveryHours ?? copy.empty}
         />
       </div>
     </section>

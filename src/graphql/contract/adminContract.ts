@@ -29,7 +29,8 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       providerAddress
       deliveryCompanyNameAr
       deliveryCompanyNameEn
-      deliveryEstimateDays
+      executionHours
+      deliveryHours
       confirmationDeadlineAt
       cancellationReason
       disputeReason

@@ -3,6 +3,7 @@
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { CreateCategoryInput } from "@/gql/graphql";
+import { useDict } from "@/hooks/useDict";
 import { Switch } from "@heroui/react";
 
 type NumericKey =
@@ -11,8 +12,8 @@ type NumericKey =
   | "depositPercent"
   | "customerConversationFee"
   | "providerConversationFee"
-  | "maxCompletionDays"
-  | "maxTerminationDays";
+  | "maxExecutionHours"
+  | "maxTerminationHours";
 
 export const CategoryContractSettingsFields = ({
   form,
@@ -21,6 +22,7 @@ export const CategoryContractSettingsFields = ({
   form: CreateCategoryInput;
   setForm: (form: Partial<CreateCategoryInput>) => void;
 }) => {
+  const dict = useDict();
   const numeric = (key: NumericKey, value: string) =>
     setForm({ [key]: value === "" ? null : Number(value) });
   const fields: Array<[string, NumericKey, keyof CreateCategoryInput]> = [
@@ -29,8 +31,16 @@ export const CategoryContractSettingsFields = ({
     ["Deposit (%)", "depositPercent", "depositEnabled"],
     ["Customer chat fee", "customerConversationFee", "customerConversationFeeEnabled"],
     ["Provider chat fee", "providerConversationFee", "providerConversationFeeEnabled"],
-    ["Completion limit (days)", "maxCompletionDays", "maxCompletionDaysEnabled"],
-    ["Termination limit (days)", "maxTerminationDays", "maxTerminationDaysEnabled"],
+    [
+      dict.category_contract_settings.max_execution_hours,
+      "maxExecutionHours",
+      "maxExecutionHoursEnabled",
+    ],
+    [
+      dict.category_contract_settings.max_termination_hours,
+      "maxTerminationHours",
+      "maxTerminationHoursEnabled",
+    ],
   ];
 
   return (

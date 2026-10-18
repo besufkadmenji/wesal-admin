@@ -2213,5 +2213,9 @@
       "amount": "Commission for donation"
     },
     "empty": "No charity contracts yet"
+  },
+  "category_contract_settings": {
+    "max_execution_hours": "Max execution time (hours)",
+    "max_termination_hours": "Termination limit (hours)"
   }
 }

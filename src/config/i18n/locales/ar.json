@@ -2212,5 +2212,9 @@
       "amount": "عمولة مخصصة للتبرع"
     },
     "empty": "لا توجد تعاقدات صدقات حالياً"
+  },
+  "category_contract_settings": {
+    "max_execution_hours": "الحد الأقصى لمدة التنفيذ (ساعات)",
+    "max_termination_hours": "حد الإنهاء (ساعات)"
   }
 }
