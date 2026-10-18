@@ -3528,6 +3528,16 @@ export type Setting = {
   publicId?: Maybe<Scalars['Int']['output']>;
   rulesAr: Scalars['String']['output'];
   rulesEn: Scalars['String']['output'];
+  /** Address on invoices */
+  sellerAddress?: Maybe<Scalars['String']['output']>;
+  /** Commercial registration number on invoices */
+  sellerCrNumber?: Maybe<Scalars['String']['output']>;
+  /** Legal name on invoices (Arabic) */
+  sellerLegalNameAr?: Maybe<Scalars['String']['output']>;
+  /** Legal name on invoices (English) */
+  sellerLegalNameEn?: Maybe<Scalars['String']['output']>;
+  /** VAT registration number on invoices */
+  sellerVatNumber?: Maybe<Scalars['String']['output']>;
   socialMediaLinks: Array<SocialMediaLink>;
   termsAr: Scalars['String']['output'];
   termsEn: Scalars['String']['output'];
@@ -3560,6 +3570,11 @@ export type SettingInput = {
   privacyPolicyEn?: InputMaybe<Scalars['String']['input']>;
   rulesAr?: InputMaybe<Scalars['String']['input']>;
   rulesEn?: InputMaybe<Scalars['String']['input']>;
+  sellerAddress?: InputMaybe<Scalars['String']['input']>;
+  sellerCrNumber?: InputMaybe<Scalars['String']['input']>;
+  sellerLegalNameAr?: InputMaybe<Scalars['String']['input']>;
+  sellerLegalNameEn?: InputMaybe<Scalars['String']['input']>;
+  sellerVatNumber?: InputMaybe<Scalars['String']['input']>;
   socialMediaLinks?: InputMaybe<Array<SocialMediaLinkInput>>;
   termsAr?: InputMaybe<Scalars['String']['input']>;
   termsEn?: InputMaybe<Scalars['String']['input']>;

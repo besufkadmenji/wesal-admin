@@ -74,6 +74,23 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  // S4-37: internal tax invoice, available once the contract is paid.
+  const downloadInvoice = async () => {
+    try {
+      const blob = await AdminLifecycleService.download(
+        `/contracts/${contract.id}/invoice`,
+        { language: lang },
+      );
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `invoice-INV-${contract.publicId ?? contract.id}.pdf`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      showErrorMessage(copy.invoiceFailed);
+    }
+  };
   const canResolve =
     contract.status === "DISPUTED" ||
     (["AWAITING_CUSTOMER_CONFIRMATION", "DELIVERY_IN_PROGRESS"].includes(
@@ -95,6 +112,15 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
               ? ` #${contract.conversation.publicId}`
               : ""}
           </AppLink>
+          {contract.paidAt && (
+            <Button
+              variant="bordered"
+              className="border-app-primary text-app-primary"
+              onPress={downloadInvoice}
+            >
+              {copy.downloadInvoice}
+            </Button>
+          )}
           {contract.document && (
             <Button color="primary" onPress={downloadDocument}>
               {copy.downloadPdf}

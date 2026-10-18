@@ -82,6 +82,10 @@ export const contractDetailCopy = (lang: string) => {
     resolveSubmit: ar ? "تنفيذ الحل" : "Resolve contract",
     viewConversation: ar ? "عرض المحادثة" : "View conversation",
     downloadPdf: ar ? "تحميل PDF الموقّع" : "Download signed PDF",
+    downloadInvoice: ar ? "تحميل الفاتورة الضريبية" : "Download tax invoice",
+    invoiceFailed: ar
+      ? "تعذر تحميل الفاتورة الضريبية"
+      : "Couldn't download the tax invoice",
     empty: "—",
   };
 };

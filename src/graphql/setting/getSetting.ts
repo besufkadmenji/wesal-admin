@@ -36,6 +36,11 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       defaultDepositPercent
       defaultCustomerConversationFee
       defaultProviderConversationFee
+      sellerLegalNameAr
+      sellerLegalNameEn
+      sellerVatNumber
+      sellerCrNumber
+      sellerAddress
     }
   }
 `;

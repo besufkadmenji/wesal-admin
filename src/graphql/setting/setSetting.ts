@@ -31,6 +31,11 @@ export const SET_SETTING_MUTATION: TypedDocumentNode<
       defaultDepositPercent
       defaultCustomerConversationFee
       defaultProviderConversationFee
+      sellerLegalNameAr
+      sellerLegalNameEn
+      sellerVatNumber
+      sellerCrNumber
+      sellerAddress
     }
   }
 `;

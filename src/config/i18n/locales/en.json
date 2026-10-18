@@ -2250,5 +2250,16 @@
       "save": "Save defaults",
       "saved": "Category contract defaults saved."
     }
+  },
+  "invoice_seller_settings": {
+    "title": "Invoice details",
+    "hint": "Printed as the seller on tax invoices. Leave a field empty to omit it.",
+    "legal_name_ar": "Legal name (Arabic)",
+    "legal_name_en": "Legal name (English)",
+    "vat_number": "VAT registration number",
+    "cr_number": "Commercial registration number",
+    "address": "Address",
+    "save": "Save invoice details",
+    "saved": "Invoice details saved."
   }
 }
