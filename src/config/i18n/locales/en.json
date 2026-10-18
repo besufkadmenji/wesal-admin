@@ -1105,36 +1105,32 @@
   },
   "notifications_page": {
     "title": "Notifications Management",
-    "total_notifications": "Total Notifications Count",
+    "total_notifications": "Sent notifications",
     "total_count": "notifications",
+    "columns": {
+      "index": "#",
+      "title": "Title",
+      "content": "Content",
+      "recipient_type": "Recipient type",
+      "recipients": "Recipients",
+      "date": "Sent at"
+    },
+    "recipient_types": {
+      "USER": "Customers",
+      "PROVIDER": "Service providers"
+    },
+    "audience": {
+      "ALL": "All",
+      "SELECTED": "Selected"
+    },
+    "filter_recipient_type": "Recipient type",
+    "empty": "No notifications have been sent yet",
     "buttons": {
       "add_notification": "Add New Notification"
-    },
-    "search_placeholder": "Search",
-    "table_headers": {
-      "checkbox": "",
-      "notification_title": "Title",
-      "notification_content": "Content",
-      "recipients_count": "Recipients Count",
-      "sent_date": "Sent Date",
-      "created_by": "Created By",
-      "actions": "Actions"
-    },
-    "actions": {
-      "view": "View",
-      "delete": "Delete"
-    },
-    "messages": {
-      "createSuccess": "Notification created successfully.",
-      "deleteSuccess": "Notification deleted successfully."
-    },
-    "no_notifications_yet": "No notifications yet"
+    }
   },
   "add_new_notification_form": {
     "title": "Add New Notification",
-    "buttons": {
-      "save": "Save"
-    },
     "sections": {
       "notification_information": "Notification Information",
       "recipients": "Recipients"
@@ -1142,26 +1138,34 @@
     "labels": {
       "title": "Notification Title",
       "content": "Notification Content",
-      "sender_id": "Sender Username",
-      "recipients": "Select Recipients"
+      "recipient_types": "Recipient type",
+      "audience": "Send to",
+      "recipients": "Select Recipients",
+      "search_recipients": "Search by name, phone or email"
     },
     "placeholders": {
       "title": "Enter notification title",
-      "content": "Enter notification content"
+      "content": "Enter notification content",
+      "recipient_types": "Choose customers, providers or both"
     },
+    "audience_options": {
+      "ALL": "All active accounts of the chosen type",
+      "SELECTED": "Specific accounts"
+    },
+    "selected_count": "{count} selected",
+    "no_matches": "No active accounts match your search",
     "messages": {
-      "createSuccess": "Notification created successfully."
+      "createSuccess": "Notification sent to {count} recipients."
     },
     "validation": {
       "title": {
-        "required": "Notification title is required",
-        "minLength": "Notification title must be at least 3 characters long",
-        "maxLength": "Notification title must not exceed 255 characters"
+        "required": "Notification title is required"
       },
       "content": {
-        "required": "Notification content is required",
-        "minLength": "Notification content must be at least 10 characters long",
-        "maxLength": "Notification content must not exceed 5000 characters"
+        "required": "Notification content is required"
+      },
+      "recipientTypes": {
+        "required": "Choose at least one recipient type"
       },
       "recipientIds": {
         "required": "At least one recipient is required"
@@ -1169,7 +1173,7 @@
     }
   },
   "notification_detail_page": {
-    "title": "New Notification",
+    "title": "View Notification",
     "sections": {
       "notification_information": "Notification Information",
       "recipients_information": "Recipients Information"
@@ -1178,20 +1182,9 @@
       "title": "Notification Title",
       "content": "Notification Content",
       "sent_date": "Sent Date",
-      "sender_id": "Sender Username",
-      "created_by": "Created By",
-      "recipients_count": "Recipients Count"
-    },
-    "table_headers": {
-      "recipient_name": "Recipient Name",
-      "delivery_status": "Delivery Status",
-      "delivered_date": "Delivered Date",
-      "read_date": "Read Date"
-    },
-    "delivery_status": {
-      "delivered": "Delivered",
-      "pending": "Pending",
-      "failed": "Failed"
+      "recipients_count": "Recipients Count",
+      "recipient_types": "Recipient type",
+      "audience": "Sent to"
     }
   },
   "settings_page": {
@@ -2190,5 +2183,9 @@
       "skipped": "Skipped (unfinished contracts)",
       "none": "None"
     }
+  },
+  "admin_notifications": {
+    "empty": "You have no notifications",
+    "mark_all_read": "Mark all as read"
   }
 }

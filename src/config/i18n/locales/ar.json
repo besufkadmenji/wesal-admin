@@ -1103,93 +1103,86 @@
   },
   "notifications_page": {
     "title": "إدارة الإشعارات",
-    "total_notifications": "إجمالي عدد الإشعارات",
+    "total_notifications": "الإشعارات المرسلة",
     "total_count": "إشعار",
+    "columns": {
+      "index": "#",
+      "title": "العنوان",
+      "content": "المحتوى",
+      "recipient_type": "نوع المستلم",
+      "recipients": "المستلمون",
+      "date": "تاريخ الإرسال"
+    },
+    "recipient_types": {
+      "USER": "طالبو الخدمة",
+      "PROVIDER": "مقدمو الخدمة"
+    },
+    "audience": {
+      "ALL": "الكل",
+      "SELECTED": "محدد"
+    },
+    "filter_recipient_type": "نوع المستلم",
+    "empty": "لم يتم إرسال أي إشعارات بعد",
     "buttons": {
       "add_notification": "إضافة إشعار جديد"
-    },
-    "search_placeholder": "البحث",
-    "table_headers": {
-      "checkbox": "",
-      "notification_title": "العنوان",
-      "notification_content": "المحتوى",
-      "recipients_count": "عدد المستقبلين",
-      "sent_date": "تاريخ الإرسال",
-      "created_by": "من إنشاء",
-      "actions": "الإجراءات"
-    },
-    "actions": {
-      "view": "عرض",
-      "delete": "حذف"
-    },
-    "messages": {
-      "createSuccess": "تم إنشاء الإشعار بنجاح.",
-      "deleteSuccess": "تم حذف الإشعار بنجاح."
-    },
-    "no_notifications_yet": "لا توجد إشعارات بعد"
+    }
   },
   "add_new_notification_form": {
     "title": "إضافة إشعار جديد",
-    "buttons": {
-      "save": "حفظ"
-    },
     "sections": {
-      "notification_information": "معلومات الإشعار",
-      "recipients": "المستقبلون"
+      "notification_information": "بيانات الإشعار",
+      "recipients": "المستلمون"
     },
     "labels": {
       "title": "عنوان الإشعار",
       "content": "محتوى الإشعار",
-      "sender_id": "اسم المستخدم المُرسل",
-      "recipients": "اختر المستقبلين"
+      "recipient_types": "نوع المستلم",
+      "audience": "الإرسال إلى",
+      "recipients": "اختر المستلمين",
+      "search_recipients": "ابحث بالاسم أو الجوال أو البريد"
     },
     "placeholders": {
-      "title": "ادخل عنوان الإشعار",
-      "content": "ادخل محتوى الإشعار"
+      "title": "أدخل عنوان الإشعار",
+      "content": "أدخل محتوى الإشعار",
+      "recipient_types": "اختر طالبي الخدمة أو مقدمي الخدمة أو كليهما"
     },
+    "audience_options": {
+      "ALL": "جميع الحسابات النشطة من النوع المحدد",
+      "SELECTED": "حسابات محددة"
+    },
+    "selected_count": "تم اختيار {count}",
+    "no_matches": "لا توجد حسابات نشطة مطابقة لبحثك",
     "messages": {
-      "createSuccess": "تم إنشاء الإشعار بنجاح."
+      "createSuccess": "تم إرسال الإشعار إلى {count} مستلم."
     },
     "validation": {
       "title": {
-        "required": "عنوان الإشعار مطلوب",
-        "minLength": "يجب أن يكون عنوان الإشعار 3 أحرف على الأقل",
-        "maxLength": "يجب ألا يتجاوز عنوان الإشعار 255 حرفًا"
+        "required": "عنوان الإشعار مطلوب"
       },
       "content": {
-        "required": "محتوى الإشعار مطلوب",
-        "minLength": "يجب أن يكون محتوى الإشعار 10 أحرف على الأقل",
-        "maxLength": "يجب ألا يتجاوز محتوى الإشعار 5000 حرف"
+        "required": "محتوى الإشعار مطلوب"
+      },
+      "recipientTypes": {
+        "required": "يرجى اختيار نوع مستلم واحد على الأقل"
       },
       "recipientIds": {
-        "required": "يجب تحديد متلقي واحد على الأقل"
+        "required": "يرجى اختيار مستلم واحد على الأقل"
       }
     }
   },
   "notification_detail_page": {
-    "title": "إشعار جديد",
+    "title": "عرض الإشعار",
     "sections": {
-      "notification_information": "معلومات الإشعار",
-      "recipients_information": "معلومات المستقبلين"
+      "notification_information": "بيانات الإشعار",
+      "recipients_information": "بيانات المستلمين"
     },
     "labels": {
       "title": "عنوان الإشعار",
       "content": "محتوى الإشعار",
       "sent_date": "تاريخ الإرسال",
-      "sender_id": "اسم المستخدم المُرسل",
-      "created_by": "من إنشاء",
-      "recipients_count": "عدد المستقبلين"
-    },
-    "table_headers": {
-      "recipient_name": "اسم المستقبل",
-      "delivery_status": "حالة الإرسال",
-      "delivered_date": "تاريخ الإرسال",
-      "read_date": "تاريخ القراءة"
-    },
-    "delivery_status": {
-      "delivered": "مُسلم",
-      "pending": "قيد الانتظار",
-      "failed": "فشل"
+      "recipients_count": "عدد المستلمين",
+      "recipient_types": "نوع المستلم",
+      "audience": "الإرسال إلى"
     }
   },
   "settings_page": {
@@ -2189,5 +2182,9 @@
       "skipped": "تم تجاوزهم (تعاقدات غير منتهية)",
       "none": "لا يوجد"
     }
+  },
+  "admin_notifications": {
+    "empty": "لا توجد إشعارات لديك",
+    "mark_all_read": "تحديد الكل كمقروء"
   }
 }
