@@ -1964,6 +1964,7 @@ export type {
   QuerySignedContractByIdArgs,
   QuerySignedContractByProviderIdArgs,
   QuerySignedContractsArgs,
+  QueryTrustedListingsArgs,
   QueryUserArgs,
   QueryUsersArgs,
   RateContractInput,
