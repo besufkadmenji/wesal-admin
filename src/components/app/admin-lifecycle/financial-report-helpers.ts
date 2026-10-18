@@ -2,17 +2,12 @@ import { SummaryCardType } from "@/components/app/shared/summary/SummaryCard";
 
 export type ReportKind = "contracts" | "conversations" | "premium";
 
-export type ReportPeriod =
-  | "today"
-  | "week"
-  | "month"
-  | "12months"
-  | "all";
+export type ReportPeriod = "today" | "week" | "month" | "12months" | "all";
 
 export type ReportPeriodSelection = ReportPeriod | null;
 
 export type ReportData = {
-  items: Array<Record<string, string | number | null>>;
+  items: Array<Record<string, string | number | boolean | null>>;
   meta: { total: number; page: number; limit: number };
   [key: string]: unknown;
 };
@@ -22,6 +17,9 @@ export type ReportTotalKey =
   | "totalProviderNet"
   | "totalVat"
   | "totalCommission"
+  | "totalAdminProfit"
+  | "totalCharity"
+  | "totalContractValue"
   | "totalCustomerRefunds"
   | "totalProviderReleases"
   | "totalCustomerFees"
@@ -35,6 +33,9 @@ export type ReportTotal = {
     | "providerNet"
     | "vat"
     | "commission"
+    | "adminProfit"
+    | "charity"
+    | "contractTotal"
     | "refunds"
     | "releases"
     | "customerFees"
@@ -46,6 +47,8 @@ export const MONEY_COLUMNS = new Set([
   "providerNet",
   "vat",
   "commission",
+  "adminProfit",
+  "contractTotal",
   "totalPaid",
   "customerRefund",
   "customerFee",
@@ -56,29 +59,33 @@ export const MONEY_COLUMNS = new Set([
 export const reportConfig = {
   contracts: {
     endpoint: "/reports/contracts/export",
+    // BRD 4.3.22: provider profit, VAT and admin profit are in the footer.
     totals: [
+      { key: "totalContractValue", labelKey: "contractTotal" },
       { key: "totalPaid", labelKey: "totalPaid" },
-      { key: "totalProviderNet", labelKey: "providerNet" },
-      { key: "totalVat", labelKey: "vat" },
-      { key: "totalCommission", labelKey: "commission" },
+      { key: "totalCharity", labelKey: "charity" },
       { key: "totalCustomerRefunds", labelKey: "refunds" },
       { key: "totalProviderReleases", labelKey: "releases" },
     ] satisfies ReportTotal[],
+    // BRD 4.3.22 columns; rowNumber, contractDate, tradeName and
+    // deliveryCompany are derived in `reportCellValue`.
     columns: [
+      "rowNumber",
       "contractNumber",
+      "contractDate",
       "customerName",
-      "providerName",
-      "status",
+      "tradeName",
+      "deliveryCompany",
       "providerNet",
       "vat",
-      "commission",
-      "totalPaid",
-      "customerRefund",
+      "adminProfit",
+      "contractTotal",
     ],
     linkColumn: "contractNumber",
     idField: "contractId",
     detailPath: "/contracts",
     showCategoryFilter: true,
+    showDeliveryCompanyFilter: true,
   },
   conversations: {
     endpoint: "/reports/conversation-fees/export",
@@ -99,10 +106,13 @@ export const reportConfig = {
     idField: "conversationId",
     detailPath: "/conversations",
     showCategoryFilter: false,
+    showDeliveryCompanyFilter: false,
   },
   premium: {
     endpoint: "/reports/premium-ads/export",
-    totals: [{ key: "totalFees", labelKey: "totalFees" }] satisfies ReportTotal[],
+    totals: [
+      { key: "totalFees", labelKey: "totalFees" },
+    ] satisfies ReportTotal[],
     columns: [
       "listingName",
       "providerName",
@@ -117,6 +127,7 @@ export const reportConfig = {
     idField: null,
     detailPath: null,
     showCategoryFilter: false,
+    showDeliveryCompanyFilter: false,
   },
 } as const satisfies Record<
   ReportKind,
@@ -128,6 +139,7 @@ export const reportConfig = {
     idField: string | null;
     detailPath: string | null;
     showCategoryFilter: boolean;
+    showDeliveryCompanyFilter: boolean;
   }
 >;
 
@@ -139,6 +151,9 @@ export const reportCountCardType: Record<ReportKind, SummaryCardType> = {
 
 export const reportStatuses: Record<ReportKind, string[]> = {
   contracts: [
+    "PENDING",
+    "ACCEPTED",
+    "REJECTED",
     "IN_PROGRESS",
     "AWAITING_CUSTOMER_CONFIRMATION",
     "DELIVERY_IN_PROGRESS",
@@ -155,15 +170,11 @@ export const financialReportCopy = (lang: string) => {
   const ar = lang === "ar";
   return {
     titles: {
-      contracts: ar
-        ? "التقرير المالي للتعاقدات"
-        : "Contract financial report",
+      contracts: ar ? "التقرير المالي للتعاقدات" : "Contract financial report",
       conversations: ar
         ? "التقرير المالي لرسوم المحادثات"
         : "Conversation-fee report",
-      premium: ar
-        ? "التقرير المالي للإعلانات المميزة"
-        : "Premium-ad report",
+      premium: ar ? "التقرير المالي للإعلانات المميزة" : "Premium-ad report",
     },
     countLabels: {
       contracts: ar ? "التعاقدات" : "Contracts",
@@ -174,6 +185,14 @@ export const financialReportCopy = (lang: string) => {
     moneySubTitle: ar ? "ر.س" : "SAR",
     status: ar ? "الحالة" : "Status",
     category: ar ? "القسم" : "Category",
+    deliveryCompany: ar ? "شركة التوصيل" : "Delivery company",
+    footer: {
+      contracts: ar ? "عدد التعاقدات" : "Contracts",
+      providerNet: ar ? "إجمالي ربح مقدمي الخدمة" : "Total provider profit",
+      vat: ar ? "إجمالي الضريبة" : "Total VAT",
+      adminProfit: ar ? "إجمالي ربح الإدارة" : "Total admin profit",
+      completed: ar ? "التعاقدات المكتملة" : "Completed contracts",
+    },
     clearFilters: ar ? "مسح عوامل التصفية" : "Clear filters",
     empty: ar ? "لا توجد نتائج" : "No records found",
     exportPdf: ar ? "تصدير PDF" : "Export PDF",
@@ -184,6 +203,9 @@ export const financialReportCopy = (lang: string) => {
       providerNet: ar ? "صافي مقدم الخدمة" : "Provider net",
       vat: ar ? "الضريبة" : "VAT",
       commission: ar ? "العمولة" : "Commission",
+      adminProfit: ar ? "ربح الإدارة" : "Admin profit",
+      charity: ar ? "صدقات وصال الخير" : "Wesal Al-Khair charity",
+      contractTotal: ar ? "إجمالي التعاقدات" : "Contracts total",
       refunds: ar ? "المبالغ المستردة" : "Refunds",
       releases: ar ? "المبالغ المحولة" : "Releases",
       customerFees: ar ? "رسوم العملاء" : "Customer fees",
@@ -191,14 +213,20 @@ export const financialReportCopy = (lang: string) => {
       totalFees: ar ? "إجمالي الرسوم" : "Total fees",
     },
     columns: {
-      contractNumber: ar ? "التعاقد" : "Contract",
+      rowNumber: "#",
+      contractNumber: ar ? "رقم التعاقد" : "Contract no.",
+      contractDate: ar ? "تاريخ التعاقد" : "Contract date",
+      tradeName: ar ? "الاسم التجاري" : "Trade name",
+      deliveryCompany: ar ? "شركة التوصيل" : "Delivery company",
+      adminProfit: ar ? "ربح الإدارة" : "Admin profit",
+      contractTotal: ar ? "إجمالي التعاقد" : "Contract total",
       conversationNumber: ar ? "المحادثة" : "Conversation",
       customerName: ar ? "العميل" : "Customer",
       providerName: ar ? "مقدم الخدمة" : "Provider",
       providerPhone: ar ? "الجوال" : "Mobile",
       listingName: ar ? "الإعلان" : "Listing",
       status: ar ? "الحالة" : "Status",
-      providerNet: ar ? "صافي مقدم الخدمة" : "Provider net",
+      providerNet: ar ? "ربح مقدم الخدمة" : "Provider profit",
       vat: ar ? "الضريبة" : "VAT",
       commission: ar ? "العمولة" : "Commission",
       totalPaid: ar ? "المدفوع" : "Paid",
@@ -244,6 +272,35 @@ export const formatReportCell = (
     return formatReportDate(value, lang) ?? copy.dash;
   }
   return String(value);
+};
+
+/** Raw value for a column, including the contract report's derived ones. */
+export const reportCellValue = (
+  column: string,
+  item: Record<string, string | number | boolean | null>,
+  rowNumber: number,
+  lang: string,
+): string | number | null => {
+  const text = (value: unknown) =>
+    value == null || value === "" ? null : (value as string | number);
+  switch (column) {
+    case "rowNumber":
+      return rowNumber;
+    case "contractDate":
+      return item.createdAt
+        ? new Date(String(item.createdAt)).toLocaleDateString(
+            lang === "ar" ? "ar-SA" : "en-SA",
+          )
+        : null;
+    case "tradeName":
+      return text(item.providerName);
+    case "deliveryCompany":
+      return lang === "ar"
+        ? text(item.deliveryCompanyNameAr ?? item.deliveryCompanyNameEn)
+        : text(item.deliveryCompanyNameEn ?? item.deliveryCompanyNameAr);
+    default:
+      return text(item[column]);
+  }
 };
 
 const startOfDay = (date: Date) => {

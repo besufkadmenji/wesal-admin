@@ -13,6 +13,7 @@ import {
 } from "./financial-report-helpers";
 
 type CategoryOption = { id: string; nameAr: string; nameEn: string };
+type DeliveryCompanyOption = { id: string; nameAr: string; nameEn: string };
 
 export const ReportFiltersSection = ({
   kind,
@@ -20,12 +21,15 @@ export const ReportFiltersSection = ({
   search,
   status,
   categoryId,
+  deliveryCompanyId,
   from,
   to,
   categories,
+  deliveryCompanies,
   onSearchChange,
   onStatusChange,
   onCategoryChange,
+  onDeliveryCompanyChange,
   onFromChange,
   onToChange,
   onClear,
@@ -35,22 +39,27 @@ export const ReportFiltersSection = ({
   search: string;
   status: string;
   categoryId: string;
+  deliveryCompanyId: string;
   from: string | null;
   to: string | null;
   categories: CategoryOption[];
+  deliveryCompanies: DeliveryCompanyOption[];
   onSearchChange: (value: string) => void;
   onStatusChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
+  onDeliveryCompanyChange: (value: string) => void;
   onFromChange: (value: string | null) => void;
   onToChange: (value: string | null) => void;
   onClear: () => void;
 }) => {
   const copy = financialReportCopy(lang);
   const config = reportConfig[kind];
-  const hasFilters = Boolean(search || status || categoryId || from || to);
+  const hasFilters = Boolean(
+    search || status || categoryId || deliveryCompanyId || from || to,
+  );
 
   return (
-    <section className="grid grid-cols-2 items-center gap-4 lg:flex">
+    <section className="grid grid-cols-2 items-center gap-4 lg:flex lg:flex-wrap">
       <SearchInput
         className="w-full md:w-max"
         noSubmit
@@ -75,6 +84,18 @@ export const ReportFiltersSection = ({
           className="w-full md:w-max"
           values={categoryId ? [categoryId] : []}
           onValueChange={(values) => onCategoryChange(values[0] ?? "")}
+        />
+      )}
+      {config.showDeliveryCompanyFilter && (
+        <FilterSelect
+          options={deliveryCompanies.map((company) => ({
+            key: company.id,
+            label: lang === "ar" ? company.nameAr : company.nameEn,
+          }))}
+          placeholder={copy.deliveryCompany}
+          className="w-full md:w-max"
+          values={deliveryCompanyId ? [deliveryCompanyId] : []}
+          onValueChange={(values) => onDeliveryCompanyChange(values[0] ?? "")}
         />
       )}
       <DateRangeFilter

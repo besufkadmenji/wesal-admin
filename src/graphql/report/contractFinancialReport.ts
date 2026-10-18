@@ -14,6 +14,9 @@ export const CONTRACT_FINANCIAL_REPORT_QUERY: TypedDocumentNode<
       totalProviderNet
       totalVat
       totalCommission
+      totalAdminProfit
+      totalCharity
+      totalContractValue
       totalPaid
       totalCustomerRefunds
       totalProviderReleases
@@ -22,10 +25,15 @@ export const CONTRACT_FINANCIAL_REPORT_QUERY: TypedDocumentNode<
         contractNumber
         customerName
         providerName
+        deliveryCompanyNameAr
+        deliveryCompanyNameEn
         status
         providerNet
         vat
         commission
+        adminProfit
+        isCharity
+        contractTotal
         totalPaid
         customerRefund
         providerRelease

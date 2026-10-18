@@ -698,7 +698,10 @@ export type ContractFinancialReport = {
   completedCount: Scalars['Int']['output'];
   items: Array<ContractFinancialReportRow>;
   meta: ReportPageMeta;
+  totalAdminProfit: Scalars['Float']['output'];
+  totalCharity: Scalars['Float']['output'];
   totalCommission: Scalars['Float']['output'];
+  totalContractValue: Scalars['Float']['output'];
   totalCustomerRefunds: Scalars['Float']['output'];
   totalPaid: Scalars['Float']['output'];
   totalProviderNet: Scalars['Float']['output'];
@@ -707,14 +710,22 @@ export type ContractFinancialReport = {
 };
 
 export type ContractFinancialReportRow = {
+  /** Commission, or 0 on charity contracts */
+  adminProfit: Scalars['Float']['output'];
   commission: Scalars['Float']['output'];
   contractId: Scalars['String']['output'];
   contractNumber?: Maybe<Scalars['Int']['output']>;
+  /** What the customer pays (incl. VAT) */
+  contractTotal: Scalars['Float']['output'];
   createdAt: Scalars['DateTime']['output'];
   customerName?: Maybe<Scalars['String']['output']>;
   customerRefund: Scalars['Float']['output'];
   deliveryCompanyName?: Maybe<Scalars['String']['output']>;
+  deliveryCompanyNameAr?: Maybe<Scalars['String']['output']>;
+  deliveryCompanyNameEn?: Maybe<Scalars['String']['output']>;
+  isCharity: Scalars['Boolean']['output'];
   providerName?: Maybe<Scalars['String']['output']>;
+  /** Agreed price minus commission */
   providerNet: Scalars['Float']['output'];
   providerRelease: Scalars['Float']['output'];
   status: Scalars['String']['output'];
@@ -1278,6 +1289,7 @@ export type FeeReportInput = {
   categoryId?: InputMaybe<Scalars['String']['input']>;
   conversationId?: InputMaybe<Scalars['String']['input']>;
   customerId?: InputMaybe<Scalars['String']['input']>;
+  deliveryCompanyId?: InputMaybe<Scalars['String']['input']>;
   from?: InputMaybe<Scalars['DateTime']['input']>;
   /** Number of items per page */
   limit?: Scalars['Int']['input'];

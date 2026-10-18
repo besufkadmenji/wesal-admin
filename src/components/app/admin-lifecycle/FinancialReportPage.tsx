@@ -13,6 +13,8 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import CategoryService from "@/services/category.service";
+import DeliveryCompanyService from "@/services/delivery.company.service";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import { useLang } from "@/hooks/useLang";
 import {
   AppTable,
@@ -20,10 +22,7 @@ import {
   RowType,
 } from "@/components/app/shared/tables/AppTable";
 import { AppTableSkeleton } from "@/components/app/shared/tables/AppTableSkeleton";
-import {
-  lifecycleDateFrom,
-  lifecycleDateTo,
-} from "./lifecycle-enum-labels";
+import { lifecycleDateFrom, lifecycleDateTo } from "./lifecycle-enum-labels";
 import { LifecycleStatusBadge } from "./LifecycleStatusBadge";
 import { conversationStatusLabel } from "./conversation-detail-helpers";
 import {
@@ -34,8 +33,10 @@ import {
   financialReportCopy,
   formatReportCell,
   periodToDateRange,
+  reportCellValue,
   reportConfig,
 } from "./financial-report-helpers";
+import { ReportTotalsFooter } from "./ReportTotalsFooter";
 import { ReportPeriodFilter } from "./ReportPeriodFilter";
 import { ReportSummarySection } from "./ReportSummarySection";
 import { ReportFiltersSection } from "./ReportFiltersSection";
@@ -45,6 +46,8 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
   const lang = useLang();
   const copy = financialReportCopy(lang);
   const allowed = useCanAccess("report", "read");
+  const canExport = useCanAccess("report", "export");
+  const router = useAppRouter();
 
   const [search, setSearch] = useQueryState(
     "search",
@@ -59,6 +62,10 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
   const [to, setTo] = useQueryState("dateTo");
   const [categoryId, setCategoryId] = useQueryState(
     "categoryId",
+    parseAsString.withDefault(""),
+  );
+  const [deliveryCompanyId, setDeliveryCompanyId] = useQueryState(
+    "deliveryCompanyId",
     parseAsString.withDefault(""),
   );
   const [period, setPeriod] = useQueryState("period");
@@ -100,6 +107,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
       search,
       status,
       categoryId,
+      deliveryCompanyId,
       from,
       to,
       page,
@@ -109,6 +117,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
         search,
         status: status || undefined,
         categoryId: categoryId || undefined,
+        deliveryCompanyId: deliveryCompanyId || undefined,
         from: lifecycleDateFrom(from),
         to: lifecycleDateTo(to),
         page,
@@ -121,6 +130,13 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
     queryKey: ["admin-report-categories"],
     queryFn: () => CategoryService.categories({ page: 1, limit: 100 }),
     enabled: allowed && config.showCategoryFilter,
+  });
+
+  const deliveryCompanies = useQuery({
+    queryKey: ["admin-report-delivery-companies"],
+    queryFn: () =>
+      DeliveryCompanyService.deliveryCompanies({ page: 1, limit: 100 }),
+    enabled: allowed && config.showDeliveryCompanyFilter,
   });
 
   const columns: ColumnType[] = config.columns.map((key) => ({
@@ -138,7 +154,11 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
       row.detailId = String(item[config.idField] ?? "");
     }
     for (const column of config.columns) {
-      row[column] = formatReportCell(column, item[column], lang);
+      row[column] = formatReportCell(
+        column,
+        reportCellValue(column, item, (page - 1) * 10 + index + 1, lang),
+        lang,
+      );
       if (column === "status") {
         row.status = String(item.status ?? "");
       }
@@ -171,6 +191,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
     void setSearch("");
     void setStatus("");
     void setCategoryId("");
+    void setDeliveryCompanyId("");
     void setFrom(null);
     void setTo(null);
     void setPeriod(null);
@@ -186,6 +207,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
         search: search || undefined,
         status: status || undefined,
         categoryId: categoryId || undefined,
+        deliveryCompanyId: deliveryCompanyId || undefined,
         language: lang,
         from: lifecycleDateFrom(from),
         to: lifecycleDateTo(to),
@@ -198,9 +220,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
       anchor.click();
       URL.revokeObjectURL(url);
     } catch (error) {
-      showErrorMessage(
-        error instanceof Error ? error.message : String(error),
-      );
+      showErrorMessage(error instanceof Error ? error.message : String(error));
     } finally {
       setExporting(null);
     }
@@ -214,11 +234,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
           ? conversationStatusLabel(row.status, lang)
           : undefined;
       return (
-        <LifecycleStatusBadge
-          status={row.status}
-          lang={lang}
-          label={label}
-        />
+        <LifecycleStatusBadge status={row.status} lang={lang} label={label} />
       );
     }
     if (
@@ -246,23 +262,27 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
           title={copy.titles[kind]}
           className="grid grid-cols-1 gap-2 md:flex"
         >
-          <Button
-            variant="bordered"
-            className="border-app-primary text-app-primary"
-            isLoading={exporting === "pdf"}
-            isDisabled={exporting != null}
-            onPress={() => exportReport("pdf")}
-          >
-            {copy.exportPdf}
-          </Button>
-          <Button
-            className="bg-app-primary text-white"
-            isLoading={exporting === "xlsx"}
-            isDisabled={exporting != null}
-            onPress={() => exportReport("xlsx")}
-          >
-            {copy.exportXlsx}
-          </Button>
+          {canExport && (
+            <>
+              <Button
+                variant="bordered"
+                className="border-app-primary text-app-primary"
+                isLoading={exporting === "pdf"}
+                isDisabled={exporting != null}
+                onPress={() => exportReport("pdf")}
+              >
+                {copy.exportPdf}
+              </Button>
+              <Button
+                className="bg-app-primary text-white"
+                isLoading={exporting === "xlsx"}
+                isDisabled={exporting != null}
+                onPress={() => exportReport("xlsx")}
+              >
+                {copy.exportXlsx}
+              </Button>
+            </>
+          )}
         </PageBar>
         <Gap className="h-8" />
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -284,9 +304,11 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
             search={searchInput}
             status={status}
             categoryId={categoryId}
+            deliveryCompanyId={deliveryCompanyId}
             from={from}
             to={to}
             categories={categories.data?.items ?? []}
+            deliveryCompanies={deliveryCompanies.data?.items ?? []}
             onSearchChange={setSearchInput}
             onStatusChange={(value) => {
               void setStatus(value);
@@ -294,6 +316,10 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
             }}
             onCategoryChange={(value) => {
               void setCategoryId(value);
+              void setPage(1);
+            }}
+            onDeliveryCompanyChange={(value) => {
+              void setDeliveryCompanyId(value);
               void setPage(1);
             }}
             onFromChange={onCustomFromChange}
@@ -317,7 +343,19 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
               }}
               emptyContent={copy.empty}
               disableSelect
+              rowClick={
+                config.detailPath
+                  ? (row) => {
+                      if (row.detailId) {
+                        router.push(`${config.detailPath}/${row.detailId}`);
+                      }
+                    }
+                  : undefined
+              }
             />
+          )}
+          {kind === "contracts" && !query.isLoading && (
+            <ReportTotalsFooter lang={lang} data={query.data} />
           )}
         </div>
       </PageWrapper>
