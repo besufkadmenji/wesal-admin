@@ -48,6 +48,7 @@ export const LISTING_QUERY: TypedDocumentNode<
         status
         publicId
         phoneVerified
+        isNewlyAdded
       }
       story {
         filename

@@ -2808,6 +2808,8 @@ export type Provider = {
   ibanNumber?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   isActive: Scalars['Boolean']['output'];
+  /** Not evaluated by a monthly badge run yet: shows "Newly Added" (S4-54) */
+  isNewlyAdded: Scalars['Boolean']['output'];
   languageCode?: Maybe<Scalars['String']['output']>;
   latitude?: Maybe<Scalars['Float']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;

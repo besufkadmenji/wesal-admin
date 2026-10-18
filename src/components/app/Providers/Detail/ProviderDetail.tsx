@@ -124,7 +124,9 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                 value={
                   provider.badge
                     ? dict.badges_page.tiers[provider.badge]
-                    : dict.view_provider_form.no_badge
+                    : provider.isNewlyAdded
+                      ? dict.view_provider_form.newly_added
+                      : dict.view_provider_form.no_badge
                 }
                 onChange={(): void => {}}
                 className="col-span-2"

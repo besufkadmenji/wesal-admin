@@ -439,7 +439,8 @@
       "business_information": "معلومات العمل",
       "banking_information": "معلومات البنك"
     },
-    "no_badge": "بدون وسام"
+    "no_badge": "بدون وسام",
+    "newly_added": "مضاف حديثاً (لم يدخل توزيع الأوسمة الشهري بعد)"
   },
   "profile": {
     "commercialRecordNumber": "رقم السجل التجاري"

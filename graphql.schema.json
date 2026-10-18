@@ -22109,6 +22109,22 @@
             "deprecationReason": null
           },
           {
+            "name": "isNewlyAdded",
+            "description": "Not evaluated by a monthly badge run yet: shows \"Newly Added\" (S4-54)",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "Boolean",
+                "kind": "SCALAR",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "languageCode",
             "description": null,
             "args": [],

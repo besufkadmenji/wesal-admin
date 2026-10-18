@@ -10,6 +10,7 @@ export const PROVIDER_QUERY: TypedDocumentNode<
       address
       avatarFilename
       badge
+      isNewlyAdded
       bankName
       categories {
         createdAt

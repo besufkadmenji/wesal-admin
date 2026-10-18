@@ -441,7 +441,8 @@
       "business_information": "Business Information",
       "banking_information": "Banking Information"
     },
-    "no_badge": "No badge"
+    "no_badge": "No badge",
+    "newly_added": "Newly added (not yet in a monthly badge run)"
   },
   "profile": {
     "commercialRecordNumber": "Commercial Registration Number"

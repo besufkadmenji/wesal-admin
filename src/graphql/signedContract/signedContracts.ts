@@ -65,6 +65,7 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
           name
           phone
           phoneVerified
+          isNewlyAdded
           publicId
           status
           updatedAt
