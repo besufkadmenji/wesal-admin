@@ -19,6 +19,8 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       downPayment
       commissionPercent
       commissionAmount
+      isCharity
+      charityAmount
       vatRate
       vatAmount
       totalPayable

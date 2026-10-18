@@ -20,7 +20,7 @@ import {
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
 import RatingIcon from "@/assets/icons/rating.svg";
-import { Bell, Medal } from "lucide-react";
+import { Bell, HandHeart, Medal } from "lucide-react";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -58,6 +58,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
   const canReadComments = useCanAccess("rating", "read");
   const canReadBadges = useCanAccess("badge", "read");
   const canReadNotifications = useCanAccess("notification", "read");
+  const canReadCharity = useCanAccess("charity", "read");
   const canReadReports = useCanAccess("report", "read");
   return (
     <aside
@@ -174,6 +175,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
             href="/comments"
             icon={<RatingIcon className="size-5" />}
             label={dict.navigation.comments}
+          />
+        )}
+        {canReadCharity && (
+          <OptionLink
+            href="/charity"
+            icon={<HandHeart className="size-5" strokeWidth={1.75} />}
+            label={dict.navigation.charity}
           />
         )}
         {canReadBadges && (

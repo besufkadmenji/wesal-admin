@@ -42,6 +42,12 @@ export const ContractFinancialSection = ({
           label={copy.commissionAmount}
           value={formatContractMoney(contract.commissionAmount, lang)}
         />
+        {contract.isCharity && (
+          <LifecycleDetailField
+            label={copy.charityAmount}
+            value={formatContractMoney(contract.charityAmount, lang)}
+          />
+        )}
         <LifecycleDetailField
           label={copy.vat}
           value={formatContractMoney(contract.vatAmount, lang)}

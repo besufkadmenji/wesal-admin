@@ -181,7 +181,8 @@
     "conversation_fee_report": "Conversation Fee Report",
     "premium_ad_report": "Premium Advertising Report",
     "comments": "Comments Management",
-    "badges": "Badges Management"
+    "badges": "Badges Management",
+    "charity": "Wesal Al-Khair"
   },
   "users_page": {
     "title": "Users Management",
@@ -2187,5 +2188,30 @@
   "admin_notifications": {
     "empty": "You have no notifications",
     "mark_all_read": "Mark all as read"
+  },
+  "charity_page": {
+    "title": "Wesal Al-Khair (charity list)",
+    "description": "Contracts whose commission is at or below the category minimum. No commission is collected on them; management donates the total through the Ihsan platform.",
+    "summary": {
+      "contracts": "Charity contracts",
+      "completed": "Completed charity contracts",
+      "total": "Total to donate (completed)"
+    },
+    "filters": {
+      "status": "Status",
+      "category": "Category"
+    },
+    "columns": {
+      "index": "#",
+      "contract": "Contract no.",
+      "customer": "Customer",
+      "customer_mobile": "Customer mobile",
+      "provider": "Trade name",
+      "provider_mobile": "Provider mobile",
+      "category": "Category",
+      "status": "Status",
+      "amount": "Waived commission"
+    },
+    "empty": "No charity contracts yet"
   }
 }
