@@ -12,7 +12,7 @@ import CategoryService from "@/services/category.service";
 import { useLang } from "@/hooks/useLang";
 import {
   ComplaintStatus,
-  ContractStatus,
+  ContractStatusGroup,
   ConversationStatus,
 } from "@/gql/graphql";
 import {
@@ -157,18 +157,14 @@ const arabicLabels: Record<Kind, { title: string; columns: string[] }> = {
 };
 
 const statuses: Record<Kind, string[]> = {
+  // S4-1: the same tabs as My Contracts, sent as statusGroup.
   contracts: [
-    "DRAFT",
-    "PENDING",
-    "ACCEPTED",
-    "IN_PROGRESS",
-    "AWAITING_CUSTOMER_CONFIRMATION",
-    "DELIVERY_IN_PROGRESS",
-    "CANCELLATION_REQUESTED",
-    "DISPUTED",
-    "COMPLETED",
-    "REJECTED",
-    "CANCELLED",
+    ContractStatusGroup.PendingAcceptance,
+    ContractStatusGroup.PendingPayment,
+    ContractStatusGroup.InProgress,
+    ContractStatusGroup.InDelivery,
+    ContractStatusGroup.Completed,
+    ContractStatusGroup.Cancelled,
   ],
   conversations: ["ACTIVE", "CLOSED"],
   complaints: ["PENDING", "UNDER_REVIEW", "RESOLVED", "REJECTED", "CLOSED"],
@@ -207,7 +203,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
       if (kind === "contracts") {
         return AdminLifecycleService.contracts({
           search,
-          status: (status as ContractStatus) || undefined,
+          statusGroup: (status as ContractStatusGroup) || undefined,
           categoryId: categoryId || undefined,
           from: lifecycleDateFrom(from),
           to: lifecycleDateTo(to),

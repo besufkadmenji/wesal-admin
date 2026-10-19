@@ -1,4 +1,8 @@
 const labels: Record<string, { en: string; ar: string }> = {
+  // S4-1 contract tabs (statusGroup); IN_PROGRESS, COMPLETED and CANCELLED
+  // share the raw-status labels below.
+  PENDING_ACCEPTANCE: { en: "Pending acceptance", ar: "قيد القبول" },
+  IN_DELIVERY: { en: "In delivery", ar: "جاري التوصيل" },
   DRAFT: { en: "Draft", ar: "مسودة" },
   PENDING: { en: "Pending", ar: "قيد الانتظار" },
   ACCEPTED: { en: "Accepted", ar: "مقبول" },
