@@ -18,6 +18,8 @@ const labels: Record<string, { en: string; ar: string }> = {
   },
   DISPUTED: { en: "Disputed", ar: "متنازع عليه" },
   COMPLETED: { en: "Completed", ar: "مكتمل" },
+  // Q-C3: paid out by the administration without the customer's signature.
+  ADMIN_RESOLVED: { en: "Closed by admin", ar: "مغلق من الإدارة" },
   REJECTED: { en: "Rejected", ar: "مرفوض" },
   CANCELLED: { en: "Cancelled", ar: "ملغي" },
   ACTIVE: { en: "Ongoing", ar: "جارية" },
@@ -47,6 +49,10 @@ const labels: Record<string, { en: string; ar: string }> = {
     ar: "بدأ التوصيل",
   },
   CONTRACT_COMPLETED: { en: "Contract completed", ar: "اكتمل التعاقد" },
+  CONTRACT_ADMIN_RESOLVED: {
+    en: "Contract closed by admin",
+    ar: "أغلقت الإدارة التعاقد",
+  },
   CONTRACT_CANCELLATION_REQUESTED: {
     en: "Cancellation requested",
     ar: "تم طلب إلغاء التعاقد",
@@ -88,10 +94,14 @@ const labels: Record<string, { en: string; ar: string }> = {
   },
   REFUND_CUSTOMER: { en: "Full customer refund", ar: "رد كامل للعميل" },
   RELEASE_PROVIDER: {
-    en: "Release normal settlement",
-    ar: "تحرير التسوية الاعتيادية",
+    en: "Close and pay the provider",
+    ar: "إغلاق وتحويل المبلغ لمقدم الخدمة",
   },
-  COMPLETE: { en: "Mark completed", ar: "تحديد كمكتمل" },
+  // Q-C3: without the customer's signature the result is "Closed by admin".
+  COMPLETE: {
+    en: "Close and pay the provider",
+    ar: "إغلاق وتحويل المبلغ لمقدم الخدمة",
+  },
   CANCEL: { en: "Mark cancelled", ar: "تحديد كملغي" },
 };
 

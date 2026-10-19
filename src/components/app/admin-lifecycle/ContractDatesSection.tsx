@@ -6,6 +6,7 @@ import {
   showAcceptanceDate,
   showCancellationDetails,
   showCompletionDate,
+  showResolutionDate,
   showDisputeReason,
 } from "./contract-detail-helpers";
 
@@ -20,8 +21,9 @@ export const ContractDatesSection = ({
   const acceptance = showAcceptanceDate(contract.status);
   const cancellation = showCancellationDetails(contract.status);
   const completion = showCompletionDate(contract.status);
+  const resolution = showResolutionDate(contract.status);
   const disputed = showDisputeReason(contract.status);
-  if (!acceptance && !cancellation && !completion && !disputed) {
+  if (!acceptance && !cancellation && !completion && !resolution && !disputed) {
     return null;
   }
   return (
@@ -53,6 +55,12 @@ export const ContractDatesSection = ({
           <LifecycleDetailField
             label={copy.completionDate}
             value={formatContractDate(contract.completedAt, lang) ?? copy.empty}
+          />
+        )}
+        {resolution && (
+          <LifecycleDetailField
+            label={copy.resolutionDate}
+            value={formatContractDate(contract.resolvedAt, lang) ?? copy.empty}
           />
         )}
         {disputed && (

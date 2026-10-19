@@ -66,6 +66,17 @@ describe("CharityPage (S4-34 Wesal Al-Khair list)", () => {
     },
   );
 
+  it("labels a contract the administration closed (Q-C3)", async () => {
+    vi.mocked(CharityService.contracts).mockResolvedValue({
+      items: [{ ...contract, status: ContractStatus.AdminResolved }],
+      meta: { total: 1, page: 1, totalPages: 1 },
+    } as never);
+    renderPage(<CharityPage />);
+
+    const row = (await screen.findByText("#1184")).closest("tr")!;
+    expect(within(row).getByText("Closed by admin")).toBeInTheDocument();
+  });
+
   it("opens the contract when a row is clicked", async () => {
     renderPage(<CharityPage />);
 

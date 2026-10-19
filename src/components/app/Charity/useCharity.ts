@@ -15,6 +15,7 @@ export const CHARITY_STATUSES: ContractStatus[] = [
   ContractStatus.Pending,
   ContractStatus.InProgress,
   ContractStatus.Completed,
+  ContractStatus.AdminResolved,
 ];
 
 /** List, totals and filter state for the admin charity page. */

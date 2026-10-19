@@ -45,6 +45,7 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       providerCompletedAt
       deliveryStartedAt
       completedAt
+      resolvedAt
       cancelledAt
       client {
         name

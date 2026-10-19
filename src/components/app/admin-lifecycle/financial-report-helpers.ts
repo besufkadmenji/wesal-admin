@@ -160,6 +160,7 @@ export const reportStatuses: Record<ReportKind, string[]> = {
     "CANCELLATION_REQUESTED",
     "DISPUTED",
     "COMPLETED",
+    "ADMIN_RESOLVED",
     "CANCELLED",
   ],
   conversations: ["ACTIVE", "CLOSED"],

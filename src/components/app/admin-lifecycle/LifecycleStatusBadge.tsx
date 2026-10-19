@@ -1,7 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { lifecycleEnumLabel } from "./lifecycle-enum-labels";
 
-const success = new Set(["ACTIVE", "ACCEPTED", "COMPLETED", "RESOLVED"]);
+const success = new Set([
+  "ACTIVE",
+  "ACCEPTED",
+  "COMPLETED",
+  "RESOLVED",
+  "ADMIN_RESOLVED",
+]);
 const warning = new Set([
   "DRAFT",
   "PENDING",

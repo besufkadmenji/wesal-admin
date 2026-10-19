@@ -2,7 +2,9 @@ import { AdminLifecycleContractQuery } from "@/gql/graphql";
 
 export type ContractDetail = AdminLifecycleContractQuery["adminContract"];
 
-export type ContractSignature = NonNullable<ContractDetail["signatures"]>[number];
+export type ContractSignature = NonNullable<
+  ContractDetail["signatures"]
+>[number];
 export type ContractAudit = NonNullable<ContractDetail["audits"]>[number];
 export type ContractSettlement = NonNullable<
   ContractDetail["settlements"]
@@ -60,6 +62,7 @@ export const contractDetailCopy = (lang: string) => {
     acceptanceDate: ar ? "تاريخ قبول التعاقد" : "Contract acceptance date",
     cancellationDate: ar ? "تاريخ إلغاء التعاقد" : "Contract cancellation date",
     completionDate: ar ? "تاريخ إكمال التعاقد" : "Contract completion date",
+    resolutionDate: ar ? "تاريخ الإغلاق من الإدارة" : "Closed by admin on",
     cancellationReason: ar ? "سبب الإلغاء" : "Reason for cancellation",
     disputeReason: ar ? "سبب النزاع" : "Dispute reason",
     signatures: ar ? "التوقيعات" : "Signatures",
@@ -75,9 +78,7 @@ export const contractDetailCopy = (lang: string) => {
     noSettlements: ar ? "لا توجد تسويات" : "No settlements",
     resolve: ar ? "حل النزاع / الإجراءراف" : "Admin resolution",
     resolveReason: ar ? "سبب إلزامي" : "Mandatory reason",
-    resolveReasonPlaceholder: ar
-      ? "اشرح قرار الحل"
-      : "Explain the resolution",
+    resolveReasonPlaceholder: ar ? "اشرح قرار الحل" : "Explain the resolution",
     resolveOutcome: ar ? "النتيجة المالية" : "Financial outcome",
     resolveSubmit: ar ? "تنفيذ الحل" : "Resolve contract",
     viewConversation: ar ? "عرض المحادثة" : "View conversation",
@@ -96,7 +97,10 @@ export const formatContractMoney = (value: number, lang: string) =>
     maximumFractionDigits: 2,
   }).format(value);
 
-export const formatContractDate = (value: string | null | undefined, lang: string) => {
+export const formatContractDate = (
+  value: string | null | undefined,
+  lang: string,
+) => {
   if (!value) return null;
   return new Date(value).toLocaleString(lang === "ar" ? "ar-SA" : "en-SA");
 };
@@ -105,12 +109,17 @@ export const formatContractPercent = (value: number, lang: string) =>
   `${formatContractMoney(value, lang)}%`;
 
 export const showAcceptanceDate = (status: string) =>
-  inProgressStatuses.has(status) || status === "COMPLETED";
+  inProgressStatuses.has(status) ||
+  status === "COMPLETED" ||
+  status === "ADMIN_RESOLVED";
 
 export const showCancellationDetails = (status: string) =>
   status === "CANCELLED" || status === "CANCELLATION_REQUESTED";
 
 export const showCompletionDate = (status: string) => status === "COMPLETED";
+
+export const showResolutionDate = (status: string) =>
+  status === "ADMIN_RESOLVED";
 
 export const showDisputeReason = (status: string) => status === "DISPUTED";
 
