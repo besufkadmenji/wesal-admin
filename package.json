@@ -7,6 +7,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint src --quiet",
+    "test": "vitest run",
     "codegen": "graphql-codegen --config codegen.ts",
     "swagger": "openapi-typescript https://wesal-api.testing3000.cloud/api-json -o src/types/swagger.ts",
     "check:locales": "node scripts/check-locales.mjs"
@@ -74,6 +75,9 @@
     "@graphql-codegen/typescript-resolvers": "^6.1.1",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.3.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/google-map-react": "^2.1.10",
     "@types/js-cookie": "^3.0.6",
     "@types/leaflet": "^1.9.22",
@@ -86,11 +90,13 @@
     "baseline-browser-mapping": "^2.11.28",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.4.0",
+    "jsdom": "^29.1.1",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.12"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
