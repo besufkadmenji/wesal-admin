@@ -55,7 +55,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/download/{encodedPath}": {
+    "/download/{path}": {
         parameters: {
             query?: never;
             header?: never;
@@ -72,7 +72,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/files/{encodedPath}": {
+    "/files/{path}": {
         parameters: {
             query?: never;
             header?: never;
@@ -81,6 +81,23 @@ export interface paths {
         };
         /** Serve a file inline (for embedding in pages) */
         get: operations["AppController_serveFile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/notifications/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export notifications to CSV */
+        get: operations["NotificationController_export"];
         put?: never;
         post?: never;
         delete?: never;
@@ -98,7 +115,7 @@ export interface paths {
         };
         /**
          * Export users to CSV
-         * @description Export all user records to a CSV file with optional field selection
+         * @description Export user records to a CSV file containing: Username, Mobile Number, Email Address, and Profile Picture.
          */
         get: operations["UserController_export"];
         put?: never;
@@ -194,6 +211,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/settings/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export settings to CSV */
+        get: operations["SettingController_export"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tracking/export": {
         parameters: {
             query?: never;
@@ -203,23 +237,6 @@ export interface paths {
         };
         /** Export tracking data to CSV */
         get: operations["TrackingController_export"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/conversations/export": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Export conversations to CSV */
-        get: operations["ConversationController_export"];
         put?: never;
         post?: never;
         delete?: never;
@@ -245,15 +262,15 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/payments/export": {
+    "/contracts/{id}/invoice": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Export payments to CSV */
-        get: operations["PaymentController_export"];
+        /** Tax invoice PDF for a paid contract (S4-37) */
+        get: operations["ContractController_invoice"];
         put?: never;
         post?: never;
         delete?: never;
@@ -262,15 +279,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/favorites/export": {
+    "/contracts/{id}/document": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Export favorites to CSV */
-        get: operations["FavoriteController_export"];
+        get: operations["ContractController_document"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contract-documents/{id}/invoice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ParticipantContractDocumentController_invoice"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/contract-documents/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ParticipantContractDocumentController_download"];
         put?: never;
         post?: never;
         delete?: never;
@@ -288,40 +336,6 @@ export interface paths {
         };
         /** Export ratings to CSV */
         get: operations["RatingController_export"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/complaints/export": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Export complaints to CSV */
-        get: operations["ComplaintController_export"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/notifications/export": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Export notifications to CSV */
-        get: operations["NotificationController_export"];
         put?: never;
         post?: never;
         delete?: never;
@@ -376,23 +390,6 @@ export interface paths {
         };
         /** Export admin permissions to CSV */
         get: operations["AdminPermissionController_export"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/settings/export": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Export settings to CSV */
-        get: operations["SettingController_export"];
         put?: never;
         post?: never;
         delete?: never;
@@ -478,6 +475,54 @@ export interface paths {
         };
         /** Export delivery companies to CSV */
         get: operations["DeliveryCompanyController_export"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reports/conversation-fees/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReportController_conversationFees"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reports/premium-ads/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReportController_premiumAds"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reports/contracts/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReportController_contracts"];
         put?: never;
         post?: never;
         delete?: never;
@@ -602,8 +647,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /** @description URL-encoded S3 key/path of the file to download */
-                encodedPath: string;
+                /** @description S3 key/path of the file to download (supports nested keys with slashes) */
+                path: unknown;
             };
             cookie?: never;
         };
@@ -639,8 +684,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /** @description URL-encoded S3 key/path of the file to serve */
-                encodedPath: string;
+                /** @description S3 key/path of the file to serve (supports nested keys with slashes) */
+                path: unknown;
             };
             cookie?: never;
         };
@@ -674,19 +719,45 @@ export interface operations {
             };
         };
     };
-    UserController_export: {
+    NotificationController_export: {
         parameters: {
             query?: {
-                /** @description Comma-separated list of fields to export (e.g., "id,name,email,phone"). If not provided, all fields are exported. */
+                /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             /** @description CSV file download */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UserController_export: {
+        parameters: {
+            query?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic (ar). */
+                "Accept-Language"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description CSV file download with localized headers */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -703,7 +774,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -724,7 +799,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -745,7 +824,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -766,7 +849,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -787,7 +874,36 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description CSV file download */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    SettingController_export: {
+        parameters: {
+            query?: {
+                /** @description Comma-separated list of fields to export */
+                fields?: string;
+            };
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -808,28 +924,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description CSV file download */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
             };
-        };
-    };
-    ConversationController_export: {
-        parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
-            };
-            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -850,7 +949,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -865,19 +968,19 @@ export interface operations {
             };
         };
     };
-    PaymentController_export: {
+    ContractController_invoice: {
         parameters: {
             query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
+                language?: "ar" | "en";
             };
             header?: never;
-            path?: never;
+            path: {
+                id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description CSV file download */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -886,19 +989,55 @@ export interface operations {
             };
         };
     };
-    FavoriteController_export: {
+    ContractController_document: {
         parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
-            };
+            query?: never;
             header?: never;
-            path?: never;
+            path: {
+                id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description CSV file download */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ParticipantContractDocumentController_invoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ParticipantContractDocumentController_download: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -913,49 +1052,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description CSV file download */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
             };
-        };
-    };
-    ComplaintController_export: {
-        parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description CSV file download */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NotificationController_export: {
-        parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
-            };
-            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -976,7 +1077,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export (e.g., "id,name,email"). If not provided, all fields are exported. */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -999,7 +1104,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1020,28 +1129,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description CSV file download */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
             };
-        };
-    };
-    SettingController_export: {
-        parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to export */
-                fields?: string;
-            };
-            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -1062,7 +1154,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1083,7 +1179,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1104,7 +1204,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1125,7 +1229,11 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1146,13 +1254,68 @@ export interface operations {
                 /** @description Comma-separated list of fields to export */
                 fields?: string;
             };
-            header?: never;
+            header: {
+                "accept-language": string;
+                /** @description Language for CSV headers (ar = Arabic, en = English). Defaults to Arabic. */
+                "Accept-Language"?: string;
+            };
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             /** @description CSV file download */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReportController_conversationFees: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReportController_premiumAds: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReportController_contracts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
             200: {
                 headers: {
                     [name: string]: unknown;

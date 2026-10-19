@@ -686,6 +686,7 @@ export enum NotificationType {
   ComplaintResponse = 'COMPLAINT_RESPONSE',
   ComplaintSubmitted = 'COMPLAINT_SUBMITTED',
   ContractCreated = 'CONTRACT_CREATED',
+  ContractOverdue = 'CONTRACT_OVERDUE',
   ContractSigned = 'CONTRACT_SIGNED',
   ContractUpdate = 'CONTRACT_UPDATE',
   ListingApproved = 'LISTING_APPROVED',
