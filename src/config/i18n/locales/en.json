@@ -1216,7 +1216,8 @@
       "account_number": "Enter account number",
       "email": "Enter email",
       "password": "Enter password",
-      "confirm_password": "Confirm password"
+      "confirm_password": "Confirm password",
+      "phone_number": "Enter phone number"
     },
     "buttons": {
       "upload": "Upload"

@@ -101,7 +101,7 @@ export const CharityPage = () => {
         <p className="text-subTitle pt-2 text-sm dark:text-white/70">
           {copy.description}
         </p>
-        <div className="grid gap-5 py-8">
+        <div className="grid grid-cols-1 gap-5 py-8">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {charity.summary.isLoading ? (
               <>
@@ -132,7 +132,7 @@ export const CharityPage = () => {
               </>
             )}
           </div>
-          <section className="grid grid-cols-2 items-center gap-4 lg:flex">
+          <section className="grid grid-cols-2 items-center gap-4 lg:flex lg:flex-wrap">
             <SearchInput
               key={charity.search}
               className="w-full md:w-max"
@@ -203,9 +203,14 @@ export const CharityPage = () => {
               rowClick={(row) => router.push(`/${lang}/contracts/${row.key}`)}
               renderCell={(row: RowType, column: Key): ReactNode => {
                 if (column === "status") {
-                  return <LifecycleStatusBadge status={row.status} lang={lang} />;
+                  return (
+                    <LifecycleStatusBadge status={row.status} lang={lang} />
+                  );
                 }
-                if (column === "customer_mobile" || column === "provider_mobile") {
+                if (
+                  column === "customer_mobile" ||
+                  column === "provider_mobile"
+                ) {
                   return <span dir="ltr">{row[column]}</span>;
                 }
                 return row[String(column)];

@@ -90,7 +90,9 @@
       "SUSPENDED": "موقوف",
       "PENDING_APPROVAL": "في انتظار الموافقة",
       "NOT_REPLIED": "لم يتم الرد",
-      "REPLIED": "تم الرد"
+      "REPLIED": "تم الرد",
+      "paid": "مدفوع بالكامل",
+      "partialReceived": "استلام جزئي"
     },
     "roles": {
       "ADMINISTRATOR": "مدير",
@@ -490,7 +492,7 @@
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "labels": {
       "email": "البريد الإلكتروني"
     },
@@ -503,7 +505,7 @@
   },
   "admin_verify_code_form": {
     "title": "رمز التحقق",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "description": "من فضلك أدخل الكود هنا",
     "resend_code": "إعادة إرسال الرمز",
     "inputs": {
@@ -517,7 +519,7 @@
   },
   "admin_reset_password_form": {
     "title": "تغيير كلمة المرور",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "labels": {
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور"

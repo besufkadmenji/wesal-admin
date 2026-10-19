@@ -3,6 +3,19 @@
 @source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * S4-48: user text (broadcasts, names) uses dir="auto" so English reads
+ * correctly inside RTL pages; this keeps it on the page's side.
+ */
+@utility text-page-start {
+  [dir="rtl"] & {
+    text-align: right;
+  }
+  [dir="ltr"] & {
+    text-align: left;
+  }
+}
+
 @theme inline {
   --color-dark-main: #0f0428;
   --color-primary: #22283a;

@@ -81,7 +81,7 @@ export const NotificationsPage = () => {
             />
           )}
         </PageBar>
-        <div className="grid gap-5 py-8">
+        <div className="grid grid-cols-1 gap-5 py-8">
           {query.isLoading ? (
             <SummaryCardSkeleton />
           ) : (
@@ -90,7 +90,7 @@ export const NotificationsPage = () => {
               value={query.data?.meta.total ?? 0}
             />
           )}
-          <section className="grid grid-cols-2 items-center gap-4 lg:flex">
+          <section className="grid grid-cols-2 items-center gap-4 lg:flex lg:flex-wrap">
             <SearchInput
               key={search}
               className="w-full md:w-max"
@@ -138,9 +138,20 @@ export const NotificationsPage = () => {
               renderCell={(row: RowType, column: Key): ReactNode => {
                 if (column === "content") {
                   return (
-                    <p className="line-clamp-2 max-w-96 text-sm leading-6 whitespace-normal">
+                    <p
+                      dir="auto"
+                      className="text-page-start line-clamp-2 max-w-96 text-sm leading-6 whitespace-normal"
+                    >
                       {row.content}
                     </p>
+                  );
+                }
+                // Broadcasts are typed in one language (D-11).
+                if (column === "title") {
+                  return (
+                    <span dir="auto" className="text-page-start block">
+                      {row.title}
+                    </span>
                   );
                 }
                 return row[String(column)];

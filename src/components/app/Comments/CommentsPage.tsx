@@ -89,7 +89,7 @@ export const CommentsPage = () => {
     <PermissionGate resource="rating">
       <PageWrapper>
         <PageBar title={dict.navigation.comments} />
-        <div className="grid gap-5 py-8">
+        <div className="grid grid-cols-1 gap-5 py-8">
           {query.isLoading ? (
             <SummaryCardSkeleton />
           ) : (
@@ -100,7 +100,7 @@ export const CommentsPage = () => {
               subTitle={copy.summary.subTitle}
             />
           )}
-          <section className="grid grid-cols-2 items-center gap-4 lg:flex">
+          <section className="grid grid-cols-2 items-center gap-4 lg:flex lg:flex-wrap">
             <SearchInput
               key={search}
               className="w-full md:w-max"
