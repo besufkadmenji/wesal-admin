@@ -2263,5 +2263,17 @@
     "address": "Address",
     "save": "Save invoice details",
     "saved": "Invoice details saved."
+  },
+  "installment_limits": {
+    "title": "Installment payment limits",
+    "hint": "Tabby and Tamara are offered for a contract only when its total is within these limits (SAR). Leave a field empty for no limit.",
+    "tabby_min": "Tabby minimum amount",
+    "tabby_max": "Tabby maximum amount",
+    "tamara_min": "Tamara minimum amount",
+    "tamara_max": "Tamara maximum amount",
+    "no_limit": "No limit",
+    "min_above_max": "The minimum can't be more than the maximum.",
+    "save": "Save installment limits",
+    "saved": "Installment limits saved."
   }
 }

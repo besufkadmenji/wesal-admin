@@ -41,6 +41,10 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       sellerVatNumber
       sellerCrNumber
       sellerAddress
+      tabbyMinAmount
+      tabbyMaxAmount
+      tamaraMinAmount
+      tamaraMaxAmount
     }
   }
 `;

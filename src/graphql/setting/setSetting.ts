@@ -36,6 +36,10 @@ export const SET_SETTING_MUTATION: TypedDocumentNode<
       sellerVatNumber
       sellerCrNumber
       sellerAddress
+      tabbyMinAmount
+      tabbyMaxAmount
+      tamaraMinAmount
+      tamaraMaxAmount
     }
   }
 `;

@@ -16,6 +16,7 @@ import { useMe } from "@/hooks/useMe";
 import { useQueryState } from "nuqs";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { LifecycleSettingsSection } from "./LifecycleSettingsSection";
+import { InstallmentLimitsSection } from "./InstallmentLimitsSection";
 import { CategoryContractDefaultsSection } from "./CategoryContractDefaultsSection";
 import { InvoiceSellerSection } from "./InvoiceSellerSection";
 export const Settings = () => {
@@ -172,6 +173,7 @@ export const Settings = () => {
           <LifecycleSettingsSection />
           <CategoryContractDefaultsSection />
           <InvoiceSellerSection />
+          <InstallmentLimitsSection />
         </div>
       </PageWrapper>
       <ChangePassword />
