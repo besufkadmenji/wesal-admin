@@ -1,4 +1,5 @@
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
+import { ContractStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import {
@@ -49,14 +50,14 @@ export const AttentionPanel = ({ className }: { className?: string }) => {
     {
       key: "cancellations",
       label: copy.cancellation_requests,
-      href: "/contracts",
+      href: `/contracts?status=${ContractStatus.CancellationRequested}`,
       Icon: FileWarning,
       count: data?.cancellationRequests,
     },
     {
       key: "disputes",
       label: copy.disputed_contracts,
-      href: "/contracts",
+      href: `/contracts?status=${ContractStatus.Disputed}`,
       Icon: Gavel,
       count: data?.disputedContracts,
     },

@@ -12,6 +12,7 @@ import CategoryService from "@/services/category.service";
 import { useLang } from "@/hooks/useLang";
 import {
   ComplaintStatus,
+  ContractStatus,
   ContractStatusGroup,
   ConversationStatus,
 } from "@/gql/graphql";
@@ -156,6 +157,13 @@ const arabicLabels: Record<Kind, { title: string; columns: string[] }> = {
   },
 };
 
+// UI-14: statuses awaiting an admin, sent as a raw status (they sit inside
+// the In progress tab), so the dashboard can link straight to them.
+const contractReviewStatuses: string[] = [
+  ContractStatus.CancellationRequested,
+  ContractStatus.Disputed,
+];
+
 const statuses: Record<Kind, string[]> = {
   // S4-1: the same tabs as My Contracts, sent as statusGroup.
   contracts: [
@@ -165,6 +173,7 @@ const statuses: Record<Kind, string[]> = {
     ContractStatusGroup.InDelivery,
     ContractStatusGroup.Completed,
     ContractStatusGroup.Cancelled,
+    ...contractReviewStatuses,
   ],
   conversations: ["ACTIVE", "CLOSED"],
   complaints: ["PENDING", "UNDER_REVIEW", "RESOLVED", "REJECTED", "CLOSED"],
@@ -201,9 +210,14 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
       meta: { total: number; totalPages: number };
     }> => {
       if (kind === "contracts") {
+        const isReviewStatus = contractReviewStatuses.includes(status);
         return AdminLifecycleService.contracts({
           search,
-          statusGroup: (status as ContractStatusGroup) || undefined,
+          status: isReviewStatus ? (status as ContractStatus) : undefined,
+          statusGroup:
+            !isReviewStatus && status
+              ? (status as ContractStatusGroup)
+              : undefined,
           categoryId: categoryId || undefined,
           from: lifecycleDateFrom(from),
           to: lifecycleDateTo(to),

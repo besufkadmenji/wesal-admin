@@ -29,6 +29,14 @@ describe("AttentionPanel (UI-14)", () => {
     expect(
       screen.getByRole("link", { name: new RegExp(copy.open_complaints) }),
     ).toHaveAttribute("href", "/complaints");
+    expect(
+      screen.getByRole("link", {
+        name: new RegExp(copy.cancellation_requests),
+      }),
+    ).toHaveAttribute("href", "/contracts?status=CANCELLATION_REQUESTED");
+    expect(
+      screen.getByRole("link", { name: new RegExp(copy.disputed_contracts) }),
+    ).toHaveAttribute("href", "/contracts?status=DISPUTED");
     expect(screen.queryByText(copy.all_clear)).not.toBeInTheDocument();
   });
 
