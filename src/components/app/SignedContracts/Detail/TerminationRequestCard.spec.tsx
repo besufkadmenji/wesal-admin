@@ -71,7 +71,7 @@ describe("TerminationRequestCard (S4-58)", () => {
 
     await user.click(screen.getByRole("button", { name: copy.reject }));
     await user.type(
-      await screen.findByLabelText(copy.rejectTitle),
+      await screen.findByPlaceholderText(copy.rejectPlaceholder),
       "Finish your open work first",
     );
     const dialog = screen.getByRole("dialog");

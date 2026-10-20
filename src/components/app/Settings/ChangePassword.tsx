@@ -1,9 +1,10 @@
 import { useDict } from "@/hooks/useDict";
-import { Modal, ModalContent } from "@heroui/react";
+import { AppDialog } from "@/components/app/shared/dialogs/AppDialog";
+import { DialogActions } from "@/components/app/shared/dialogs/DialogActions";
+import { KeyRound } from "lucide-react";
 import { useQueryState } from "nuqs";
 import { useChangePasswordForm } from "@/components/app/Settings/useChangePasswordForm";
 import { PasswordInput } from "../shared/forms/FormInput";
-import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { useManageSetting } from "@/components/app/Settings/useManageSetting";
 import { showErrorMessage } from "@/utils/show.message";
 
@@ -14,74 +15,55 @@ export const ChangePassword = () => {
     useChangePasswordForm();
   const { changePassword: handleChangePassword, changingPassword } =
     useManageSetting();
+  const close = () => setChangePassword(null);
   return (
-    <Modal
+    <AppDialog
       isOpen={!!changePassword}
-      onClose={() => setChangePassword(null)}
-      hideCloseButton
+      onClose={close}
+      tone="primary"
+      icon={KeyRound}
+      title={dict.change_password_form.title}
+      description={dict.change_password_form.description}
+      isBusy={changingPassword}
+      actions={
+        <DialogActions
+          tone="primary"
+          confirmLabel={dict.change_password_form.buttons.submit}
+          cancelLabel={dict.change_password_form.buttons.cancel}
+          onConfirm={() => {
+            if (newPassword !== confirmPassword) {
+              showErrorMessage(
+                dict.change_password_form.messages.passwordMismatch,
+              );
+              return;
+            }
+            void handleChangePassword({ currentPassword, newPassword });
+          }}
+          onCancel={close}
+          isBusy={changingPassword}
+        />
+      }
     >
-      <ModalContent>
-        <div className="grid grid-cols-1 gap-6 px-10 py-8">
-          <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h2 className="text-xl leading-7 font-bold text-[#1E1E1E] dark:text-white">
-              {dict.change_password_form.title}
-            </h2>
-            <p className="text-base font-medium text-[#A5A7A5] dark:text-[#A5A7A5]">
-              {dict.change_password_form.description}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            <PasswordInput
-              label={dict.change_password_form.labels.current_password}
-              placeholder={"********"}
-              value={currentPassword}
-              onChange={(value) => setForm({ currentPassword: value })}
-            />
-            <PasswordInput
-              label={dict.change_password_form.labels.new_password}
-              placeholder={"********"}
-              value={newPassword}
-              onChange={(value) => setForm({ newPassword: value })}
-            />
-            <PasswordInput
-              label={dict.change_password_form.labels.confirm_password}
-              placeholder={"********"}
-              value={confirmPassword}
-              onChange={(value) => setForm({ confirmPassword: value })}
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <PrimaryButton
-              className="bg-accent-soft text-primary dark:text-white"
-              onPress={() => setChangePassword(null)}
-              isDisabled={changingPassword}
-            >
-              {dict.change_password_form.buttons.cancel}
-            </PrimaryButton>
-            <PrimaryButton
-              className="bg-[#E7515A]"
-              onPress={() =>
-                {
-                  if (newPassword !== confirmPassword) {
-                    showErrorMessage(
-                      dict.change_password_form.messages.passwordMismatch,
-                    );
-                    return;
-                  }
-                  return handleChangePassword({
-                    currentPassword,
-                    newPassword,
-                  });
-                }
-              }
-              isLoading={changingPassword}
-              isDisabled={changingPassword}
-            >
-              {dict.change_password_form.buttons.submit}
-            </PrimaryButton>
-          </div>
-        </div>
-      </ModalContent>
-    </Modal>
+      <div className="grid grid-cols-1 gap-4">
+        <PasswordInput
+          label={dict.change_password_form.labels.current_password}
+          placeholder={"********"}
+          value={currentPassword}
+          onChange={(value) => setForm({ currentPassword: value })}
+        />
+        <PasswordInput
+          label={dict.change_password_form.labels.new_password}
+          placeholder={"********"}
+          value={newPassword}
+          onChange={(value) => setForm({ newPassword: value })}
+        />
+        <PasswordInput
+          label={dict.change_password_form.labels.confirm_password}
+          placeholder={"********"}
+          value={confirmPassword}
+          onChange={(value) => setForm({ confirmPassword: value })}
+        />
+      </div>
+    </AppDialog>
   );
 };

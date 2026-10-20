@@ -1,9 +1,8 @@
 import { useDict } from "@/hooks/useDict";
-import { Button, Modal, ModalContent } from "@heroui/react";
+import { PowerOff } from "lucide-react";
 import { useQueryState } from "nuqs";
-import { useState } from "react";
-import { FormAreaInput } from "./forms/FormAreaInput";
-import { showErrorMessage } from "@/utils/show.message";
+import { ConfirmDialog } from "./dialogs/ConfirmDialog";
+import { ReasonDialog } from "./dialogs/ReasonDialog";
 
 interface DeactivateModalProps {
   queryParamName: string;
@@ -16,6 +15,7 @@ interface DeactivateModalProps {
   reasonPlaceholder?: string;
 }
 
+/** Opens while `?<queryParamName>=<id>` is set; the caller closes it. */
 export const DeactivateModal = ({
   queryParamName,
   onConfirm,
@@ -27,70 +27,36 @@ export const DeactivateModal = ({
   reasonPlaceholder,
 }: DeactivateModalProps) => {
   const [id, setId] = useQueryState(queryParamName);
-  const [reason, setReason] = useState("");
   const dict = useDict();
-
-  const handleConfirm = () => {
-    if (showReason && !reason) {
-      showErrorMessage(dict.common.validation.deactivation_reason.required);
-      return;
-    }
-    if (id) {
-      onConfirm(id, reason);
-    }
+  const common = {
+    isOpen: !!id,
+    onClose: () => setId(null),
+    busy,
+    autoClose: false,
+    tone: "danger" as const,
+    icon: PowerOff,
+    title: title || dict.common.dialogs.deactivate_title,
+    description: description || dict.common.dialogs.deactivate_message,
+    confirmLabel: dict.common.actions.deactivate,
   };
 
-  const handleClose = () => {
-    setId(null);
-    setReason("");
-  };
-
-  const modalTitle = title || "Deactivate";
-  const modalDescription = description || "Are you sure?";
-
-  return (
-    <Modal isOpen={!!id} onClose={handleClose} hideCloseButton>
-      <ModalContent>
-        <div className="grid auto-rows-max grid-cols-1 items-center justify-items-center gap-6 px-10 py-8">
-          <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h1 className="text-xl font-bold text-[#1E1E1E] dark:text-white">
-              {modalTitle}
-            </h1>
-            <p className="text-[#A5A7A5] dark:text-[#A5A7A5]">
-              {modalDescription}
-            </p>
-          </div>
-          {showReason && (
-            <div className="grid w-full grid-cols-1">
-              <FormAreaInput
-                label={reasonLabel || "Reason"}
-                placeholder={reasonPlaceholder || "Enter reason..."}
-                value={reason}
-                onChange={(value: string) => {
-                  setReason(value);
-                }}
-              />
-            </div>
-          )}
-          <div className="grid w-full grid-cols-2 gap-4">
-            <Button
-              className="bg-accent-soft text-primary h-12 rounded-lg font-semibold dark:text-white"
-              onPress={handleClose}
-              isDisabled={busy}
-            >
-              {dict.common.actions.cancel}
-            </Button>
-            <Button
-              className="h-12 rounded-lg bg-[#E7515A] font-semibold text-white"
-              onPress={handleConfirm}
-              isDisabled={busy}
-              isLoading={busy}
-            >
-              {dict.common.actions.deactivate}
-            </Button>
-          </div>
-        </div>
-      </ModalContent>
-    </Modal>
+  return showReason ? (
+    <ReasonDialog
+      {...common}
+      reasonLabel={reasonLabel || dict.common.dialogs.reason}
+      reasonPlaceholder={
+        reasonPlaceholder || dict.common.dialogs.reason_placeholder
+      }
+      onConfirm={(reason) => {
+        if (id) onConfirm(id, reason);
+      }}
+    />
+  ) : (
+    <ConfirmDialog
+      {...common}
+      onConfirm={() => {
+        if (id) onConfirm(id, "");
+      }}
+    />
   );
 };

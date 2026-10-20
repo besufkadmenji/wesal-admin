@@ -1,6 +1,6 @@
 import { cn, Textarea } from "@heroui/react";
-import { useLang } from "@/hooks/useLang";
-import { twMerge } from "tailwind-merge";
+import { FieldLabel } from "./FieldLabel";
+import { FIELD_INPUT_TEXT_CLASS, FIELD_LABEL_CLASS } from "./formClassNames";
 
 export const FormAreaInput = ({
   label,
@@ -12,6 +12,7 @@ export const FormAreaInput = ({
   readOnly,
   className,
   dir,
+  minRows = 7,
 }: {
   label: string;
   placeholder: string;
@@ -22,21 +23,18 @@ export const FormAreaInput = ({
   readOnly?: boolean;
   className?: string;
   dir?: "rtl" | "ltr";
+  minRows?: number;
 }) => {
-  const lng = useLang();
-  const enOptional = "after:content-['(Optional)']";
-  const arOptional = "after:content-['(اختياري)]";
-  const optionalClass = lng === "ar" ? arOptional : enOptional;
   return (
     <div dir={dir} className={className}>
       <Textarea
         labelPlacement="outside"
-        label={label}
+        label={<FieldLabel label={label} isOptional={isOptional} />}
         placeholder={placeholder}
         value={value}
         onValueChange={onChange}
         variant="bordered"
-        minRows={7}
+        minRows={minRows}
         className={className}
         classNames={{
           inputWrapper: cn(
@@ -44,12 +42,8 @@ export const FormAreaInput = ({
 
             readOnly && "border-gray-border-alt!",
           ),
-          label: twMerge(
-            "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
-            isOptional && optionalClass,
-          ),
-          input:
-            "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
+          label: FIELD_LABEL_CLASS,
+          input: FIELD_INPUT_TEXT_CLASS,
         }}
         errorMessage={errorMessage}
         isInvalid={!!errorMessage}

@@ -109,14 +109,24 @@
     "validation": {
       "deactivation_reason": {
         "required": "Deactivation reason is required"
-      }
+      },
+      "reason_required": "Please enter a reason"
     },
     "active": "Active",
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
     "waitingForResigning": "Waiting for Resigning",
-    "terminationRequested": "Termination requested"
+    "terminationRequested": "Termination requested",
+    "optional": "(Optional)",
+    "dialogs": {
+      "activate_title": "Activate?",
+      "activate_message": "Are you sure you want to activate this item?",
+      "deactivate_title": "Deactivate?",
+      "deactivate_message": "Are you sure you want to deactivate this item?",
+      "reason": "Reason",
+      "reason_placeholder": "Enter the reason"
+    }
   },
   "auth": {
     "welcome_back": "Welcome back again",

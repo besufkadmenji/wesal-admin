@@ -1,28 +1,18 @@
-import SuccessIcon from "@/assets/icons/app/check.success.svg";
-import { useDict } from "@/hooks/useDict";
-import { Modal, ModalContent } from "@heroui/react";
-import { useQueryState } from "nuqs";
+import { SuccessDialog } from "@/components/app/shared/dialogs/SuccessDialog";
 import { useAppRouter } from "@/hooks/useAppRouter";
+import { useDict } from "@/hooks/useDict";
+import { useQueryState } from "nuqs";
+
 export const SuccessMessage = () => {
-  const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
+  const [showSuccess] = useQueryState("showSuccess");
   const router = useAppRouter();
   const dict = useDict();
   return (
-    <Modal
+    <SuccessDialog
       isOpen={!!showSuccess}
-      onClose={() => {
-        router.push("/banks");
-      }}
-      hideCloseButton
-    >
-      <ModalContent>
-        <div className="grid grid-cols-1 justify-items-center gap-6 p-6">
-          <SuccessIcon className="size-20" />
-          <p className="text-lg leading-6 font-bold text-[#1E1E1E]">
-            {dict.delivery_companies_page.messages.createSuccess}
-          </p>
-        </div>
-      </ModalContent>
-    </Modal>
+      onClose={() => router.push("/delivery-companies")}
+      title={dict.delivery_companies_page.messages.createSuccess}
+      actionLabel={dict.common.actions.confirm}
+    />
   );
 };

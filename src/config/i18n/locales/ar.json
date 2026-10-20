@@ -109,14 +109,24 @@
     "validation": {
       "deactivation_reason": {
         "required": "سبب التعطيل مطلوب"
-      }
+      },
+      "reason_required": "يرجى إدخال السبب"
     },
     "active": "نشط",
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
     "waitingForResigning": "في انتظار الاستقالة",
-    "terminationRequested": "طلب فسخ"
+    "terminationRequested": "طلب فسخ",
+    "optional": "(اختياري)",
+    "dialogs": {
+      "activate_title": "تفعيل؟",
+      "activate_message": "هل أنت متأكد من تفعيل هذا العنصر؟",
+      "deactivate_title": "إلغاء التفعيل؟",
+      "deactivate_message": "هل أنت متأكد من إلغاء تفعيل هذا العنصر؟",
+      "reason": "السبب",
+      "reason_placeholder": "أدخل السبب"
+    }
   },
   "auth": {
     "welcome_back": "أهلا بعودتك من جديد",

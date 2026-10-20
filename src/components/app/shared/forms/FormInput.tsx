@@ -1,9 +1,10 @@
 import { norsal } from "@/assets/fonts/norsal";
 import { sar } from "@/assets/fonts/sar";
-import { useLang } from "@/hooks/useLang";
 import { Button, cn, Input } from "@heroui/react";
 import { HTMLInputTypeAttribute, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { FieldLabel } from "./FieldLabel";
+import { FIELD_INPUT_TEXT_CLASS, FIELD_LABEL_CLASS } from "./formClassNames";
 import EyeIcon from "@/assets/icons/app/eye.svg";
 import EyeOffIcon from "@/assets/icons/app/eye-off.svg";
 export const FormInput = ({
@@ -49,15 +50,15 @@ export const FormInput = ({
   type?: HTMLInputTypeAttribute;
   dir?: "rtl" | "ltr";
 }) => {
-  const lng = useLang();
-  const enOptional = "after:content-['(Optional)']";
-  const arOptional = "after:content-['(اختياري)]";
-  const optionalClass = lng === "ar" ? arOptional : enOptional;
   return (
     <div dir={dir} className={twMerge("grid w-full grid-cols-1")}>
       <Input
         labelPlacement="outside"
-        label={hideLabel ? null : label}
+        label={
+          hideLabel ? null : (
+            <FieldLabel label={label} isOptional={isOptional} />
+          )
+        }
         aria-label={label}
         placeholder={placeholder}
         value={value}
@@ -73,15 +74,8 @@ export const FormInput = ({
             classNames?.inputWrapper,
             readOnly && "border-gray-border-alt! dark:border-dark-border!",
           ),
-          label: twMerge(
-            "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
-            isOptional && optionalClass,
-            classNames?.label,
-          ),
-          input: twMerge(
-            "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
-            classNames?.input,
-          ),
+          label: twMerge(FIELD_LABEL_CLASS, classNames?.label),
+          input: twMerge(FIELD_INPUT_TEXT_CLASS, classNames?.input),
         }}
         startContent={startContent}
         endContent={endContent}

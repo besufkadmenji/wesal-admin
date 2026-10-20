@@ -1,10 +1,11 @@
 import { useContactMessages } from "@/components/app/ContactMessages/useContactMessage";
 import { useManageContactMessage } from "@/components/app/ContactMessages/useManageContactMessage";
-import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
+import { AppDialog } from "@/components/app/shared/dialogs/AppDialog";
+import { DialogActions } from "@/components/app/shared/dialogs/DialogActions";
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { ContactMessage } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
-import { Modal, ModalContent } from "@heroui/react";
+import { Reply } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
@@ -21,56 +22,41 @@ export const SendReply = ({ message }: { message?: ContactMessage }) => {
   const params = useParams();
   const router = useAppRouter();
   const { replyContactMessage, busy } = useManageContactMessage();
+  const close = () => {
+    router.back();
+    return setSendReply(null);
+  };
   return (
-    <Modal
+    <AppDialog
       isOpen={isOpen}
-      onClose={() => {
-        router.back();
-        return setSendReply(null);
-      }}
+      onClose={close}
+      tone="primary"
+      icon={Reply}
+      title={dict.reply_message_form.title}
+      description={dict.reply_message_form.description}
+      isBusy={busy}
+      actions={
+        <DialogActions
+          tone="primary"
+          confirmLabel={dict.reply_message_form.buttons.send}
+          cancelLabel={dict.reply_message_form.buttons.cancel}
+          onConfirm={() => {
+            if (!reply.trim()) return;
+            replyContactMessage(replyMessage?.id || "", reply);
+            setReply("");
+          }}
+          onCancel={close}
+          isBusy={busy}
+        />
+      }
     >
-      <ModalContent>
-        <div className="grid grid-cols-1 gap-6 px-10 py-8">
-          <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h2 className="text-xl leading-7 font-bold text-[#1E1E1E]">
-              {dict.reply_message_form.title}
-            </h2>
-            <p className="text-base font-medium text-[#A5A7A5]">
-              {dict.reply_message_form.description}
-            </p>
-          </div>
-          <FormAreaInput
-            label={dict.reply_message_form.labels.message_content}
-            placeholder={dict.reply_message_form.labels.message_content}
-            value={reply}
-            onChange={(value: string): void => setReply(value)}
-            className="col-span-2"
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <PrimaryButton
-              className="bg-dark-gray text-white"
-              onPress={() => {
-                router.back();
-                return setSendReply(null);
-              }}
-              isDisabled={busy}
-            >
-              {dict.reply_message_form.buttons.cancel}
-            </PrimaryButton>
-            <PrimaryButton
-              onPress={() => {
-                replyContactMessage(replyMessage?.id || "", reply);
-                setReply("");
-              }}
-              isLoading={busy}
-              isDisabled={busy || reply === ""}
-              className="bg-primary text-white"
-            >
-              {dict.reply_message_form.buttons.send}
-            </PrimaryButton>
-          </div>
-        </div>
-      </ModalContent>
-    </Modal>
+      <FormAreaInput
+        label={dict.reply_message_form.labels.message_content}
+        placeholder={dict.reply_message_form.labels.message_content}
+        value={reply}
+        onChange={(value: string): void => setReply(value)}
+        minRows={5}
+      />
+    </AppDialog>
   );
 };
