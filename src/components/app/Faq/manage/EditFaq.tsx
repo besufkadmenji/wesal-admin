@@ -34,7 +34,7 @@ export const EditFaq = ({ id }: { id: string }) => {
       onRetry={() => void refetch()}
       backHref="/content/faq"
     >
-      {(data) => (
+      {() => (
         <div className="grid grid-cols-1">
           <AppForm
             type={FormType.Faqs}

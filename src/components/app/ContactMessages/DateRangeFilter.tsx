@@ -1,7 +1,7 @@
 import { DayPicker } from "react-day-picker";
 import { twMerge } from "tailwind-merge";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
-import CalendarIcon from "@/assets/icons/app/calendar.svg";
+import { CalendarDays as CalendarIcon } from "lucide-react";
 import moment from "moment";
 import { useDict } from "@/hooks/useDict";
 import { useState } from "react";
@@ -29,7 +29,7 @@ export const DateRangeFilter = ({
     >
       <PopoverTrigger>
         <Button
-          startContent={<CalendarIcon className="size-4 text-app-primary" />}
+          startContent={<CalendarIcon className="size-4 text-app-link" />}
           variant="bordered"
           className="border border-gray-border-alt bg-white data-[hover=true]:border-app-primary"
         >
@@ -51,7 +51,7 @@ export const DateRangeFilter = ({
               caption_label: twMerge(
                 "text-sm font-medium text-[#8B8D97] flex items-center gap-3 ltr:mr-6 rtl:ml-6",
               ),
-              chevron: "text-app-primary size-4 fill-app-primary",
+              chevron: "text-app-link size-4 fill-app-primary",
             }}
             formatters={{
               formatWeekdayName: (date, options) =>

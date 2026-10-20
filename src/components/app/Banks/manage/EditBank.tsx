@@ -37,7 +37,7 @@ export const EditBank = ({ id }: { id: string }) => {
       onRetry={() => void refetch()}
       backHref="/banks"
     >
-      {(bank) => (
+      {() => (
         <div className="grid grid-cols-1">
           <AppForm
             type={FormType.Banks}

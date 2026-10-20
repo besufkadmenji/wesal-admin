@@ -10,7 +10,7 @@ import { useDict } from "@/hooks/useDict";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { Gap } from "@/components/app/shared/Gap";
 import { Button } from "@heroui/react";
-import ChangeOrderIcon from "@/assets/icons/app/arrows-sort.svg";
+import { ArrowUpDown as ChangeOrderIcon } from "lucide-react";
 import { ChangeOrder } from "@/components/app/Faq/manage/ChangeOrder";
 import { useQueryState } from "nuqs";
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
@@ -43,7 +43,7 @@ export const FaqManager = () => {
         <Button
           startContent={<ChangeOrderIcon className="size-5" />}
           variant="bordered"
-          className="border-app-primary text-app-primary font-medium"
+          className="border-app-primary text-app-link font-medium"
           onPress={() => {
             setChangeOrder("true");
           }}

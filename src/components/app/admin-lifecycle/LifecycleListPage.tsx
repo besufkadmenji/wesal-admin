@@ -365,7 +365,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
             />
             {(search || status || categoryId || from || to) && (
               <Button
-                className="bg-app-primary/10 text-app-primary font-medium"
+                className="bg-app-primary/10 text-app-link font-medium"
                 onPress={() => {
                   void setSearch(null, { history: "push" });
                   void setStatus(null, { history: "push" });
@@ -389,7 +389,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
               renderCell={(row: RowType, column: Key): ReactNode => {
                 if (column === "number") {
                   return (
-                    <p className="text-app-primary font-semibold">
+                    <p className="text-app-link font-semibold">
                       #{row.number}
                     </p>
                   );

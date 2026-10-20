@@ -1,5 +1,5 @@
 import { sar } from "@/assets/fonts/sar";
-import RatingIcon from "@/assets/icons/rating.svg";
+import { Star as RatingIcon } from "lucide-react";
 import { RatingStatistics } from "@/gql/graphql";
 import type { ListingDetails } from "@/graphql/listing/types";
 import { useDict } from "@/hooks/useDict";
@@ -64,7 +64,7 @@ export const Ratings = ({
           <RatingIcon
             key={index}
             className={twMerge(
-              "size-5 text-[#999999] dark:text-white/25",
+              "size-5 fill-current stroke-0 text-[#999999] dark:text-white/25",
               Math.floor(rating) > index &&
                 "text-[#FB8A00] dark:text-[#FB8A00]",
               classNames?.rating,

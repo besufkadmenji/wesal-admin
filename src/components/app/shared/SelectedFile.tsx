@@ -1,6 +1,7 @@
+import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
 import { FileIcon, defaultStyles } from "react-file-icon";
-import TrashIcon from "@/assets/icons/app/trash.svg";
+import { Trash2 as TrashIcon } from "lucide-react";
 import { Button } from "@heroui/react";
 
 export const SelectedFile = ({
@@ -12,6 +13,7 @@ export const SelectedFile = ({
   initUrl?: string;
   onRemove?: () => void;
 }) => {
+  const dict = useDict();
   const url = file ? URL.createObjectURL(file) : initUrl;
   const extension = file?.name.split(".").pop() || "";
   return (
@@ -39,9 +41,13 @@ export const SelectedFile = ({
         <Button
           isIconOnly
           onPress={onRemove}
+          aria-label={dict.common.actions.remove}
           className="absolute end-1 top-1 size-6 min-h-0 min-w-0 bg-white p-0"
         >
-          <TrashIcon className="size-4 cursor-pointer text-[#EA5455]" />
+          <TrashIcon
+            aria-hidden
+            className="size-4 cursor-pointer text-[#EA5455]"
+          />
         </Button>
       )}
     </div>

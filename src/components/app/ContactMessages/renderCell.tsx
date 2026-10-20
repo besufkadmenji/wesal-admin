@@ -7,7 +7,7 @@ import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Button } from "@heroui/react";
 import { Key } from "react";
-import ReplyIcon from "@/assets/icons/app/reply.svg";
+import { Reply as ReplyIcon } from "lucide-react";
 import { ContactMessageStatus, MessageType, SenderType } from "@/gql/graphql";
 import { twMerge } from "tailwind-merge";
 

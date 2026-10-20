@@ -34,7 +34,7 @@ export const AppPagination = ({
           key={key}
           className={cn(
             className,
-            "text-app-primary bg-accent-soft size-8 min-w-8 rounded-lg",
+            "text-app-link bg-accent-soft size-8 min-w-8 rounded-lg",
           )}
           onClick={onNext}
         >
@@ -51,7 +51,7 @@ export const AppPagination = ({
           key={key}
           className={cn(
             className,
-            "text-app-primary bg-accent-soft size-8 min-w-8 rounded-lg",
+            "text-app-link bg-accent-soft size-8 min-w-8 rounded-lg",
           )}
           onClick={onPrevious}
         >
@@ -93,8 +93,8 @@ export const AppPagination = ({
       classNames={{
         cursor:
           "bg-app-primary rounded-lg text-sm font-semibold leading-5 tracking-tight size-8",
-        item: "rounded-lg bg-transparent text-subTitle hover:bg-accent-soft hover:text-app-primary size-8 text-sm font-semibold leading-5 tracking-tight dark:text-dark-subTitle",
-        prev: "size-8 bg-accent-soft text-app-primary",
+        item: "rounded-lg bg-transparent text-subTitle hover:bg-accent-soft hover:text-app-link size-8 text-sm font-semibold leading-5 tracking-tight dark:text-dark-subTitle",
+        prev: "size-8 bg-accent-soft text-app-link",
         wrapper: "gap-2",
       }}
     />

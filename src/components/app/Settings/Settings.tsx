@@ -105,7 +105,7 @@ export const Settings = () => {
                     onClick={() => {
                       setChangePassword("true");
                     }}
-                    className="text-app-primary dark:bg-dark-black flex cursor-pointer items-center gap-4 bg-white px-0 text-sm font-bold underline"
+                    className="text-app-link dark:bg-dark-black flex cursor-pointer items-center gap-4 bg-white px-0 text-sm font-bold underline"
                   >
                     {dict.reset_password.title}
                     <KeyRound

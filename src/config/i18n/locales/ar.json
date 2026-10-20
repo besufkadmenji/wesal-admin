@@ -31,7 +31,14 @@
       "saveAndPrint": "حفظ وطباعة",
       "clearSearch": "مسح البحث",
       "clearFilters": "مسح الفلاتر",
-      "apply": "تطبيق"
+      "apply": "تطبيق",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "remove": "إزالة",
+      "reorder": "إعادة الترتيب",
+      "approve": "قبول",
+      "reject": "رفض"
     },
     "timeFilters": {
       "all": "الكل",
@@ -132,6 +139,14 @@
       "not_found_message": "هذا العنصر غير موجود أو تم حذفه أو تعذر تحميله.",
       "retry": "إعادة المحاولة",
       "back_to_list": "العودة إلى القائمة"
+    },
+    "a11y": {
+      "show_password": "إظهار كلمة المرور",
+      "hide_password": "إخفاء كلمة المرور",
+      "dark_mode": "الوضع الداكن",
+      "light_mode": "الوضع الفاتح",
+      "theme": "المظهر",
+      "language": "اللغة"
     }
   },
   "auth": {

@@ -42,7 +42,7 @@ export const EditCity = ({ id }: { id: string }) => {
       onRetry={() => void refetch()}
       backHref="/cities"
     >
-      {(city) => (
+      {() => (
         <div className="grid grid-cols-1">
           <AppForm
             type={FormType.Cities}

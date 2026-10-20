@@ -23,11 +23,14 @@
  */
 :root {
   --app-accent: #22283a;
+  /* UI-13: text links; lifts more than the accent in dark mode (~6:1). */
+  --app-link: #22283a;
   --app-accent-soft: #eff1f6;
   --app-surface-tint: #f4f6fa;
 }
 .dark {
   --app-accent: #6474a6;
+  --app-link: #8d9bd0;
   --app-accent-soft: #2b3040;
   --app-surface-tint: #1f1f1f;
 }
@@ -61,6 +64,7 @@
   --color-light-gray: #a5a7a5;
 
   --color-app-primary: var(--app-accent);
+  --color-app-link: var(--app-link);
   --color-app-background: var(--app-surface-tint);
   --shadow-hero: 0 0 120px 100px rgba(237, 222, 171, 0.2);
 
@@ -183,9 +187,8 @@
   }
 } */
 
-.sr-only {
-  display: none;
-}
+/* UI-13: a custom sr-only rule that set display to none used to live here, hiding
+   screen-reader text from screen readers too; Tailwind's sr-only applies. */
 
 .rdp-nav {
   display: none;

@@ -23,7 +23,7 @@ export const ConversationRelatedSection = ({
             <AppLink
               key={contract.id}
               href={`/contracts/${contract.id}`}
-              className="text-app-primary"
+              className="text-app-link"
             >
               #{contract.publicId ?? "—"} ·{" "}
               {lifecycleEnumLabel(contract.status, lang)}
@@ -39,7 +39,7 @@ export const ConversationRelatedSection = ({
             <AppLink
               key={complaint.id}
               href={`/complaints/${complaint.id}`}
-              className="text-app-primary"
+              className="text-app-link"
             >
               #{complaint.publicId ?? "—"} ·{" "}
               {lifecycleEnumLabel(complaint.status, lang)}

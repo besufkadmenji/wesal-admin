@@ -1,6 +1,6 @@
-import ApproveIcon from "@/assets/icons/app/approve.svg";
-import RejectIcon from "@/assets/icons/app/reject.svg";
-import ViewIcon from "@/assets/icons/app/view.svg";
+import { CircleCheck as ApproveIcon } from "lucide-react";
+import { CircleX as RejectIcon } from "lucide-react";
+import { Eye as ViewIcon } from "lucide-react";
 import { ActionCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
@@ -22,17 +22,19 @@ export const renderCell = (
     return (
       <div className="flex items-center justify-center gap-2">
         <ActionCell
-          icon={<ApproveIcon className="size-5 text-[#1EB564]" />}
+          label={dict.common.actions.approve}
+          icon={<ApproveIcon aria-hidden className="size-5 text-[#1EB564]" />}
           onClick={action.onApprove}
         />
         <ActionCell
-          icon={<RejectIcon className="size-5 text-[#EA5455]" />}
+          label={dict.common.actions.reject}
+          tone="danger"
+          icon={<RejectIcon aria-hidden className="size-5 text-[#EA5455]" />}
           onClick={action.onReject}
         />
         <ActionCell
-          icon={
-            <ViewIcon className="text-subTitle dark:text-dark-dashboard-title size-5" />
-          }
+          label={dict.common.actions.view}
+          icon={<ViewIcon aria-hidden className="size-5" />}
           onClick={action.onView}
         />
       </div>
@@ -50,7 +52,7 @@ export const renderCell = (
     );
   } else if (column === "sku") {
     return (
-      <p className="text-app-primary dark:text-app-primary text-xs leading-8 tracking-tight">
+      <p className="text-app-link dark:text-app-link text-xs leading-8 tracking-tight">
         {row.sku}
       </p>
     );

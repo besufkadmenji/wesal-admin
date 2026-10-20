@@ -19,7 +19,7 @@ export const ViewListing = ({ id }: { id: string }) => {
       onRetry={() => void refetch()}
       backHref="/listings"
     >
-      {(listing) => (
+      {() => (
         <div className={`${DETAIL_CARD_SURFACE} grid grid-cols-1 p-6`}>
           <AppForm type={FormType.Listings} action="view">
             <ListingDetail />

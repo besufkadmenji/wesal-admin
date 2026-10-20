@@ -246,7 +246,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
       return (
         <AppLink
           href={`${config.detailPath}/${row.detailId}`}
-          className="text-app-primary font-medium"
+          className="text-app-link font-medium"
         >
           {row[columnKey]}
         </AppLink>
@@ -266,7 +266,7 @@ export const FinancialReportPage = ({ kind }: { kind: ReportKind }) => {
             <>
               <Button
                 variant="bordered"
-                className="border-app-primary text-app-primary"
+                className="border-app-primary text-app-link"
                 isLoading={exporting === "pdf"}
                 isDisabled={exporting != null}
                 onPress={() => exportReport("pdf")}

@@ -2,6 +2,7 @@ import { Faq } from "@/gql/graphql";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { GripVertical } from "lucide-react";
+import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 
 interface FaqOrderItemProps {
@@ -10,6 +11,7 @@ interface FaqOrderItemProps {
 }
 
 export const FaqOrderItem = ({ faq, index }: FaqOrderItemProps) => {
+  const dict = useDict();
   const {
     attributes,
     listeners,
@@ -29,7 +31,7 @@ export const FaqOrderItem = ({ faq, index }: FaqOrderItemProps) => {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-4 rounded-lg border border-border p-4 ${
+      className={`border-border flex items-center gap-4 rounded-lg border p-4 ${
         isDragging
           ? "dark:bg-dark-gray-100 bg-gray-100"
           : "dark:bg-dark-card bg-white"
@@ -37,8 +39,12 @@ export const FaqOrderItem = ({ faq, index }: FaqOrderItemProps) => {
       {...attributes}
       {...listeners}
     >
-      <button className="dark:hover:text-dark-light-gray flex cursor-grabbing items-center justify-center text-gray-400 hover:text-gray-600">
-        <GripVertical size={20} />
+      <button
+        type="button"
+        aria-label={dict.common.actions.reorder}
+        className="dark:hover:text-dark-light-gray flex cursor-grabbing items-center justify-center text-gray-400 hover:text-gray-600"
+      >
+        <GripVertical aria-hidden size={20} />
       </button>
 
       <div className="flex-1">
@@ -50,7 +56,7 @@ export const FaqOrderItem = ({ faq, index }: FaqOrderItemProps) => {
         </div>
       </div>
 
-      <div className="dark:text-dark-light-gray dark:bg-dark-gray-100 text-app-primary shrink-0 rounded px-3 py-1 text-sm font-medium">
+      <div className="dark:text-dark-light-gray dark:bg-dark-gray-100 text-app-link shrink-0 rounded px-3 py-1 text-sm font-medium">
         #{index + 1}
       </div>
     </div>

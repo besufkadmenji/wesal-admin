@@ -57,7 +57,7 @@ const PeriodChip = ({
     onPress={onClick}
     className={twMerge(
       "text-subTitle h-full min-h-0 min-w-0 rounded-md bg-inherit p-0 px-3 py-1.5 text-sm leading-5 font-medium tracking-tight dark:text-white",
-      active && "bg-app-primary/15 text-app-primary dark:text-app-primary",
+      active && "bg-app-primary/15 text-app-link dark:text-app-link",
     )}
     size="lg"
   >

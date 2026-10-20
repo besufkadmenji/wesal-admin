@@ -1,5 +1,5 @@
 "use client";
-import EmailIcon from "@/assets/icons/app/sms.svg";
+import { Mail as EmailIcon } from "lucide-react";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { useForgotPassword } from "@/components/auth/useForgotPassword";
 import { useDict } from "@/hooks/useDict";

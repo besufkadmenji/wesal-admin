@@ -1,6 +1,6 @@
 "use client";
 
-import { NotificationIcon } from "@/assets/icons/app/header";
+import { Bell as NotificationIcon } from "lucide-react";
 import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -56,7 +56,7 @@ export const AdminNotificationBell = () => {
             <Button
               size="sm"
               variant="light"
-              className="text-app-primary font-medium"
+              className="text-app-link font-medium"
               isLoading={feed.isMarkingAll}
               onPress={() => feed.markAllRead()}
             >

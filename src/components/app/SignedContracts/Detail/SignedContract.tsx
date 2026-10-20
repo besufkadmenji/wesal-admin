@@ -1,6 +1,6 @@
 "use client";
-import DownloadIcon from "@/assets/icons/download.svg";
-import MapPointIcon from "@/assets/icons/map.point.svg";
+import { Download as DownloadIcon } from "lucide-react";
+import { MapPin as MapPointIcon } from "lucide-react";
 import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
 import { SignedContractStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";

@@ -1,4 +1,4 @@
-import UploadButtonIcon from "@/assets/icons/app/upload.svg";
+import { Upload as UploadButtonIcon } from "lucide-react";
 import { CloudUpload } from "lucide-react";
 import { SelectedFile } from "@/components/app/shared/SelectedFile";
 import { useDict } from "@/hooks/useDict";

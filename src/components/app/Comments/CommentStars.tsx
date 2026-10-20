@@ -1,4 +1,4 @@
-import RatingIcon from "@/assets/icons/rating.svg";
+import { Star as RatingIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 export const CommentStars = ({ rating }: { rating: number }) => (
@@ -7,8 +7,8 @@ export const CommentStars = ({ rating }: { rating: number }) => (
       <RatingIcon
         key={star}
         className={twMerge(
-          "size-4 text-[#d9d9d9]",
-          star <= rating && "text-[#FB8A00]",
+          "size-4 fill-current stroke-0 text-[#d9d9d9] dark:text-white/20",
+          star <= rating && "text-[#FB8A00] dark:text-[#FB8A00]",
         )}
       />
     ))}

@@ -1,4 +1,4 @@
-import FilterIcon from "@/assets/icons/app/filter.svg";
+import { ListFilter as FilterIcon } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 import {
   Button,

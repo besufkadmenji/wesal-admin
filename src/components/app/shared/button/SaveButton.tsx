@@ -1,6 +1,6 @@
 "use client";
 
-import SaveIcon from "@/assets/icons/app/save.svg";
+import { Save as SaveIcon } from "lucide-react";
 import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
 import { useDict } from "@/hooks/useDict";
 export enum SaveButtonType {

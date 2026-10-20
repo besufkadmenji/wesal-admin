@@ -1,3 +1,4 @@
+import { useDict } from "@/hooks/useDict";
 import { norsal } from "@/assets/fonts/norsal";
 import { sar } from "@/assets/fonts/sar";
 import { Button, cn, Input } from "@heroui/react";
@@ -5,8 +6,8 @@ import { HTMLInputTypeAttribute, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { FieldLabel } from "./FieldLabel";
 import { FIELD_INPUT_TEXT_CLASS, FIELD_LABEL_CLASS } from "./formClassNames";
-import EyeIcon from "@/assets/icons/app/eye.svg";
-import EyeOffIcon from "@/assets/icons/app/eye-off.svg";
+import { Eye as EyeIcon } from "lucide-react";
+import { EyeOff as EyeOffIcon } from "lucide-react";
 export const FormInput = ({
   label,
   placeholder,
@@ -151,6 +152,7 @@ export const PasswordInput = ({
   readOnly?: boolean;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const a11y = useDict().common.a11y;
   return (
     <FormInput
       label={label}
@@ -163,11 +165,13 @@ export const PasswordInput = ({
           className="size-5 min-h-0 min-w-0 bg-transparent p-0"
           onPress={() => setShowPassword(!showPassword)}
           isIconOnly
+          aria-label={showPassword ? a11y.hide_password : a11y.show_password}
+          aria-pressed={showPassword}
         >
           {showPassword ? (
-            <EyeOffIcon className="text-subTitle size-5 dark:text-white" />
+            <EyeOffIcon aria-hidden className="text-subTitle size-5 dark:text-white" />
           ) : (
-            <EyeIcon className="text-subTitle size-5 dark:text-white" />
+            <EyeIcon aria-hidden className="text-subTitle size-5 dark:text-white" />
           )}
         </Button>
       }

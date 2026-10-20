@@ -1,6 +1,6 @@
 "use client";
-import AddIcon from "@/assets/icons/app/add.svg";
-import DeleteIcon from "@/assets/icons/app/trash.svg";
+import { Plus as AddIcon } from "lucide-react";
+import { Trash2 as DeleteIcon } from "lucide-react";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
@@ -109,8 +109,9 @@ export const ContactManagement = () => {
                     }}
                     className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
+                    aria-label={dict.common.actions.delete}
                   >
-                    <DeleteIcon className="size-5.5" />
+                    <DeleteIcon aria-hidden className="size-5.5" />
                   </PrimaryButton>
                 </div>
               ))}
@@ -224,8 +225,9 @@ export const ContactManagement = () => {
                     }}
                     className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
+                    aria-label={dict.common.actions.delete}
                   >
-                    <DeleteIcon className="size-5.5" />
+                    <DeleteIcon aria-hidden className="size-5.5" />
                   </PrimaryButton>
                 </div>
               ))}

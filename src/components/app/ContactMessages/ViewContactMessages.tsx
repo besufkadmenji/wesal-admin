@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import ContactMessageService from "@/services/contact.message.service";
 import Image from "next/image";
 import { Button } from "@heroui/react";
-import ReplyIcon from "@/assets/icons/app/reply.svg";
+import { Reply as ReplyIcon } from "lucide-react";
 import { SendReply } from "@/components/app/ContactMessages/SendReply";
 import { useQueryState } from "nuqs";
 import { ContactMessageStatus, SenderType, MessageType } from "@/gql/graphql";

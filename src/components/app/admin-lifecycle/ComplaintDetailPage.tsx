@@ -85,7 +85,7 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
         <PageBar title={`Complaint #${complaint.publicId ?? "—"}`}>
           <AppLink
             href={`/conversations/${complaint.conversation.id}`}
-            className="text-app-primary text-sm font-medium"
+            className="text-app-link text-sm font-medium"
           >
             {copy.viewConversation}
             {complaint.conversation.publicId != null
@@ -95,7 +95,7 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
           {complaint.contract && (
             <AppLink
               href={`/contracts/${complaint.contract.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewContract}
               {complaint.contract.publicId != null

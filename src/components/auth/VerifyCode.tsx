@@ -51,7 +51,7 @@ export const VerifyCode = () => {
           </span>
           <Button
             variant="light"
-            className="text-app-primary h-auto min-h-0 min-w-0 p-0 font-semibold data-[disabled=true]:opacity-40"
+            className="text-app-link h-auto min-h-0 min-w-0 p-0 font-semibold data-[disabled=true]:opacity-40"
             isDisabled={resetSeconds !== 0}
             onPress={() => {
               resendCode();

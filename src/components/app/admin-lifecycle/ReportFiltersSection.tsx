@@ -107,7 +107,7 @@ export const ReportFiltersSection = ({
       />
       {hasFilters && (
         <Button
-          className="bg-app-primary/10 text-app-primary font-medium"
+          className="bg-app-primary/10 text-app-link font-medium"
           onPress={onClear}
         >
           {copy.clearFilters}

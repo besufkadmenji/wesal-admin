@@ -47,7 +47,7 @@ export const EditCategory = ({ id }: { id: string }) => {
       onRetry={() => void refetch()}
       backHref="/categories"
     >
-      {(category) => (
+      {() => (
         <div className="grid grid-cols-1">
           <AppForm
             type={FormType.Categories}

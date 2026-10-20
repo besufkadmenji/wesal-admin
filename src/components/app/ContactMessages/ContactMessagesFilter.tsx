@@ -6,7 +6,7 @@ import { SearchInput } from "../shared/filter/SearchInput";
 import { DayPicker } from "react-day-picker";
 import { twMerge } from "tailwind-merge";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
-import CalendarIcon from "@/assets/icons/app/calendar.svg";
+import { CalendarDays as CalendarIcon } from "lucide-react";
 import moment from "moment";
 import { DateRangeFilter } from "@/components/app/ContactMessages/DateRangeFilter";
 import { SenderType } from "@/gql/graphql";

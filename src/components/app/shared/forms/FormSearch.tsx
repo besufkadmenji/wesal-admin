@@ -1,5 +1,5 @@
 import { FormInput } from "@/components/app/shared/forms/FormInput";
-import SearchIcon from "@/assets/icons/app/search.svg";
+import { Search as SearchIcon } from "lucide-react";
 import { AppCheckbox } from "../AppCheckbox";
 import { useState } from "react";
 export const FormSearch = ({

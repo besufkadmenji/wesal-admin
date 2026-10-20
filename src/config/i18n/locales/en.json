@@ -31,7 +31,14 @@
       "saveAndPrint": "Save and Print",
       "clearSearch": "Clear Search",
       "clearFilters": "Clear Filters",
-      "apply": "Apply"
+      "apply": "Apply",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "remove": "Remove",
+      "reorder": "Reorder",
+      "approve": "Approve",
+      "reject": "Reject"
     },
     "timeFilters": {
       "all": "All",
@@ -132,6 +139,14 @@
       "not_found_message": "This item doesn't exist, was removed, or couldn't be loaded.",
       "retry": "Try again",
       "back_to_list": "Back to the list"
+    },
+    "a11y": {
+      "show_password": "Show password",
+      "hide_password": "Hide password",
+      "dark_mode": "Dark mode",
+      "light_mode": "Light mode",
+      "theme": "Theme",
+      "language": "Language"
     }
   },
   "auth": {

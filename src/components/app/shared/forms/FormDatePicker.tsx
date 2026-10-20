@@ -1,4 +1,4 @@
-import CalendarIcon from "@/assets/icons/app/calendar.svg";
+import { CalendarDays as CalendarIcon } from "lucide-react";
 import { cn, DatePicker, DateValue } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 import { ReactNode, useState } from "react";
@@ -65,7 +65,7 @@ export const FormDatePicker = ({
       calendarProps={{
         classNames: {
           cellButton:
-            "data-[selected=true]:text-white data-[selected=true]:bg-app-primary data-[hover=true]:text-app-primary data-[selected=true]:data-[hover=true]:bg-app-primary data-[selected=true]:data-[hover=true]:text-white",
+            "data-[selected=true]:text-white data-[selected=true]:bg-app-primary data-[hover=true]:text-app-link data-[selected=true]:data-[hover=true]:bg-app-primary data-[selected=true]:data-[hover=true]:text-white",
         },
       }}
       errorMessage={errorMessage}

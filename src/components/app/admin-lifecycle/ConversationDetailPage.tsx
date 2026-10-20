@@ -61,7 +61,7 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
           {primaryContract && (
             <AppLink
               href={`/contracts/${primaryContract.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewContract}
               {primaryContract.publicId != null
@@ -72,7 +72,7 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
           {primaryComplaint && (
             <AppLink
               href={`/complaints/${primaryComplaint.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewComplaint}
               {primaryComplaint.publicId != null

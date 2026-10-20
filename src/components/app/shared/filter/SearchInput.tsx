@@ -1,5 +1,5 @@
 import { Button, Input } from "@heroui/react";
-import SearchIcon from "@/assets/icons/app/search.svg";
+import { Search as SearchIcon } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 import { twMerge } from "tailwind-merge";
 import { useQueryState } from "nuqs";

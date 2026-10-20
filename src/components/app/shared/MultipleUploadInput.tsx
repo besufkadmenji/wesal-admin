@@ -1,10 +1,10 @@
-import UploadButtonIcon from "@/assets/icons/app/upload.svg";
+import { Upload as UploadButtonIcon } from "lucide-react";
 import { CloudUpload } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
 import { FileIcon, defaultStyles } from "react-file-icon";
-import TrashIcon from "@/assets/icons/app/trash.svg";
+import { Trash2 as TrashIcon } from "lucide-react";
 import { Button } from "@heroui/react";
 import { SelectedFile } from "./SelectedFile";
 

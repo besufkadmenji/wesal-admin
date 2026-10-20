@@ -3,7 +3,7 @@ import { MediaType } from "@/gql/graphql";
 import type { ListingDetails } from "@/graphql/listing/types";
 import { useDict } from "@/hooks/useDict";
 import ReactPlayer from "react-player";
-import PlayVideoIcon from "@/assets/icons/play.video.svg";
+import { CirclePlay as PlayVideoIcon } from "lucide-react";
 import { useState } from "react";
 export const StoryVideo = ({ listing }: { listing: ListingDetails }) => {
   const dict = useDict();
@@ -35,7 +35,7 @@ export const StoryVideo = ({ listing }: { listing: ListingDetails }) => {
               onClick={() => setPlaying(true)}
             >
               <div className="playVideoIcon grid size-14 items-center justify-items-center">
-                <PlayVideoIcon className="size-6" />
+                <PlayVideoIcon aria-hidden className="size-6 text-white" />
               </div>
             </div>
           </div>

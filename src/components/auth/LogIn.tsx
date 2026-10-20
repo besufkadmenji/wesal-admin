@@ -5,7 +5,7 @@ import {
   FormInput,
   PasswordInput,
 } from "@/components/app/shared/forms/FormInput";
-import EmailIcon from "@/assets/icons/app/sms.svg";
+import { Mail as EmailIcon } from "lucide-react";
 import { useLoginForm } from "@/components/auth/useLoginForm";
 import Link from "next/link";
 import { PrimaryButton } from "../app/shared/button/PrimaryButton";
@@ -49,7 +49,7 @@ export const LogIn = () => {
           />
           <Link
             href="/forgot-password"
-            className="text-app-primary justify-self-end text-sm leading-5 font-medium tracking-tight hover:underline"
+            className="text-app-link justify-self-end text-sm leading-5 font-medium tracking-tight hover:underline"
           >
             {dict.auth.forgot_password}
           </Link>

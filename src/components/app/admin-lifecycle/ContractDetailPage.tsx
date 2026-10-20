@@ -112,7 +112,7 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
         <PageBar title={`Contract #${contract.publicId ?? "—"}`}>
           <AppLink
             href={`/conversations/${contract.conversation.id}`}
-            className="text-app-primary text-sm font-medium"
+            className="text-app-link text-sm font-medium"
           >
             {copy.viewConversation}
             {contract.conversation.publicId != null
@@ -122,7 +122,7 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
           {contract.paidAt && (
             <Button
               variant="bordered"
-              className="border-app-primary text-app-primary"
+              className="border-app-primary text-app-link"
               onPress={downloadInvoice}
             >
               {copy.downloadInvoice}

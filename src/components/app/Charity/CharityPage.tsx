@@ -179,7 +179,7 @@ export const CharityPage = () => {
             />
             {hasFilters && (
               <Button
-                className="bg-app-primary/10 text-app-primary font-medium"
+                className="bg-app-primary/10 text-app-link font-medium"
                 onPress={() => {
                   void setSearch(null, { history: "push" });
                   void setStatus(null, { history: "push" });
