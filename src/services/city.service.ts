@@ -19,6 +19,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class CityService {
   static countries = async (
@@ -63,9 +64,9 @@ class CityService {
       });
       return cityResult.data?.city ?? null;
     } catch (e) {
-      console.error("cityResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static createCity = async (input: CreateCityInput) => {

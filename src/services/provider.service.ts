@@ -23,6 +23,7 @@ import client from "@/utils/apollo.client";
 import axiosClient from "@/utils/axios.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class ProviderService {
   static providers = async (
@@ -53,9 +54,9 @@ class ProviderService {
       });
       return providerResult.data?.provider ?? null;
     } catch (e) {
-      console.error("providerResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static activateProvider = async (activateProviderId: string) => {

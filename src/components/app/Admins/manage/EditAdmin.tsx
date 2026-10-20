@@ -21,7 +21,7 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 
 export const EditAdmin = ({ id }: { id: string }) => {
-  const { admin, isPending, refetch } = useAdminById(id);
+  const { admin, isPending, error, refetch } = useAdminById(id);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, admin);
   const avatarFile = useForm((state) => state.avatarFile);
   const setAvatarFile = useForm((state) => state.setAvatarFile);
@@ -38,6 +38,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending || (!!admin && !permissionsReady)}
       data={admin}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/admins"
     >

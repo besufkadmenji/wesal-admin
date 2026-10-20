@@ -18,6 +18,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import axiosClient from "@/utils/axios.client";
 import { requireOperationField } from "@/utils/apollo.result";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class AdminService {
   static meAdmin = async (): Promise<Admin | null> => {
@@ -57,9 +58,9 @@ class AdminService {
       });
       return adminResult.data?.admin ?? null;
     } catch (e) {
-      console.error("adminResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static createAdmin = async (input: CreateAdminInput) => {

@@ -1,3 +1,4 @@
+import { CombinedGraphQLErrors } from "@apollo/client";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import ar from "@/config/i18n/locales/ar.json";
 import en from "@/config/i18n/locales/en.json";
@@ -41,6 +42,52 @@ describe("Admin states (UI-10)", () => {
     expect(onRetry).toHaveBeenCalled();
     await user.click(screen.getByRole("button", { name: copy.back_to_list }));
     expect(testNavigation.router.push).toHaveBeenCalledWith("/cities");
+  });
+
+  it("tells a failed load from a missing record and offers retry (H-33)", async () => {
+    const user = userEvent.setup();
+    const onRetry = vi.fn();
+    renderPage(
+      <DetailGate
+        isLoading={false}
+        data={undefined}
+        error={new TypeError("Failed to fetch")}
+        onRetry={onRetry}
+      >
+        {() => <p>page</p>}
+      </DetailGate>,
+    );
+    expect(screen.getByText(copy.failed_title)).toBeInTheDocument();
+    expect(screen.queryByText(copy.not_found_title)).not.toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: copy.retry }));
+    expect(onRetry).toHaveBeenCalled();
+  });
+
+  it("explains missing permission without a pointless retry (H-33)", () => {
+    renderPage(
+      <DetailGate
+        isLoading={false}
+        data={undefined}
+        error={
+          new CombinedGraphQLErrors({
+            errors: [
+              { message: "Forbidden", extensions: { code: "FORBIDDEN" } },
+            ],
+          })
+        }
+        onRetry={vi.fn()}
+        backHref="/cities"
+      >
+        {() => <p>page</p>}
+      </DetailGate>,
+    );
+    expect(screen.getByText(copy.forbidden_title)).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: copy.retry }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: copy.back_to_list }),
+    ).toBeInTheDocument();
   });
 
   it("renders the page with the loaded data", () => {

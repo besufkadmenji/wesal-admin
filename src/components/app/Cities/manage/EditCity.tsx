@@ -22,7 +22,7 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageCity } from "./useManageCity";
 
 export const EditCity = ({ id }: { id: string }) => {
-  const { city, isPending, refetch } = useCityById(id);
+  const { city, isPending, error, refetch } = useCityById(id);
   const lng = useLang();
   const { countries } = useCountries();
   const { form, setForm, reset } = useManageForm(id, city);
@@ -39,6 +39,7 @@ export const EditCity = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={city}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/cities"
     >

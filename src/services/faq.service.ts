@@ -14,6 +14,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class FaqService {
   static faqs = async (): Promise<Faq[] | null> => {
@@ -38,9 +39,9 @@ class FaqService {
       });
       return faqResult.data?.faq ?? null;
     } catch (e) {
-      console.error("faqResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static createFaq = async (createFaqInput: CreateFaqInput) => {

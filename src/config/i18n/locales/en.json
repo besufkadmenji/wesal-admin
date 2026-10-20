@@ -136,9 +136,13 @@
     },
     "states": {
       "not_found_title": "Not available",
-      "not_found_message": "This item doesn't exist, was removed, or couldn't be loaded.",
+      "not_found_message": "This item doesn't exist or was removed.",
       "retry": "Try again",
-      "back_to_list": "Back to the list"
+      "back_to_list": "Back to the list",
+      "forbidden_title": "No access",
+      "forbidden_message": "Your permissions don't include this page. Ask a super admin if you need it.",
+      "failed_title": "Couldn't load this page",
+      "failed_message": "Something went wrong while loading. Check your connection and try again."
     },
     "a11y": {
       "show_password": "Show password",

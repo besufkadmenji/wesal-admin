@@ -20,7 +20,7 @@ export const RequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: request, isPending, refetch } = useProvider(id);
+  const { data: request, isPending, error, refetch } = useProvider(id);
   useEffect(() => {
     if (request && request.status !== ProviderStatus.PendingApproval) {
       router.replace(`/providers/requests`);
@@ -32,6 +32,7 @@ export const RequestDetail = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={request?.status === ProviderStatus.PendingApproval ? request : null}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/providers/requests"
     >

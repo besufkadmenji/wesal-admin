@@ -18,6 +18,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class CategoryService {
   static categories = async (
@@ -48,9 +49,9 @@ class CategoryService {
       });
       return categoryResult.data?.category ?? null;
     } catch (e) {
-      console.error("categoryResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static contractDefaults = async (): Promise<

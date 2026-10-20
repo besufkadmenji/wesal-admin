@@ -22,7 +22,7 @@ import { useAppRouter } from "@/hooks/useAppRouter";
 import { CategoryContractSettingsFields } from "./CategoryContractSettingsFields";
 
 export const ViewCategory = ({ id }: { id: string }) => {
-  const { category, isPending, refetch } = useCategoryById(id);
+  const { category, isPending, error, refetch } = useCategoryById(id);
 
   const { form, setForm, reset } = useManageForm(id, category);
   const dict = useDict();
@@ -39,6 +39,7 @@ export const ViewCategory = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={category}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/categories"
     >

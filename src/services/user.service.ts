@@ -14,6 +14,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class UserService {
   static users = async (
@@ -42,9 +43,9 @@ class UserService {
       });
       return userResult.data?.user ?? null;
     } catch (e) {
-      console.error("userResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static activateUser = async (activateUserId: string) => {

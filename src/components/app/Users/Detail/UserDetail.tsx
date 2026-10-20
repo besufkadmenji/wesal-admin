@@ -25,7 +25,7 @@ export const UserDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: user, isPending, refetch } = useUser(id);
+  const { data: user, isPending, error, refetch } = useUser(id);
   const [activateUser, setActivateUser] = useQueryState("activateUser");
   const [deactivateUser, setDeactivateUser] = useQueryState("deactivateUser");
   console.log("Category Data:", user, id);
@@ -33,6 +33,7 @@ export const UserDetail = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={user}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/users"
     >

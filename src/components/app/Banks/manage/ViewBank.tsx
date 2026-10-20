@@ -13,13 +13,14 @@ import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { useBankById } from "../useBanks";
 
 export const ViewBank = ({ id }: { id: string }) => {
-  const { bank, isPending, refetch } = useBankById(id);
+  const { bank, isPending, error, refetch } = useBankById(id);
   const dict = useDict();
 
   return (
     <DetailGate
       isLoading={isPending}
       data={bank}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/banks"
     >

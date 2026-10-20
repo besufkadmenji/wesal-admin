@@ -20,7 +20,7 @@ import { useQueryState } from "nuqs";
 import { ContactMessageStatus, SenderType, MessageType } from "@/gql/graphql";
 
 export const ViewContactMessages = ({ id }: { id: string }) => {
-  const { data, isPending, refetch } = useContactMessage(id);
+  const { data, isPending, error, refetch } = useContactMessage(id);
   const [sendReply, setSendReply] = useQueryState("sendReply");
 
   const dict = useDict();
@@ -48,6 +48,7 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={data}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/content/contact-messages"
     >

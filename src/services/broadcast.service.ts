@@ -14,6 +14,7 @@ import {
   SEND_BROADCAST_MUTATION,
 } from "@/graphql/broadcast/broadcasts";
 import client from "@/utils/apollo.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 export type AdminBroadcastRow =
   AdminBroadcastsQuery["adminBroadcasts"]["items"][number];
@@ -48,9 +49,9 @@ class BroadcastService {
       });
       return result.data?.adminBroadcast ?? null;
     } catch (e) {
-      console.error("adminBroadcastResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static recipientOptions = async (

@@ -13,13 +13,14 @@ import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { useDeliveryCompanyById } from "../useDeliveryCompanies";
 
 export const ViewDeliveryCompany = ({ id }: { id: string }) => {
-  const { deliveryCompany, isPending, refetch } = useDeliveryCompanyById(id);
+  const { deliveryCompany, isPending, error, refetch } = useDeliveryCompanyById(id);
   const dict = useDict();
 
   return (
     <DetailGate
       isLoading={isPending}
       data={deliveryCompany}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/delivery-companies"
     >

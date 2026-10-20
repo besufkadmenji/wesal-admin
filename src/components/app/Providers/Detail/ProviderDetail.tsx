@@ -46,7 +46,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: provider, isPending, refetch } = useProvider(id);
+  const { data: provider, isPending, error, refetch } = useProvider(id);
   const [activateProvider, setActivateProvider] =
     useQueryState("activateProvider");
   const [deactivateProvider, setDeactivateProvider] =
@@ -56,6 +56,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending}
       data={provider}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/providers"
     >

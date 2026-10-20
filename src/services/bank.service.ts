@@ -17,6 +17,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class BankService {
   static banks = async (
@@ -45,9 +46,9 @@ class BankService {
       });
       return bankResult.data?.bank ?? null;
     } catch (e) {
-      console.error("bankResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static createBank = async (input: CreateBankInput) => {

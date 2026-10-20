@@ -37,6 +37,7 @@ export const ViewNotification = () => {
       <DetailGate
         isLoading={query.isPending}
         data={broadcast}
+        error={query.error}
         onRetry={() => void query.refetch()}
         backHref="/notifications"
       >

@@ -17,7 +17,7 @@ import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { useCityById } from "../useCities";
 
 export const ViewCity = ({ id }: { id: string }) => {
-  const { city, isPending, refetch } = useCityById(id);
+  const { city, isPending, error, refetch } = useCityById(id);
   const { countries } = useCountries();
 
   const { form, setForm, reset } = useManageForm(id, city);
@@ -35,6 +35,7 @@ export const ViewCity = ({ id }: { id: string }) => {
     <DetailGate
       isLoading={isPending || !countries}
       data={city}
+      error={error}
       onRetry={() => void refetch()}
       backHref="/cities"
     >
