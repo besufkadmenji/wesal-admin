@@ -2294,5 +2294,15 @@
     "min_above_max": "لا يمكن أن يكون الحد الأدنى أكبر من الحد الأعلى.",
     "save": "حفظ حدود التقسيط",
     "saved": "تم حفظ حدود التقسيط."
+  },
+  "summary_cards": {
+    "contracts": "إجمالي التعاقدات",
+    "contracts_unit": "تعاقد",
+    "conversations": "إجمالي المحادثات",
+    "conversations_unit": "محادثة",
+    "complaints": "إجمالي الشكاوى",
+    "complaints_unit": "شكوى",
+    "reports": "إجمالي التقارير",
+    "reports_unit": "تقرير"
   }
 }

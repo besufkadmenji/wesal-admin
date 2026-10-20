@@ -2294,5 +2294,15 @@
     "min_above_max": "The minimum can't be more than the maximum.",
     "save": "Save installment limits",
     "saved": "Installment limits saved."
+  },
+  "summary_cards": {
+    "contracts": "Total contracts",
+    "contracts_unit": "contracts",
+    "conversations": "Total conversations",
+    "conversations_unit": "conversations",
+    "complaints": "Total complaints",
+    "complaints_unit": "complaints",
+    "reports": "Total reports",
+    "reports_unit": "reports"
   }
 }
