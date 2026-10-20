@@ -23,7 +23,7 @@ export const ActivateModal = ({
   const modalTitle = title || "Activate";
   const modalDescription = description || "Are you sure?";
   const cancelText = dict.common.actions.cancel;
-  const confirmText =dict.common.actions.activate;
+  const confirmText = dict.common.actions.activate;
 
   return (
     <Modal
@@ -45,7 +45,7 @@ export const ActivateModal = ({
           </div>
           <div className="grid w-full grid-cols-2 gap-4">
             <Button
-              className="h-12 rounded-lg bg-[#4285F41A] font-semibold text-[#4285F4]"
+              className="bg-accent-soft text-primary h-12 rounded-lg font-semibold dark:text-white"
               onPress={() => {
                 setId(null);
               }}

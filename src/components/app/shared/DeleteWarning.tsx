@@ -97,7 +97,7 @@ export const DeleteWarning = ({
               {dict.deleteConfirmation.confirm}
             </PrimaryButton>
             <PrimaryButton
-              className="bg-[#4285F41A] font-bold text-[#4285F4]"
+              className="bg-accent-soft text-primary font-bold dark:text-white"
               isDisabled={busy}
               onPress={onClose}
             >

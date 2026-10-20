@@ -74,7 +74,7 @@ export const DeactivateModal = ({
           )}
           <div className="grid w-full grid-cols-2 gap-4">
             <Button
-              className="h-12 rounded-lg bg-[#4285F41A] font-semibold text-[#4285F4]"
+              className="bg-accent-soft text-primary h-12 rounded-lg font-semibold dark:text-white"
               onPress={handleClose}
               isDisabled={busy}
             >

@@ -16,7 +16,7 @@ export const AppProgress = ({
       )}
     >
       <div
-        className="h-full rounded-full bg-linear-to-r from-[#2563EB] to-[#1EB564] duration-250 ease-in-out"
+        className="from-app-primary h-full rounded-full bg-linear-to-r to-[#1EB564] duration-250 ease-in-out"
         style={{
           width: `${realProgress}%`,
         }}

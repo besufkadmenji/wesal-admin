@@ -52,7 +52,7 @@ export const ChangePassword = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <PrimaryButton
-              className="bg-[#4285F41A] text-[#4285F4]"
+              className="bg-accent-soft text-primary dark:text-white"
               onPress={() => setChangePassword(null)}
               isDisabled={changingPassword}
             >

@@ -1,5 +1,5 @@
 "use client";
-import PasswordIcon from "@/assets/icons/app/password.key.svg";
+import { KeyRound } from "lucide-react";
 import { ChangePassword } from "@/components/app/Settings/ChangePassword";
 import { Rules } from "@/components/app/Settings/Rules";
 import { SignatureInput } from "@/components/app/Settings/SignatureInput";
@@ -108,7 +108,11 @@ export const Settings = () => {
                     className="text-app-primary dark:bg-dark-black flex cursor-pointer items-center gap-4 bg-white px-0 text-sm font-bold underline"
                   >
                     {dict.reset_password.title}
-                    <PasswordIcon className="size-9" />
+                    <KeyRound
+                      aria-hidden
+                      className="text-primary size-6 dark:text-white"
+                      strokeWidth={1.75}
+                    />
                   </button>
                 </div>
                 <UploadInput

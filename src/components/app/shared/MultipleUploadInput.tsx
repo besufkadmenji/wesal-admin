@@ -1,5 +1,5 @@
-import UploadIcon from "@/assets/icons/app/upload.alt.svg";
 import UploadButtonIcon from "@/assets/icons/app/upload.svg";
+import { CloudUpload } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
@@ -46,7 +46,11 @@ export const MultipleUploadInput = ({
             <input {...getInputProps()} />
 
             <div className="relative z-10 grid h-full auto-rows-max grid-cols-1 content-center justify-items-center gap-4">
-              <UploadIcon className="size-10" />
+              <CloudUpload
+                aria-hidden
+                className="text-primary size-10 dark:text-white"
+                strokeWidth={1.5}
+              />
               <div className="grid justify-items-center gap-2">
                 <p className="text-secondary text-sm leading-5 font-normal">
                   {dict.common.documents.attachDocuments}
