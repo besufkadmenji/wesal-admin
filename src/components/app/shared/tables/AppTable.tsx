@@ -13,6 +13,8 @@ import {
   AppPagination,
   PaginationType,
 } from "@/components/app/shared/tables/AppPagination";
+import { EmptyState } from "@/components/app/shared/states/EmptyState";
+import { Inbox } from "lucide-react";
 
 export type { PaginationType } from "@/components/app/shared/tables/AppPagination";
 
@@ -122,7 +124,17 @@ export const AppTable = ({
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={rows} emptyContent={emptyContent}>
+        <TableBody
+          items={rows}
+          emptyContent={
+            // UI-10: plain empty text gets the shared inline empty state.
+            typeof emptyContent === "string" ? (
+              <EmptyState size="inline" icon={Inbox} title={emptyContent} />
+            ) : (
+              emptyContent
+            )
+          }
+        >
           {(item) => (
             <TableRow key={item.key} onClick={() => rowClick?.(item)}>
               {(columnKey) => (

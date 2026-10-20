@@ -126,6 +126,12 @@
       "deactivate_message": "Are you sure you want to deactivate this item?",
       "reason": "Reason",
       "reason_placeholder": "Enter the reason"
+    },
+    "states": {
+      "not_found_title": "Not available",
+      "not_found_message": "This item doesn't exist, was removed, or couldn't be loaded.",
+      "retry": "Try again",
+      "back_to_list": "Back to the list"
     }
   },
   "auth": {

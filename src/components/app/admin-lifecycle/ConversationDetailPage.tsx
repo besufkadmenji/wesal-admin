@@ -1,11 +1,14 @@
 "use client";
 
+import { DetailSkeleton } from "@/components/app/shared/states/DetailSkeleton";
+import { DetailUnavailable } from "@/components/app/shared/states/DetailUnavailable";
+
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { AdminLifecycleService } from "@/services/admin-lifecycle.service";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "@heroui/react";
+
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { useLang } from "@/hooks/useLang";
@@ -30,12 +33,19 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
     enabled: allowed,
   });
 
+  // UI-10: skeleton while loading; a missing or failed record is not a
+  // spinner forever.
   if (query.isLoading || !query.data) {
     return (
       <PageWrapper>
-        <div className="grid min-h-96 place-content-center">
-          <Spinner />
-        </div>
+        {query.isLoading ? (
+          <DetailSkeleton />
+        ) : (
+          <DetailUnavailable
+            onRetry={() => void query.refetch()}
+            backHref="/conversations"
+          />
+        )}
       </PageWrapper>
     );
   }
@@ -72,19 +82,10 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
           )}
         </PageBar>
         <div className="grid gap-6 py-8">
-          <ConversationDetailSummary
-            conversation={conversation}
-            lang={lang}
-          />
-          <ConversationPartiesSection
-            conversation={conversation}
-            lang={lang}
-          />
+          <ConversationDetailSummary conversation={conversation} lang={lang} />
+          <ConversationPartiesSection conversation={conversation} lang={lang} />
           <ConversationDatesSection conversation={conversation} lang={lang} />
-          <ConversationRelatedSection
-            conversation={conversation}
-            lang={lang}
-          />
+          <ConversationRelatedSection conversation={conversation} lang={lang} />
           <ConversationMessagesSection
             messages={conversation.messages}
             lang={lang}

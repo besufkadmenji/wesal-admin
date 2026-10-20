@@ -1,20 +1,20 @@
 "use client";
 
+import { DetailSkeleton } from "@/components/app/shared/states/DetailSkeleton";
+import { DetailUnavailable } from "@/components/app/shared/states/DetailUnavailable";
+
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { AdminLifecycleService } from "@/services/admin-lifecycle.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { ContractResolution } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
-import {
-  ContractDetail,
-  contractDetailCopy,
-} from "./contract-detail-helpers";
+import { ContractDetail, contractDetailCopy } from "./contract-detail-helpers";
 import { ContractDetailSummary } from "./ContractDetailSummary";
 import { ContractPartiesSection } from "./ContractPartiesSection";
 import { ContractFinancialSection } from "./ContractFinancialSection";
@@ -52,12 +52,19 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
     onError: (error) => showErrorMessage(error.message),
   });
 
+  // UI-10: skeleton while loading; a missing or failed record is not a
+  // spinner forever.
   if (query.isLoading || !query.data) {
     return (
       <PageWrapper>
-        <div className="grid min-h-96 place-content-center">
-          <Spinner />
-        </div>
+        {query.isLoading ? (
+          <DetailSkeleton />
+        ) : (
+          <DetailUnavailable
+            onRetry={() => void query.refetch()}
+            backHref="/contracts"
+          />
+        )}
       </PageWrapper>
     );
   }

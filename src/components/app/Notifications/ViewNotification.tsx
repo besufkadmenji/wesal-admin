@@ -1,7 +1,7 @@
 "use client";
 
 import { PermissionGate } from "@/components/app/admin-lifecycle/PermissionGate";
-import { AppLoading } from "@/components/app/shared/AppLoading";
+import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import {
   AppForm,
   FormSection,
@@ -33,75 +33,80 @@ export const ViewNotification = () => {
 
   return (
     <PermissionGate resource="notification">
-      {!broadcast ? (
-        <AppLoading className="h-[84vh]" />
-      ) : (
-        <AppForm type={FormType.Notifications} action="view">
-          <FormSection title={copy.sections.notification_information}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormInput
-                label={copy.labels.title}
-                placeholder={copy.labels.title}
-                value={broadcast.title}
-                onChange={noop}
-                className="md:col-span-2"
-                readOnly
-              />
-              <FormAreaInput
-                label={copy.labels.content}
-                placeholder={copy.labels.content}
-                value={broadcast.message}
-                onChange={noop}
-                className="md:col-span-2"
-                readOnly
-              />
-              <FormInput
-                label={copy.labels.sent_date}
-                placeholder={copy.labels.sent_date}
-                value={new Date(broadcast.createdAt).toLocaleString(
-                  lang === "ar" ? "ar-SA" : "en-SA",
+      <DetailGate
+        isLoading={query.isLoading}
+        data={broadcast}
+        onRetry={() => void query.refetch()}
+        backHref="/notifications"
+      >
+        {(broadcast) => (
+          <AppForm type={FormType.Notifications} action="view">
+            <FormSection title={copy.sections.notification_information}>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormInput
+                  label={copy.labels.title}
+                  placeholder={copy.labels.title}
+                  value={broadcast.title}
+                  onChange={noop}
+                  className="md:col-span-2"
+                  readOnly
+                />
+                <FormAreaInput
+                  label={copy.labels.content}
+                  placeholder={copy.labels.content}
+                  value={broadcast.message}
+                  onChange={noop}
+                  className="md:col-span-2"
+                  readOnly
+                />
+                <FormInput
+                  label={copy.labels.sent_date}
+                  placeholder={copy.labels.sent_date}
+                  value={new Date(broadcast.createdAt).toLocaleString(
+                    lang === "ar" ? "ar-SA" : "en-SA",
+                  )}
+                  onChange={noop}
+                  readOnly
+                />
+                <FormInput
+                  label={copy.labels.recipients_count}
+                  placeholder={copy.labels.recipients_count}
+                  value={String(broadcast.recipientCount)}
+                  onChange={noop}
+                  readOnly
+                />
+              </div>
+            </FormSection>
+            <FormSection title={copy.sections.recipients_information}>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormInput
+                  label={copy.labels.recipient_types}
+                  placeholder={copy.labels.recipient_types}
+                  value={recipientTypesLabel(dict, broadcast.recipientTypes)}
+                  onChange={noop}
+                  readOnly
+                />
+                <FormInput
+                  label={copy.labels.audience}
+                  placeholder={copy.labels.audience}
+                  value={dict.notifications_page.audience[broadcast.audience]}
+                  onChange={noop}
+                  readOnly
+                />
+                {broadcast.recipients && broadcast.recipients.length > 0 && (
+                  <div className="flex flex-wrap gap-2 md:col-span-2">
+                    {broadcast.recipients.map((recipient) => (
+                      <Chip key={recipient.id} variant="flat">
+                        {recipient.name ?? recipient.id}
+                      </Chip>
+                    ))}
+                  </div>
                 )}
-                onChange={noop}
-                readOnly
-              />
-              <FormInput
-                label={copy.labels.recipients_count}
-                placeholder={copy.labels.recipients_count}
-                value={String(broadcast.recipientCount)}
-                onChange={noop}
-                readOnly
-              />
-            </div>
-          </FormSection>
-          <FormSection title={copy.sections.recipients_information}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormInput
-                label={copy.labels.recipient_types}
-                placeholder={copy.labels.recipient_types}
-                value={recipientTypesLabel(dict, broadcast.recipientTypes)}
-                onChange={noop}
-                readOnly
-              />
-              <FormInput
-                label={copy.labels.audience}
-                placeholder={copy.labels.audience}
-                value={dict.notifications_page.audience[broadcast.audience]}
-                onChange={noop}
-                readOnly
-              />
-              {broadcast.recipients && broadcast.recipients.length > 0 && (
-                <div className="flex flex-wrap gap-2 md:col-span-2">
-                  {broadcast.recipients.map((recipient) => (
-                    <Chip key={recipient.id} variant="flat">
-                      {recipient.name ?? recipient.id}
-                    </Chip>
-                  ))}
-                </div>
-              )}
-            </div>
-          </FormSection>
-        </AppForm>
-      )}
+              </div>
+            </FormSection>
+          </AppForm>
+        )}
+      </DetailGate>
     </PermissionGate>
   );
 };

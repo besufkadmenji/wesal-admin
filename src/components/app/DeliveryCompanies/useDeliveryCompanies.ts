@@ -44,6 +44,7 @@ export const useDeliveryCompanyById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["deliveryCompany", id],
     queryFn: () => DeliveryCompanyService.deliveryCompany(id!),
@@ -55,5 +56,6 @@ export const useDeliveryCompanyById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
   };
 };

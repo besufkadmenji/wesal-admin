@@ -1,4 +1,5 @@
-import NoProductIcon from "@/assets/icons/app/no.product.svg";
+import { EmptyState } from "@/components/app/shared/states/EmptyState";
+import { Inbox } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 
 export enum NoDataType {
@@ -42,12 +43,5 @@ export const NoData = ({ type }: { type: NoDataType }) => {
     [NoDataType.Providers]: dict.noData.providers,
   };
 
-  return (
-    <div className="grid auto-rows-max items-center justify-items-center gap-2 pt-24">
-      <NoProductIcon className="size-16 md:size-20 lg:size-28" />
-      <p className="text-subTitle dark:text-dark-light-gray text-center text-sm leading-8 md:text-lg lg:text-xl">
-        {messageMap[type]}
-      </p>
-    </div>
-  );
+  return <EmptyState icon={Inbox} title={messageMap[type]} />;
 };

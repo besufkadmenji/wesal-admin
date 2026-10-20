@@ -39,6 +39,7 @@ export const useAdminById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["admin", id],
     queryFn: () => AdminService.admin(id!),
@@ -50,5 +51,6 @@ export const useAdminById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
   };
 };

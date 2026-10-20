@@ -13,7 +13,7 @@ import { useLang } from "@/hooks/useLang";
 import GoogleMapReact from "google-map-react";
 import moment from "moment";
 import { useQueryState } from "nuqs";
-import { AppLoading } from "../../shared/AppLoading";
+import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { useProvider } from "../useProvider";
@@ -45,261 +45,283 @@ export const ProviderDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: provider } = useProvider(id);
+  const { data: provider, isLoading, refetch } = useProvider(id);
   const [activateProvider, setActivateProvider] =
     useQueryState("activateProvider");
   const [deactivateProvider, setDeactivateProvider] =
     useQueryState("deactivateProvider");
   console.log("Category Data:", provider, id);
-  return !provider ? (
-    <AppLoading className="h-[84vh]" />
-  ) : (
-    <>
-      <div className="grid grid-cols-1">
-        <AppForm
-          type={FormType.Providers}
-          action="view"
-          titleChildren={
-            <AppSwitch
-              isSelected={provider.status === "ACTIVE"}
-              onValueChange={(value) => {
-                if (value) {
-                  setActivateProvider(provider.id, { history: "push" });
-                } else {
-                  setDeactivateProvider(provider.id, {
-                    history: "push",
-                  });
-                }
-              }}
-              // isDisabled={provider.status === "DELETED"}
-            />
-          }
-        >
-          <FormSection title={dict.view_provider.title}>
-            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
-              <FormInput
-                label={dict.view_provider_form.labels.name}
-                placeholder={dict.view_provider_form.placeholders.name}
-                value={provider.name ?? "-"}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-              <FormInput
-                label={dict.view_provider_form.labels.phone_number}
-                placeholder={dict.view_provider_form.placeholders.phone_number}
-                value={provider.phone}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-
-              <FormInput
-                label={dict.view_provider_form.labels.email}
-                placeholder={dict.view_provider_form.labels.email}
-                value={provider.email}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-            </div>
-          </FormSection>
-
-          <FormSection
-            title={dict.view_provider_form.sections.business_information}
-          >
-            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
-              <FormInput
-                label={dict.view_provider_form.labels.commercial_name}
-                placeholder={
-                  dict.view_provider_form.placeholders.commercial_name
-                }
-                value={provider.commercialName ?? "-"}
-                onChange={(value: string): void => {}}
-                className="col-span-2"
-                readOnly
-              />
-              <FormInput
-                label={
-                  dict.view_provider_form.labels.commercial_registration_number
-                }
-                placeholder={
-                  dict.view_provider_form.placeholders
-                    .commercial_registration_number
-                }
-                value={provider.commercialRegistrationNumber ?? "-"}
-                onChange={(value: string): void => {}}
-                className="col-span-2"
-                readOnly
-              />
-              <FormInput
-                label={dict.view_provider_form.labels.badge}
-                placeholder={dict.view_provider_form.labels.badge}
-                value={
-                  provider.badge
-                    ? dict.badges_page.tiers[provider.badge]
-                    : provider.isNewlyAdded
-                      ? dict.view_provider_form.newly_added
-                      : dict.view_provider_form.no_badge
-                }
-                onChange={(): void => {}}
-                className="col-span-2"
-                readOnly
-              />
-              <FormInput
-                label={dict.view_provider_form.labels.city}
-                placeholder={dict.view_provider_form.placeholders.city}
-                value={
-                  provider.city
-                    ? lng === "ar"
-                      ? provider.city.nameAr
-                      : provider.city.nameEn
-                    : "-"
-                }
-                onChange={(value: string): void => {}}
-                className="col-span-2"
-                readOnly
-              />
-              <FormInput
-                label={dict.view_provider_form.labels.address}
-                placeholder={dict.view_provider_form.placeholders.address}
-                value={provider.address ?? "-"}
-                onChange={(value: string): void => {}}
-                className="col-span-2"
-                readOnly
-              />
-              {provider.categories && provider.categories.length > 0 && (
-                <div className="col-span-2 grid gap-2">
-                  <p className="text-primary text-sm font-medium dark:text-white">
-                    {dict.view_provider_form.labels.categories}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {provider.categories.map((cat) => (
-                      <span
-                        key={cat.id}
-                        className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
-                      >
-                        {lng === "ar" ? cat.nameAr : cat.nameEn}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="col-span-2 grid h-40 grid-cols-1">
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: process.env.NEXT_PUBLIC_MAPS_API_KEY || "",
+  return (
+    <DetailGate
+      isLoading={isLoading}
+      data={provider}
+      onRetry={() => void refetch()}
+      backHref="/providers"
+    >
+      {(provider) => (
+        <>
+          <div className="grid grid-cols-1">
+            <AppForm
+              type={FormType.Providers}
+              action="view"
+              titleChildren={
+                <AppSwitch
+                  isSelected={provider.status === "ACTIVE"}
+                  onValueChange={(value) => {
+                    if (value) {
+                      setActivateProvider(provider.id, { history: "push" });
+                    } else {
+                      setDeactivateProvider(provider.id, {
+                        history: "push",
+                      });
+                    }
                   }}
-                  center={{
-                    lat: provider.latitude ?? defaultProps.center.lat,
-                    lng: provider.longitude ?? defaultProps.center.lng,
-                  }}
-                  zoom={defaultProps.zoom}
-                  options={{
-                    fullscreenControl: false, // disables the fullscreen button
-                    mapTypeControl: false, // optional: removes the map/satellite switch
-                    streetViewControl: false, // optional
-                    zoomControl: false, // optional
-                    disableDefaultUI: true,
-                    draggable: false,
-                  }}
-                  yesIWantToUseGoogleMapApiInternals
-                  onGoogleApiLoaded={({ map, maps }) => {}}
-                >
-                  {provider.latitude && provider.longitude && (
-                    <Marker lat={provider.latitude} lng={provider.longitude} />
-                  )}
-                </GoogleMapReact>
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                <p className="text-primary font-medium dark:text-white">
-                  {dict.view_provider_form.labels.commercial_registration_image}
-                </p>
-                <div className="relative mt-2 h-40 w-60">
-                  <div className="grid justify-center p-4">
-                    {provider.commercialRegistrationFilename ? (
-                      <DocumentDisplay
-                        documentPath={`${dataUrl}/files/${provider.commercialRegistrationFilename}`}
-                      />
-                    ) : (
-                      <p>-</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FormSection>
-
-          <FormSection
-            title={dict.view_provider_form.sections.banking_information}
-          >
-            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
-              <FormInput
-                label={dict.view_provider_form.labels.bank_name}
-                placeholder={dict.view_provider_form.placeholders.bank_name}
-                value={provider.bankName ?? "-"}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-              <FormInput
-                label={dict.view_provider_form.labels.iban_number}
-                placeholder={dict.view_provider_form.placeholders.iban_number}
-                value={provider.ibanNumber ?? "-"}
-                onChange={(value: string): void => {}}
-                readOnly
-              />
-            </div>
-          </FormSection>
-
-          <FormSection title={dict.view_provider.contract_section_title}>
-            {provider.signedContract ? (
-              <div className="grid grid-cols-1 gap-6">
-                <ProviderSignature
-                  label={dict.view_provider.service_provider_signature}
-                  image={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.signedContract.serviceProviderSignature}`}
+                  // isDisabled={provider.status === "DELETED"}
                 />
-                {provider.signedContract.platformManagerSignature && (
-                  <ProviderSignature
-                    label={dict.view_provider.platform_manager_signature}
-                    image={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.signedContract.platformManagerSignature}`}
+              }
+            >
+              <FormSection title={dict.view_provider.title}>
+                <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+                  <FormInput
+                    label={dict.view_provider_form.labels.name}
+                    placeholder={dict.view_provider_form.placeholders.name}
+                    value={provider.name ?? "-"}
+                    onChange={(value: string): void => {}}
+                    readOnly
                   />
-                )}
-                <div className="mt-10 grid grid-cols-2 items-start">
-                  <div className="grid grid-cols-1 justify-items-start gap-2">
-                    <p className="text-primary font-medium dark:text-white">
-                      {dict.view_provider.contract_status}
-                    </p>
-                    <StatusChip
-                      tone={
-                        SIGNED_CONTRACT_TONES[provider.signedContract.status]
-                      }
-                      label={
-                        dict.contract_status[
-                          CONTRACT_STATUS_KEYS[provider.signedContract.status]
-                        ]
-                      }
-                    />
+                  <FormInput
+                    label={dict.view_provider_form.labels.phone_number}
+                    placeholder={
+                      dict.view_provider_form.placeholders.phone_number
+                    }
+                    value={provider.phone}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+
+                  <FormInput
+                    label={dict.view_provider_form.labels.email}
+                    placeholder={dict.view_provider_form.labels.email}
+                    value={provider.email}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+                </div>
+              </FormSection>
+
+              <FormSection
+                title={dict.view_provider_form.sections.business_information}
+              >
+                <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+                  <FormInput
+                    label={dict.view_provider_form.labels.commercial_name}
+                    placeholder={
+                      dict.view_provider_form.placeholders.commercial_name
+                    }
+                    value={provider.commercialName ?? "-"}
+                    onChange={(value: string): void => {}}
+                    className="col-span-2"
+                    readOnly
+                  />
+                  <FormInput
+                    label={
+                      dict.view_provider_form.labels
+                        .commercial_registration_number
+                    }
+                    placeholder={
+                      dict.view_provider_form.placeholders
+                        .commercial_registration_number
+                    }
+                    value={provider.commercialRegistrationNumber ?? "-"}
+                    onChange={(value: string): void => {}}
+                    className="col-span-2"
+                    readOnly
+                  />
+                  <FormInput
+                    label={dict.view_provider_form.labels.badge}
+                    placeholder={dict.view_provider_form.labels.badge}
+                    value={
+                      provider.badge
+                        ? dict.badges_page.tiers[provider.badge]
+                        : provider.isNewlyAdded
+                          ? dict.view_provider_form.newly_added
+                          : dict.view_provider_form.no_badge
+                    }
+                    onChange={(): void => {}}
+                    className="col-span-2"
+                    readOnly
+                  />
+                  <FormInput
+                    label={dict.view_provider_form.labels.city}
+                    placeholder={dict.view_provider_form.placeholders.city}
+                    value={
+                      provider.city
+                        ? lng === "ar"
+                          ? provider.city.nameAr
+                          : provider.city.nameEn
+                        : "-"
+                    }
+                    onChange={(value: string): void => {}}
+                    className="col-span-2"
+                    readOnly
+                  />
+                  <FormInput
+                    label={dict.view_provider_form.labels.address}
+                    placeholder={dict.view_provider_form.placeholders.address}
+                    value={provider.address ?? "-"}
+                    onChange={(value: string): void => {}}
+                    className="col-span-2"
+                    readOnly
+                  />
+                  {provider.categories && provider.categories.length > 0 && (
+                    <div className="col-span-2 grid gap-2">
+                      <p className="text-primary text-sm font-medium dark:text-white">
+                        {dict.view_provider_form.labels.categories}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {provider.categories.map((cat) => (
+                          <span
+                            key={cat.id}
+                            className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
+                          >
+                            {lng === "ar" ? cat.nameAr : cat.nameEn}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="col-span-2 grid h-40 grid-cols-1">
+                    <GoogleMapReact
+                      bootstrapURLKeys={{
+                        key: process.env.NEXT_PUBLIC_MAPS_API_KEY || "",
+                      }}
+                      center={{
+                        lat: provider.latitude ?? defaultProps.center.lat,
+                        lng: provider.longitude ?? defaultProps.center.lng,
+                      }}
+                      zoom={defaultProps.zoom}
+                      options={{
+                        fullscreenControl: false, // disables the fullscreen button
+                        mapTypeControl: false, // optional: removes the map/satellite switch
+                        streetViewControl: false, // optional
+                        zoomControl: false, // optional
+                        disableDefaultUI: true,
+                        draggable: false,
+                      }}
+                      yesIWantToUseGoogleMapApiInternals
+                      onGoogleApiLoaded={({ map, maps }) => {}}
+                    >
+                      {provider.latitude && provider.longitude && (
+                        <Marker
+                          lat={provider.latitude}
+                          lng={provider.longitude}
+                        />
+                      )}
+                    </GoogleMapReact>
                   </div>
-                  <div className="grid grid-cols-1 justify-items-start gap-2">
+                  <div className="grid grid-cols-1 gap-2">
                     <p className="text-primary font-medium dark:text-white">
-                      {dict.view_provider.contract_signed_at}
+                      {
+                        dict.view_provider_form.labels
+                          .commercial_registration_image
+                      }
                     </p>
-                    <div className="text-primary font-semibold dark:text-white">
-                      {moment
-                        .unix(
-                          Number(provider.signedContract.contractSignedAt) /
-                            1000,
-                        )
-                        .format("MMM D, YYYY hh:mm A")}
+                    <div className="relative mt-2 h-40 w-60">
+                      <div className="grid justify-center p-4">
+                        {provider.commercialRegistrationFilename ? (
+                          <DocumentDisplay
+                            documentPath={`${dataUrl}/files/${provider.commercialRegistrationFilename}`}
+                          />
+                        ) : (
+                          <p>-</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div>{dict.view_provider.no_contract_signed_yet}</div>
-            )}
-          </FormSection>
-        </AppForm>
-      </div>
-      <ActivateProvider />
-      <DeactivateProvider />
-    </>
+              </FormSection>
+
+              <FormSection
+                title={dict.view_provider_form.sections.banking_information}
+              >
+                <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+                  <FormInput
+                    label={dict.view_provider_form.labels.bank_name}
+                    placeholder={dict.view_provider_form.placeholders.bank_name}
+                    value={provider.bankName ?? "-"}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+                  <FormInput
+                    label={dict.view_provider_form.labels.iban_number}
+                    placeholder={
+                      dict.view_provider_form.placeholders.iban_number
+                    }
+                    value={provider.ibanNumber ?? "-"}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+                </div>
+              </FormSection>
+
+              <FormSection title={dict.view_provider.contract_section_title}>
+                {provider.signedContract ? (
+                  <div className="grid grid-cols-1 gap-6">
+                    <ProviderSignature
+                      label={dict.view_provider.service_provider_signature}
+                      image={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.signedContract.serviceProviderSignature}`}
+                    />
+                    {provider.signedContract.platformManagerSignature && (
+                      <ProviderSignature
+                        label={dict.view_provider.platform_manager_signature}
+                        image={`${process.env.NEXT_PUBLIC_DATA}/files/${provider.signedContract.platformManagerSignature}`}
+                      />
+                    )}
+                    <div className="mt-10 grid grid-cols-2 items-start">
+                      <div className="grid grid-cols-1 justify-items-start gap-2">
+                        <p className="text-primary font-medium dark:text-white">
+                          {dict.view_provider.contract_status}
+                        </p>
+                        <StatusChip
+                          tone={
+                            SIGNED_CONTRACT_TONES[
+                              provider.signedContract.status
+                            ]
+                          }
+                          label={
+                            dict.contract_status[
+                              CONTRACT_STATUS_KEYS[
+                                provider.signedContract.status
+                              ]
+                            ]
+                          }
+                        />
+                      </div>
+                      <div className="grid grid-cols-1 justify-items-start gap-2">
+                        <p className="text-primary font-medium dark:text-white">
+                          {dict.view_provider.contract_signed_at}
+                        </p>
+                        <div className="text-primary font-semibold dark:text-white">
+                          {moment
+                            .unix(
+                              Number(provider.signedContract.contractSignedAt) /
+                                1000,
+                            )
+                            .format("MMM D, YYYY hh:mm A")}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>{dict.view_provider.no_contract_signed_yet}</div>
+                )}
+              </FormSection>
+            </AppForm>
+          </div>
+          <ActivateProvider />
+          <DeactivateProvider />
+        </>
+      )}
+    </DetailGate>
   );
 };
