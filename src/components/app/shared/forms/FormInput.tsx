@@ -1,4 +1,4 @@
-import { cairo } from "@/assets/fonts/cairo";
+import { norsal } from "@/assets/fonts/norsal";
 import { sar } from "@/assets/fonts/sar";
 import { useLang } from "@/hooks/useLang";
 import { Button, cn, Input } from "@heroui/react";
@@ -64,7 +64,7 @@ export const FormInput = ({
         onValueChange={onChange}
         variant="bordered"
         size="lg"
-        className={twMerge(cairo.className, className)}
+        className={twMerge(norsal.className, className)}
         errorMessage={errorMessage}
         isInvalid={!!errorMessage}
         classNames={{

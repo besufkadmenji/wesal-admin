@@ -3,14 +3,14 @@
 import { ReactNode } from "react";
 import { Sidebar } from "@/components/app/shared/Sidebar";
 import { Header } from "./Header";
-import { cairo } from "@/assets/fonts/cairo";
+import { norsal } from "@/assets/fonts/norsal";
 import { twMerge } from "tailwind-merge";
 
 export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={twMerge(
-        `${cairo.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]`,
+        `${norsal.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]`,
       )}
     >
       <Sidebar />

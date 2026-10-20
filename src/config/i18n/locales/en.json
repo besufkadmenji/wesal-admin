@@ -126,7 +126,16 @@
     "sign_in": "Sign in",
     "password_reset_success": "Your password has been reset successfully.",
     "reset_code_sent": "A reset code has been sent to your email. Please check your inbox.",
-    "reset_code_resent": "Reset code has been resent successfully."
+    "reset_code_resent": "Reset code has been resent successfully.",
+    "sign_in_subtitle": "Sign in to manage the Wesal platform.",
+    "brand_title": "Wesal administration",
+    "brand_tagline": "Listings, contracts, payments and people, managed in one place.",
+    "back_to_sign_in": "Back to sign in",
+    "art_contracts": "Completed contracts",
+    "art_this_month": "this month",
+    "art_payment": "Payment received",
+    "art_provider": "New provider request",
+    "art_review": "Review"
   },
   "forgot_password": {
     "title": "Reset Password",
@@ -501,7 +510,8 @@
     },
     "buttons": {
       "send_verification_code": "Send Verification Code"
-    }
+    },
+    "description": "Enter your account email and we'll send you a verification code."
   },
   "admin_verify_code_form": {
     "title": "Verification Code",
@@ -529,7 +539,8 @@
     },
     "buttons": {
       "sign_in": "Sign in"
-    }
+    },
+    "description": "Choose a new password for your account."
   },
   "system_managers_page": {
     "title": "System Managers Management",
