@@ -231,7 +231,15 @@
     "section_configuration": "Configuration",
     "menu": "Menu",
     "brand_name": "Wesal",
-    "brand_subtitle": "Admin dashboard"
+    "brand_subtitle": "Admin dashboard",
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "details": "Details",
+      "add": "Add",
+      "edit": "Edit"
+    },
+    "sidebar_collapse": "Collapse sidebar",
+    "sidebar_expand": "Expand sidebar"
   },
   "users_page": {
     "title": "Users Management",

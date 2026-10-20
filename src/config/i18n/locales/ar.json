@@ -231,7 +231,15 @@
     "section_configuration": "الإعدادات العامة",
     "menu": "القائمة",
     "brand_name": "وصال",
-    "brand_subtitle": "لوحة الإدارة"
+    "brand_subtitle": "لوحة الإدارة",
+    "breadcrumb": {
+      "label": "مسار التنقل",
+      "details": "التفاصيل",
+      "add": "إضافة",
+      "edit": "تعديل"
+    },
+    "sidebar_collapse": "طي القائمة الجانبية",
+    "sidebar_expand": "توسيع القائمة الجانبية"
   },
   "users_page": {
     "title": "إدارة المستخدمين",

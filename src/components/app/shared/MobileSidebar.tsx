@@ -40,7 +40,7 @@ export const MobileSidebar = () => {
       >
         <DrawerContent className="p-0!">
           <DrawerBody className="p-0">
-            <Sidebar className="grid h-dvh border-0" />
+            <Sidebar className="grid h-dvh border-0" collapsible={false} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
