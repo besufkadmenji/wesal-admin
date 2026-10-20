@@ -2017,7 +2017,7 @@
   },
   "deactivate_category_confirmation": {
     "title": "Deactivate Category",
-    "description": "Are you sure you want to deactivate this category? It can't be deactivated while service providers are linked or contracts are unfinished. Its service providers will be notified."
+    "description": "Are you sure you want to deactivate this category? Its ads will be hidden from the website, and no new ads, chats or contracts can start in it. It can't be deactivated while contracts in it are unfinished. Its service providers will be notified."
   },
   "activate_city_confirmation": {
     "title": "Activate City",
