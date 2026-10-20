@@ -28,6 +28,10 @@ export const SIGNED_CONTRACT_BY_ID: TypedDocumentNode<
       serviceProviderSignature
       status
       terminationReason
+      terminationRequestedAt
+      terminationRequestReason
+      terminationRejectedAt
+      terminationRejectionReason
       updatedAt
       provider {
         address

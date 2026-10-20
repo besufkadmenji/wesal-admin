@@ -316,6 +316,8 @@ const ContactStatus = ({ status }: { status: SignedContractStatus }) => {
     [SignedContractStatus.TerminatedByProvider]:
       dict.contract_status.terminatedByProvider,
     [SignedContractStatus.Pending]: dict.contract_status.waitingForResigning,
+    [SignedContractStatus.TerminationRequested]:
+      dict.contract_status.terminationRequested,
   };
   const statusClassMap = {
     [SignedContractStatus.Active]: "text-green-600 bg-green-100",
@@ -323,6 +325,8 @@ const ContactStatus = ({ status }: { status: SignedContractStatus }) => {
     [SignedContractStatus.TerminatedByAdmin]: "text-red-600 bg-red-100",
     [SignedContractStatus.TerminatedByProvider]: "text-red-600 bg-red-100",
     [SignedContractStatus.Pending]: "text-gray-600 bg-gray-100",
+    [SignedContractStatus.TerminationRequested]:
+      "text-orange-700 bg-orange-100",
   };
   return (
     <div

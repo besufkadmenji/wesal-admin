@@ -1,5 +1,5 @@
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
-import { ContractStatus } from "@/gql/graphql";
+import { ContractStatus, SignedContractStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import {
@@ -7,6 +7,7 @@ import {
   ChevronRight,
   CircleCheck,
   FileWarning,
+  FileX2,
   Gavel,
   MessageSquareWarning,
   UserPlus,
@@ -60,6 +61,14 @@ export const AttentionPanel = ({ className }: { className?: string }) => {
       href: `/contracts?status=${ContractStatus.Disputed}`,
       Icon: Gavel,
       count: data?.disputedContracts,
+    },
+    {
+      // S4-58: provider e-contract termination requests (BRD 4.3.7.3).
+      key: "terminations",
+      label: copy.termination_requests,
+      href: `/providers/e-contracts?status=${SignedContractStatus.TerminationRequested}`,
+      Icon: FileX2,
+      count: data?.terminationRequests,
     },
   ];
   const visible = rows.filter((row) => row.count != null);

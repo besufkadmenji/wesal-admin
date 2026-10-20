@@ -115,7 +115,8 @@
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
-    "waitingForResigning": "في انتظار الاستقالة"
+    "waitingForResigning": "في انتظار الاستقالة",
+    "terminationRequested": "طلب فسخ"
   },
   "auth": {
     "welcome_back": "أهلا بعودتك من جديد",
@@ -505,6 +506,22 @@
       "subtitle": "هل أنت متأكد من رغبتك في إعادة تفعيل هذا المزود؟ سيحتاج إلى توقيع عقد جديد قبل استئناف أنشطته.",
       "confirm": "إعادة تفعيل",
       "cancel": "إلغاء"
+    },
+    "terminationRequest": {
+      "title": "طلب فسخ عقد من مقدم الخدمة",
+      "requestedOn": "تاريخ الطلب {date}",
+      "reason": "سبب مقدم الخدمة",
+      "hint": "يبقى الحساب نشطًا حتى تتخذ قرارك. الموافقة تحذف الحساب، ولا تتم في حال وجود تعاقدات جارية لمقدم الخدمة.",
+      "approve": "الموافقة على الفسخ",
+      "reject": "رفض الطلب",
+      "approveTitle": "هل توافق على فسخ العقد؟",
+      "approveMessage": "سيتم فسخ العقد الإلكتروني وحذف حساب مقدم الخدمة وإرسال بريد إلكتروني له. لا يمكن التراجع عن ذلك.",
+      "rejectTitle": "رفض طلب فسخ العقد",
+      "rejectMessage": "سيظهر السبب لمقدم الخدمة في إشعار، ويبقى العقد ساريًا.",
+      "rejectReasonRequired": "يرجى إدخال سبب رفض الطلب",
+      "approved": "تم فسخ العقد وحذف حساب مقدم الخدمة",
+      "rejected": "تم رفض طلب فسخ العقد",
+      "rejectPlaceholder": "وضّح سبب رفض الطلب"
     }
   },
   "admin_forgot_password_form": {
@@ -2105,7 +2122,8 @@
       "cancellation_requests": "طلبات الإلغاء",
       "disputed_contracts": "العقود المتنازع عليها",
       "all_clear": "لا توجد عناصر معلقة",
-      "nothing_to_show": "لا يوجد ما يُعرض حسب صلاحياتك"
+      "nothing_to_show": "لا يوجد ما يُعرض حسب صلاحياتك",
+      "termination_requests": "طلبات فسخ العقود الإلكترونية"
     }
   },
   "contract_status": {
@@ -2114,7 +2132,9 @@
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
     "terminatedByProvider": "تم الإنهاء من قبل مقدم الخدمة",
-    "waitingForResigning": "في انتظار الاستقالة"
+    "waitingForResigning": "في انتظار الاستقالة",
+    "terminationRequested": "طلب فسخ",
+    "label": "حالة العقد"
   },
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك",

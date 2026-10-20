@@ -18,6 +18,7 @@ describe("AttentionPanel (UI-14)", () => {
       openComplaints: 5,
       cancellationRequests: 0,
       disputedContracts: 1,
+      terminationRequests: 3,
     });
     renderPage(<AttentionPanel />);
 
@@ -37,6 +38,14 @@ describe("AttentionPanel (UI-14)", () => {
     expect(
       screen.getByRole("link", { name: new RegExp(copy.disputed_contracts) }),
     ).toHaveAttribute("href", "/contracts?status=DISPUTED");
+    const terminations = screen.getByRole("link", {
+      name: new RegExp(copy.termination_requests),
+    });
+    expect(terminations).toHaveAttribute(
+      "href",
+      "/providers/e-contracts?status=TERMINATION_REQUESTED",
+    );
+    expect(terminations).toHaveTextContent("3");
     expect(screen.queryByText(copy.all_clear)).not.toBeInTheDocument();
   });
 
@@ -46,6 +55,7 @@ describe("AttentionPanel (UI-14)", () => {
       openComplaints: 0,
       cancellationRequests: null,
       disputedContracts: null,
+      terminationRequests: null,
     });
     renderPage(<AttentionPanel />);
 
@@ -62,6 +72,7 @@ describe("AttentionPanel (UI-14)", () => {
       openComplaints: null,
       cancellationRequests: null,
       disputedContracts: null,
+      terminationRequests: null,
     });
     renderPage(<AttentionPanel />);
 

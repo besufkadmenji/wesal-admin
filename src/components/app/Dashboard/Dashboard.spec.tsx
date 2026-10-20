@@ -112,6 +112,7 @@ describe("Dashboard insights (UI-14)", () => {
       openComplaints: 0,
       cancellationRequests: 0,
       disputedContracts: 1,
+      terminationRequests: 0,
     });
   });
 

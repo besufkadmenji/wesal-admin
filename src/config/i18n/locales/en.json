@@ -115,7 +115,8 @@
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
-    "waitingForResigning": "Waiting for Resigning"
+    "waitingForResigning": "Waiting for Resigning",
+    "terminationRequested": "Termination requested"
   },
   "auth": {
     "welcome_back": "Welcome back again",
@@ -505,6 +506,22 @@
       "subtitle": "Are you sure you want to reactivate this provider? They will need to sign a new contract before resuming activities.",
       "confirm": "Reactivate",
       "cancel": "Cancel"
+    },
+    "terminationRequest": {
+      "title": "Termination request from the service provider",
+      "requestedOn": "Requested on {date}",
+      "reason": "Provider's reason",
+      "hint": "The account stays active until you decide. Approval deletes the account and is refused while the provider has ongoing contracts.",
+      "approve": "Approve termination",
+      "reject": "Reject request",
+      "approveTitle": "Approve the termination?",
+      "approveMessage": "The e-contract will be terminated and the provider's account deleted, and the provider will be emailed. This can't be undone.",
+      "rejectTitle": "Reject the termination request",
+      "rejectMessage": "The provider will see your reason in a notification, and the contract stays active.",
+      "rejectReasonRequired": "Please enter the reason for rejecting the request",
+      "approved": "The contract was terminated and the provider's account deleted",
+      "rejected": "The termination request was rejected",
+      "rejectPlaceholder": "Explain why the request is rejected"
     }
   },
   "admin_forgot_password_form": {
@@ -2105,7 +2122,8 @@
       "cancellation_requests": "Cancellation requests",
       "disputed_contracts": "Disputed contracts",
       "all_clear": "All caught up",
-      "nothing_to_show": "Nothing to show for your permissions"
+      "nothing_to_show": "Nothing to show for your permissions",
+      "termination_requests": "E-contract termination requests"
     }
   },
   "contract_status": {
@@ -2114,7 +2132,9 @@
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
     "terminatedByProvider": "Terminated by Provider",
-    "waitingForResigning": "Waiting for Resigning"
+    "waitingForResigning": "Waiting for Resigning",
+    "terminationRequested": "Termination requested",
+    "label": "Contract status"
   },
   "noData": {
     "subscriberRequests": "No subscription requests found",

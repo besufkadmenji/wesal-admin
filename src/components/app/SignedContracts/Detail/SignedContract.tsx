@@ -18,6 +18,7 @@ import { CancelContract } from "./CancelContact";
 import { FormInput } from "./FormInput";
 import { ReactivateProvider } from "./ReactivateProvider";
 import { SignatureInput } from "./SignatureInput";
+import { TerminationRequestCard } from "./TerminationRequestCard";
 import { useContractStore } from "./useForm";
 
 const defaultProps = {
@@ -59,6 +60,11 @@ export const SignedContract = ({ id }: { id: string }) => {
 
   const isTerminatedByAdmin =
     signedContract?.status === SignedContractStatus.TerminatedByAdmin;
+  // S4-58: a provider's termination needs no admin action once approved.
+  const isTerminatedByProvider =
+    signedContract?.status === SignedContractStatus.TerminatedByProvider;
+  const isTerminationRequested =
+    signedContract?.status === SignedContractStatus.TerminationRequested;
 
   return (
     provider && (
@@ -67,6 +73,13 @@ export const SignedContract = ({ id }: { id: string }) => {
           <h1 className="text-2xl font-semibold text-black">
             {dict.contract.title}
           </h1>
+          {isTerminationRequested && (
+            <TerminationRequestCard
+              providerId={provider.id}
+              requestedAt={signedContract?.terminationRequestedAt}
+              reason={signedContract?.terminationRequestReason}
+            />
+          )}
           <div className="grid grid-cols-1 gap-6" ref={contractRef}>
             <div className="grid grid-cols-2 gap-4">
               <FormInput
@@ -221,7 +234,7 @@ export const SignedContract = ({ id }: { id: string }) => {
               <DownloadIcon className="size-5" />
               {dict.contract.exportPDF}
             </Button>
-            {isTerminatedByAdmin ? (
+            {isTerminatedByProvider ? null : isTerminatedByAdmin ? (
               <Button
                 className="bg-green-main border-green-main h-12.5 rounded-[20px] px-24 font-semibold text-white!"
                 onPress={() => {

@@ -14,6 +14,7 @@ export const statusMap = (dict: Dictionary) => ({
   [SignedContractStatus.TerminatedByAdmin]: dict.common.terminatedByAdmin,
   [SignedContractStatus.TerminatedByProvider]: dict.common.terminatedByUser,
   [SignedContractStatus.Pending]: dict.common.waitingForResigning,
+  [SignedContractStatus.TerminationRequested]: dict.common.terminationRequested,
 });
 export const renderCell = (
   row: RowType,
@@ -34,6 +35,7 @@ export const renderCell = (
       [SignedContractStatus.TerminatedByAdmin]: "purple",
       [SignedContractStatus.TerminatedByProvider]: "orange",
       [SignedContractStatus.Pending]: "warning",
+      [SignedContractStatus.TerminationRequested]: "orange",
     };
     return (
       <StatusChip

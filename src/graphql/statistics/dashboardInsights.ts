@@ -48,6 +48,7 @@ export const ADMIN_ATTENTION_COUNTS_QUERY = gql`
       openComplaints
       cancellationRequests
       disputedContracts
+      terminationRequests
     }
   }
 `;

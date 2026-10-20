@@ -37,6 +37,10 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
         serviceProviderSignature
         status
         terminationReason
+        terminationRequestedAt
+        terminationRequestReason
+        terminationRejectedAt
+        terminationRejectionReason
         updatedAt
         provider {
           address
