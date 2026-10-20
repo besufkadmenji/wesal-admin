@@ -10,7 +10,7 @@ export const ListingImages = ({ listing }: { listing: ListingDetails }) => {
   const [showAll, setShowAll] = useState(false);
   const images = listing.photos || [];
   return (
-    <div className="grid grid-cols-1 gap-3 rounded-[20px] bg-white">
+    <div className="grid grid-cols-1 gap-3 rounded-[20px]">
       <div className="relative aspect-584/468 w-full overflow-hidden rounded-[24px]">
         <Image
           src={`${dataUrl}/files/${images[image].filename}`}

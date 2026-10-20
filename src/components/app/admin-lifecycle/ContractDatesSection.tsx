@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
   ContractDetail,
@@ -27,8 +28,7 @@ export const ContractDatesSection = ({
     return null;
   }
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.dates}</h2>
+    <DetailCard title={copy.dates}>
       <div className="grid gap-4 md:grid-cols-2">
         {acceptance && (
           <LifecycleDetailField
@@ -71,6 +71,6 @@ export const ContractDatesSection = ({
           />
         )}
       </div>
-    </section>
+    </DetailCard>
   );
 };

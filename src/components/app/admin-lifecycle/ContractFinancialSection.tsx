@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
   ContractDetail,
@@ -19,8 +20,7 @@ export const ContractFinancialSection = ({
       ? contract.deliveryCompanyNameAr
       : contract.deliveryCompanyNameEn;
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.financial}</h2>
+    <DetailCard title={copy.financial}>
       <div className="grid gap-4 md:grid-cols-2">
         <LifecycleDetailField
           label={copy.agreedPrice}
@@ -65,6 +65,6 @@ export const ContractFinancialSection = ({
           value={contract.deliveryHours ?? copy.empty}
         />
       </div>
-    </section>
+    </DetailCard>
   );
 };

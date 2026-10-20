@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleStatusBadge } from "./LifecycleStatusBadge";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
@@ -15,7 +16,7 @@ export const ConversationDetailSummary = ({
 }) => {
   const copy = conversationDetailCopy(lang);
   return (
-    <section className="grid gap-4 rounded-2xl bg-white p-6 md:grid-cols-3 dark:bg-black">
+    <DetailCard className="grid gap-4 md:grid-cols-3">
       <LifecycleDetailField
         label={copy.status}
         value={
@@ -34,6 +35,6 @@ export const ConversationDetailSummary = ({
         label={copy.feeCycle}
         value={conversation.feeCycle}
       />
-    </section>
+    </DetailCard>
   );
 };

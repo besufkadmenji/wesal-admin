@@ -6,12 +6,13 @@ import { DeactivateProvider } from "@/components/app/Providers/DeactivateProvide
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { SignedContractStatus } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
+import { StatusChip } from "@/components/app/shared/StatusChip";
+import { SIGNED_CONTRACT_TONES } from "@/components/app/SignedContracts/signedContractStatus";
+import { ProviderSignature } from "./ProviderSignature";
 import { useLang } from "@/hooks/useLang";
 import GoogleMapReact from "google-map-react";
 import moment from "moment";
-import Image from "next/image";
 import { useQueryState } from "nuqs";
-import { twMerge } from "tailwind-merge";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
@@ -30,6 +31,16 @@ const defaultProps = {
   },
   zoom: 11,
 };
+// Provider-page wording for each e-contract status (dict.contract_status).
+const CONTRACT_STATUS_KEYS = {
+  [SignedContractStatus.Active]: "active",
+  [SignedContractStatus.Expired]: "expired",
+  [SignedContractStatus.TerminatedByAdmin]: "terminatedByAdmin",
+  [SignedContractStatus.TerminatedByProvider]: "terminatedByProvider",
+  [SignedContractStatus.Pending]: "waitingForResigning",
+  [SignedContractStatus.TerminationRequested]: "terminationRequested",
+} as const;
+
 export const ProviderDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
@@ -156,7 +167,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
               />
               {provider.categories && provider.categories.length > 0 && (
                 <div className="col-span-2 grid gap-2">
-                  <p className="text-sm font-medium text-black">
+                  <p className="text-primary text-sm font-medium dark:text-white">
                     {dict.view_provider_form.labels.categories}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -198,7 +209,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                 </GoogleMapReact>
               </div>
               <div className="grid grid-cols-1 gap-2">
-                <p className="font-medium text-black">
+                <p className="text-primary font-medium dark:text-white">
                   {dict.view_provider_form.labels.commercial_registration_image}
                 </p>
                 <div className="relative mt-2 h-40 w-60">
@@ -252,16 +263,25 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                 )}
                 <div className="mt-10 grid grid-cols-2 items-start">
                   <div className="grid grid-cols-1 justify-items-start gap-2">
-                    <p className="font-medium text-black">
+                    <p className="text-primary font-medium dark:text-white">
                       {dict.view_provider.contract_status}
                     </p>
-                    <ContactStatus status={provider.signedContract.status} />
+                    <StatusChip
+                      tone={
+                        SIGNED_CONTRACT_TONES[provider.signedContract.status]
+                      }
+                      label={
+                        dict.contract_status[
+                          CONTRACT_STATUS_KEYS[provider.signedContract.status]
+                        ]
+                      }
+                    />
                   </div>
                   <div className="grid grid-cols-1 justify-items-start gap-2">
-                    <p className="font-medium text-black">
+                    <p className="text-primary font-medium dark:text-white">
                       {dict.view_provider.contract_signed_at}
                     </p>
-                    <div className="font-semibold text-black">
+                    <div className="text-primary font-semibold dark:text-white">
                       {moment
                         .unix(
                           Number(provider.signedContract.contractSignedAt) /
@@ -281,61 +301,5 @@ export const ProviderDetail = ({ id }: { id: string }) => {
       <ActivateProvider />
       <DeactivateProvider />
     </>
-  );
-};
-
-const ProviderSignature = ({
-  image,
-  label,
-}: {
-  image: string;
-  label: string;
-}) => {
-  return (
-    <p className="grid grid-cols-1 gap-2">
-      <p className="font-medium text-black">{label}</p>
-      <div className="relative h-40 w-full">
-        <Image
-          src={image}
-          alt="Provider Signature"
-          fill
-          className="object-contain"
-        />
-      </div>
-    </p>
-  );
-};
-
-const ContactStatus = ({ status }: { status: SignedContractStatus }) => {
-  const dict = useDict();
-  const statusMap = {
-    [SignedContractStatus.Active]: dict.contract_status.active,
-    [SignedContractStatus.Expired]: dict.contract_status.expired,
-    [SignedContractStatus.TerminatedByAdmin]:
-      dict.contract_status.terminatedByAdmin,
-    [SignedContractStatus.TerminatedByProvider]:
-      dict.contract_status.terminatedByProvider,
-    [SignedContractStatus.Pending]: dict.contract_status.waitingForResigning,
-    [SignedContractStatus.TerminationRequested]:
-      dict.contract_status.terminationRequested,
-  };
-  const statusClassMap = {
-    [SignedContractStatus.Active]: "text-green-600 bg-green-100",
-    [SignedContractStatus.Expired]: "text-yellow-600 bg-yellow-100",
-    [SignedContractStatus.TerminatedByAdmin]: "text-red-600 bg-red-100",
-    [SignedContractStatus.TerminatedByProvider]: "text-red-600 bg-red-100",
-    [SignedContractStatus.Pending]: "text-gray-600 bg-gray-100",
-    [SignedContractStatus.TerminationRequested]:
-      "text-orange-700 bg-orange-100",
-  };
-  return (
-    <div
-      className={twMerge(
-        "grid rounded-full px-4 py-2 text-sm font-medium",
-        statusClassMap[status],
-      )}
-    >
-      {statusMap[status]}
-    </div>
   );
 };

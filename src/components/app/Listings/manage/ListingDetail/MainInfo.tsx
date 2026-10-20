@@ -15,13 +15,13 @@ export const MainInfo = ({
   const dict = useDict();
   return (
     <div className="grid grid-cols-1 gap-6">
-      <div className="grid grid-cols-1 gap-4 border-b border-b-[#F2F2F2] pb-6">
-        <h2 className="text-3xl font-semibold text-[#22283A]">
+      <div className="grid grid-cols-1 gap-4 border-b border-[#22283a]/[0.07] pb-6 dark:border-white/8">
+        <h2 className="text-primary text-3xl font-semibold dark:text-white">
           {moneyFormatter(listing.price)}{" "}
           <span className={twMerge("text-app-green", sar.className)}>A</span>
         </h2>
         <div className="grid grid-cols-1 gap-3">
-          <h1 className="text-2xl font-semibold text-[#1A1A1A]">
+          <h1 className="text-primary text-2xl font-semibold dark:text-white">
             {listing.name}
           </h1>
           <Ratings
@@ -31,10 +31,12 @@ export const MainInfo = ({
         </div>
       </div>
       <div className="grid grid-cols-1 gap-1">
-        <p className="leading-8 font-medium text-[#1A1A1A]">
+        <p className="text-primary leading-8 font-medium dark:text-white">
           {dict.listingDetail.about}
         </p>
-        <p className="text-gray leading-7">{listing.description}</p>
+        <p className="text-subTitle dark:text-dark-subTitle leading-7">
+          {listing.description}
+        </p>
       </div>
     </div>
   );
@@ -62,8 +64,9 @@ export const Ratings = ({
           <RatingIcon
             key={index}
             className={twMerge(
-              "size-5 text-[#999999]",
-              Math.floor(rating) > index && "text-[#FB8A00]",
+              "size-5 text-[#999999] dark:text-white/25",
+              Math.floor(rating) > index &&
+                "text-[#FB8A00] dark:text-[#FB8A00]",
               classNames?.rating,
             )}
           />
@@ -73,7 +76,7 @@ export const Ratings = ({
       {!hideInfo && total !== undefined ? (
         <div className="flex items-center gap-1">
           <p>{rating}</p>
-          <p className="text-gray text-sm leading-6">
+          <p className="text-subTitle dark:text-dark-subTitle text-sm leading-6">
             ({total} {dict.listingDetail.reviews.comments})
           </p>
         </div>

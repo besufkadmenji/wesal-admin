@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { lifecycleEnumLabel } from "./lifecycle-enum-labels";
 import {
@@ -14,8 +15,7 @@ export const ConversationRelatedSection = ({
 }) => {
   const copy = conversationDetailCopy(lang);
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.related}</h2>
+    <DetailCard title={copy.related}>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="grid gap-2">
           <h3 className="font-semibold">{copy.contracts}</h3>
@@ -50,6 +50,6 @@ export const ConversationRelatedSection = ({
           )}
         </div>
       </div>
-    </section>
+    </DetailCard>
   );
 };

@@ -1,21 +1,15 @@
+import { StatusChip } from "@/components/app/shared/StatusChip";
 import {
-  StatusChip,
-  type StatusTone,
-} from "@/components/app/shared/StatusChip";
+  SIGNED_CONTRACT_TONES,
+  signedContractStatusLabels,
+} from "./signedContractStatus";
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { SignedContractStatus } from "@/gql/graphql";
 import { Key } from "react";
 
-export const statusMap = (dict: Dictionary) => ({
-  [SignedContractStatus.Active]: dict.common.active,
-  [SignedContractStatus.Expired]: dict.common.expired,
-  [SignedContractStatus.TerminatedByAdmin]: dict.common.terminatedByAdmin,
-  [SignedContractStatus.TerminatedByProvider]: dict.common.terminatedByUser,
-  [SignedContractStatus.Pending]: dict.common.waitingForResigning,
-  [SignedContractStatus.TerminationRequested]: dict.common.terminationRequested,
-});
+export const statusMap = signedContractStatusLabels;
 export const renderCell = (
   row: RowType,
   column: Key,
@@ -29,17 +23,11 @@ export const renderCell = (
   } else if (column === "action") {
     return <ActionsCell onView={action.onView} />;
   } else if (column === "status") {
-    const tones: Record<string, StatusTone> = {
-      [SignedContractStatus.Active]: "success",
-      [SignedContractStatus.Expired]: "danger",
-      [SignedContractStatus.TerminatedByAdmin]: "purple",
-      [SignedContractStatus.TerminatedByProvider]: "orange",
-      [SignedContractStatus.Pending]: "warning",
-      [SignedContractStatus.TerminationRequested]: "orange",
-    };
     return (
       <StatusChip
-        tone={tones[row.status] ?? "neutral"}
+        tone={
+          SIGNED_CONTRACT_TONES[row.status as SignedContractStatus] ?? "neutral"
+        }
         label={
           statusMap(dict)[row.status as keyof typeof statusMap] ?? row.status
         }

@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { lifecycleEnumLabel } from "./lifecycle-enum-labels";
 import {
   CONTRACT_SIGNATURE_TYPES,
@@ -16,8 +17,7 @@ export const ContractSignaturesSection = ({
 }) => {
   const copy = contractDetailCopy(lang);
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.signatures}</h2>
+    <DetailCard title={copy.signatures}>
       <div className="grid gap-0">
         {CONTRACT_SIGNATURE_TYPES.map((signatureType) => {
           const signature = findSignature(contract.signatures, signatureType);
@@ -42,6 +42,6 @@ export const ContractSignaturesSection = ({
           {contract.document.sha256}
         </p>
       )}
-    </section>
+    </DetailCard>
   );
 };

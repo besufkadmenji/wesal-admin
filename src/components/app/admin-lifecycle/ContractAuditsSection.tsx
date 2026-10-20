@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { lifecycleEnumLabel } from "./lifecycle-enum-labels";
 import {
   ContractAudit,
@@ -15,8 +16,7 @@ export const ContractAuditsSection = ({
   const copy = contractDetailCopy(lang);
   const items = audits ?? [];
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.audits}</h2>
+    <DetailCard title={copy.audits}>
       <div className="grid gap-4">
         {items.map((audit) => (
           <div
@@ -37,6 +37,6 @@ export const ContractAuditsSection = ({
         ))}
         {!items.length && <p className="text-gray">{copy.noAudits}</p>}
       </div>
-    </section>
+    </DetailCard>
   );
 };

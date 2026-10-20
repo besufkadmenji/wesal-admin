@@ -1,5 +1,4 @@
 "use client";
-import CheckGreenIcon from "@/assets/icons/check.green.svg";
 import DownloadIcon from "@/assets/icons/download.svg";
 import MapPointIcon from "@/assets/icons/map.point.svg";
 import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
@@ -15,7 +14,9 @@ import { parseAsBoolean, useQueryState } from "nuqs";
 import { useEffect, useRef } from "react";
 import { useSignedContract } from "../useSignedContract";
 import { CancelContract } from "./CancelContact";
-import { FormInput } from "./FormInput";
+import { DetailField } from "@/components/app/shared/detail/DetailField";
+import { DETAIL_CARD_SURFACE } from "@/components/app/shared/detail/DetailCard";
+import { AbsherVerified } from "./AbsherVerified";
 import { ReactivateProvider } from "./ReactivateProvider";
 import { SignatureInput } from "./SignatureInput";
 import { TerminationRequestCard } from "./TerminationRequestCard";
@@ -25,6 +26,10 @@ const defaultProps = {
   center: { lat: 21.636981, lng: 39.181078 },
   zoom: 14,
 };
+
+// UI-5: inner panels on the e-contract page.
+const PANEL =
+  "bg-accent-soft rounded-2xl border border-[#22283a]/[0.06] p-4 dark:border-white/8";
 
 const Marker = ({}: { lat: number; lng: number }) => (
   <DefaultMarkerIcon className="size-16 origin-center -translate-y-[80%] ltr:-translate-x-1/2 rtl:translate-x-1/2" />
@@ -69,8 +74,10 @@ export const SignedContract = ({ id }: { id: string }) => {
   return (
     provider && (
       <>
-        <div className="grid grid-cols-1 gap-10 rounded-2xl bg-white p-10">
-          <h1 className="text-2xl font-semibold text-black">
+        <div
+          className={`${DETAIL_CARD_SURFACE} grid grid-cols-1 gap-10 p-6 md:p-10`}
+        >
+          <h1 className="text-primary text-2xl font-semibold dark:text-white">
             {dict.contract.title}
           </h1>
           {isTerminationRequested && (
@@ -82,19 +89,23 @@ export const SignedContract = ({ id }: { id: string }) => {
           )}
           <div className="grid grid-cols-1 gap-6" ref={contractRef}>
             <div className="grid grid-cols-2 gap-4">
-              <FormInput
+              <DetailField
+                boxed
                 label={dict.contract.serviceProviderName}
                 value={provider.name || ""}
               />
-              <FormInput
+              <DetailField
+                boxed
                 label={dict.contract.commercialName}
                 value={provider.commercialName || ""}
               />
-              <FormInput
+              <DetailField
+                boxed
                 label={dict.contract.phoneNumber}
                 value={`${provider.phone}` || ""}
               />
-              <FormInput
+              <DetailField
+                boxed
                 label={dict.contract.category}
                 value={
                   provider.categories
@@ -103,11 +114,14 @@ export const SignedContract = ({ id }: { id: string }) => {
                 }
               />
             </div>
-            <div className="grid grid-cols-1 items-start gap-x-4 gap-y-6 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
-              <FormInput
+            <div
+              className={`${PANEL} grid grid-cols-1 items-start gap-x-4 gap-y-6`}
+            >
+              <DetailField
+                boxed
                 label={dict.profile.commercialRecordNumber}
                 value={provider.commercialRegistrationNumber || ""}
-                className="h-max rounded-none border-none p-0"
+                className="rounded-none border-none bg-transparent p-0"
               />
               <div className="relative h-47.5 w-full">
                 <Image
@@ -119,13 +133,14 @@ export const SignedContract = ({ id }: { id: string }) => {
               </div>
             </div>
             <div className="grid grid-cols-[1fr_auto] gap-3">
-              <FormInput
+              <DetailField
+                boxed
                 label={dict.contract.address}
                 value={provider.address || ""}
               />
               <Button
                 data-html2canvas-ignore
-                className="h-full rounded-[20px] bg-[#EFF1F6] px-6!"
+                className="bg-accent-soft text-primary h-full rounded-[20px] px-6! dark:text-white"
                 variant={"ghost"}
                 onPress={() => {
                   setShowMap(showMap === true ? null : true);
@@ -165,11 +180,12 @@ export const SignedContract = ({ id }: { id: string }) => {
                 </GoogleMapReact>
               </div>
             )}
-            <FormInput
+            <DetailField
+              boxed
               label={dict.contract.platformManagerName}
               value={signedContract?.platformManagerName || me?.fullName || ""}
             />
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
+            <div className={`${PANEL} grid grid-cols-2 gap-x-4 gap-y-2`}>
               <SignatureInput
                 initUrl={signedContract?.serviceProviderSignature || null}
                 file={form.serviceProviderSignature}
@@ -187,16 +203,16 @@ export const SignedContract = ({ id }: { id: string }) => {
                 }}
                 label={dict.contract.platformManagerSignature}
               />
-              <p className="col-span-2 text-xs leading-5 text-[#999999]">
+              <p className="text-subTitle-alt col-span-2 text-xs leading-5">
                 {dict.contract.signatureAllowedOnce}
               </p>
             </div>
             {provider.withAbsher && <AbsherVerified />}
-            <div className="grid grid-cols-1 rounded-2xl border border-[#F2F2F2] bg-[#FBFBFB] p-4">
-              <h3 className="leading-8 font-medium text-black">
+            <div className={`${PANEL} grid grid-cols-1`}>
+              <h3 className="text-primary leading-8 font-medium dark:text-white">
                 {dict.contract.commitmentText}
               </h3>
-              <p className="text-gray leading-7 whitespace-pre-line">
+              <p className="text-subTitle dark:text-dark-subTitle leading-7 whitespace-pre-line">
                 {(
                   (lng === "en"
                     ? signedContract?.acceptedRulesEn
@@ -205,16 +221,16 @@ export const SignedContract = ({ id }: { id: string }) => {
                   rule.label === "general" ? (
                     <p
                       key={index}
-                      className="text-gray leading-7 whitespace-pre-line"
+                      className="text-subTitle dark:text-dark-subTitle leading-7 whitespace-pre-line"
                     >
                       {rule.value}
                     </p>
                   ) : (
                     <div key={index} className="mt-4 grid grid-cols-1 gap-1">
-                      <h4 className="text-sm font-medium text-black">
+                      <h4 className="text-primary text-sm font-medium dark:text-white">
                         {rule.label}
                       </h4>
-                      <p className="text-gray leading-7 whitespace-pre-line">
+                      <p className="text-subTitle dark:text-dark-subTitle leading-7 whitespace-pre-line">
                         {rule.value}
                       </p>
                     </div>
@@ -224,9 +240,9 @@ export const SignedContract = ({ id }: { id: string }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 justify-self-center px-27">
+          <div className="grid w-full grid-cols-1 gap-3 sm:w-auto sm:grid-cols-2 sm:justify-self-center">
             <Button
-              className="bg-primary h-12.5 rounded-[20px] px-24 font-semibold text-[#EFF9F0]"
+              className="bg-primary h-12.5 rounded-[20px] px-8 font-semibold text-white lg:px-24 dark:bg-[#6474a6]"
               onPress={() => {
                 downloadPDF(contractRef);
               }}
@@ -236,7 +252,7 @@ export const SignedContract = ({ id }: { id: string }) => {
             </Button>
             {isTerminatedByProvider ? null : isTerminatedByAdmin ? (
               <Button
-                className="bg-green-main border-green-main h-12.5 rounded-[20px] px-24 font-semibold text-white!"
+                className="bg-success border-success h-12.5 rounded-[20px] px-8 font-semibold text-white! lg:px-24"
                 onPress={() => {
                   setReactivateOpen("true");
                 }}
@@ -246,7 +262,7 @@ export const SignedContract = ({ id }: { id: string }) => {
               </Button>
             ) : (
               <Button
-                className="h-12.5 rounded-[20px] border-[#FBEAE9] bg-[#FBEAE9]! px-24 font-semibold text-[#B3251E]!"
+                className="text-danger! h-12.5 rounded-[20px] border-red-50 bg-red-50! px-8 font-semibold lg:px-24 dark:border-transparent dark:bg-red-500/15! dark:text-red-300!"
                 onPress={() => {
                   setOpen("true");
                 }}
@@ -261,22 +277,5 @@ export const SignedContract = ({ id }: { id: string }) => {
         <ReactivateProvider providerId={provider.id} />
       </>
     )
-  );
-};
-
-const AbsherVerified = () => {
-  const dict = useDict();
-  return (
-    <div className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-2xl border border-[#0F9D58] bg-[#E8FDF3] p-4">
-      <CheckGreenIcon className="size-7" />
-      <div className="grid grid-cols-1 gap-2">
-        <h3 className="font-medium text-black">
-          {dict.contract.verifiedWithAbsher}
-        </h3>
-        <p className="text-gray leading-7">
-          {dict.contract.verifiedWithAbsherDescription}
-        </p>
-      </div>
-    </div>
   );
 };

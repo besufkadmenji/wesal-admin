@@ -1,7 +1,5 @@
-import {
-  ContractDetail,
-  contractDetailCopy,
-} from "./contract-detail-helpers";
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
+import { ContractDetail, contractDetailCopy } from "./contract-detail-helpers";
 
 export const ContractLegalTextsSection = ({
   contract,
@@ -16,8 +14,7 @@ export const ContractLegalTextsSection = ({
   const refundPolicy =
     lang === "ar" ? contract.refundPolicyAr : contract.refundPolicyEn;
   return (
-    <section className="grid gap-6 rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="text-lg font-bold">{copy.legalTexts}</h2>
+    <DetailCard title={copy.legalTexts} className="gap-6">
       <div className="grid gap-2">
         <h3 className="font-semibold">{copy.bindingText}</h3>
         <p className="text-gray whitespace-pre-wrap">
@@ -36,6 +33,6 @@ export const ContractLegalTextsSection = ({
           {refundPolicy || copy.empty}
         </p>
       </div>
-    </section>
+    </DetailCard>
   );
 };

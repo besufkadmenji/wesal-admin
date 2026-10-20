@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleStatusBadge } from "./LifecycleStatusBadge";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
@@ -15,7 +16,7 @@ export const ContractDetailSummary = ({
 }) => {
   const copy = contractDetailCopy(lang);
   return (
-    <section className="grid gap-4 rounded-2xl bg-white p-6 md:grid-cols-4 dark:bg-black">
+    <DetailCard className="grid gap-4 md:grid-cols-4">
       <LifecycleDetailField
         label={copy.status}
         value={<LifecycleStatusBadge status={contract.status} lang={lang} />}
@@ -29,6 +30,6 @@ export const ContractDetailSummary = ({
         label={copy.providerNet}
         value={formatContractMoney(contract.providerNetAmount, lang)}
       />
-    </section>
+    </DetailCard>
   );
 };

@@ -1,8 +1,6 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
-import {
-  ContractDetail,
-  contractDetailCopy,
-} from "./contract-detail-helpers";
+import { ContractDetail, contractDetailCopy } from "./contract-detail-helpers";
 
 export const ContractPartiesSection = ({
   contract,
@@ -13,8 +11,7 @@ export const ContractPartiesSection = ({
 }) => {
   const copy = contractDetailCopy(lang);
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.parties}</h2>
+    <DetailCard title={copy.parties}>
       <div className="grid gap-4 md:grid-cols-2">
         <LifecycleDetailField
           label={copy.contractNumber}
@@ -53,6 +50,6 @@ export const ContractPartiesSection = ({
           className="md:col-span-2"
         />
       </div>
-    </section>
+    </DetailCard>
   );
 };
