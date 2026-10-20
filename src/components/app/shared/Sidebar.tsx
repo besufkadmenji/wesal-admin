@@ -3,7 +3,9 @@ import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { activeHref as findActiveHref } from "@/components/app/shared/sidebar/activePath";
 import { SidebarGroup } from "@/components/app/shared/sidebar/SidebarGroup";
 import { SidebarLink } from "@/components/app/shared/sidebar/SidebarLink";
+import { SidebarLinkSkeleton } from "@/components/app/shared/sidebar/SidebarLinkSkeleton";
 import { SidebarSection } from "@/components/app/shared/sidebar/SidebarSection";
+import { useAdminPermissionStore } from "@/store/adminPermissionStore";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -50,6 +52,9 @@ type NavGroup = {
 };
 type NavSection = { label: string; items: Array<NavLink | NavGroup> };
 
+// Varied label widths so the placeholder reads like a menu.
+const SKELETON_WIDTHS = ["62%", "48%", "70%", "55%", "40%"];
+
 const icon = (Icon: LucideIcon) => (
   <Icon aria-hidden className="size-5 shrink-0" strokeWidth={1.75} />
 );
@@ -63,7 +68,12 @@ export const Sidebar = ({ className }: { className?: string }) => {
   const nav = dict.navigation;
   const lang = useLang();
   const pathname = usePathname();
-  const { logout } = useMe();
+  const { me, isLoading: meLoading, logout } = useMe();
+  // Gated links are hidden until the admin's permissions are in the store;
+  // meanwhile they show as skeleton rows (always-visible links render).
+  const permissionType = useAdminPermissionStore((s) => s.permissionType);
+  const permissionsPending =
+    permissionType === null && (meLoading || !!me?.permissionType);
   const can = {
     admins: useCanAccess("admin", "read"),
     categories: useCanAccess("category", "read"),
@@ -298,6 +308,28 @@ export const Sidebar = ({ className }: { className?: string }) => {
       </AppLink>
       <nav className="grid min-h-0 auto-rows-max grid-cols-[minmax(0,1fr)] gap-6 overflow-x-hidden overflow-y-auto px-4 py-4">
         {sections.map((section) => {
+          if (permissionsPending) {
+            return (
+              <SidebarSection key={section.label} label={section.label}>
+                {section.items.map((item, index) =>
+                  item.visible === true && item.kind === "link" ? (
+                    <SidebarLink
+                      key={item.href}
+                      href={item.href}
+                      icon={icon(item.Icon)}
+                      label={item.label}
+                      active={item.href === current}
+                    />
+                  ) : (
+                    <SidebarLinkSkeleton
+                      key={item.label}
+                      width={SKELETON_WIDTHS[index % SKELETON_WIDTHS.length]}
+                    />
+                  ),
+                )}
+              </SidebarSection>
+            );
+          }
           const items = section.items.filter((item) => item.visible);
           if (items.length === 0) return null;
           return (
