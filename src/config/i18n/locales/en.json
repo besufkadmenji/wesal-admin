@@ -191,7 +191,15 @@
     "premium_ad_report": "Premium Advertising Report",
     "comments": "Comments Management",
     "badges": "Badges Management",
-    "charity": "Wesal Al-Khair"
+    "charity": "Wesal Al-Khair",
+    "section_overview": "Overview",
+    "section_marketplace": "Marketplace",
+    "section_people": "People",
+    "section_operations": "Operations",
+    "section_configuration": "Configuration",
+    "menu": "Menu",
+    "brand_name": "Wesal",
+    "brand_subtitle": "Admin dashboard"
   },
   "users_page": {
     "title": "Users Management",

@@ -289,7 +289,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
     <PermissionGate resource={resource}>
       <PageWrapper>
         <PageBar title={copy.title} />
-        <div className="grid gap-5 py-8">
+        <div className="grid grid-cols-1 gap-5 py-8">
           {query.isLoading ? (
             <SummaryCardSkeleton />
           ) : (

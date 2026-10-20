@@ -1,9 +1,18 @@
 "use client";
 import LogoIcon from "@/assets/icons/main.logo.svg";
 import { SelectLanguage } from "@/components/app/shared/SelectLanguage";
-import { ThemeSwitcher } from "@/components/app/shared/ThemeSwitcher";
 import { AuthBrandPanel } from "@/components/auth/AuthBrandPanel";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
+
+// Client-only, like the app header: its look depends on the saved theme.
+const ThemeSwitcher = dynamic(
+  () =>
+    import("@/components/app/shared/ThemeSwitcher").then(
+      (mod) => mod.ThemeSwitcher,
+    ),
+  { ssr: false },
+);
 
 /**
  * UI-3 (2026-10-20): split layout for login, forgot password, verify code

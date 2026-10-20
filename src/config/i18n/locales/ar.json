@@ -191,7 +191,15 @@
     "premium_ad_report": "التقرير المالي للإعلانات المميزة",
     "comments": "إدارة التعليقات",
     "badges": "إدارة الأوسمة",
-    "charity": "وصال الخير"
+    "charity": "وصال الخير",
+    "section_overview": "نظرة عامة",
+    "section_marketplace": "السوق",
+    "section_people": "المستخدمون",
+    "section_operations": "العمليات",
+    "section_configuration": "الإعدادات العامة",
+    "menu": "القائمة",
+    "brand_name": "وصال",
+    "brand_subtitle": "لوحة الإدارة"
   },
   "users_page": {
     "title": "إدارة المستخدمين",

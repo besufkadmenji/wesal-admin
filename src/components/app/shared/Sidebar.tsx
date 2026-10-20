@@ -1,409 +1,340 @@
 import LogoIcon from "@/assets/icons/main.logo.svg";
-import MenuIcon from "@/assets/icons/menu.svg";
-import {
-  AdminsIcon,
-  BankIcon,
-  CategoryIcon,
-  ChatIcon,
-  CmsIcon,
-  ComplainIcon,
-  ContractIcon,
-  HomeIcon,
-  ListingIcon,
-  LogoutIcon,
-  MapPinIcon,
-  ProvidersIcon,
-  ReportIcon,
-  SettingsIcon,
-  ShippingIcon,
-  UsersIcon,
-} from "@/assets/icons/sidebar";
-import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
-import RatingIcon from "@/assets/icons/rating.svg";
-import { Bell, HandHeart, Medal } from "lucide-react";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
+import { activeHref as findActiveHref } from "@/components/app/shared/sidebar/activePath";
+import { SidebarGroup } from "@/components/app/shared/sidebar/SidebarGroup";
+import { SidebarLink } from "@/components/app/shared/sidebar/SidebarLink";
+import { SidebarSection } from "@/components/app/shared/sidebar/SidebarSection";
+import { useCanAccess } from "@/hooks/useCanAccess";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
-import { useCanAccess } from "@/hooks/useCanAccess";
 import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  useDisclosure,
-} from "@heroui/react";
+  Bell,
+  ChartColumn,
+  FileText,
+  Globe,
+  HandHeart,
+  LayoutDashboard,
+  Landmark,
+  LogOut,
+  MapPin,
+  Medal,
+  Megaphone,
+  MessageSquareWarning,
+  MessagesSquare,
+  Settings,
+  Shapes,
+  ShieldCheck,
+  Star,
+  Store,
+  Truck,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { useAppRouter } from "@/hooks/useAppRouter";
 
+type NavLink = {
+  kind: "link";
+  href: string;
+  label: string;
+  Icon: LucideIcon;
+  visible: boolean;
+};
+type NavGroup = {
+  kind: "group";
+  label: string;
+  Icon: LucideIcon;
+  visible: boolean;
+  options: { href: string; label: string }[];
+};
+type NavSection = { label: string; items: Array<NavLink | NavGroup> };
+
+const icon = (Icon: LucideIcon) => (
+  <Icon aria-hidden className="size-5 shrink-0" strokeWidth={1.75} />
+);
+
+/**
+ * UI-4 (2026-10-20): the admin navigation — grouped sections, one Lucide
+ * icon style (UI-2), and an active state that follows nested pages.
+ */
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
+  const nav = dict.navigation;
+  const lang = useLang();
+  const pathname = usePathname();
   const { logout } = useMe();
-  const canReadAdmins = useCanAccess("admin", "read");
-  const canReadCategories = useCanAccess("category", "read");
-  const canReadListings = useCanAccess("listing", "read");
-  const canReadCities = useCanAccess("city", "read");
-  const canReadUsers = useCanAccess("user", "read");
-  const canReadProviders = useCanAccess("provider", "read");
-  const canReadBanks = useCanAccess("bank", "read");
-  const canReadDeliveryCompanies = useCanAccess("delivery_company", "read");
-  const canReadSettings = useCanAccess("setting", "read");
-  const canReadContactMessages = useCanAccess("contact_message", "read");
-  const canReadFaq = useCanAccess("faq", "read");
-  const canReadContracts = useCanAccess("contract", "read");
-  const canReadConversations = useCanAccess("conversation", "read");
-  const canReadComplaints = useCanAccess("complaint", "read");
-  const canReadComments = useCanAccess("rating", "read");
-  const canReadBadges = useCanAccess("badge", "read");
-  const canReadNotifications = useCanAccess("notification", "read");
-  const canReadCharity = useCanAccess("charity", "read");
-  const canReadReports = useCanAccess("report", "read");
+  const can = {
+    admins: useCanAccess("admin", "read"),
+    categories: useCanAccess("category", "read"),
+    listings: useCanAccess("listing", "read"),
+    cities: useCanAccess("city", "read"),
+    users: useCanAccess("user", "read"),
+    providers: useCanAccess("provider", "read"),
+    banks: useCanAccess("bank", "read"),
+    deliveryCompanies: useCanAccess("delivery_company", "read"),
+    settings: useCanAccess("setting", "read"),
+    contactMessages: useCanAccess("contact_message", "read"),
+    faq: useCanAccess("faq", "read"),
+    contracts: useCanAccess("contract", "read"),
+    conversations: useCanAccess("conversation", "read"),
+    complaints: useCanAccess("complaint", "read"),
+    comments: useCanAccess("rating", "read"),
+    badges: useCanAccess("badge", "read"),
+    notifications: useCanAccess("notification", "read"),
+    charity: useCanAccess("charity", "read"),
+    reports: useCanAccess("report", "read"),
+  };
+
+  const sections: NavSection[] = [
+    {
+      label: nav.section_overview,
+      items: [
+        {
+          kind: "link",
+          href: "/dashboard",
+          label: nav.home,
+          Icon: LayoutDashboard,
+          visible: true,
+        },
+      ],
+    },
+    {
+      label: nav.section_marketplace,
+      items: [
+        {
+          kind: "link",
+          href: "/categories",
+          label: nav.categories,
+          Icon: Shapes,
+          visible: can.categories,
+        },
+        {
+          kind: "link",
+          href: "/listings",
+          label: nav.ads,
+          Icon: Megaphone,
+          visible: can.listings,
+        },
+        {
+          kind: "link",
+          href: "/contracts",
+          label: nav.contracts,
+          Icon: FileText,
+          visible: can.contracts,
+        },
+        {
+          kind: "link",
+          href: "/conversations",
+          label: nav.conversations,
+          Icon: MessagesSquare,
+          visible: can.conversations,
+        },
+        {
+          kind: "link",
+          href: "/complaints",
+          label: nav.complaints,
+          Icon: MessageSquareWarning,
+          visible: can.complaints,
+        },
+        {
+          kind: "link",
+          href: "/comments",
+          label: nav.comments,
+          Icon: Star,
+          visible: can.comments,
+        },
+      ],
+    },
+    {
+      label: nav.section_people,
+      items: [
+        {
+          kind: "link",
+          href: "/users",
+          label: nav.users,
+          Icon: Users,
+          visible: can.users,
+        },
+        {
+          kind: "group",
+          label: nav.providers,
+          Icon: Store,
+          visible: can.providers,
+          options: [
+            { href: "/providers/requests", label: nav.join_requests },
+            { href: "/providers", label: nav.providers },
+            { href: "/providers/e-contracts", label: nav.electronicContracts },
+          ],
+        },
+        {
+          kind: "link",
+          href: "/admins",
+          label: nav.system_managers,
+          Icon: ShieldCheck,
+          visible: can.admins,
+        },
+      ],
+    },
+    {
+      label: nav.section_operations,
+      items: [
+        {
+          kind: "link",
+          href: "/charity",
+          label: nav.charity,
+          Icon: HandHeart,
+          visible: can.charity,
+        },
+        {
+          kind: "link",
+          href: "/badges",
+          label: nav.badges,
+          Icon: Medal,
+          visible: can.badges,
+        },
+        {
+          kind: "link",
+          href: "/notifications",
+          label: nav.notifications,
+          Icon: Bell,
+          visible: can.notifications,
+        },
+        {
+          kind: "group",
+          label: nav.reports,
+          Icon: ChartColumn,
+          visible: can.reports,
+          options: [
+            {
+              href: "/reports/contracts",
+              label: nav.contract_financial_report,
+            },
+            {
+              href: "/reports/conversations",
+              label: nav.conversation_fee_report,
+            },
+            { href: "/reports/premium", label: nav.premium_ad_report },
+          ],
+        },
+      ],
+    },
+    {
+      label: nav.section_configuration,
+      items: [
+        {
+          kind: "link",
+          href: "/cities",
+          label: nav.cities,
+          Icon: MapPin,
+          visible: can.cities,
+        },
+        {
+          kind: "link",
+          href: "/banks",
+          label: nav.banks,
+          Icon: Landmark,
+          visible: can.banks,
+        },
+        {
+          kind: "link",
+          href: "/delivery-companies",
+          label: nav.delivery_companies,
+          Icon: Truck,
+          visible: can.deliveryCompanies,
+        },
+        {
+          kind: "link",
+          href: "/settings",
+          label: nav.settings,
+          Icon: Settings,
+          visible: can.settings,
+        },
+        {
+          kind: "group",
+          label: nav.website_content,
+          Icon: Globe,
+          visible: can.contactMessages || can.faq,
+          options: [
+            { href: "/content/contact-management", label: nav.contact_admin },
+            { href: "/content/about-platform", label: nav.about },
+            { href: "/content/terms", label: nav.terms_and_conditions },
+            { href: "/content/privacy-policy", label: nav.privacy_policy },
+            ...(can.faq ? [{ href: "/content/faq", label: nav.faq }] : []),
+            ...(can.contactMessages
+              ? [{ href: "/content/contact-messages", label: nav.contact_us }]
+              : []),
+          ],
+        },
+      ],
+    },
+  ];
+
+  const allHrefs = sections.flatMap((section) =>
+    section.items.flatMap((item) =>
+      item.kind === "link" ? [item.href] : item.options.map((o) => o.href),
+    ),
+  );
+  const current = findActiveHref(pathname, lang, allHrefs);
+
   return (
     <aside
       className={twMerge(
-        "border-gray-background dark:border-dark-gray-background hidden auto-rows-max grid-cols-1 items-start gap-5 overflow-y-auto border-e bg-white shadow-[4px_0px_30px_0px_rgba(131,98,234,0.05)] lg:grid dark:bg-black",
+        "hidden h-full min-h-0 grid-rows-[auto_1fr_auto] border-e border-[#22283a]/[0.06] bg-white lg:grid dark:border-white/5 dark:bg-black",
         className,
       )}
     >
       <AppLink
-        href={"/dashboard"}
-        className="relative mx-12 my-5 aspect-182/40 w-1/2 justify-self-center text-[#2E2E2E] lg:w-[12vw] dark:text-[#EFF9F0]"
+        href="/dashboard"
+        className="text-primary flex h-20 items-center gap-3 px-7 dark:text-[#EFF9F0]"
       >
-        <LogoIcon className="h-full w-full" />
+        <LogoIcon className="h-11 w-auto shrink-0" />
+        <span className="grid min-w-0 border-s border-[#22283a]/10 ps-3 leading-tight dark:border-white/10">
+          <span className="text-lg font-semibold">{nav.brand_name}</span>
+          <span className="text-subTitle dark:text-dark-subTitle text-xs font-medium">
+            {nav.brand_subtitle}
+          </span>
+        </span>
       </AppLink>
-      <div className="grid grid-cols-1 gap-2 px-4 py-6">
-        <OptionLink
-          href="/dashboard"
-          icon={<HomeIcon className="size-5" />}
-          label={dict.navigation.home}
-        />
-
-        {canReadAdmins && (
-          <OptionLink
-            href="/admins"
-            icon={<AdminsIcon className="size-5" />}
-            label={dict.navigation.system_managers}
-          />
-        )}
-        {canReadCategories && (
-          <OptionLink
-            href="/categories"
-            icon={<CategoryIcon className="size-5" />}
-            label={dict.navigation.categories}
-          />
-        )}
-        {canReadListings && (
-          <OptionLink
-            href="/listings"
-            icon={<ListingIcon className="size-5" />}
-            label={dict.navigation.ads}
-          />
-        )}
-        {canReadCities && (
-          <OptionLink
-            href="/cities"
-            icon={<MapPinIcon className="size-5" />}
-            label={dict.navigation.cities}
-          />
-        )}
-        {canReadUsers && (
-          <OptionLink
-            href="/users"
-            icon={<UsersIcon className="size-5" />}
-            label={dict.navigation.users}
-          />
-        )}
-        {canReadProviders && (
-          <ExpandableOption
-            icon={<ProvidersIcon className="size-5" />}
-            label={dict.navigation.providers}
-            options={[
-              {
-                href: "/providers/requests",
-                label: dict.navigation.join_requests,
-              },
-              {
-                href: "/providers",
-                label: dict.navigation.providers,
-              },
-              {
-                href: "/providers/e-contracts",
-                label: dict.navigation.electronicContracts,
-              },
-            ]}
-          />
-        )}
-        {canReadBanks && (
-          <OptionLink
-            href="/banks"
-            icon={<BankIcon className="size-5" />}
-            label={dict.navigation.banks}
-          />
-        )}
-        {canReadDeliveryCompanies && (
-          <OptionLink
-            href="/delivery-companies"
-            icon={<ShippingIcon className="size-5" />}
-            label={dict.navigation.delivery_companies}
-          />
-        )}
-        {canReadContracts && (
-          <OptionLink
-            href="/contracts"
-            icon={<ContractIcon className="size-5" />}
-            label={dict.navigation.contracts}
-          />
-        )}
-        {canReadConversations && (
-          <OptionLink
-            href="/conversations"
-            icon={<ChatIcon className="size-5" />}
-            label={dict.navigation.conversations}
-          />
-        )}
-        {canReadComplaints && (
-          <OptionLink
-            href="/complaints"
-            icon={<ComplainIcon className="size-5" />}
-            label={dict.navigation.complaints}
-          />
-        )}
-        {canReadComments && (
-          <OptionLink
-            href="/comments"
-            icon={<RatingIcon className="size-5" />}
-            label={dict.navigation.comments}
-          />
-        )}
-        {canReadCharity && (
-          <OptionLink
-            href="/charity"
-            icon={<HandHeart className="size-5" strokeWidth={1.75} />}
-            label={dict.navigation.charity}
-          />
-        )}
-        {canReadBadges && (
-          <OptionLink
-            href="/badges"
-            icon={<Medal className="size-5" strokeWidth={1.75} />}
-            label={dict.navigation.badges}
-          />
-        )}
-        {canReadNotifications && (
-          <OptionLink
-            href="/notifications"
-            icon={<Bell className="size-5" strokeWidth={1.75} />}
-            label={dict.navigation.notifications}
-          />
-        )}
-        {canReadReports && (
-          <ExpandableOption
-            icon={<ReportIcon className="size-5" />}
-            label={dict.navigation.reports}
-            options={[
-              {
-                href: "/reports/contracts",
-                label: dict.navigation.contract_financial_report,
-              },
-              {
-                href: "/reports/conversations",
-                label: dict.navigation.conversation_fee_report,
-              },
-              {
-                href: "/reports/premium",
-                label: dict.navigation.premium_ad_report,
-              },
-            ]}
-          />
-        )}
-        {canReadSettings && (
-          <OptionLink
-            href="/settings"
-            icon={<SettingsIcon className="size-5" />}
-            label={dict.navigation.settings}
-          />
-        )}
-        {(canReadContactMessages || canReadFaq) && (
-          <ExpandableOption
-            icon={<CmsIcon className="size-5" />}
-            label={dict.navigation.website_content}
-            options={[
-              {
-                href: "/content/contact-management",
-                label: dict.navigation.contact_admin,
-              },
-              {
-                href: "/content/about-platform",
-                label: dict.navigation.about,
-              },
-              {
-                href: "/content/terms",
-                label: dict.navigation.terms_and_conditions,
-              },
-              {
-                href: "/content/privacy-policy",
-                label: dict.navigation.privacy_policy,
-              },
-              ...(canReadFaq
-                ? [
-                    {
-                      href: "/content/faq",
-                      label: dict.navigation.faq,
-                    },
-                  ]
-                : []),
-              ...(canReadContactMessages
-                ? [
-                    {
-                      href: "/content/contact-messages",
-                      label: dict.navigation.contact_us,
-                    },
-                  ]
-                : []),
-            ]}
-          />
-        )}
-        <OptionLink
-          href="#"
-          icon={<LogoutIcon className="size-5" />}
-          label={dict.navigation.logout}
-          onClick={logout}
-        />
+      <nav className="grid min-h-0 auto-rows-max grid-cols-[minmax(0,1fr)] gap-6 overflow-x-hidden overflow-y-auto px-4 py-4">
+        {sections.map((section) => {
+          const items = section.items.filter((item) => item.visible);
+          if (items.length === 0) return null;
+          return (
+            <SidebarSection key={section.label} label={section.label}>
+              {items.map((item) =>
+                item.kind === "link" ? (
+                  <SidebarLink
+                    key={item.href}
+                    href={item.href}
+                    icon={icon(item.Icon)}
+                    label={item.label}
+                    active={item.href === current}
+                  />
+                ) : (
+                  <SidebarGroup
+                    key={item.label}
+                    icon={icon(item.Icon)}
+                    label={item.label}
+                    options={item.options}
+                    activeHref={current}
+                  />
+                ),
+              )}
+            </SidebarSection>
+          );
+        })}
+      </nav>
+      <div className="border-t border-[#22283a]/[0.06] p-4 dark:border-white/5">
+        <button
+          type="button"
+          onClick={() => logout()}
+          className="text-subTitle hover:text-danger dark:text-dark-subTitle flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-colors duration-150 hover:bg-[#d92d20]/[0.06]"
+        >
+          {icon(LogOut)}
+          <span>{nav.logout}</span>
+        </button>
       </div>
     </aside>
-  );
-};
-
-const OptionLink = ({
-  href,
-  icon,
-  label,
-  onClick,
-}: {
-  href: string;
-  icon: ReactNode;
-  label: string;
-  onClick?: () => void;
-}) => {
-  const lng = useLang();
-  const pathname = usePathname();
-  const isActive = pathname === `/${lng}${href}`;
-  return (
-    <AppLink
-      href={href}
-      onClick={onClick}
-      className={twMerge(
-        "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
-        isActive
-          ? "bg-app-primary text-white"
-          : "text-dark-gray hover:bg-gray-background dark:hover:bg-dark-app-background",
-      )}
-    >
-      {icon}
-      <p className="text-sm font-semibold tracking-tight">{label}</p>
-    </AppLink>
-  );
-};
-
-const ExpandableOption = ({
-  icon,
-  label,
-  options,
-  href,
-}: {
-  icon: ReactNode;
-  label: string;
-  options: { href: string; label: string }[];
-  href?: string;
-}) => {
-  const lng = useLang();
-  const pathname = usePathname();
-  const [expanded, setExpanded] = useState(false);
-  const router = useAppRouter();
-  return (
-    <div className="grid grid-cols-1 gap-2">
-      <div
-        className={twMerge(
-          "text-dark-gray hover:bg-gray-background dark:hover:bg-dark-app-background flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
-        )}
-        onClick={() => {
-          if (href) {
-            router.push(href);
-          }
-          return setExpanded(!expanded);
-        }}
-      >
-        {icon}
-        <p className="grow text-sm font-semibold tracking-tight">{label}</p>
-        <ChevronDown
-          className={twMerge(
-            "size-2.5 duration-200 ease-in-out",
-            expanded && "rotate-180",
-          )}
-        />
-      </div>
-      <div className="grid grid-cols-1 gap-2">
-        {expanded &&
-          options.map((option, index) => {
-            const isActive = pathname === `/${lng}${option.href}`;
-            return (
-              <AppLink
-                key={index}
-                href={option.href}
-                className={twMerge(
-                  "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
-                  isActive
-                    ? "bg-app-primary text-white"
-                    : "text-dark-gray hover:bg-gray-background dark:hover:bg-dark-app-background",
-                )}
-              >
-                <p className="text-sm font-semibold tracking-tight">
-                  {option.label}
-                </p>
-              </AppLink>
-            );
-          })}
-      </div>
-    </div>
-  );
-};
-
-export const MobileSidebar = () => {
-  const dict = useDict();
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const pathname = usePathname();
-  const lang = useLang();
-  useEffect(() => {
-    onClose();
-    return () => {};
-  }, [onClose, pathname]);
-
-  return (
-    <>
-      <Button
-        onPress={onOpen}
-        className="size-6 min-h-0 min-w-0 shrink-0 bg-transparent p-0 text-black lg:hidden dark:text-white"
-        isIconOnly
-      >
-        <MenuIcon className="size-5 text-[#292D32] dark:text-white" />
-      </Button>
-      <Drawer
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        placement={lang === "ar" ? "right" : "left"}
-      >
-        <DrawerContent className="p-0!">
-          {(onClose) => (
-            <>
-              <DrawerBody className="p-0">
-                <Sidebar className="grid h-screen" />
-              </DrawerBody>
-            </>
-          )}
-        </DrawerContent>
-      </Drawer>
-    </>
   );
 };

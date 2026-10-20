@@ -10,13 +10,13 @@ export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={twMerge(
-        `${norsal.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]`,
+        `${norsal.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 overflow-hidden lg:grid-cols-[288px_minmax(0,1fr)]`,
       )}
     >
       <Sidebar />
-      <div className="grid h-full w-full grid-cols-1 grid-rows-[auto_1fr] overflow-y-auto">
+      <div className="grid h-full min-w-0 grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr] overflow-y-auto">
         <Header />
-        <div className="grid h-full auto-rows-max grid-cols-1 items-start overflow-y-auto p-4 lg:p-8">
+        <div className="grid h-full min-w-0 auto-rows-max grid-cols-[minmax(0,1fr)] items-start overflow-x-hidden overflow-y-auto p-4 lg:p-8">
           {children}
         </div>
       </div>
