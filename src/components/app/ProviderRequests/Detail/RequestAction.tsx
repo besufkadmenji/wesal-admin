@@ -31,7 +31,7 @@ export const RequestAction = ({
         </PrimaryButton>
         <PrimaryButton
           startContent={<RejectIcon className="size-5" />}
-          className="bg-[#EA5455]"
+          className="bg-danger"
           onPress={() => {
             setShowRejectModal("true");
           }}

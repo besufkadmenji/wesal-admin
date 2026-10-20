@@ -29,7 +29,7 @@ export const FormSearch = ({
   );
   return (
     <div className="border-gray-border-alt dark:bg-dark-black dark:border-dark-border relative grid h-40 auto-rows-max grid-cols-1 content-center gap-3.5 rounded-lg border bg-white px-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
-      <p className="text-lg leading-7 font-medium tracking-tight text-[#1A1C21]">
+      <p className="text-lg leading-7 font-medium tracking-tight text-primary dark:text-white">
         {label}
       </p>
       <FormInput
@@ -49,7 +49,7 @@ export const FormSearch = ({
         onFocus={() => setShowSuggestion(true)}
       />
       {suggestedItems && suggestedItems.length > 0 && showSuggestion && (
-        <div className="absolute top-32 right-6 left-6 z-10 grid grid-cols-1 gap-4 rounded-lg bg-white p-6 shadow">
+        <div className="absolute top-32 right-6 left-6 z-10 grid grid-cols-1 gap-4 rounded-lg bg-white p-6 shadow dark:bg-dark-black dark:shadow-none dark:ring-1 dark:ring-white/10">
           <div
             className="fixed top-0 right-0 bottom-0 left-0 h-screen w-screen bg-transparent"
             onClick={() => setShowSuggestion(false)}

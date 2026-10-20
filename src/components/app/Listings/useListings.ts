@@ -49,6 +49,7 @@ export const useListingById = (id: string | null) => {
     isError,
     error,
     refetch,
+    isPending,
   } = useQuery({
     queryKey: ["listing", id],
     queryFn: () => ListingService.listing(id!),
@@ -61,5 +62,6 @@ export const useListingById = (id: string | null) => {
     isError,
     error,
     refetch,
+    isPending,
   };
 };

@@ -4,6 +4,7 @@ import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/Reje
 import { RequestAction } from "@/components/app/ProviderRequests/Detail/RequestAction";
 import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
 import { ProviderStatus } from "@/gql/graphql";
+import { Tag } from "@/components/app/shared/Tag";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useEffect } from "react";
@@ -19,7 +20,7 @@ export const RequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: request, isLoading, refetch } = useProvider(id);
+  const { data: request, isPending, refetch } = useProvider(id);
   useEffect(() => {
     if (request && request.status !== ProviderStatus.PendingApproval) {
       router.replace(`/providers/requests`);
@@ -29,7 +30,7 @@ export const RequestDetail = ({ id }: { id: string }) => {
 
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={request?.status === ProviderStatus.PendingApproval ? request : null}
       onRetry={() => void refetch()}
       backHref="/providers/requests"
@@ -153,12 +154,9 @@ export const RequestDetail = ({ id }: { id: string }) => {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {request.categories.map((cat) => (
-                          <span
-                            key={cat.id}
-                            className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
-                          >
+                          <Tag key={cat.id}>
                             {lng === "ar" ? cat.nameAr : cat.nameEn}
-                          </span>
+                          </Tag>
                         ))}
                       </div>
                     </div>

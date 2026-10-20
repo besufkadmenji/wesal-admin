@@ -18,8 +18,8 @@ export const ThemeSwitcher = () => {
         className={twMerge(
           "h-full min-h-0 w-full min-w-0 bg-transparent p-0",
           theme === "dark"
-            ? "text-[#565758] dark:text-white"
-            : "text-[#D9D9D9]",
+            ? "text-primary dark:text-white"
+            : "text-subTitle-alt",
         )}
         onPress={() => setTheme("dark")}
         aria-label={a11y.dark_mode}
@@ -32,8 +32,8 @@ export const ThemeSwitcher = () => {
         className={twMerge(
           "h-full min-h-0 w-full min-w-0 rounded-full bg-transparent p-0",
           theme !== "dark"
-            ? "text-[#565758]"
-            : "dark:text-dark-gray-4 text-[#D9D9D9]",
+            ? "text-primary"
+            : "dark:text-dark-gray-4 text-subTitle-alt",
         )}
         onPress={() => setTheme("light")}
         aria-label={a11y.light_mode}

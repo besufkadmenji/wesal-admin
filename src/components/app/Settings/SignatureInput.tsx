@@ -41,13 +41,14 @@ export const SignatureInput = ({
       : null;
   return (
     <div className="col-span-2 grid grid-cols-1 gap-3">
-      <label className="text-base leading-8 font-medium text-black">
-        {label} {isRequired && <span className="text-[#B3251E]">*</span>}
+      <label className="text-base leading-8 font-medium text-primary dark:text-white">
+        {label} {isRequired && <span className="text-danger dark:text-red-300">*</span>}
       </label>
       <div
         {...getRootProps()}
         className={twMerge(
-          "border-border relative grid h-60 w-full auto-rows-max content-center justify-items-center gap-1 rounded-[20px] border border-dashed bg-white p-4",
+          "border-border relative grid h-60 w-full auto-rows-max content-center justify-items-center gap-1 rounded-[20px] border border-dashed bg-white p-4 dark:border-white/15",
+          // Signatures are dark ink, so the box stays white in dark mode.
           isDragActive && "border-primary bg-primary/5",
           isDragReject && "border-red-500 bg-red-500/5",
         )}

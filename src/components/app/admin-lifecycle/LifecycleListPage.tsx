@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -296,7 +297,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
       ? lifecycleEnumLabel(item.reporterType, lang)
       : "—",
     status: item.status,
-    date: new Date(item.createdAt).toLocaleDateString(),
+    date: formatDate(item.createdAt, lang),
   }));
 
   return (
@@ -389,9 +390,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
               renderCell={(row: RowType, column: Key): ReactNode => {
                 if (column === "number") {
                   return (
-                    <p className="text-app-link font-semibold">
-                      #{row.number}
-                    </p>
+                    <p className="text-app-link font-semibold">#{row.number}</p>
                   );
                 }
                 if (column === "status") {

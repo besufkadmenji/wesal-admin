@@ -41,7 +41,7 @@ export const FilterPopup = ({
       <PopoverTrigger>
         <Button
           variant="bordered"
-          className="border-gray-border-alt text-subTitle relative h-10 rounded-lg border bg-white text-sm leading-5 font-medium tracking-tight shadow-none"
+          className="border-gray-border-alt text-subTitle dark:border-dark-border dark:bg-dark-black dark:text-dark-subTitle relative h-10 rounded-lg border bg-white text-sm leading-5 font-medium tracking-tight shadow-none"
           endContent={<FilterIcon className="size-5" />}
         >
           {dict.common.actions.filter}
@@ -72,7 +72,7 @@ export const FilterCheckbox = ({
       radius={"sm"}
       classNames={{
         wrapper:
-          "group-data-[selected=true]:after:bg-white border-1 border-[#CFD3D4]  rounded-md bg-white group-data-[selected=true]:border-app-primary before:hidden",
+          "group-data-[selected=true]:after:bg-white border-1 border-[#CFD3D4] dark:border-white/20 rounded-md bg-white dark:bg-transparent group-data-[selected=true]:border-app-primary before:hidden",
         icon: "size-4! bg-app-primary rounded",
         label: twMerge(
           "text-sm text-[#83898C] dark:text-white/80",

@@ -17,19 +17,19 @@ export const renderCell = (
   },
 ) => {
   if (column === "number") {
-    return <p className="text-primary font-semibold">{row.number}</p>;
+    return <p className="text-primary font-semibold dark:text-white">{row.number}</p>;
   } else if (column === "action") {
     return (
       <div className="flex items-center justify-center gap-2">
         <ActionCell
           label={dict.common.actions.approve}
-          icon={<ApproveIcon aria-hidden className="size-5 text-[#1EB564]" />}
+          icon={<ApproveIcon aria-hidden className="text-success size-5" />}
           onClick={action.onApprove}
         />
         <ActionCell
           label={dict.common.actions.reject}
           tone="danger"
-          icon={<RejectIcon aria-hidden className="size-5 text-[#EA5455]" />}
+          icon={<RejectIcon aria-hidden className="text-danger size-5" />}
           onClick={action.onReject}
         />
         <ActionCell

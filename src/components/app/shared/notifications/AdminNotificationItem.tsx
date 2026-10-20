@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import { useLang } from "@/hooks/useLang";
 import { AdminNotification } from "@/services/admin-notification.service";
 import { twMerge } from "tailwind-merge";
@@ -35,9 +36,7 @@ export const AdminNotificationItem = ({
           {copy.message}
         </span>
         <span className="text-subTitle text-xs dark:text-white/50">
-          {new Date(notification.createdAt).toLocaleString(
-            lang === "ar" ? "ar-SA" : "en-SA",
-          )}
+          {formatDate(notification.createdAt, lang, { withTime: true })}
         </span>
       </span>
     </button>

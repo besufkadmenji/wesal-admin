@@ -1304,6 +1304,23 @@
     "messages": {
       "updateSuccess": "Settings updated successfully.",
       "passwordChangeSuccess": "Password changed successfully."
+    },
+    "lifecycle": {
+      "title": "Contract and fee settings",
+      "saved": "Contract and fee settings saved",
+      "vat_rate": "VAT rate (%)",
+      "vat_rate_placeholder": "VAT rate",
+      "vat_enabled": "VAT enabled",
+      "acceptance_window": "Acceptance window (days)",
+      "days": "Days",
+      "hours": "Hours",
+      "acceptance_enabled": "Acceptance deadline enabled",
+      "confirmation_grace": "Customer confirmation grace (hours)",
+      "premium_fee": "Premium-ad fee",
+      "fee": "Fee",
+      "premium_duration": "Premium-ad duration (days)",
+      "premium_enabled": "Premium ads enabled",
+      "save": "Save contract and fee settings"
     }
   },
   "change_password_form": {

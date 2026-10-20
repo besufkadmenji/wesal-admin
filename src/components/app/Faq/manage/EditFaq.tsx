@@ -16,7 +16,7 @@ import { useManageFaq } from "./useManageFaq";
 import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const EditFaq = ({ id }: { id: string }) => {
-  const { data, isLoading, refetch } = useFaq(id);
+  const { data, isPending, refetch } = useFaq(id);
   const { form, setForm, reset } = useManageForm(id, data);
   const dict = useDict();
   const router = useAppRouter();
@@ -29,7 +29,7 @@ export const EditFaq = ({ id }: { id: string }) => {
   }, [reset]);
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={data}
       onRetry={() => void refetch()}
       backHref="/content/faq"

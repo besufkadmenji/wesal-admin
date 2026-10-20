@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import { AdminLifecycleContractQuery } from "@/gql/graphql";
 
 export type ContractDetail = AdminLifecycleContractQuery["adminContract"];
@@ -102,7 +103,7 @@ export const formatContractDate = (
   lang: string,
 ) => {
   if (!value) return null;
-  return new Date(value).toLocaleString(lang === "ar" ? "ar-SA" : "en-SA");
+  return formatDate(value, lang, { withTime: true });
 };
 
 export const formatContractPercent = (value: number, lang: string) =>

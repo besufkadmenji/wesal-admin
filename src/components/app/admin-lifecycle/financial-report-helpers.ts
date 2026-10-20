@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import { SummaryCardType } from "@/components/app/shared/summary/SummaryCard";
 
 export type ReportKind = "contracts" | "conversations" | "premium";
@@ -254,9 +255,7 @@ export const formatReportDate = (
   lang: string,
 ) => {
   if (value == null || value === "") return null;
-  return new Date(String(value)).toLocaleString(
-    lang === "ar" ? "ar-SA" : "en-SA",
-  );
+  return formatDate(String(value), lang, { withTime: true });
 };
 
 export const formatReportCell = (
@@ -288,11 +287,7 @@ export const reportCellValue = (
     case "rowNumber":
       return rowNumber;
     case "contractDate":
-      return item.createdAt
-        ? new Date(String(item.createdAt)).toLocaleDateString(
-            lang === "ar" ? "ar-SA" : "en-SA",
-          )
-        : null;
+      return item.createdAt ? formatDate(String(item.createdAt), lang) : null;
     case "tradeName":
       return text(item.providerName);
     case "deliveryCompany":

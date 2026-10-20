@@ -19,7 +19,7 @@ import { useManageBank } from "./useManageBank";
 import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const EditBank = ({ id }: { id: string }) => {
-  const { bank, isLoading, refetch } = useBankById(id);
+  const { bank, isPending, refetch } = useBankById(id);
   const { form, setForm, reset } = useManageForm(id, bank);
   const dict = useDict();
   const router = useAppRouter();
@@ -32,7 +32,7 @@ export const EditBank = ({ id }: { id: string }) => {
   }, [reset]);
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={bank}
       onRetry={() => void refetch()}
       backHref="/banks"

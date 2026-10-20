@@ -42,7 +42,7 @@ export const SignatureInput = ({
   return (
     <div className="grid grid-cols-1 gap-3">
       <label className="text-primary text-base leading-8 font-medium dark:text-white">
-        {label} {isRequired && <span className="text-danger">*</span>}
+        {label} {isRequired && <span className="text-danger dark:text-red-300">*</span>}
       </label>
       <div
         {...getRootProps()}

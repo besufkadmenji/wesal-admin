@@ -38,7 +38,7 @@ export const MultipleUploadInput = ({
         {({ getRootProps, getInputProps }) => (
           <div
             className={
-              "bg-gray-background relative grid min-h-41.5 w-full cursor-pointer grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
+              "bg-gray-background dark:bg-dark-border dark:border-dark-gray relative grid min-h-41.5 w-full cursor-pointer grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
               (hasError ? " ring-danger-500 ring-2" : "")
             }
             {...getRootProps()}

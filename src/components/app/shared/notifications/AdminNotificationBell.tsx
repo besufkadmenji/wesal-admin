@@ -1,4 +1,5 @@
 "use client";
+import { ListSkeleton } from "@/components/app/shared/states/ListSkeleton";
 
 import { Bell as NotificationIcon } from "lucide-react";
 import { useAppRouter } from "@/hooks/useAppRouter";
@@ -11,7 +12,6 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Spinner,
 } from "@heroui/react";
 import { useState } from "react";
 import { adminNotificationHref } from "./adminNotificationHref";
@@ -66,9 +66,11 @@ export const AdminNotificationBell = () => {
         </div>
         <div className="grid max-h-[65vh] w-full grid-cols-1 gap-2 overflow-y-auto px-5">
           {feed.isLoading ? (
-            <Spinner />
+            <ListSkeleton rows={4} />
           ) : feed.items.length === 0 ? (
-            <p className="text-subTitle p-6 text-center text-sm">{copy.empty}</p>
+            <p className="text-subTitle p-6 text-center text-sm">
+              {copy.empty}
+            </p>
           ) : (
             feed.items.map((notification) => (
               <AdminNotificationItem

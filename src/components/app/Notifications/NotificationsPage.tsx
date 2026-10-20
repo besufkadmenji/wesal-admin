@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import { PermissionGate } from "@/components/app/admin-lifecycle/PermissionGate";
 import {
@@ -65,9 +66,7 @@ export const NotificationsPage = () => {
     content: item.message,
     recipient_type: recipientTypesLabel(dict, item.recipientTypes),
     recipients: `${item.recipientCount} (${copy.audience[item.audience]})`,
-    date: new Date(item.createdAt).toLocaleString(
-      lang === "ar" ? "ar-SA" : "en-SA",
-    ),
+    date: formatDate(item.createdAt, lang, { withTime: true }),
   }));
 
   return (

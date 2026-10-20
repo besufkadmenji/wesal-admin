@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
@@ -22,10 +23,7 @@ export const BadgeLastRun = ({ run }: { run: LastRun | null }) => {
       ? providers.map((provider) => provider.name ?? provider.id).join("، ")
       : copy.none;
   const rows: Array<[string, string]> = [
-    [
-      copy.ran_at,
-      new Date(run.ranAt).toLocaleString(lang === "ar" ? "ar-SA" : "en-SA"),
-    ],
+    [copy.ran_at, formatDate(run.ranAt, lang, { withTime: true })],
     [copy.trust, String(run.trustCount)],
     [copy.diligence, String(run.diligenceCount)],
     [copy.under_improvement, String(run.underImprovementCount)],

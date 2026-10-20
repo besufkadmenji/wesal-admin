@@ -19,7 +19,7 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageDeliveryCompany } from "./useManageDeliveryCompany";
 
 export const EditDeliveryCompany = ({ id }: { id: string }) => {
-  const { deliveryCompany, isLoading, refetch } = useDeliveryCompanyById(id);
+  const { deliveryCompany, isPending, refetch } = useDeliveryCompanyById(id);
   const { form, setForm, reset } = useManageForm(id, deliveryCompany);
   const dict = useDict();
   const router = useAppRouter();
@@ -32,7 +32,7 @@ export const EditDeliveryCompany = ({ id }: { id: string }) => {
   }, [reset]);
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={deliveryCompany}
       onRetry={() => void refetch()}
       backHref="/delivery-companies"

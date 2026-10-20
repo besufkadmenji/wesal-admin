@@ -1,11 +1,12 @@
 "use client";
+import { FieldsSkeleton } from "@/components/app/shared/states/FieldsSkeleton";
 
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { useDict } from "@/hooks/useDict";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -56,7 +57,7 @@ export const CategoryContractDefaultsSection = () => {
   return (
     <FormSection title={labels.settings.title}>
       {!query.data ? (
-        <Spinner />
+        <FieldsSkeleton />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           <p className="text-default-500 text-sm md:col-span-2">

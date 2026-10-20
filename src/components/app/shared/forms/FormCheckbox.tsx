@@ -22,7 +22,7 @@ export const FormCheckbox = ({
       radius={"sm"}
       classNames={{
         wrapper:
-          "rounded-md group-data-[selected=true]:after:bg-app-primary before:border-[#CFD3D4] before:border-1",
+          "rounded-md group-data-[selected=true]:after:bg-app-primary before:border-[#CFD3D4] dark:before:border-white/30 before:border-1",
         label: twMerge(
           "text-sm text-[#83898C] dark:text-white/90",
           classNames?.label,

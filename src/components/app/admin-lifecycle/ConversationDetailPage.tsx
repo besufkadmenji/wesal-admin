@@ -35,10 +35,11 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
 
   // UI-10: skeleton while loading; a missing or failed record is not a
   // spinner forever.
-  if (query.isLoading || !query.data) {
+  // isPending (not isLoading): the query waits for permissions first.
+  if (query.isPending || !query.data) {
     return (
       <PageWrapper>
-        {query.isLoading ? (
+        {query.isPending ? (
           <DetailSkeleton />
         ) : (
           <DetailUnavailable
@@ -57,7 +58,9 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
   return (
     <PermissionGate resource="conversation">
       <PageWrapper>
-        <PageBar title={`Conversation #${conversation.publicId ?? "—"}`}>
+        <PageBar
+          title={`${lang === "ar" ? "محادثة" : "Conversation"} #${conversation.publicId ?? "—"}`}
+        >
           {primaryContract && (
             <AppLink
               href={`/contracts/${primaryContract.id}`}

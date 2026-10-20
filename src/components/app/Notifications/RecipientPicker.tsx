@@ -1,10 +1,11 @@
+import { ListSkeleton } from "@/components/app/shared/states/ListSkeleton";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { BroadcastRecipientType } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import BroadcastService, {
   RecipientOption,
 } from "@/services/broadcast.service";
-import { Checkbox, Chip, Spinner } from "@heroui/react";
+import { Checkbox, Chip } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useDeferredValue, useState } from "react";
 
@@ -56,7 +57,7 @@ export const RecipientPicker = ({
       />
       <div className="border-gray-border-alt dark:border-dark-border grid max-h-64 grid-cols-1 gap-1 overflow-y-auto rounded-lg border p-2">
         {options.isLoading ? (
-          <Spinner size="sm" />
+          <ListSkeleton rows={3} size="compact" />
         ) : (options.data ?? []).length === 0 ? (
           <p className="text-subTitle p-2 text-sm">{copy.no_matches}</p>
         ) : (

@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import {
   AdminLifecycleConversationQuery,
   ComplaintStatus,
@@ -60,7 +61,7 @@ export const formatConversationDate = (
   lang: string,
 ) => {
   if (!value) return null;
-  return new Date(value).toLocaleString(lang === "ar" ? "ar-SA" : "en-SA");
+  return formatDate(value, lang, { withTime: true });
 };
 
 export const showClosedAt = (status: string, closedAt: string | null) =>

@@ -1,17 +1,18 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
 import { ActivateProvider } from "@/components/app/Providers/ActivateProvider";
 import { DeactivateProvider } from "@/components/app/Providers/DeactivateProvider";
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { SignedContractStatus } from "@/gql/graphql";
+import { Tag } from "@/components/app/shared/Tag";
 import { useDict } from "@/hooks/useDict";
 import { StatusChip } from "@/components/app/shared/StatusChip";
 import { SIGNED_CONTRACT_TONES } from "@/components/app/SignedContracts/signedContractStatus";
 import { ProviderSignature } from "./ProviderSignature";
 import { useLang } from "@/hooks/useLang";
 import GoogleMapReact from "google-map-react";
-import moment from "moment";
 import { useQueryState } from "nuqs";
 import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
@@ -45,7 +46,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const lng = useLang();
   const router = useAppRouter();
-  const { data: provider, isLoading, refetch } = useProvider(id);
+  const { data: provider, isPending, refetch } = useProvider(id);
   const [activateProvider, setActivateProvider] =
     useQueryState("activateProvider");
   const [deactivateProvider, setDeactivateProvider] =
@@ -53,7 +54,7 @@ export const ProviderDetail = ({ id }: { id: string }) => {
   console.log("Category Data:", provider, id);
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={provider}
       onRetry={() => void refetch()}
       backHref="/providers"
@@ -180,12 +181,9 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {provider.categories.map((cat) => (
-                          <span
-                            key={cat.id}
-                            className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
-                          >
+                          <Tag key={cat.id}>
                             {lng === "ar" ? cat.nameAr : cat.nameEn}
-                          </span>
+                          </Tag>
                         ))}
                       </div>
                     </div>
@@ -302,12 +300,11 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                           {dict.view_provider.contract_signed_at}
                         </p>
                         <div className="text-primary font-semibold dark:text-white">
-                          {moment
-                            .unix(
-                              Number(provider.signedContract.contractSignedAt) /
-                                1000,
-                            )
-                            .format("MMM D, YYYY hh:mm A")}
+                          {formatDate(
+                            Number(provider.signedContract.contractSignedAt),
+                            lng,
+                            { withTime: true },
+                          )}
                         </div>
                       </div>
                     </div>

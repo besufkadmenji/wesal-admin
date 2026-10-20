@@ -9,7 +9,7 @@ export const AppCheckbox = ({ ...rest }: CheckboxProps) => {
       className={twMerge("inline-flex", rest.className)}
       classNames={{
         wrapper:
-          "text-white group-data-[selected=true]:after:bg-app-primary before:border-[#858D9D]",
+          "text-white group-data-[selected=true]:after:bg-app-primary before:border-[#858D9D] dark:before:border-white/30",
         label: "text-xs md:text-base",
         ...rest.classNames,
       }}

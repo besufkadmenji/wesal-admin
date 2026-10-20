@@ -1304,6 +1304,23 @@
     "messages": {
       "updateSuccess": "تم تحديث الإعدادات بنجاح.",
       "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح."
+    },
+    "lifecycle": {
+      "title": "إعدادات التعاقدات والرسوم",
+      "saved": "تم حفظ إعدادات التعاقدات والرسوم",
+      "vat_rate": "نسبة ضريبة القيمة المضافة (%)",
+      "vat_rate_placeholder": "نسبة الضريبة",
+      "vat_enabled": "تفعيل ضريبة القيمة المضافة",
+      "acceptance_window": "مهلة قبول التعاقد (أيام)",
+      "days": "أيام",
+      "hours": "ساعات",
+      "acceptance_enabled": "تفعيل مهلة القبول",
+      "confirmation_grace": "مهلة تأكيد العميل (ساعات)",
+      "premium_fee": "رسوم الإعلان المميز",
+      "fee": "الرسوم",
+      "premium_duration": "مدة الإعلان المميز (أيام)",
+      "premium_enabled": "تفعيل الإعلانات المميزة",
+      "save": "حفظ إعدادات التعاقدات والرسوم"
     }
   },
   "change_password_form": {

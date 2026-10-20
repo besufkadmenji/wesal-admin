@@ -9,12 +9,12 @@ import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { useListingById } from "../useListings";
 
 export const ViewListing = ({ id }: { id: string }) => {
-  const { listing, isLoading, refetch } = useListingById(id);
+  const { listing, isPending, refetch } = useListingById(id);
   const dict = useDict();
 
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={listing}
       onRetry={() => void refetch()}
       backHref="/listings"

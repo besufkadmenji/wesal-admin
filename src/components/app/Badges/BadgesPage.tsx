@@ -1,11 +1,12 @@
 "use client";
+import { ListSkeleton } from "@/components/app/shared/states/ListSkeleton";
 
 import { PermissionGate } from "@/components/app/admin-lifecycle/PermissionGate";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { useDict } from "@/hooks/useDict";
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { BadgeLastRun } from "./BadgeLastRun";
 import { BadgeTierBlock } from "./BadgeTierBlock";
 import { useBadges } from "./useBadges";
@@ -36,8 +37,8 @@ export const BadgesPage = () => {
           {dict.badges_page.description}
         </p>
         {!badges.tiers ? (
-          <div className="grid place-items-center py-16">
-            <Spinner />
+          <div className="py-6">
+            <ListSkeleton rows={3} size="card" />
           </div>
         ) : (
           <div className="grid gap-5 py-6">

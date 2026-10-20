@@ -15,7 +15,7 @@ export const renderCell = (
   },
 ) => {
   if (column === "number") {
-    return <p className="text-primary font-semibold">{row.number}</p>;
+    return <p className="text-primary font-semibold dark:text-white">{row.number}</p>;
   } else if (column === "action") {
     return <ActionsCell onView={action.onView} />;
   } else if (column === "name") {

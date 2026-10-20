@@ -24,13 +24,13 @@ export const ComplaintMessageBubble = ({
         className={twMerge(
           "max-w-[85%] rounded-2xl px-4 py-3 md:max-w-[70%]",
           isAdmin
-            ? "bg-app-primary/10 rounded-ee-md"
-            : "bg-gray-background rounded-es-md",
+            ? "bg-app-primary/10 text-primary rounded-ee-md dark:bg-[#6474a6]/25 dark:text-white"
+            : "bg-gray-background text-primary rounded-es-md dark:bg-white/8 dark:text-white",
         )}
       >
         <div className="mb-1 flex items-center justify-between gap-3 text-xs">
           <strong>{lifecycleEnumLabel(message.authorType, lang)}</strong>
-          <time className="text-gray shrink-0">{time}</time>
+          <time className="text-subTitle dark:text-dark-subTitle shrink-0">{time}</time>
         </div>
         <p className="text-sm leading-6 wrap-break-word whitespace-pre-wrap">
           {message.content}

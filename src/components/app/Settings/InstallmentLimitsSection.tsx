@@ -1,11 +1,12 @@
 "use client";
+import { FieldsSkeleton } from "@/components/app/shared/states/FieldsSkeleton";
 
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { useDict } from "@/hooks/useDict";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -33,9 +34,9 @@ export const InstallmentLimitsSection = () => {
     queryKey: ["setting"],
     queryFn: SettingService.getSetting,
   });
-  const [overrides, setOverrides] = useState<
-    Partial<Record<LimitKey, string>>
-  >({});
+  const [overrides, setOverrides] = useState<Partial<Record<LimitKey, string>>>(
+    {},
+  );
   const value = (key: LimitKey) => {
     if (overrides[key] !== undefined) return overrides[key];
     const saved = query.data?.[key];
@@ -50,7 +51,10 @@ export const InstallmentLimitsSection = () => {
   });
   const inverted = (min: number | null, max: number | null) =>
     min !== null && max !== null && min > max;
-  const tabbyInverted = inverted(amounts.tabbyMinAmount, amounts.tabbyMaxAmount);
+  const tabbyInverted = inverted(
+    amounts.tabbyMinAmount,
+    amounts.tabbyMaxAmount,
+  );
   const tamaraInverted = inverted(
     amounts.tamaraMinAmount,
     amounts.tamaraMaxAmount,
@@ -69,7 +73,7 @@ export const InstallmentLimitsSection = () => {
   return (
     <FormSection title={labels.title}>
       {!query.data ? (
-        <Spinner />
+        <FieldsSkeleton />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           <p className="text-default-500 text-sm md:col-span-2">

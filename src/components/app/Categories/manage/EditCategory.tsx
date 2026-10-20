@@ -20,7 +20,7 @@ import { useManageCategory } from "./useManageCategory";
 import { CategoryContractSettingsFields } from "./CategoryContractSettingsFields";
 
 export const EditCategory = ({ id }: { id: string }) => {
-  const { category, isLoading, refetch } = useCategoryById(id);
+  const { category, isPending, refetch } = useCategoryById(id);
   const lng = useLang();
   const { form, setForm, reset } = useManageForm(id, category);
   const imageFile = useForm((state) => state.imageFile);
@@ -42,7 +42,7 @@ export const EditCategory = ({ id }: { id: string }) => {
   }, [reset]);
   return (
     <DetailGate
-      isLoading={isLoading}
+      isLoading={isPending}
       data={category}
       onRetry={() => void refetch()}
       backHref="/categories"

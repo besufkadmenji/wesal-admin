@@ -1,12 +1,14 @@
 "use client";
+import { FieldsSkeleton } from "@/components/app/shared/states/FieldsSkeleton";
 
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Spinner, Switch } from "@heroui/react";
+import { Button, Switch } from "@heroui/react";
 import { useState } from "react";
+import { useDict } from "@/hooks/useDict";
 
 type LifecycleSettings = {
   vatRate: number;
@@ -20,6 +22,7 @@ type LifecycleSettings = {
 };
 
 export const LifecycleSettingsSection = () => {
+  const copy = useDict().settings_page.lifecycle;
   const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["setting"],
@@ -30,8 +33,7 @@ export const LifecycleSettingsSection = () => {
     ? {
         vatRate: query.data.vatRate,
         vatEnabled: query.data.vatEnabled,
-        contractAcceptanceWindowDays:
-          query.data.contractAcceptanceWindowDays,
+        contractAcceptanceWindowDays: query.data.contractAcceptanceWindowDays,
         contractAcceptanceWindowEnabled:
           query.data.contractAcceptanceWindowEnabled,
         completionConfirmationGraceHours:
@@ -46,7 +48,7 @@ export const LifecycleSettingsSection = () => {
     mutationFn: () => SettingService.setSetting(form ?? {}),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["setting"] });
-      showSuccessMessage("Lifecycle settings saved");
+      showSuccessMessage(copy.saved);
     },
     onError: (error) => showErrorMessage(error.message),
   });
@@ -56,17 +58,17 @@ export const LifecycleSettingsSection = () => {
 
   if (!form) {
     return (
-      <FormSection title="Contract and fee settings">
-        <Spinner />
+      <FormSection title={copy.title}>
+        <FieldsSkeleton />
       </FormSection>
     );
   }
   return (
-    <FormSection title="Contract and fee settings">
+    <FormSection title={copy.title}>
       <div className="grid gap-4 md:grid-cols-2">
         <FormInput
-          label="VAT rate (%)"
-          placeholder="VAT rate"
+          label={copy.vat_rate}
+          placeholder={copy.vat_rate_placeholder}
           type="number"
           value={String(form.vatRate)}
           onChange={(value) => setNumber("vatRate", value)}
@@ -77,16 +79,14 @@ export const LifecycleSettingsSection = () => {
             setOverrides((current) => ({ ...current, vatEnabled }))
           }
         >
-          VAT enabled
+          {copy.vat_enabled}
         </Switch>
         <FormInput
-          label="Acceptance window (days)"
-          placeholder="Days"
+          label={copy.acceptance_window}
+          placeholder={copy.days}
           type="number"
           value={String(form.contractAcceptanceWindowDays)}
-          onChange={(value) =>
-            setNumber("contractAcceptanceWindowDays", value)
-          }
+          onChange={(value) => setNumber("contractAcceptanceWindowDays", value)}
         />
         <Switch
           isSelected={form.contractAcceptanceWindowEnabled}
@@ -97,11 +97,11 @@ export const LifecycleSettingsSection = () => {
             }))
           }
         >
-          Acceptance deadline enabled
+          {copy.acceptance_enabled}
         </Switch>
         <FormInput
-          label="Customer confirmation grace (hours)"
-          placeholder="Hours"
+          label={copy.confirmation_grace}
+          placeholder={copy.hours}
           type="number"
           value={String(form.completionConfirmationGraceHours)}
           onChange={(value) =>
@@ -109,15 +109,15 @@ export const LifecycleSettingsSection = () => {
           }
         />
         <FormInput
-          label="Premium-ad fee"
-          placeholder="Fee"
+          label={copy.premium_fee}
+          placeholder={copy.fee}
           type="number"
           value={String(form.premiumAdFee)}
           onChange={(value) => setNumber("premiumAdFee", value)}
         />
         <FormInput
-          label="Premium-ad duration (days)"
-          placeholder="Days"
+          label={copy.premium_duration}
+          placeholder={copy.days}
           type="number"
           value={String(form.premiumAdDurationDays)}
           onChange={(value) => setNumber("premiumAdDurationDays", value)}
@@ -128,7 +128,7 @@ export const LifecycleSettingsSection = () => {
             setOverrides((current) => ({ ...current, premiumAdEnabled }))
           }
         >
-          Premium ads enabled
+          {copy.premium_enabled}
         </Switch>
         <Button
           color="primary"
@@ -136,7 +136,7 @@ export const LifecycleSettingsSection = () => {
           onPress={() => save.mutate()}
           className="md:col-span-2"
         >
-          Save contract and fee settings
+          {copy.save}
         </Button>
       </div>
     </FormSection>

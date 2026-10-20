@@ -18,7 +18,7 @@ import { AdminPermissionType } from "@/gql/graphql";
 import { useAppRouter } from "@/hooks/useAppRouter";
 
 export const ViewAdmin = ({ id }: { id: string }) => {
-  const { admin, isLoading, refetch } = useAdminById(id);
+  const { admin, isPending, refetch } = useAdminById(id);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, admin);
   const dict = useDict();
   const router = useAppRouter();
@@ -31,7 +31,7 @@ export const ViewAdmin = ({ id }: { id: string }) => {
 
   return (
     <DetailGate
-      isLoading={isLoading || (!!admin && !permissionsReady)}
+      isLoading={isPending || (!!admin && !permissionsReady)}
       data={admin}
       onRetry={() => void refetch()}
       backHref="/admins"

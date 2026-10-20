@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import { PermissionGate } from "@/components/app/admin-lifecycle/PermissionGate";
 import { DetailGate } from "@/components/app/shared/states/DetailGate";
@@ -34,7 +35,7 @@ export const ViewNotification = () => {
   return (
     <PermissionGate resource="notification">
       <DetailGate
-        isLoading={query.isLoading}
+        isLoading={query.isPending}
         data={broadcast}
         onRetry={() => void query.refetch()}
         backHref="/notifications"
@@ -62,9 +63,9 @@ export const ViewNotification = () => {
                 <FormInput
                   label={copy.labels.sent_date}
                   placeholder={copy.labels.sent_date}
-                  value={new Date(broadcast.createdAt).toLocaleString(
-                    lang === "ar" ? "ar-SA" : "en-SA",
-                  )}
+                  value={formatDate(broadcast.createdAt, lang, {
+                    withTime: true,
+                  })}
                   onChange={noop}
                   readOnly
                 />

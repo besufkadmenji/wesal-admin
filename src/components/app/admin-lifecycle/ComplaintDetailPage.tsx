@@ -61,10 +61,11 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
 
   // UI-10: skeleton while loading; a missing or failed record is not a
   // spinner forever.
-  if (query.isLoading || !query.data) {
+  // isPending (not isLoading): the query waits for permissions first.
+  if (query.isPending || !query.data) {
     return (
       <PageWrapper>
-        {query.isLoading ? (
+        {query.isPending ? (
           <DetailSkeleton />
         ) : (
           <DetailUnavailable
@@ -82,7 +83,9 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
   return (
     <PermissionGate resource="complaint">
       <PageWrapper>
-        <PageBar title={`Complaint #${complaint.publicId ?? "—"}`}>
+        <PageBar
+          title={`${lang === "ar" ? "شكوى" : "Complaint"} #${complaint.publicId ?? "—"}`}
+        >
           <AppLink
             href={`/conversations/${complaint.conversation.id}`}
             className="text-app-link text-sm font-medium"

@@ -65,6 +65,7 @@ export const useCityById = (id: string | null) => {
     isError,
     error,
     refetch,
+    isPending,
   } = useQuery({
     queryKey: ["city", id],
     queryFn: () => CityService.city(id!),
@@ -77,5 +78,6 @@ export const useCityById = (id: string | null) => {
     isError,
     error,
     refetch,
+    isPending,
   };
 };

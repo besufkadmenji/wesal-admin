@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import { PermissionGate } from "@/components/app/admin-lifecycle/PermissionGate";
 import { CommentStars } from "@/components/app/Comments/CommentStars";
@@ -80,9 +81,7 @@ export const CommentsPage = () => {
     provider: item.provider?.commercialName ?? "—",
     rating: `${item.rating}`,
     comment: item.comment ?? "—",
-    date: new Date(item.createdAt as string).toLocaleDateString(
-      lang === "ar" ? "ar-SA" : "en-SA",
-    ),
+    date: formatDate(item.createdAt as string, lang),
   }));
 
   return (
