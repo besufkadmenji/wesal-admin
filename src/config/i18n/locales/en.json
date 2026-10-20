@@ -2069,6 +2069,43 @@
       "messages_today": "Total daily chat messages",
       "featured_listings": "Total featured ads",
       "free_listings": "Total free ads"
+    },
+    "insights_title": "Insights",
+    "insights_subtitle": "Trends for the selected period",
+    "range": {
+      "label": "Chart period",
+      "7d": "7 days",
+      "30d": "30 days",
+      "12m": "12 months"
+    },
+    "charts": {
+      "revenue_title": "Platform revenue",
+      "revenue_subtitle": "Commission and fees collected",
+      "contracts_commission": "Contract commission",
+      "chat_fees": "Chat fees",
+      "premium_ads": "Featured ads",
+      "sar": "SAR",
+      "growth_title": "New sign-ups",
+      "growth_subtitle": "Customers and service providers who joined",
+      "customers": "Customers",
+      "providers": "Service providers",
+      "status_title": "Contracts by status",
+      "status_subtitle": "Contracts created in this period",
+      "contracts_unit": "Contracts",
+      "categories_title": "Top categories",
+      "categories_subtitle": "Categories with the most contracts in this period",
+      "empty": "No data in this period",
+      "error": "Couldn't load this data. It will retry shortly."
+    },
+    "attention": {
+      "title": "Needs attention",
+      "subtitle": "Waiting for an admin right now",
+      "pending_provider_requests": "Provider join requests",
+      "open_complaints": "Open complaints",
+      "cancellation_requests": "Cancellation requests",
+      "disputed_contracts": "Disputed contracts",
+      "all_clear": "All caught up",
+      "nothing_to_show": "Nothing to show for your permissions"
     }
   },
   "contract_status": {

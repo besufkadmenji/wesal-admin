@@ -2069,6 +2069,43 @@
       "messages_today": "العدد الإجمالي للمحادثات اليومية",
       "featured_listings": "العدد الإجمالي للإعلانات المميزة",
       "free_listings": "العدد الإجمالي للإعلانات المجانية"
+    },
+    "insights_title": "المؤشرات",
+    "insights_subtitle": "الاتجاهات خلال الفترة المحددة",
+    "range": {
+      "label": "فترة الرسوم البيانية",
+      "7d": "7 أيام",
+      "30d": "30 يومًا",
+      "12m": "12 شهرًا"
+    },
+    "charts": {
+      "revenue_title": "إيرادات المنصة",
+      "revenue_subtitle": "العمولات والرسوم المحصلة",
+      "contracts_commission": "عمولة العقود",
+      "chat_fees": "رسوم المحادثات",
+      "premium_ads": "الإعلانات المميزة",
+      "sar": "ريال",
+      "growth_title": "التسجيلات الجديدة",
+      "growth_subtitle": "العملاء ومقدمو الخدمات المنضمون",
+      "customers": "العملاء",
+      "providers": "مقدمو الخدمات",
+      "status_title": "العقود حسب الحالة",
+      "status_subtitle": "العقود المنشأة خلال هذه الفترة",
+      "contracts_unit": "عقود",
+      "categories_title": "الأقسام الأكثر طلبًا",
+      "categories_subtitle": "الأقسام الأكثر عقودًا خلال هذه الفترة",
+      "empty": "لا توجد بيانات خلال هذه الفترة",
+      "error": "تعذر تحميل البيانات. ستتم إعادة المحاولة قريبًا."
+    },
+    "attention": {
+      "title": "بحاجة إلى متابعة",
+      "subtitle": "بانتظار إجراء من الإدارة الآن",
+      "pending_provider_requests": "طلبات انضمام مقدمي الخدمات",
+      "open_complaints": "الشكاوى المفتوحة",
+      "cancellation_requests": "طلبات الإلغاء",
+      "disputed_contracts": "العقود المتنازع عليها",
+      "all_clear": "لا توجد عناصر معلقة",
+      "nothing_to_show": "لا يوجد ما يُعرض حسب صلاحياتك"
     }
   },
   "contract_status": {

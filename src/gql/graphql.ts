@@ -534,6 +534,13 @@ export type CreateFaqInput = {
   questionEn: string;
 };
 
+/** Admin dashboard chart period: 7 or 30 daily buckets, or 12 monthly buckets (Asia/Riyadh) */
+export enum DashboardRange {
+  Last_7Days = 'LAST_7_DAYS',
+  Last_12Months = 'LAST_12_MONTHS',
+  Last_30Days = 'LAST_30_DAYS'
+}
+
 export type DeactivateAdminInput = {
   reason?: string | null | undefined;
 };
@@ -676,6 +683,7 @@ export enum NotificationType {
   AdminContactMessage = 'ADMIN_CONTACT_MESSAGE',
   AdminContractCreated = 'ADMIN_CONTRACT_CREATED',
   AdminContractStatus = 'ADMIN_CONTRACT_STATUS',
+  AdminEcontractTerminationRequested = 'ADMIN_ECONTRACT_TERMINATION_REQUESTED',
   AdminNewCustomer = 'ADMIN_NEW_CUSTOMER',
   AdminPayment = 'ADMIN_PAYMENT',
   AdminProviderRequest = 'ADMIN_PROVIDER_REQUEST',
@@ -691,6 +699,7 @@ export enum NotificationType {
   ContractOverdue = 'CONTRACT_OVERDUE',
   ContractSigned = 'CONTRACT_SIGNED',
   ContractUpdate = 'CONTRACT_UPDATE',
+  EcontractTerminationRejected = 'ECONTRACT_TERMINATION_REJECTED',
   ListingApproved = 'LISTING_APPROVED',
   ListingFeatured = 'LISTING_FEATURED',
   ListingFeaturedExpired = 'LISTING_FEATURED_EXPIRED',
@@ -831,6 +840,7 @@ export type SignedContractPaginationInput = {
   sortBy?: SignedContractSortField | null | undefined;
   /** Sort order: ASC or DESC */
   sortOrder?: SortOrder | null | undefined;
+  status?: SignedContractStatus | null | undefined;
 };
 
 /** Available fields to sort signed contracts by */
@@ -841,13 +851,14 @@ export enum SignedContractSortField {
   UpdatedAt = 'updatedAt'
 }
 
-/** Provider account status */
+/** Provider e-contract status */
 export enum SignedContractStatus {
   Active = 'ACTIVE',
   Expired = 'EXPIRED',
   Pending = 'PENDING',
   TerminatedByAdmin = 'TERMINATED_BY_ADMIN',
-  TerminatedByProvider = 'TERMINATED_BY_PROVIDER'
+  TerminatedByProvider = 'TERMINATED_BY_PROVIDER',
+  TerminationRequested = 'TERMINATION_REQUESTED'
 }
 
 export type SocialMediaLinkInput = {
@@ -1718,6 +1729,39 @@ export type AdminDashboardStatsUpdatedSubscriptionVariables = Exact<{ [key: stri
 
 export type AdminDashboardStatsUpdatedSubscription = { adminDashboardStatsUpdated: { customers: number, providers: number, completedContracts: number, messagesToday: number, featuredListings: number, freeListings: number } };
 
+export type AdminRevenueSeriesQueryVariables = Exact<{
+  range: DashboardRange;
+}>;
+
+
+export type AdminRevenueSeriesQuery = { adminRevenueSeries: Array<{ bucket: string, contracts: number, chatFees: number, premiumAds: number }> };
+
+export type AdminGrowthSeriesQueryVariables = Exact<{
+  range: DashboardRange;
+}>;
+
+
+export type AdminGrowthSeriesQuery = { adminGrowthSeries: Array<{ bucket: string, customers: number, providers: number }> };
+
+export type AdminContractStatusBreakdownQueryVariables = Exact<{
+  range: DashboardRange;
+}>;
+
+
+export type AdminContractStatusBreakdownQuery = { adminContractStatusBreakdown: Array<{ status: ContractStatus, count: number }> };
+
+export type AdminTopCategoriesQueryVariables = Exact<{
+  range: DashboardRange;
+}>;
+
+
+export type AdminTopCategoriesQuery = { adminTopCategories: Array<{ categoryId: string, nameAr: string, nameEn: string, contracts: number }> };
+
+export type AdminAttentionCountsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminAttentionCountsQuery = { adminAttentionCounts: { pendingProviderRequests: number | null, openComplaints: number | null, cancellationRequests: number | null, disputedContracts: number | null } };
+
 export type ActivateUserMutationVariables = Exact<{
   activateUserId: string;
 }>;
@@ -1860,6 +1904,11 @@ export const SignedContractByProviderIdDocument = {"kind":"Document","definition
 export const SignedContractsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signedContracts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SignedContractPaginationInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signedContracts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNext"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevious"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesAr"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"acceptedRulesEn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contractExpiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"contractSignedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerName"}},{"kind":"Field","name":{"kind":"Name","value":"platformManagerSignature"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"serviceProviderSignature"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"terminationReason"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"commercialName"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationFilename"}},{"kind":"Field","name":{"kind":"Name","value":"ratingAverage"}},{"kind":"Field","name":{"kind":"Name","value":"ratingCount"}},{"kind":"Field","name":{"kind":"Name","value":"commercialRegistrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"isNewlyAdded"}},{"kind":"Field","name":{"kind":"Name","value":"publicId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"withAbsher"}}]}},{"kind":"Field","name":{"kind":"Name","value":"providerId"}}]}}]}}]}}]} as unknown as DocumentNode<SignedContractsQuery, SignedContractsQueryVariables>;
 export const AdminDashboardStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminDashboardStats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminDashboardStats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customers"}},{"kind":"Field","name":{"kind":"Name","value":"providers"}},{"kind":"Field","name":{"kind":"Name","value":"completedContracts"}},{"kind":"Field","name":{"kind":"Name","value":"messagesToday"}},{"kind":"Field","name":{"kind":"Name","value":"featuredListings"}},{"kind":"Field","name":{"kind":"Name","value":"freeListings"}}]}}]}}]} as unknown as DocumentNode<AdminDashboardStatsQuery, AdminDashboardStatsQueryVariables>;
 export const AdminDashboardStatsUpdatedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"adminDashboardStatsUpdated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminDashboardStatsUpdated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customers"}},{"kind":"Field","name":{"kind":"Name","value":"providers"}},{"kind":"Field","name":{"kind":"Name","value":"completedContracts"}},{"kind":"Field","name":{"kind":"Name","value":"messagesToday"}},{"kind":"Field","name":{"kind":"Name","value":"featuredListings"}},{"kind":"Field","name":{"kind":"Name","value":"freeListings"}}]}}]}}]} as unknown as DocumentNode<AdminDashboardStatsUpdatedSubscription, AdminDashboardStatsUpdatedSubscriptionVariables>;
+export const AdminRevenueSeriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminRevenueSeries"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"range"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DashboardRange"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminRevenueSeries"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"range"},"value":{"kind":"Variable","name":{"kind":"Name","value":"range"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bucket"}},{"kind":"Field","name":{"kind":"Name","value":"contracts"}},{"kind":"Field","name":{"kind":"Name","value":"chatFees"}},{"kind":"Field","name":{"kind":"Name","value":"premiumAds"}}]}}]}}]} as unknown as DocumentNode<AdminRevenueSeriesQuery, AdminRevenueSeriesQueryVariables>;
+export const AdminGrowthSeriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminGrowthSeries"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"range"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DashboardRange"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminGrowthSeries"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"range"},"value":{"kind":"Variable","name":{"kind":"Name","value":"range"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bucket"}},{"kind":"Field","name":{"kind":"Name","value":"customers"}},{"kind":"Field","name":{"kind":"Name","value":"providers"}}]}}]}}]} as unknown as DocumentNode<AdminGrowthSeriesQuery, AdminGrowthSeriesQueryVariables>;
+export const AdminContractStatusBreakdownDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminContractStatusBreakdown"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"range"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DashboardRange"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminContractStatusBreakdown"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"range"},"value":{"kind":"Variable","name":{"kind":"Name","value":"range"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]} as unknown as DocumentNode<AdminContractStatusBreakdownQuery, AdminContractStatusBreakdownQueryVariables>;
+export const AdminTopCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminTopCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"range"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DashboardRange"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminTopCategories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"range"},"value":{"kind":"Variable","name":{"kind":"Name","value":"range"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categoryId"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"contracts"}}]}}]}}]} as unknown as DocumentNode<AdminTopCategoriesQuery, AdminTopCategoriesQueryVariables>;
+export const AdminAttentionCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"adminAttentionCounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminAttentionCounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pendingProviderRequests"}},{"kind":"Field","name":{"kind":"Name","value":"openComplaints"}},{"kind":"Field","name":{"kind":"Name","value":"cancellationRequests"}},{"kind":"Field","name":{"kind":"Name","value":"disputedContracts"}}]}}]}}]} as unknown as DocumentNode<AdminAttentionCountsQuery, AdminAttentionCountsQueryVariables>;
 export const ActivateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"activateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activateUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activateUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activateUserId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}}]} as unknown as DocumentNode<ActivateUserMutation, ActivateUserMutationVariables>;
 export const DeactivateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deactivateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deactivateUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeactivateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deactivateUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deactivateUserId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}}]} as unknown as DocumentNode<DeactivateUserMutation, DeactivateUserMutationVariables>;
 export const RemoveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeUserId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"avatarFilename"}},{"kind":"Field","name":{"kind":"Name","value":"bankName"}},{"kind":"Field","name":{"kind":"Name","value":"cityId"}},{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"dialCode"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"ibanNumber"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"languageCode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"phoneVerified"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"city"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nameAr"}},{"kind":"Field","name":{"kind":"Name","value":"nameEn"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deactivationReason"}},{"kind":"Field","name":{"kind":"Name","value":"deleteReason"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}}]} as unknown as DocumentNode<RemoveUserMutation, RemoveUserMutationVariables>;
@@ -1926,6 +1975,11 @@ export type {
   CreateNotificationInput,
   CreatePermissionInput,
   CreateProviderInput,
+  DashboardAttentionCounts,
+  DashboardContractStatusCount,
+  DashboardGrowthPoint,
+  DashboardRevenuePoint,
+  DashboardTopCategory,
   DeliveryCompany,
   Faq,
   Favorite,
@@ -1964,6 +2018,7 @@ export type {
   MutationAdminSetRatingStatusArgs,
   MutationAdminTerminateProviderContractArgs,
   MutationAdminVerifyPasswordResetOtpArgs,
+  MutationApproveProviderContractTerminationArgs,
   MutationAssignPermissionToAdminArgs,
   MutationBulkAssignPermissionsToAdminArgs,
   MutationBulkRevokePermissionsFromAdminArgs,
@@ -2020,6 +2075,7 @@ export type {
   MutationRegisterArgs,
   MutationRegisterProviderArgs,
   MutationRejectContractArgs,
+  MutationRejectProviderContractTerminationArgs,
   MutationRejectProviderJoinRequestArgs,
   MutationRemoveAdminArgs,
   MutationRemoveAvatarArgs,
@@ -2119,13 +2175,17 @@ export type {
   QueryAdminComplaintArgs,
   QueryAdminComplaintsArgs,
   QueryAdminContractArgs,
+  QueryAdminContractStatusBreakdownArgs,
   QueryAdminContractsArgs,
   QueryAdminConversationArgs,
   QueryAdminConversationsArgs,
+  QueryAdminGrowthSeriesArgs,
   QueryAdminNotificationsArgs,
   QueryAdminPermissionsArgs,
   QueryAdminRatingArgs,
   QueryAdminRatingsArgs,
+  QueryAdminRevenueSeriesArgs,
+  QueryAdminTopCategoriesArgs,
   QueryAdminsArgs,
   QueryBankArgs,
   QueryBanksArgs,
@@ -2188,6 +2248,7 @@ export type {
   RegisterInput,
   RegisterProviderInput,
   RejectContractInput,
+  RejectContractTerminationInput,
   RemoveListingResponse,
   ReportPageMeta,
   ResendContractInput,
