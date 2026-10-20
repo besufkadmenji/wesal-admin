@@ -1,9 +1,13 @@
+import {
+  StatusChip,
+  type StatusTone,
+} from "@/components/app/shared/StatusChip";
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Button } from "@heroui/react";
 import { Key } from "react";
-import ReplyIcon from "@/assets/icons/app/reply.svg";
+import { Reply as ReplyIcon } from "lucide-react";
 import { ContactMessageStatus, MessageType, SenderType } from "@/gql/graphql";
 import { twMerge } from "tailwind-merge";
 
@@ -54,20 +58,16 @@ export const renderCell = (
   } else if (column === "name") {
     return <p className="w-20">{row.name}</p>;
   } else if (column === "status") {
+    const tones: Record<string, StatusTone> = {
+      [ContactMessageStatus.Read]: "success",
+      [ContactMessageStatus.Sent]: "warning",
+      [ContactMessageStatus.Replied]: "purple",
+    };
     return (
-      <div
-        className={twMerge(
-          "rounded-xl px-2 py-1 text-sm font-medium",
-          row.status === ContactMessageStatus.Read &&
-            "bg-green-50 text-green-600",
-          row.status === ContactMessageStatus.Sent &&
-            "bg-yellow-50 text-yellow-600",
-          row.status === ContactMessageStatus.Replied &&
-            "bg-purple-50 text-purple-600",
-        )}
-      >
-        {statusMap[row.status as ContactMessageStatus]}
-      </div>
+      <StatusChip
+        tone={tones[row.status] ?? "neutral"}
+        label={statusMap[row.status as ContactMessageStatus]}
+      />
     );
   } else if (column === "senderType") {
     return (

@@ -12,6 +12,7 @@ import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
 import { REPLY_TO_CONTACT_MESSAGE } from "@/graphql/contact-message/replyToContactMessage";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class ContactMessageService {
   static contactMessages = async (
@@ -42,9 +43,9 @@ class ContactMessageService {
       });
       return contactMessageResult.data?.contactMessage ?? null;
     } catch (e) {
-      console.error("contact messageResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static markAsRead = async (markAsReadId: string) => {

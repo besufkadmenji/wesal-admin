@@ -1,7 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { Button } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
-import CloseIcon from "@/assets/icons/app/close.svg";
+import { X as CloseIcon } from "lucide-react";
 export const CancelButton = ({
   onPress,
   className,

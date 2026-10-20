@@ -1,20 +1,20 @@
 "use client";
 
+import { DetailSkeleton } from "@/components/app/shared/states/DetailSkeleton";
+import { DetailUnavailable } from "@/components/app/shared/states/DetailUnavailable";
+
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { AdminLifecycleService } from "@/services/admin-lifecycle.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { ContractResolution } from "@/gql/graphql";
 import { useLang } from "@/hooks/useLang";
-import {
-  ContractDetail,
-  contractDetailCopy,
-} from "./contract-detail-helpers";
+import { ContractDetail, contractDetailCopy } from "./contract-detail-helpers";
 import { ContractDetailSummary } from "./ContractDetailSummary";
 import { ContractPartiesSection } from "./ContractPartiesSection";
 import { ContractFinancialSection } from "./ContractFinancialSection";
@@ -52,12 +52,20 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
     onError: (error) => showErrorMessage(error.message),
   });
 
-  if (query.isLoading || !query.data) {
+  // UI-10: skeleton while loading; a missing or failed record is not a
+  // spinner forever.
+  // isPending (not isLoading): the query waits for permissions first.
+  if (query.isPending || !query.data) {
     return (
       <PageWrapper>
-        <div className="grid min-h-96 place-content-center">
-          <Spinner />
-        </div>
+        {query.isPending ? (
+          <DetailSkeleton />
+        ) : (
+          <DetailUnavailable
+            onRetry={() => void query.refetch()}
+            backHref="/contracts"
+          />
+        )}
       </PageWrapper>
     );
   }
@@ -74,6 +82,23 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  // S4-37: internal tax invoice, available once the contract is paid.
+  const downloadInvoice = async () => {
+    try {
+      const blob = await AdminLifecycleService.download(
+        `/contracts/${contract.id}/invoice`,
+        { language: lang },
+      );
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `invoice-INV-${contract.publicId ?? contract.id}.pdf`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      showErrorMessage(copy.invoiceFailed);
+    }
+  };
   const canResolve =
     contract.status === "DISPUTED" ||
     (["AWAITING_CUSTOMER_CONFIRMATION", "DELIVERY_IN_PROGRESS"].includes(
@@ -85,16 +110,27 @@ export const ContractDetailPage = ({ id }: { id: string }) => {
   return (
     <PermissionGate resource="contract">
       <PageWrapper>
-        <PageBar title={`Contract #${contract.publicId ?? "—"}`}>
+        <PageBar
+          title={`${lang === "ar" ? "تعاقد" : "Contract"} #${contract.publicId ?? "—"}`}
+        >
           <AppLink
             href={`/conversations/${contract.conversation.id}`}
-            className="text-app-primary text-sm font-medium"
+            className="text-app-link text-sm font-medium"
           >
             {copy.viewConversation}
             {contract.conversation.publicId != null
               ? ` #${contract.conversation.publicId}`
               : ""}
           </AppLink>
+          {contract.paidAt && (
+            <Button
+              variant="bordered"
+              className="border-app-primary text-app-link"
+              onPress={downloadInvoice}
+            >
+              {copy.downloadInvoice}
+            </Button>
+          )}
           {contract.document && (
             <Button color="primary" onPress={downloadDocument}>
               {copy.downloadPdf}

@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date.time.helpers";
 import {
   AdminLifecycleComplaintQuery,
   ComplaintMessageAuthorType,
@@ -70,7 +71,7 @@ export const formatComplaintDate = (
   lang: string,
 ) => {
   if (!value) return null;
-  return new Date(value).toLocaleString(lang === "ar" ? "ar-SA" : "en-SA");
+  return formatDate(value, lang, { withTime: true });
 };
 
 export const isTerminalComplaintStatus = (status: string) =>

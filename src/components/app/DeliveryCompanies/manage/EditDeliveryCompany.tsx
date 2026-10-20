@@ -1,7 +1,7 @@
 "use client";
 
 import { statusMap } from "@/components/app/Banks/renderCell";
-import { AppLoading } from "@/components/app/shared/AppLoading";
+import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import {
   AppForm,
   FormSection,
@@ -19,7 +19,7 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageDeliveryCompany } from "./useManageDeliveryCompany";
 
 export const EditDeliveryCompany = ({ id }: { id: string }) => {
-  const { deliveryCompany } = useDeliveryCompanyById(id);
+  const { deliveryCompany, isPending, error, refetch } = useDeliveryCompanyById(id);
   const { form, setForm, reset } = useManageForm(id, deliveryCompany);
   const dict = useDict();
   const router = useAppRouter();
@@ -30,79 +30,93 @@ export const EditDeliveryCompany = ({ id }: { id: string }) => {
       reset();
     };
   }, [reset]);
-  return !deliveryCompany ? (
-    <AppLoading className="h-[84vh]" />
-  ) : (
-    <div className="grid grid-cols-1">
-      <AppForm
-        type={FormType.Banks}
-        onSubmit={() => {
-          if (validateForm()) {
-            updateDeliveryCompany(id);
-          }
-        }}
-        onCancel={() => {
-          router.push("/delivery-companies");
-        }}
-        busy={busy}
-        action="edit"
-      >
-        <FormSection
-          title={
-            dict.edit_delivery_company_form.sections
-              .delivery_company_information
-          }
-        >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <FormInput
-              label={
-                dict.edit_delivery_company_form.labels.delivery_company_name_ar
+  return (
+    <DetailGate
+      isLoading={isPending}
+      data={deliveryCompany}
+      error={error}
+      onRetry={() => void refetch()}
+      backHref="/delivery-companies"
+    >
+      {() => (
+        <div className="grid grid-cols-1">
+          <AppForm
+            type={FormType.Banks}
+            onSubmit={() => {
+              if (validateForm()) {
+                updateDeliveryCompany(id);
               }
-              placeholder={
-                dict.edit_delivery_company_form.placeholders
-                  .delivery_company_name_ar
+            }}
+            onCancel={() => {
+              router.push("/delivery-companies");
+            }}
+            busy={busy}
+            action="edit"
+          >
+            <FormSection
+              title={
+                dict.edit_delivery_company_form.sections
+                  .delivery_company_information
               }
-              value={form.nameAr}
-              onChange={(value: string): void => {
-                setForm({ nameAr: value });
-                clearError("nameAr");
-              }}
-              errorMessage={errors.nameAr}
-            />
-            <FormInput
-              label={
-                dict.edit_delivery_company_form.labels.delivery_company_name_en
-              }
-              placeholder={
-                dict.edit_delivery_company_form.placeholders
-                  .delivery_company_name_en
-              }
-              value={form.nameEn}
-              onChange={(value: string): void => {
-                setForm({ nameEn: value });
-                clearError("nameEn");
-              }}
-              errorMessage={errors.nameEn}
-            />
-            <FormSelect
-              label={dict.edit_delivery_company_form.labels.status}
-              placeholder={dict.edit_delivery_company_form.placeholders.status}
-              value={form.status?.toString() || ""}
-              onChange={(value: string): void => {
-                setForm({
-                  status: value as DeliveryCompanyStatus,
-                });
-                clearError("status");
-              }}
-              options={Object.entries(statusMap(dict)).map(([key, value]) => ({
-                label: value,
-                key: key,
-              }))}
-              errorMessage={errors.status}
-            />
-          </div>
-        </FormSection>
-      </AppForm>
-    </div>
+            >
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormInput
+                  label={
+                    dict.edit_delivery_company_form.labels
+                      .delivery_company_name_ar
+                  }
+                  placeholder={
+                    dict.edit_delivery_company_form.placeholders
+                      .delivery_company_name_ar
+                  }
+                  value={form.nameAr}
+                  onChange={(value: string): void => {
+                    setForm({ nameAr: value });
+                    clearError("nameAr");
+                  }}
+                  errorMessage={errors.nameAr}
+                />
+                <FormInput
+                  label={
+                    dict.edit_delivery_company_form.labels
+                      .delivery_company_name_en
+                  }
+                  placeholder={
+                    dict.edit_delivery_company_form.placeholders
+                      .delivery_company_name_en
+                  }
+                  value={form.nameEn}
+                  onChange={(value: string): void => {
+                    setForm({ nameEn: value });
+                    clearError("nameEn");
+                  }}
+                  errorMessage={errors.nameEn}
+                />
+                <FormSelect
+                  label={dict.edit_delivery_company_form.labels.status}
+                  placeholder={
+                    dict.edit_delivery_company_form.placeholders.status
+                  }
+                  value={form.status?.toString() || ""}
+                  onChange={(value: string): void => {
+                    setForm({
+                      status: value as DeliveryCompanyStatus,
+                    });
+                    clearError("status");
+                  }}
+                  options={Object.entries(statusMap(dict)).map(
+                    ([key, value]) => ({
+                      label: value,
+                      key: key,
+                    }),
+                  )}
+                  errorMessage={errors.status}
+                />
+              </div>
+            </FormSection>
+          </AppForm>
+        </div>
+      )}
+    </DetailGate>
   );
 };

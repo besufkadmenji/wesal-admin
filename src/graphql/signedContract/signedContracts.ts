@@ -37,6 +37,10 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
         serviceProviderSignature
         status
         terminationReason
+        terminationRequestedAt
+        terminationRequestReason
+        terminationRejectedAt
+        terminationRejectionReason
         updatedAt
         provider {
           address
@@ -45,6 +49,8 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
           cityId
           commercialName
           commercialRegistrationFilename
+          ratingAverage
+          ratingCount
           commercialRegistrationNumber
           countryId
           createdAt
@@ -63,6 +69,7 @@ export const SIGNED_CONTRACTS: TypedDocumentNode<
           name
           phone
           phoneVerified
+          isNewlyAdded
           publicId
           status
           updatedAt

@@ -31,7 +31,14 @@
       "saveAndPrint": "Save and Print",
       "clearSearch": "Clear Search",
       "clearFilters": "Clear Filters",
-      "apply": "Apply"
+      "apply": "Apply",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "remove": "Remove",
+      "reorder": "Reorder",
+      "approve": "Approve",
+      "reject": "Reject"
     },
     "timeFilters": {
       "all": "All",
@@ -109,13 +116,42 @@
     "validation": {
       "deactivation_reason": {
         "required": "Deactivation reason is required"
-      }
+      },
+      "reason_required": "Please enter a reason"
     },
     "active": "Active",
     "expired": "Expired",
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
-    "waitingForResigning": "Waiting for Resigning"
+    "waitingForResigning": "Waiting for Resigning",
+    "terminationRequested": "Termination requested",
+    "optional": "(Optional)",
+    "dialogs": {
+      "activate_title": "Activate?",
+      "activate_message": "Are you sure you want to activate this item?",
+      "deactivate_title": "Deactivate?",
+      "deactivate_message": "Are you sure you want to deactivate this item?",
+      "reason": "Reason",
+      "reason_placeholder": "Enter the reason"
+    },
+    "states": {
+      "not_found_title": "Not available",
+      "not_found_message": "This item doesn't exist or was removed.",
+      "retry": "Try again",
+      "back_to_list": "Back to the list",
+      "forbidden_title": "No access",
+      "forbidden_message": "Your permissions don't include this page. Ask a super admin if you need it.",
+      "failed_title": "Couldn't load this page",
+      "failed_message": "Something went wrong while loading. Check your connection and try again."
+    },
+    "a11y": {
+      "show_password": "Show password",
+      "hide_password": "Hide password",
+      "dark_mode": "Dark mode",
+      "light_mode": "Light mode",
+      "theme": "Theme",
+      "language": "Language"
+    }
   },
   "auth": {
     "welcome_back": "Welcome back again",
@@ -126,7 +162,16 @@
     "sign_in": "Sign in",
     "password_reset_success": "Your password has been reset successfully.",
     "reset_code_sent": "A reset code has been sent to your email. Please check your inbox.",
-    "reset_code_resent": "Reset code has been resent successfully."
+    "reset_code_resent": "Reset code has been resent successfully.",
+    "sign_in_subtitle": "Sign in to manage the Wesal platform.",
+    "brand_title": "Wesal administration",
+    "brand_tagline": "Listings, contracts, payments and people, managed in one place.",
+    "back_to_sign_in": "Back to sign in",
+    "art_contracts": "Completed contracts",
+    "art_this_month": "this month",
+    "art_payment": "Payment received",
+    "art_provider": "New provider request",
+    "art_review": "Review"
   },
   "forgot_password": {
     "title": "Reset Password",
@@ -179,7 +224,26 @@
     "complaints": "Complaints Department",
     "contract_financial_report": "Contract Financial Report",
     "conversation_fee_report": "Conversation Fee Report",
-    "premium_ad_report": "Premium Advertising Report"
+    "premium_ad_report": "Premium Advertising Report",
+    "comments": "Comments Management",
+    "badges": "Badges Management",
+    "charity": "Wesal Al-Khair",
+    "section_overview": "Overview",
+    "section_marketplace": "Marketplace",
+    "section_people": "People",
+    "section_operations": "Operations",
+    "section_configuration": "Configuration",
+    "menu": "Menu",
+    "brand_name": "Wesal",
+    "brand_subtitle": "Admin dashboard",
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "details": "Details",
+      "add": "Add",
+      "edit": "Edit"
+    },
+    "sidebar_collapse": "Collapse sidebar",
+    "sidebar_expand": "Expand sidebar"
   },
   "users_page": {
     "title": "Users Management",
@@ -419,7 +483,8 @@
       "address": "Address",
       "bank_name": "Bank Name",
       "iban_number": "IBAN",
-      "categories": "Business Categories"
+      "categories": "Business Categories",
+      "badge": "Badge"
     },
     "placeholders": {
       "name": "Enter name",
@@ -436,7 +501,9 @@
     "sections": {
       "business_information": "Business Information",
       "banking_information": "Banking Information"
-    }
+    },
+    "no_badge": "No badge",
+    "newly_added": "Newly added (not yet in a monthly badge run)"
   },
   "profile": {
     "commercialRecordNumber": "Commercial Registration Number"
@@ -482,6 +549,22 @@
       "subtitle": "Are you sure you want to reactivate this provider? They will need to sign a new contract before resuming activities.",
       "confirm": "Reactivate",
       "cancel": "Cancel"
+    },
+    "terminationRequest": {
+      "title": "Termination request from the service provider",
+      "requestedOn": "Requested on {date}",
+      "reason": "Provider's reason",
+      "hint": "The account stays active until you decide. Approval deletes the account and is refused while the provider has ongoing contracts.",
+      "approve": "Approve termination",
+      "reject": "Reject request",
+      "approveTitle": "Approve the termination?",
+      "approveMessage": "The e-contract will be terminated and the provider's account deleted, and the provider will be emailed. This can't be undone.",
+      "rejectTitle": "Reject the termination request",
+      "rejectMessage": "The provider will see your reason in a notification, and the contract stays active.",
+      "rejectReasonRequired": "Please enter the reason for rejecting the request",
+      "approved": "The contract was terminated and the provider's account deleted",
+      "rejected": "The termination request was rejected",
+      "rejectPlaceholder": "Explain why the request is rejected"
     }
   },
   "admin_forgot_password_form": {
@@ -495,7 +578,8 @@
     },
     "buttons": {
       "send_verification_code": "Send Verification Code"
-    }
+    },
+    "description": "Enter your account email and we'll send you a verification code."
   },
   "admin_verify_code_form": {
     "title": "Verification Code",
@@ -523,7 +607,8 @@
     },
     "buttons": {
       "sign_in": "Sign in"
-    }
+    },
+    "description": "Choose a new password for your account."
   },
   "system_managers_page": {
     "title": "System Managers Management",
@@ -1101,36 +1186,32 @@
   },
   "notifications_page": {
     "title": "Notifications Management",
-    "total_notifications": "Total Notifications Count",
+    "total_notifications": "Sent notifications",
     "total_count": "notifications",
+    "columns": {
+      "index": "#",
+      "title": "Title",
+      "content": "Content",
+      "recipient_type": "Recipient type",
+      "recipients": "Recipients",
+      "date": "Sent at"
+    },
+    "recipient_types": {
+      "USER": "Customers",
+      "PROVIDER": "Service providers"
+    },
+    "audience": {
+      "ALL": "All",
+      "SELECTED": "Selected"
+    },
+    "filter_recipient_type": "Recipient type",
+    "empty": "No notifications have been sent yet",
     "buttons": {
       "add_notification": "Add New Notification"
-    },
-    "search_placeholder": "Search",
-    "table_headers": {
-      "checkbox": "",
-      "notification_title": "Title",
-      "notification_content": "Content",
-      "recipients_count": "Recipients Count",
-      "sent_date": "Sent Date",
-      "created_by": "Created By",
-      "actions": "Actions"
-    },
-    "actions": {
-      "view": "View",
-      "delete": "Delete"
-    },
-    "messages": {
-      "createSuccess": "Notification created successfully.",
-      "deleteSuccess": "Notification deleted successfully."
-    },
-    "no_notifications_yet": "No notifications yet"
+    }
   },
   "add_new_notification_form": {
     "title": "Add New Notification",
-    "buttons": {
-      "save": "Save"
-    },
     "sections": {
       "notification_information": "Notification Information",
       "recipients": "Recipients"
@@ -1138,26 +1219,34 @@
     "labels": {
       "title": "Notification Title",
       "content": "Notification Content",
-      "sender_id": "Sender Username",
-      "recipients": "Select Recipients"
+      "recipient_types": "Recipient type",
+      "audience": "Send to",
+      "recipients": "Select Recipients",
+      "search_recipients": "Search by name, phone or email"
     },
     "placeholders": {
       "title": "Enter notification title",
-      "content": "Enter notification content"
+      "content": "Enter notification content",
+      "recipient_types": "Choose customers, providers or both"
     },
+    "audience_options": {
+      "ALL": "All active accounts of the chosen type",
+      "SELECTED": "Specific accounts"
+    },
+    "selected_count": "{count} selected",
+    "no_matches": "No active accounts match your search",
     "messages": {
-      "createSuccess": "Notification created successfully."
+      "createSuccess": "Notification sent to {count} recipients."
     },
     "validation": {
       "title": {
-        "required": "Notification title is required",
-        "minLength": "Notification title must be at least 3 characters long",
-        "maxLength": "Notification title must not exceed 255 characters"
+        "required": "Notification title is required"
       },
       "content": {
-        "required": "Notification content is required",
-        "minLength": "Notification content must be at least 10 characters long",
-        "maxLength": "Notification content must not exceed 5000 characters"
+        "required": "Notification content is required"
+      },
+      "recipientTypes": {
+        "required": "Choose at least one recipient type"
       },
       "recipientIds": {
         "required": "At least one recipient is required"
@@ -1165,7 +1254,7 @@
     }
   },
   "notification_detail_page": {
-    "title": "New Notification",
+    "title": "View Notification",
     "sections": {
       "notification_information": "Notification Information",
       "recipients_information": "Recipients Information"
@@ -1174,20 +1263,9 @@
       "title": "Notification Title",
       "content": "Notification Content",
       "sent_date": "Sent Date",
-      "sender_id": "Sender Username",
-      "created_by": "Created By",
-      "recipients_count": "Recipients Count"
-    },
-    "table_headers": {
-      "recipient_name": "Recipient Name",
-      "delivery_status": "Delivery Status",
-      "delivered_date": "Delivered Date",
-      "read_date": "Read Date"
-    },
-    "delivery_status": {
-      "delivered": "Delivered",
-      "pending": "Pending",
-      "failed": "Failed"
+      "recipients_count": "Recipients Count",
+      "recipient_types": "Recipient type",
+      "audience": "Sent to"
     }
   },
   "settings_page": {
@@ -1217,7 +1295,8 @@
       "account_number": "Enter account number",
       "email": "Enter email",
       "password": "Enter password",
-      "confirm_password": "Confirm password"
+      "confirm_password": "Confirm password",
+      "phone_number": "Enter phone number"
     },
     "buttons": {
       "upload": "Upload"
@@ -1229,6 +1308,23 @@
     "messages": {
       "updateSuccess": "Settings updated successfully.",
       "passwordChangeSuccess": "Password changed successfully."
+    },
+    "lifecycle": {
+      "title": "Contract and fee settings",
+      "saved": "Contract and fee settings saved",
+      "vat_rate": "VAT rate (%)",
+      "vat_rate_placeholder": "VAT rate",
+      "vat_enabled": "VAT enabled",
+      "acceptance_window": "Acceptance window (days)",
+      "days": "Days",
+      "hours": "Hours",
+      "acceptance_enabled": "Acceptance deadline enabled",
+      "confirmation_grace": "Customer confirmation grace (hours)",
+      "premium_fee": "Premium-ad fee",
+      "fee": "Fee",
+      "premium_duration": "Premium-ad duration (days)",
+      "premium_enabled": "Premium ads enabled",
+      "save": "Save contract and fee settings"
     }
   },
   "change_password_form": {
@@ -1377,7 +1473,11 @@
       "updateSuccess": "Category updated successfully.",
       "deleteSuccess": "Category deleted successfully.",
       "activateSuccess": "Category activated successfully.",
-      "deactivateSuccess": "Category deactivated successfully."
+      "deactivateSuccess": "Category deactivated successfully.",
+      "genericError": "Something went wrong. Please try again.",
+      "deleteFailed": "Failed to delete the category.",
+      "activateFailed": "Failed to activate the category.",
+      "deactivateFailed": "Failed to deactivate the category."
     }
   },
   "cities_page": {
@@ -2009,11 +2109,11 @@
   },
   "activate_category_confirmation": {
     "title": "Activate Category",
-    "description": "Are you sure you want to activate this category?"
+    "description": "Are you sure you want to activate this category? Its service providers will be notified."
   },
   "deactivate_category_confirmation": {
     "title": "Deactivate Category",
-    "description": "Are you sure you want to deactivate this category?"
+    "description": "Are you sure you want to deactivate this category? Its ads will be hidden from the website, and no new ads, chats or contracts can start in it. It can't be deactivated while contracts in it are unfinished. Its service providers will be notified."
   },
   "activate_city_confirmation": {
     "title": "Activate City",
@@ -2040,65 +2140,50 @@
   "dashboard": {
     "title": "Management Information",
     "cards": {
-      "new_subscribers": {
-        "title": "New Subscribers Count",
-        "count": "800",
-        "change": "2%"
-      },
-      "requests": {
-        "title": "Requests This Month",
-        "count": "247",
-        "change": "-25%"
-      },
-      "invoices": {
-        "title": "Invoices Received This Month",
-        "count": "31500",
-        "change": "+15%"
-      },
-      "new_subscription_requests": {
-        "title": "New Subscription Requests Count",
-        "count": "300",
-        "change": "+10%"
-      }
+      "customers": "Total customers",
+      "providers": "Total service providers",
+      "completed_contracts": "Total completed contracts",
+      "messages_today": "Total daily chat messages",
+      "featured_listings": "Total featured ads",
+      "free_listings": "Total free ads"
     },
-    "table": {
-      "title": "Management Information",
-      "headers": {
-        "checkbox": "Select",
-        "id": "ID",
-        "name": "Name",
-        "organization_name": "Organization Name",
-        "commercial_registration_number": "Commercial Registration Number",
-        "email": "Email",
-        "phone_number": "Phone Number",
-        "status": "Status",
-        "created_date": "Created Date",
-        "actions": "Actions"
-      },
-      "actions": {
-        "view": "View",
-        "edit": "Edit",
-        "delete": "Delete"
-      }
+    "insights_title": "Insights",
+    "insights_subtitle": "Trends for the selected period",
+    "range": {
+      "label": "Chart period",
+      "7d": "7 days",
+      "30d": "30 days",
+      "12m": "12 months"
     },
-    "chart": {
-      "title": "New Subscriptions",
-      "legend": {
-        "new_subscribers": "New Subscribers",
-        "requests_received": "Requests Received",
-        "current_month": "This Month",
-        "previous_month": "Previous Month"
-      },
-      "date_range": "30 Sep 2021",
-      "filters": {
-        "this_month": "This Month",
-        "last_6_months": "Last 6 Months",
-        "this_year": "This Year"
-      }
+    "charts": {
+      "revenue_title": "Platform revenue",
+      "revenue_subtitle": "Commission and fees collected",
+      "contracts_commission": "Contract commission",
+      "chat_fees": "Chat fees",
+      "premium_ads": "Featured ads",
+      "sar": "SAR",
+      "growth_title": "New sign-ups",
+      "growth_subtitle": "Customers and service providers who joined",
+      "customers": "Customers",
+      "providers": "Service providers",
+      "status_title": "Contracts by status",
+      "status_subtitle": "Contracts created in this period",
+      "contracts_unit": "Contracts",
+      "categories_title": "Top categories",
+      "categories_subtitle": "Categories with the most contracts in this period",
+      "empty": "No data in this period",
+      "error": "Couldn't load this data. It will retry shortly."
     },
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed"
+    "attention": {
+      "title": "Needs attention",
+      "subtitle": "Waiting for an admin right now",
+      "pending_provider_requests": "Provider join requests",
+      "open_complaints": "Open complaints",
+      "cancellation_requests": "Cancellation requests",
+      "disputed_contracts": "Disputed contracts",
+      "all_clear": "All caught up",
+      "nothing_to_show": "Nothing to show for your permissions",
+      "termination_requests": "E-contract termination requests"
     }
   },
   "contract_status": {
@@ -2107,7 +2192,9 @@
     "terminatedByAdmin": "Terminated by Admin",
     "terminatedByUser": "Terminated by User",
     "terminatedByProvider": "Terminated by Provider",
-    "waitingForResigning": "Waiting for Resigning"
+    "waitingForResigning": "Waiting for Resigning",
+    "terminationRequested": "Termination requested",
+    "label": "Contract status"
   },
   "noData": {
     "subscriberRequests": "No subscription requests found",
@@ -2146,5 +2233,193 @@
     },
     "serviceProviderData": "Service Provider Data",
     "contactProvider": "Conversation and data display"
+  },
+  "comments_page": {
+    "summary": {
+      "title": "Total comments",
+      "subTitle": "comments"
+    },
+    "columns": {
+      "index": "#",
+      "customer": "Customer name",
+      "mobile": "Customer mobile",
+      "status": "Status",
+      "contract": "Deal no.",
+      "listing": "Ad name",
+      "provider": "Trade name",
+      "rating": "Rating",
+      "comment": "Comment",
+      "date": "Comment date",
+      "action": "Actions"
+    },
+    "status": {
+      "PUBLISHED": "Published",
+      "HIDDEN": "Hidden"
+    },
+    "actions": {
+      "publish": "Publish",
+      "hide": "Hide"
+    },
+    "confirm": {
+      "publish": {
+        "title": "Publish comment",
+        "description": "The comment will appear on the platform and its rating will count towards the ad and provider averages.",
+        "action": "Publish"
+      },
+      "hide": {
+        "title": "Hide comment",
+        "description": "The comment and its rating will be hidden from the platform and excluded from the ad and provider averages.",
+        "action": "Hide"
+      }
+    },
+    "messages": {
+      "published": "Comment published",
+      "hidden": "Comment hidden"
+    },
+    "empty": "No comments found"
+  },
+  "badges_page": {
+    "title": "Badges Management",
+    "description": "Badges are assigned automatically on the 1st of each month from each provider's average rating. All badges stay disabled until you enable them.",
+    "save": "Save",
+    "tiers": {
+      "TRUST": "Trust badge",
+      "DILIGENCE": "Diligence badge",
+      "UNDER_IMPROVEMENT": "\"Under improvement\" title"
+    },
+    "labels": {
+      "max": "Maximum",
+      "min": "Minimum",
+      "status": "Status",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "placeholders": {
+      "select": "Select"
+    },
+    "bounds": {
+      "EQ_5": "= 5 stars",
+      "EQ_4": "= 4 stars",
+      "LT_4": "< 4 stars",
+      "EQ_3": "= 3 stars",
+      "LT_3": "< 3 stars",
+      "EQ_2": "= 2 stars",
+      "LT_2": "< 2 stars",
+      "EQ_1": "= 1 star",
+      "LT_1": "< 1 star",
+      "ZERO": "Zero stars"
+    },
+    "messages": {
+      "saved": "Badge settings saved",
+      "bounds_required": "Please choose both the maximum and the minimum for every enabled badge"
+    },
+    "last_run": {
+      "title": "Last monthly run",
+      "subtitle": "Providers deleted or skipped by the run are listed here.",
+      "never": "Badges have not been assigned yet. The first run happens on the 1st of next month.",
+      "ran_at": "Ran at",
+      "trust": "Trust badge holders",
+      "diligence": "Diligence badge holders",
+      "under_improvement": "\"Under improvement\" holders",
+      "changed": "Providers whose badge changed",
+      "deleted": "Deleted providers",
+      "skipped": "Skipped (unfinished contracts)",
+      "none": "None"
+    }
+  },
+  "admin_notifications": {
+    "empty": "You have no notifications",
+    "mark_all_read": "Mark all as read"
+  },
+  "charity_page": {
+    "title": "Wesal Al-Khair (charity list)",
+    "description": "Contracts whose commission is at or below the category minimum. The commission is still deducted from the provider, but it is donated through the Ihsan platform instead of being kept; management makes the donation manually.",
+    "summary": {
+      "contracts": "Charity contracts",
+      "completed": "Completed charity contracts",
+      "total": "Total to donate (completed)"
+    },
+    "filters": {
+      "status": "Status",
+      "category": "Category"
+    },
+    "columns": {
+      "index": "#",
+      "contract": "Contract no.",
+      "customer": "Customer",
+      "customer_mobile": "Customer mobile",
+      "provider": "Trade name",
+      "provider_mobile": "Provider mobile",
+      "category": "Category",
+      "status": "Status",
+      "amount": "Commission for donation"
+    },
+    "empty": "No charity contracts yet"
+  },
+  "category_contract_settings": {
+    "max_execution_hours": "Max execution time (hours)",
+    "max_termination_hours": "Termination limit (hours)",
+    "section_title": "Contract, fees, and time limits",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "commission_percent": "Commission (%)",
+    "min_commission_amount": "Minimum commission (SAR)",
+    "deposit_percent": "Deposit (%)",
+    "customer_conversation_fee": "Customer chat fee (SAR)",
+    "provider_conversation_fee": "Provider chat fee (SAR)",
+    "contract_document": "Binding contract text (both parties)",
+    "undertaking": "Customer undertaking",
+    "undertaking_ar": "Customer undertaking (Arabic)",
+    "undertaking_en": "Customer undertaking (English)",
+    "refund_policy": "Refund policy",
+    "refund_policy_ar": "Refund policy (Arabic)",
+    "refund_policy_en": "Refund policy (English)",
+    "placeholder_hint": "Use these placeholders where the category commission and minimum should appear. Contracts store the filled-in text:",
+    "preview": "Preview with the current values",
+    "validation": {
+      "value_required": "Enter a whole number of at least 1, or turn the field off.",
+      "min_commission_required": "Enter a whole number (0 or more), or turn the field off.",
+      "percent_max": "Must be 100 or less.",
+      "text_required": "Enter the text, or turn it off."
+    },
+    "settings": {
+      "title": "Category contract defaults",
+      "hint": "New categories start with these values. Existing categories keep their own.",
+      "save": "Save defaults",
+      "saved": "Category contract defaults saved."
+    }
+  },
+  "invoice_seller_settings": {
+    "title": "Invoice details",
+    "hint": "Printed as the seller on tax invoices. Leave a field empty to omit it.",
+    "legal_name_ar": "Legal name (Arabic)",
+    "legal_name_en": "Legal name (English)",
+    "vat_number": "VAT registration number",
+    "cr_number": "Commercial registration number",
+    "address": "Address",
+    "save": "Save invoice details",
+    "saved": "Invoice details saved."
+  },
+  "installment_limits": {
+    "title": "Installment payment limits",
+    "hint": "Tabby and Tamara are offered for a contract only when its total is within these limits (SAR). Leave a field empty for no limit.",
+    "tabby_min": "Tabby minimum amount",
+    "tabby_max": "Tabby maximum amount",
+    "tamara_min": "Tamara minimum amount",
+    "tamara_max": "Tamara maximum amount",
+    "no_limit": "No limit",
+    "min_above_max": "The minimum can't be more than the maximum.",
+    "save": "Save installment limits",
+    "saved": "Installment limits saved."
+  },
+  "summary_cards": {
+    "contracts": "Total contracts",
+    "contracts_unit": "contracts",
+    "conversations": "Total conversations",
+    "conversations_unit": "conversations",
+    "complaints": "Total complaints",
+    "complaints_unit": "complaints",
+    "reports": "Total reports",
+    "reports_unit": "reports"
   }
 }

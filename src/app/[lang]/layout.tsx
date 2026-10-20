@@ -1,5 +1,4 @@
-import { expoArabic } from "@/assets/fonts/expo.arabic";
-import { inter } from "@/assets/fonts/inter";
+import { norsal } from "@/assets/fonts/norsal";
 import { AppHeroUIProvider } from "@/config/app.provider";
 import { dir } from "i18next";
 import type { Metadata } from "next";
@@ -44,10 +43,10 @@ export default async function RootLayout({
       <body
         className={twMerge(
           "overflow-hidden antialiased",
-          lang === "en" ? `${inter.className}` : `${expoArabic.className}`,
+          norsal.className,
         )}
       >
-        <NextTopLoader showSpinner={false} color="#202020" shadow="" />
+        <NextTopLoader showSpinner={false} color="#22283a" shadow="" />
         <AppHeroUIProvider>{children}</AppHeroUIProvider>
       </body>
     </html>

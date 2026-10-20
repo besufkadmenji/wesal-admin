@@ -1,12 +1,15 @@
 "use client";
 
+import { DetailSkeleton } from "@/components/app/shared/states/DetailSkeleton";
+import { DetailUnavailable } from "@/components/app/shared/states/DetailUnavailable";
+
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { AdminLifecycleService } from "@/services/admin-lifecycle.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Spinner } from "@heroui/react";
+
 import { useState } from "react";
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
@@ -56,12 +59,20 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
     onError: (error) => showErrorMessage(error.message),
   });
 
-  if (query.isLoading || !query.data) {
+  // UI-10: skeleton while loading; a missing or failed record is not a
+  // spinner forever.
+  // isPending (not isLoading): the query waits for permissions first.
+  if (query.isPending || !query.data) {
     return (
       <PageWrapper>
-        <div className="grid min-h-96 place-content-center">
-          <Spinner />
-        </div>
+        {query.isPending ? (
+          <DetailSkeleton />
+        ) : (
+          <DetailUnavailable
+            onRetry={() => void query.refetch()}
+            backHref="/complaints"
+          />
+        )}
       </PageWrapper>
     );
   }
@@ -72,10 +83,12 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
   return (
     <PermissionGate resource="complaint">
       <PageWrapper>
-        <PageBar title={`Complaint #${complaint.publicId ?? "—"}`}>
+        <PageBar
+          title={`${lang === "ar" ? "شكوى" : "Complaint"} #${complaint.publicId ?? "—"}`}
+        >
           <AppLink
             href={`/conversations/${complaint.conversation.id}`}
-            className="text-app-primary text-sm font-medium"
+            className="text-app-link text-sm font-medium"
           >
             {copy.viewConversation}
             {complaint.conversation.publicId != null
@@ -85,7 +98,7 @@ export const ComplaintDetailPage = ({ id }: { id: string }) => {
           {complaint.contract && (
             <AppLink
               href={`/contracts/${complaint.contract.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewContract}
               {complaint.contract.publicId != null

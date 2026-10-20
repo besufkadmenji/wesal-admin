@@ -19,12 +19,12 @@ export const ListingDetail = () => {
   return isLoading || !listing ? (
     <DetailSkeleton />
   ) : (
-    <div className="grid auto-rows-max grid-cols-1 items-start gap-20">
-      <div className="grid grid-cols-2 items-start gap-10">
+    <div className="grid auto-rows-max grid-cols-1 items-start gap-12 lg:gap-20">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
         <ListingImages listing={listing} />
         <MainInfo listing={listing} ratingStatistics={statistics} />
       </div>
-      <div className="grid grid-cols-2 items-start gap-10">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
         <Reviews
           ratings={ratings}
           ratingStatistics={statistics}

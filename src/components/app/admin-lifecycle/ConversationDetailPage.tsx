@@ -1,11 +1,14 @@
 "use client";
 
+import { DetailSkeleton } from "@/components/app/shared/states/DetailSkeleton";
+import { DetailUnavailable } from "@/components/app/shared/states/DetailUnavailable";
+
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { AdminLifecycleService } from "@/services/admin-lifecycle.service";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "@heroui/react";
+
 import { PermissionGate } from "./PermissionGate";
 import { useCanAccess } from "@/hooks/useCanAccess";
 import { useLang } from "@/hooks/useLang";
@@ -30,12 +33,20 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
     enabled: allowed,
   });
 
-  if (query.isLoading || !query.data) {
+  // UI-10: skeleton while loading; a missing or failed record is not a
+  // spinner forever.
+  // isPending (not isLoading): the query waits for permissions first.
+  if (query.isPending || !query.data) {
     return (
       <PageWrapper>
-        <div className="grid min-h-96 place-content-center">
-          <Spinner />
-        </div>
+        {query.isPending ? (
+          <DetailSkeleton />
+        ) : (
+          <DetailUnavailable
+            onRetry={() => void query.refetch()}
+            backHref="/conversations"
+          />
+        )}
       </PageWrapper>
     );
   }
@@ -47,11 +58,13 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
   return (
     <PermissionGate resource="conversation">
       <PageWrapper>
-        <PageBar title={`Conversation #${conversation.publicId ?? "—"}`}>
+        <PageBar
+          title={`${lang === "ar" ? "محادثة" : "Conversation"} #${conversation.publicId ?? "—"}`}
+        >
           {primaryContract && (
             <AppLink
               href={`/contracts/${primaryContract.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewContract}
               {primaryContract.publicId != null
@@ -62,7 +75,7 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
           {primaryComplaint && (
             <AppLink
               href={`/complaints/${primaryComplaint.id}`}
-              className="text-app-primary text-sm font-medium"
+              className="text-app-link text-sm font-medium"
             >
               {copy.viewComplaint}
               {primaryComplaint.publicId != null
@@ -72,19 +85,10 @@ export const ConversationDetailPage = ({ id }: { id: string }) => {
           )}
         </PageBar>
         <div className="grid gap-6 py-8">
-          <ConversationDetailSummary
-            conversation={conversation}
-            lang={lang}
-          />
-          <ConversationPartiesSection
-            conversation={conversation}
-            lang={lang}
-          />
+          <ConversationDetailSummary conversation={conversation} lang={lang} />
+          <ConversationPartiesSection conversation={conversation} lang={lang} />
           <ConversationDatesSection conversation={conversation} lang={lang} />
-          <ConversationRelatedSection
-            conversation={conversation}
-            lang={lang}
-          />
+          <ConversationRelatedSection conversation={conversation} lang={lang} />
           <ConversationMessagesSection
             messages={conversation.messages}
             lang={lang}

@@ -1,23 +1,26 @@
-import AdminsIcon from "@/assets/icons/app/summary/admins.svg";
-import BanksIcon from "@/assets/icons/app/summary/banks.svg";
-import CategoryIcon from "@/assets/icons/app/summary/category.summary.svg";
-import ChatIcon from "@/assets/icons/app/summary/chat.svg";
-import CitiesIcon from "@/assets/icons/app/summary/cities.svg";
-import ClientsIcon from "@/assets/icons/app/summary/clients.svg";
-import ComplaintIcon from "@/assets/icons/app/summary/complaint.svg";
-import ContractIcon from "@/assets/icons/app/summary/contract.svg";
-import FeaturesIcon from "@/assets/icons/app/summary/features.svg";
-import MessagesIcon from "@/assets/icons/app/summary/messages.svg";
-import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
-import ReportsIcon from "@/assets/icons/app/summary/reports.svg";
-import ShippingIcon from "@/assets/icons/app/summary/shipping.svg";
-import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.requests.svg";
-import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
-import ListingsIcon from "@/assets/icons/app/summary/ads.svg";
-
+import {
+  Bell,
+  ChartColumn,
+  FileCheck2,
+  Landmark,
+  Mail,
+  MapPin,
+  Megaphone,
+  MessageSquareWarning,
+  MessagesSquare,
+  Shapes,
+  ShieldCheck,
+  Sparkles,
+  Store,
+  Truck,
+  UserPlus,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { Dictionary } from "@/config/i18n/types";
 import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 export enum SummaryCardType {
   SUBSCRIBERS_REQUESTS = "SUBSCRIBERS_REQUESTS",
   SUBSCRIBERS = "SUBSCRIBERS",
@@ -41,31 +44,41 @@ export enum SummaryCardType {
   REPORTS = "REPORTS",
 }
 
-const iconMap = {
-  [SummaryCardType.SUBSCRIBERS_REQUESTS]: (
-    <SubscriberRequestsIcon className="size-8.5" />
-  ),
-  [SummaryCardType.SUBSCRIBERS]: <SubscribersIcon className="size-8.5" />,
-  [SummaryCardType.ADMINS]: <AdminsIcon className="size-8.5" />,
-  [SummaryCardType.NOTIFICATIONS]: <NotificationsIcon className="size-8.5" />,
-  [SummaryCardType.MESSAGES]: <MessagesIcon className="size-8.5" />,
-  [SummaryCardType.CLIENTS]: <ClientsIcon className="size-8.5" />,
-  [SummaryCardType.FEATURES]: <FeaturesIcon className="size-8.5" />,
-  [SummaryCardType.CATEGORIES]: <CategoryIcon className="size-8.5" />,
-  [SummaryCardType.CITIES]: <CitiesIcon className="size-8.5" />,
-  [SummaryCardType.USERS]: <SubscribersIcon className="size-8.5" />,
-  [SummaryCardType.BANKS]: <BanksIcon className="size-8.5" />,
-  [SummaryCardType.DELIVERY_COMPANIES]: <ShippingIcon className="size-8.5" />,
-  [SummaryCardType.LISTINGS]: <ListingsIcon className="size-8.5" />,
-  [SummaryCardType.PROVIDER_REQUESTS]: (
-    <SubscriberRequestsIcon className="size-8.5" />
-  ),
-  [SummaryCardType.PROVIDERS]: <SubscribersIcon className="size-8.5" />,
-  [SummaryCardType.SIGNED_CONTRACTS]: <ContractIcon className="size-8.5" />,
-  [SummaryCardType.CONTRACTS]: <ContractIcon className="size-8.5" />,
-  [SummaryCardType.CONVERSATIONS]: <ChatIcon className="size-8.5" />,
-  [SummaryCardType.COMPLAINTS]: <ComplaintIcon className="size-8.5" />,
-  [SummaryCardType.REPORTS]: <ReportsIcon className="size-8.5" />,
+type Tone = "navy" | "green" | "amber" | "violet" | "teal" | "rose";
+
+/** UI-5: one Lucide icon per card on a tinted tile (UI-2 icon set). */
+const iconMap: Record<SummaryCardType, { Icon: LucideIcon; tone: Tone }> = {
+  [SummaryCardType.SUBSCRIBERS_REQUESTS]: { Icon: UserPlus, tone: "amber" },
+  [SummaryCardType.SUBSCRIBERS]: { Icon: Users, tone: "navy" },
+  [SummaryCardType.ADMINS]: { Icon: ShieldCheck, tone: "navy" },
+  [SummaryCardType.NOTIFICATIONS]: { Icon: Bell, tone: "violet" },
+  [SummaryCardType.MESSAGES]: { Icon: Mail, tone: "violet" },
+  [SummaryCardType.CLIENTS]: { Icon: Users, tone: "navy" },
+  [SummaryCardType.FEATURES]: { Icon: Sparkles, tone: "amber" },
+  [SummaryCardType.CATEGORIES]: { Icon: Shapes, tone: "navy" },
+  [SummaryCardType.CITIES]: { Icon: MapPin, tone: "green" },
+  [SummaryCardType.USERS]: { Icon: Users, tone: "navy" },
+  [SummaryCardType.BANKS]: { Icon: Landmark, tone: "navy" },
+  [SummaryCardType.DELIVERY_COMPANIES]: { Icon: Truck, tone: "amber" },
+  [SummaryCardType.LISTINGS]: { Icon: Megaphone, tone: "teal" },
+  [SummaryCardType.PROVIDER_REQUESTS]: { Icon: UserPlus, tone: "amber" },
+  [SummaryCardType.PROVIDERS]: { Icon: Store, tone: "amber" },
+  [SummaryCardType.SIGNED_CONTRACTS]: { Icon: FileCheck2, tone: "green" },
+  [SummaryCardType.CONTRACTS]: { Icon: FileCheck2, tone: "green" },
+  [SummaryCardType.CONVERSATIONS]: { Icon: MessagesSquare, tone: "violet" },
+  [SummaryCardType.COMPLAINTS]: { Icon: MessageSquareWarning, tone: "rose" },
+  [SummaryCardType.REPORTS]: { Icon: ChartColumn, tone: "teal" },
+};
+
+const TONE_TILES: Record<Tone, string> = {
+  navy: "bg-[#22283a]/[0.07] text-[#22283a] dark:bg-[#6474a6]/25 dark:text-[#c3cbe6]",
+  green:
+    "bg-[#389441]/12 text-[#2d7a35] dark:bg-[#389441]/20 dark:text-[#8fd99a]",
+  amber: "bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300",
+  violet:
+    "bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-300",
+  teal: "bg-teal-100 text-teal-700 dark:bg-teal-400/15 dark:text-teal-300",
+  rose: "bg-rose-100 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300",
 };
 
 export type SummaryCardProps = {
@@ -96,10 +109,10 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_providers,
   [SummaryCardType.SIGNED_CONTRACTS]:
     dict.signed_contracts_page.total_signed_contracts,
-  [SummaryCardType.CONTRACTS]: "Total contracts",
-  [SummaryCardType.CONVERSATIONS]: "Total conversations",
-  [SummaryCardType.COMPLAINTS]: "Total complaints",
-  [SummaryCardType.REPORTS]: "Total reports",
+  [SummaryCardType.CONTRACTS]: dict.summary_cards.contracts,
+  [SummaryCardType.CONVERSATIONS]: dict.summary_cards.conversations,
+  [SummaryCardType.COMPLAINTS]: dict.summary_cards.complaints,
+  [SummaryCardType.REPORTS]: dict.summary_cards.reports,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -121,10 +134,10 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.PROVIDER_REQUESTS]: dict.providers_request_page.total_count,
   [SummaryCardType.PROVIDERS]: dict.providers_page.total_count,
   [SummaryCardType.SIGNED_CONTRACTS]: dict.signed_contracts_page.total_count,
-  [SummaryCardType.CONTRACTS]: "contracts",
-  [SummaryCardType.CONVERSATIONS]: "conversations",
-  [SummaryCardType.COMPLAINTS]: "complaints",
-  [SummaryCardType.REPORTS]: "reports",
+  [SummaryCardType.CONTRACTS]: dict.summary_cards.contracts_unit,
+  [SummaryCardType.CONVERSATIONS]: dict.summary_cards.conversations_unit,
+  [SummaryCardType.COMPLAINTS]: dict.summary_cards.complaints_unit,
+  [SummaryCardType.REPORTS]: dict.summary_cards.reports_unit,
 });
 
 export const SummaryCard = ({
@@ -138,26 +151,35 @@ export const SummaryCard = ({
   endContent?: ReactNode;
 }) => {
   const dict = useDict();
-  const icon = iconMap[type];
+  const { Icon, tone } = iconMap[type];
 
   const label = title ?? labelMap(dict)[type];
   const subLabel = subTitle ?? subLabelMap(dict)[type];
 
   return (
-    <div className="border-gray-border-alt dark:border-dark-border dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-lg border bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)] lg:grid-cols-[1fr_auto]">
-      <div className="grid grid-cols-1 gap-4">
-        <div>{icon}</div>
-        <div className="grid grid-cols-1 gap-2">
-          <p className="text-title dark:text-dark-white text-base leading-6 font-medium tracking-tight">
+    <div className="dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-2xl border border-[#22283a]/[0.07] bg-white p-6 shadow-[0_1px_2px_rgba(34,40,58,0.04),0_8px_24px_-12px_rgba(34,40,58,0.10)] lg:grid-cols-[1fr_auto] dark:border-white/8">
+      <div className="grid grid-cols-1 gap-5">
+        <span
+          className={twMerge(
+            "grid size-11 place-content-center rounded-xl",
+            TONE_TILES[tone],
+          )}
+        >
+          <Icon aria-hidden className="size-5" strokeWidth={1.75} />
+        </span>
+        <div className="grid grid-cols-1 gap-1.5">
+          <p className="text-subTitle dark:text-dark-subTitle text-sm leading-5 font-medium">
             {label}
           </p>
-          <div className="flex items-center gap-2">
-            <h3 className="dark:text-dark-white text-2xl leading-8 font-bold tracking-tight text-black">
+          <div className="flex items-baseline gap-2">
+            <h3 className="text-primary dark:text-dark-white text-3xl leading-9 font-semibold tracking-tight tabular-nums">
               {value}
             </h3>
-            <p className="text-subTitle-alt dark:text-dark-gray-4 text-sm leading-8 font-medium tracking-tight">
-              {subLabel}
-            </p>
+            {subLabel && (
+              <p className="text-subTitle-alt dark:text-dark-gray-4 text-sm font-medium">
+                {subLabel}
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 "use client";
 
-import ExportIcon from "@/assets/icons/app/export.svg";
 import { useDict } from "@/hooks/useDict";
 import { useExport } from "@/hooks/useExport";
 import { ExportModel } from "@/types/export.models";
 import { Button } from "@heroui/react";
+import { Download } from "lucide-react";
 import { useState } from "react";
 
 export const ExportButton = ({
@@ -22,8 +22,10 @@ export const ExportButton = ({
 
   return (
     <Button
-      startContent={<ExportIcon className="size-5" />}
-      className="text-app-primary h-10 rounded-lg bg-[#5DD5C412] px-3.5 text-sm leading-5 font-semibold tracking-tight"
+      startContent={
+        <Download aria-hidden className="size-4.5" strokeWidth={1.75} />
+      }
+      className="text-primary bg-accent-soft h-10 rounded-lg px-3.5 text-sm leading-5 font-semibold tracking-tight dark:text-white"
       onPress={async () => {
         if (onPress) {
           onPress();

@@ -1,4 +1,4 @@
-import ChevronDownBoldIcon from "@/assets/icons/app/chevron.down.bold.svg";
+import { ChevronDown as ChevronDownBoldIcon } from "lucide-react";
 import { Select, SelectItem } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 export const FilterSelect = ({
@@ -35,7 +35,7 @@ export const FilterSelect = ({
         selectorIcon: "size-6! ",
         popoverContent: "w-max",
       }}
-      selectorIcon={<ChevronDownBoldIcon className="dark:text-white" />}
+      selectorIcon={<ChevronDownBoldIcon className="size-4 dark:text-white" />}
       selectedKeys={values}
       onSelectionChange={(keys) => {
         onValueChange?.(Array.from(keys) as string[]);

@@ -38,10 +38,10 @@ export const CATEGORIES_QUERY: TypedDocumentNode<
         customerConversationFeeEnabled
         providerConversationFee
         providerConversationFeeEnabled
-        maxCompletionDays
-        maxCompletionDaysEnabled
-        maxTerminationDays
-        maxTerminationDaysEnabled
+        maxExecutionHours
+        maxExecutionHoursEnabled
+        maxTerminationHours
+        maxTerminationHoursEnabled
         contractDocumentEnabled
         contractDocumentText
         undertakingTextAr

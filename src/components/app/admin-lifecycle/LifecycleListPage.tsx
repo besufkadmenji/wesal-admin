@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "@/utils/date.time.helpers";
 
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -13,6 +14,7 @@ import { useLang } from "@/hooks/useLang";
 import {
   ComplaintStatus,
   ContractStatus,
+  ContractStatusGroup,
   ConversationStatus,
 } from "@/gql/graphql";
 import {
@@ -156,19 +158,23 @@ const arabicLabels: Record<Kind, { title: string; columns: string[] }> = {
   },
 };
 
+// UI-14: statuses awaiting an admin, sent as a raw status (they sit inside
+// the In progress tab), so the dashboard can link straight to them.
+const contractReviewStatuses: string[] = [
+  ContractStatus.CancellationRequested,
+  ContractStatus.Disputed,
+];
+
 const statuses: Record<Kind, string[]> = {
+  // S4-1: the same tabs as My Contracts, sent as statusGroup.
   contracts: [
-    "DRAFT",
-    "PENDING",
-    "ACCEPTED",
-    "IN_PROGRESS",
-    "AWAITING_CUSTOMER_CONFIRMATION",
-    "DELIVERY_IN_PROGRESS",
-    "CANCELLATION_REQUESTED",
-    "DISPUTED",
-    "COMPLETED",
-    "REJECTED",
-    "CANCELLED",
+    ContractStatusGroup.PendingAcceptance,
+    ContractStatusGroup.PendingPayment,
+    ContractStatusGroup.InProgress,
+    ContractStatusGroup.InDelivery,
+    ContractStatusGroup.Completed,
+    ContractStatusGroup.Cancelled,
+    ...contractReviewStatuses,
   ],
   conversations: ["ACTIVE", "CLOSED"],
   complaints: ["PENDING", "UNDER_REVIEW", "RESOLVED", "REJECTED", "CLOSED"],
@@ -205,9 +211,14 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
       meta: { total: number; totalPages: number };
     }> => {
       if (kind === "contracts") {
+        const isReviewStatus = contractReviewStatuses.includes(status);
         return AdminLifecycleService.contracts({
           search,
-          status: (status as ContractStatus) || undefined,
+          status: isReviewStatus ? (status as ContractStatus) : undefined,
+          statusGroup:
+            !isReviewStatus && status
+              ? (status as ContractStatusGroup)
+              : undefined,
           categoryId: categoryId || undefined,
           from: lifecycleDateFrom(from),
           to: lifecycleDateTo(to),
@@ -286,14 +297,14 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
       ? lifecycleEnumLabel(item.reporterType, lang)
       : "—",
     status: item.status,
-    date: new Date(item.createdAt).toLocaleDateString(),
+    date: formatDate(item.createdAt, lang),
   }));
 
   return (
     <PermissionGate resource={resource}>
       <PageWrapper>
         <PageBar title={copy.title} />
-        <div className="grid gap-5 py-8">
+        <div className="grid grid-cols-1 gap-5 py-8">
           {query.isLoading ? (
             <SummaryCardSkeleton />
           ) : (
@@ -355,7 +366,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
             />
             {(search || status || categoryId || from || to) && (
               <Button
-                className="bg-app-primary/10 text-app-primary font-medium"
+                className="bg-app-primary/10 text-app-link font-medium"
                 onPress={() => {
                   void setSearch(null, { history: "push" });
                   void setStatus(null, { history: "push" });
@@ -379,9 +390,7 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
               renderCell={(row: RowType, column: Key): ReactNode => {
                 if (column === "number") {
                   return (
-                    <p className="text-app-primary font-semibold">
-                      #{row.number}
-                    </p>
+                    <p className="text-app-link font-semibold">#{row.number}</p>
                   );
                 }
                 if (column === "status") {

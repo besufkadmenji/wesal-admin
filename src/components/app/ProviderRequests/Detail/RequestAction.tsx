@@ -1,5 +1,5 @@
-import ApproveIcon from "@/assets/icons/app/approve.svg";
-import RejectIcon from "@/assets/icons/app/reject.svg";
+import { CircleCheck as ApproveIcon } from "lucide-react";
+import { CircleX as RejectIcon } from "lucide-react";
 import { Provider } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import moment from "moment";
@@ -31,7 +31,7 @@ export const RequestAction = ({
         </PrimaryButton>
         <PrimaryButton
           startContent={<RejectIcon className="size-5" />}
-          className="bg-[#EA5455]"
+          className="bg-danger"
           onPress={() => {
             setShowRejectModal("true");
           }}

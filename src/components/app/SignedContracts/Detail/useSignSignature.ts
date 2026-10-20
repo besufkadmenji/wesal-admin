@@ -13,28 +13,52 @@ const invalidateContractQueries = () => {
 export const useSignSignature = () => {
   const [busy, setBusy] = useState(false);
   const dict = useDict();
+  // Each action returns false on failure so its dialog stays open.
+  const run = async (action: () => Promise<unknown>, success: string) => {
+    setBusy(true);
+    try {
+      if (!(await action())) return false;
+      showSuccessMessage(success);
+      invalidateContractQueries();
+      return true;
+    } catch (error) {
+      showErrorMessage(
+        error instanceof Error ? error.message : dict.common.unexpectedError,
+      );
+      return false;
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const terminateContract = async (userId: string, reason: string) => {
     if (reason.trim().length === 0) {
       showErrorMessage(dict.contract.error.cancelReasonRequired);
       return false;
     }
-    setBusy(true);
-    try {
-      const result = await ProviderService.terminateContact(userId, reason);
-      if (result) {
-        showSuccessMessage(dict.contract.contractTerminatedSuccessfully);
-        invalidateContractQueries();
-      }
-      // Handle successful login (e.g., redirect, show message)
-    } catch (error) {
-      console.error("Login error:", error);
-      showErrorMessage(
-        error instanceof Error ? error.message : dict.common.unexpectedError,
-      );
-    } finally {
-      setBusy(false);
+    return run(
+      () => ProviderService.terminateContact(userId, reason.trim()),
+      dict.contract.contractTerminatedSuccessfully,
+    );
+  };
+
+  // S4-58: the admin's decision on a provider's termination request.
+  const approveTermination = (providerId: string) =>
+    run(
+      () => ProviderService.approveContractTermination(providerId),
+      dict.contract.terminationRequest.approved,
+    );
+
+  const rejectTermination = async (providerId: string, reason: string) => {
+    if (reason.trim().length === 0) {
+      showErrorMessage(dict.contract.terminationRequest.rejectReasonRequired);
+      return false;
     }
-    return true;
+    return run(
+      () =>
+        ProviderService.rejectContractTermination(providerId, reason.trim()),
+      dict.contract.terminationRequest.rejected,
+    );
   };
 
   const reactivateProvider = async (providerId: string) => {
@@ -58,6 +82,8 @@ export const useSignSignature = () => {
 
   return {
     terminateContract,
+    approveTermination,
+    rejectTermination,
     reactivateProvider,
     busy,
   };

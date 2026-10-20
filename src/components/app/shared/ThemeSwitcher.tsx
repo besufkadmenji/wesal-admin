@@ -1,35 +1,45 @@
-import { MoonIcon, SunIcon } from "@/assets/icons/app/header";
+import { useDict } from "@/hooks/useDict";
+import { Moon as MoonIcon, Sun as SunIcon } from "lucide-react";
 import { Button } from "@heroui/react";
 import { useTheme } from "next-themes";
 import { twMerge } from "tailwind-merge";
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
+  const a11y = useDict().common.a11y;
 
   return (
-    <div className="dark:border-dark-border grid h-7 w-14 grid-cols-2 items-center rounded-full border border-[#E0E2E7]">
+    <div
+      role="group"
+      aria-label={a11y.theme}
+      className="dark:border-dark-border grid h-7 w-14 grid-cols-2 items-center rounded-full border border-[#E0E2E7]"
+    >
       <Button
         isIconOnly
         className={twMerge(
           "h-full min-h-0 w-full min-w-0 bg-transparent p-0",
           theme === "dark"
-            ? "text-[#565758] dark:text-white"
-            : "text-[#D9D9D9]",
+            ? "text-primary dark:text-white"
+            : "text-subTitle-alt",
         )}
         onPress={() => setTheme("dark")}
+        aria-label={a11y.dark_mode}
+        aria-pressed={theme === "dark"}
       >
-        <MoonIcon className="size-4" />
+        <MoonIcon aria-hidden className="size-4" />
       </Button>
       <Button
         isIconOnly
         className={twMerge(
           "h-full min-h-0 w-full min-w-0 rounded-full bg-transparent p-0",
           theme !== "dark"
-            ? "text-[#565758]"
-            : "dark:text-dark-gray-4 text-[#D9D9D9]",
+            ? "text-primary"
+            : "dark:text-dark-gray-4 text-subTitle-alt",
         )}
         onPress={() => setTheme("light")}
+        aria-label={a11y.light_mode}
+        aria-pressed={theme !== "dark"}
       >
-        <SunIcon className="size-4" />
+        <SunIcon aria-hidden className="size-4" />
       </Button>
     </div>
   );

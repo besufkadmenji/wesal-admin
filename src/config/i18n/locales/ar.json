@@ -31,7 +31,14 @@
       "saveAndPrint": "حفظ وطباعة",
       "clearSearch": "مسح البحث",
       "clearFilters": "مسح الفلاتر",
-      "apply": "تطبيق"
+      "apply": "تطبيق",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "remove": "إزالة",
+      "reorder": "إعادة الترتيب",
+      "approve": "قبول",
+      "reject": "رفض"
     },
     "timeFilters": {
       "all": "الكل",
@@ -90,7 +97,9 @@
       "SUSPENDED": "موقوف",
       "PENDING_APPROVAL": "في انتظار الموافقة",
       "NOT_REPLIED": "لم يتم الرد",
-      "REPLIED": "تم الرد"
+      "REPLIED": "تم الرد",
+      "paid": "مدفوع بالكامل",
+      "partialReceived": "استلام جزئي"
     },
     "roles": {
       "ADMINISTRATOR": "مدير",
@@ -107,13 +116,42 @@
     "validation": {
       "deactivation_reason": {
         "required": "سبب التعطيل مطلوب"
-      }
+      },
+      "reason_required": "يرجى إدخال السبب"
     },
     "active": "نشط",
     "expired": "منتهي الصلاحية",
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
-    "waitingForResigning": "في انتظار الاستقالة"
+    "waitingForResigning": "في انتظار الاستقالة",
+    "terminationRequested": "طلب فسخ",
+    "optional": "(اختياري)",
+    "dialogs": {
+      "activate_title": "تفعيل؟",
+      "activate_message": "هل أنت متأكد من تفعيل هذا العنصر؟",
+      "deactivate_title": "إلغاء التفعيل؟",
+      "deactivate_message": "هل أنت متأكد من إلغاء تفعيل هذا العنصر؟",
+      "reason": "السبب",
+      "reason_placeholder": "أدخل السبب"
+    },
+    "states": {
+      "not_found_title": "غير متاح",
+      "not_found_message": "هذا العنصر غير موجود أو تم حذفه.",
+      "retry": "إعادة المحاولة",
+      "back_to_list": "العودة إلى القائمة",
+      "forbidden_title": "لا تملك صلاحية",
+      "forbidden_message": "صلاحياتك لا تشمل هذه الصفحة. تواصل مع المدير العام إذا كنت بحاجة إليها.",
+      "failed_title": "تعذر تحميل الصفحة",
+      "failed_message": "حدث خطأ أثناء التحميل. تحقق من الاتصال وحاول مرة أخرى."
+    },
+    "a11y": {
+      "show_password": "إظهار كلمة المرور",
+      "hide_password": "إخفاء كلمة المرور",
+      "dark_mode": "الوضع الداكن",
+      "light_mode": "الوضع الفاتح",
+      "theme": "المظهر",
+      "language": "اللغة"
+    }
   },
   "auth": {
     "welcome_back": "أهلا بعودتك من جديد",
@@ -124,7 +162,16 @@
     "sign_in": "تسجيل الدخول",
     "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح.",
     "reset_code_sent": "تم إرسال رمز إعادة التعيين إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.",
-    "reset_code_resent": "تم إعادة إرسال رمز إعادة التعيين بنجاح."
+    "reset_code_resent": "تم إعادة إرسال رمز إعادة التعيين بنجاح.",
+    "sign_in_subtitle": "سجّل الدخول لإدارة منصة وصال.",
+    "brand_title": "إدارة منصة وصال",
+    "brand_tagline": "الإعلانات والتعاقدات والمدفوعات والمستخدمون، في مكان واحد.",
+    "back_to_sign_in": "العودة لتسجيل الدخول",
+    "art_contracts": "التعاقدات المكتملة",
+    "art_this_month": "هذا الشهر",
+    "art_payment": "تم استلام دفعة",
+    "art_provider": "طلب انضمام مقدم خدمة",
+    "art_review": "مراجعة"
   },
   "forgot_password": {
     "title": "استعادة كلمة المرور",
@@ -177,7 +224,26 @@
     "complaints": "قسم الشكاوى",
     "contract_financial_report": "التقرير المالي للتعاقدات",
     "conversation_fee_report": "التقرير المالي لرسوم المحادثات",
-    "premium_ad_report": "التقرير المالي للإعلانات المميزة"
+    "premium_ad_report": "التقرير المالي للإعلانات المميزة",
+    "comments": "إدارة التعليقات",
+    "badges": "إدارة الأوسمة",
+    "charity": "وصال الخير",
+    "section_overview": "نظرة عامة",
+    "section_marketplace": "السوق",
+    "section_people": "المستخدمون",
+    "section_operations": "العمليات",
+    "section_configuration": "الإعدادات العامة",
+    "menu": "القائمة",
+    "brand_name": "وصال",
+    "brand_subtitle": "لوحة الإدارة",
+    "breadcrumb": {
+      "label": "مسار التنقل",
+      "details": "التفاصيل",
+      "add": "إضافة",
+      "edit": "تعديل"
+    },
+    "sidebar_collapse": "طي القائمة الجانبية",
+    "sidebar_expand": "توسيع القائمة الجانبية"
   },
   "users_page": {
     "title": "إدارة المستخدمين",
@@ -417,7 +483,8 @@
       "address": "العنوان",
       "bank_name": "اسم البنك",
       "iban_number": "رقم الآيبان",
-      "categories": "الفئات التجارية"
+      "categories": "الفئات التجارية",
+      "badge": "الوسام"
     },
     "placeholders": {
       "name": "أدخل الاسم",
@@ -434,7 +501,9 @@
     "sections": {
       "business_information": "معلومات العمل",
       "banking_information": "معلومات البنك"
-    }
+    },
+    "no_badge": "بدون وسام",
+    "newly_added": "مضاف حديثاً (لم يدخل توزيع الأوسمة الشهري بعد)"
   },
   "profile": {
     "commercialRecordNumber": "رقم السجل التجاري"
@@ -480,11 +549,27 @@
       "subtitle": "هل أنت متأكد من رغبتك في إعادة تفعيل هذا المزود؟ سيحتاج إلى توقيع عقد جديد قبل استئناف أنشطته.",
       "confirm": "إعادة تفعيل",
       "cancel": "إلغاء"
+    },
+    "terminationRequest": {
+      "title": "طلب فسخ عقد من مقدم الخدمة",
+      "requestedOn": "تاريخ الطلب {date}",
+      "reason": "سبب مقدم الخدمة",
+      "hint": "يبقى الحساب نشطًا حتى تتخذ قرارك. الموافقة تحذف الحساب، ولا تتم في حال وجود تعاقدات جارية لمقدم الخدمة.",
+      "approve": "الموافقة على الفسخ",
+      "reject": "رفض الطلب",
+      "approveTitle": "هل توافق على فسخ العقد؟",
+      "approveMessage": "سيتم فسخ العقد الإلكتروني وحذف حساب مقدم الخدمة وإرسال بريد إلكتروني له. لا يمكن التراجع عن ذلك.",
+      "rejectTitle": "رفض طلب فسخ العقد",
+      "rejectMessage": "سيظهر السبب لمقدم الخدمة في إشعار، ويبقى العقد ساريًا.",
+      "rejectReasonRequired": "يرجى إدخال سبب رفض الطلب",
+      "approved": "تم فسخ العقد وحذف حساب مقدم الخدمة",
+      "rejected": "تم رفض طلب فسخ العقد",
+      "rejectPlaceholder": "وضّح سبب رفض الطلب"
     }
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "labels": {
       "email": "البريد الإلكتروني"
     },
@@ -493,11 +578,12 @@
     },
     "buttons": {
       "send_verification_code": "إرسل كود التحقق"
-    }
+    },
+    "description": "أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق."
   },
   "admin_verify_code_form": {
     "title": "رمز التحقق",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "description": "من فضلك أدخل الكود هنا",
     "resend_code": "إعادة إرسال الرمز",
     "inputs": {
@@ -511,7 +597,7 @@
   },
   "admin_reset_password_form": {
     "title": "تغيير كلمة المرور",
-    "subtitle": "Wesal System",
+    "subtitle": "نظام وصال",
     "labels": {
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور"
@@ -521,7 +607,8 @@
     },
     "buttons": {
       "sign_in": "تسجيل الدخول"
-    }
+    },
+    "description": "اختر كلمة مرور جديدة لحسابك."
   },
   "system_managers_page": {
     "title": "ادارة مديرين النظام",
@@ -1099,93 +1186,86 @@
   },
   "notifications_page": {
     "title": "إدارة الإشعارات",
-    "total_notifications": "إجمالي عدد الإشعارات",
+    "total_notifications": "الإشعارات المرسلة",
     "total_count": "إشعار",
+    "columns": {
+      "index": "#",
+      "title": "العنوان",
+      "content": "المحتوى",
+      "recipient_type": "نوع المستلم",
+      "recipients": "المستلمون",
+      "date": "تاريخ الإرسال"
+    },
+    "recipient_types": {
+      "USER": "طالبو الخدمة",
+      "PROVIDER": "مقدمو الخدمة"
+    },
+    "audience": {
+      "ALL": "الكل",
+      "SELECTED": "محدد"
+    },
+    "filter_recipient_type": "نوع المستلم",
+    "empty": "لم يتم إرسال أي إشعارات بعد",
     "buttons": {
       "add_notification": "إضافة إشعار جديد"
-    },
-    "search_placeholder": "البحث",
-    "table_headers": {
-      "checkbox": "",
-      "notification_title": "العنوان",
-      "notification_content": "المحتوى",
-      "recipients_count": "عدد المستقبلين",
-      "sent_date": "تاريخ الإرسال",
-      "created_by": "من إنشاء",
-      "actions": "الإجراءات"
-    },
-    "actions": {
-      "view": "عرض",
-      "delete": "حذف"
-    },
-    "messages": {
-      "createSuccess": "تم إنشاء الإشعار بنجاح.",
-      "deleteSuccess": "تم حذف الإشعار بنجاح."
-    },
-    "no_notifications_yet": "لا توجد إشعارات بعد"
+    }
   },
   "add_new_notification_form": {
     "title": "إضافة إشعار جديد",
-    "buttons": {
-      "save": "حفظ"
-    },
     "sections": {
-      "notification_information": "معلومات الإشعار",
-      "recipients": "المستقبلون"
+      "notification_information": "بيانات الإشعار",
+      "recipients": "المستلمون"
     },
     "labels": {
       "title": "عنوان الإشعار",
       "content": "محتوى الإشعار",
-      "sender_id": "اسم المستخدم المُرسل",
-      "recipients": "اختر المستقبلين"
+      "recipient_types": "نوع المستلم",
+      "audience": "الإرسال إلى",
+      "recipients": "اختر المستلمين",
+      "search_recipients": "ابحث بالاسم أو الجوال أو البريد"
     },
     "placeholders": {
-      "title": "ادخل عنوان الإشعار",
-      "content": "ادخل محتوى الإشعار"
+      "title": "أدخل عنوان الإشعار",
+      "content": "أدخل محتوى الإشعار",
+      "recipient_types": "اختر طالبي الخدمة أو مقدمي الخدمة أو كليهما"
     },
+    "audience_options": {
+      "ALL": "جميع الحسابات النشطة من النوع المحدد",
+      "SELECTED": "حسابات محددة"
+    },
+    "selected_count": "تم اختيار {count}",
+    "no_matches": "لا توجد حسابات نشطة مطابقة لبحثك",
     "messages": {
-      "createSuccess": "تم إنشاء الإشعار بنجاح."
+      "createSuccess": "تم إرسال الإشعار إلى {count} مستلم."
     },
     "validation": {
       "title": {
-        "required": "عنوان الإشعار مطلوب",
-        "minLength": "يجب أن يكون عنوان الإشعار 3 أحرف على الأقل",
-        "maxLength": "يجب ألا يتجاوز عنوان الإشعار 255 حرفًا"
+        "required": "عنوان الإشعار مطلوب"
       },
       "content": {
-        "required": "محتوى الإشعار مطلوب",
-        "minLength": "يجب أن يكون محتوى الإشعار 10 أحرف على الأقل",
-        "maxLength": "يجب ألا يتجاوز محتوى الإشعار 5000 حرف"
+        "required": "محتوى الإشعار مطلوب"
+      },
+      "recipientTypes": {
+        "required": "يرجى اختيار نوع مستلم واحد على الأقل"
       },
       "recipientIds": {
-        "required": "يجب تحديد متلقي واحد على الأقل"
+        "required": "يرجى اختيار مستلم واحد على الأقل"
       }
     }
   },
   "notification_detail_page": {
-    "title": "إشعار جديد",
+    "title": "عرض الإشعار",
     "sections": {
-      "notification_information": "معلومات الإشعار",
-      "recipients_information": "معلومات المستقبلين"
+      "notification_information": "بيانات الإشعار",
+      "recipients_information": "بيانات المستلمين"
     },
     "labels": {
       "title": "عنوان الإشعار",
       "content": "محتوى الإشعار",
       "sent_date": "تاريخ الإرسال",
-      "sender_id": "اسم المستخدم المُرسل",
-      "created_by": "من إنشاء",
-      "recipients_count": "عدد المستقبلين"
-    },
-    "table_headers": {
-      "recipient_name": "اسم المستقبل",
-      "delivery_status": "حالة الإرسال",
-      "delivered_date": "تاريخ الإرسال",
-      "read_date": "تاريخ القراءة"
-    },
-    "delivery_status": {
-      "delivered": "مُسلم",
-      "pending": "قيد الانتظار",
-      "failed": "فشل"
+      "recipients_count": "عدد المستلمين",
+      "recipient_types": "نوع المستلم",
+      "audience": "الإرسال إلى"
     }
   },
   "settings_page": {
@@ -1228,6 +1308,23 @@
     "messages": {
       "updateSuccess": "تم تحديث الإعدادات بنجاح.",
       "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح."
+    },
+    "lifecycle": {
+      "title": "إعدادات التعاقدات والرسوم",
+      "saved": "تم حفظ إعدادات التعاقدات والرسوم",
+      "vat_rate": "نسبة ضريبة القيمة المضافة (%)",
+      "vat_rate_placeholder": "نسبة الضريبة",
+      "vat_enabled": "تفعيل ضريبة القيمة المضافة",
+      "acceptance_window": "مهلة قبول التعاقد (أيام)",
+      "days": "أيام",
+      "hours": "ساعات",
+      "acceptance_enabled": "تفعيل مهلة القبول",
+      "confirmation_grace": "مهلة تأكيد العميل (ساعات)",
+      "premium_fee": "رسوم الإعلان المميز",
+      "fee": "الرسوم",
+      "premium_duration": "مدة الإعلان المميز (أيام)",
+      "premium_enabled": "تفعيل الإعلانات المميزة",
+      "save": "حفظ إعدادات التعاقدات والرسوم"
     }
   },
   "change_password_form": {
@@ -1376,7 +1473,11 @@
       "updateSuccess": "تم تحديث الفئة بنجاح.",
       "deleteSuccess": "تم حذف الفئة بنجاح.",
       "activateSuccess": "تم تفعيل الفئة بنجاح.",
-      "deactivateSuccess": "تم تعطيل الفئة بنجاح."
+      "deactivateSuccess": "تم تعطيل الفئة بنجاح.",
+      "genericError": "حدث خطأ، يرجى المحاولة مرة أخرى.",
+      "deleteFailed": "تعذر حذف الفئة.",
+      "activateFailed": "تعذر تفعيل الفئة.",
+      "deactivateFailed": "تعذر تعطيل الفئة."
     }
   },
   "cities_page": {
@@ -2008,11 +2109,11 @@
   },
   "activate_category_confirmation": {
     "title": "تفعيل الفئة",
-    "description": "هل أنت متأكد من تفعيل هذه الفئة؟"
+    "description": "هل أنت متأكد من تفعيل هذه الفئة؟ سيتم إشعار مقدمي الخدمة المرتبطين بها."
   },
   "deactivate_category_confirmation": {
     "title": "تعطيل الفئة",
-    "description": "هل أنت متأكد من تعطيل هذه الفئة؟"
+    "description": "هل أنت متأكد من تعطيل هذه الفئة؟ ستُخفى إعلاناتها من الموقع ولن يمكن بدء إعلانات أو محادثات أو تعاقدات جديدة فيها. لا يمكن تعطيلها أثناء وجود تعاقدات غير منتهية فيها. سيتم إشعار مقدمي الخدمة المرتبطين بها."
   },
   "activate_city_confirmation": {
     "title": "تفعيل المدينة",
@@ -2039,65 +2140,50 @@
   "dashboard": {
     "title": "لوحة المعلومات",
     "cards": {
-      "new_subscribers": {
-        "title": "عدد المشتركين الجدد",
-        "count": "800",
-        "change": "2%"
-      },
-      "requests": {
-        "title": "عدد الطلبات",
-        "count": "247",
-        "change": "-25%"
-      },
-      "invoices": {
-        "title": "إجمالي الفواتير هذا الشهر",
-        "count": "31500",
-        "change": "+15%"
-      },
-      "new_subscription_requests": {
-        "title": "عدد طلبات الاشتراكات الجديدة",
-        "count": "300",
-        "change": "+10%"
-      }
+      "customers": "العدد الإجمالي لمستخدمي المنصة (طالب الخدمة)",
+      "providers": "العدد الإجمالي لمقدمي الخدمة بالمنصة",
+      "completed_contracts": "العدد الإجمالي للتعاقدات المنتهية",
+      "messages_today": "العدد الإجمالي للمحادثات اليومية",
+      "featured_listings": "العدد الإجمالي للإعلانات المميزة",
+      "free_listings": "العدد الإجمالي للإعلانات المجانية"
     },
-    "table": {
-      "title": "لوحة المعلومات",
-      "headers": {
-        "checkbox": "تحديد",
-        "id": "المعرف",
-        "name": "الاسم",
-        "organization_name": "اسم المؤسسة",
-        "commercial_registration_number": "رقم السجل التجاري",
-        "email": "البريد الإلكتروني",
-        "phone_number": "رقم الهاتف",
-        "status": "الحالة",
-        "created_date": "تاريخ الإنشاء",
-        "actions": "الإجراءات"
-      },
-      "actions": {
-        "view": "عرض",
-        "edit": "تعديل",
-        "delete": "حذف"
-      }
+    "insights_title": "المؤشرات",
+    "insights_subtitle": "الاتجاهات خلال الفترة المحددة",
+    "range": {
+      "label": "فترة الرسوم البيانية",
+      "7d": "7 أيام",
+      "30d": "30 يومًا",
+      "12m": "12 شهرًا"
     },
-    "chart": {
-      "title": "الاشتراكات الجديدة",
-      "legend": {
-        "new_subscribers": "المشتركين الجدد",
-        "requests_received": "الطلبات المستقبلة",
-        "current_month": "هذا الشهر",
-        "previous_month": "الشهر السابق"
-      },
-      "date_range": "30 سبتمبر 2021",
-      "filters": {
-        "this_month": "هذا الشهر",
-        "last_6_months": "آخر 6 أشهر",
-        "this_year": "هذا العام"
-      }
+    "charts": {
+      "revenue_title": "إيرادات المنصة",
+      "revenue_subtitle": "العمولات والرسوم المحصلة",
+      "contracts_commission": "عمولة العقود",
+      "chat_fees": "رسوم المحادثات",
+      "premium_ads": "الإعلانات المميزة",
+      "sar": "ريال",
+      "growth_title": "التسجيلات الجديدة",
+      "growth_subtitle": "العملاء ومقدمو الخدمات المنضمون",
+      "customers": "العملاء",
+      "providers": "مقدمو الخدمات",
+      "status_title": "العقود حسب الحالة",
+      "status_subtitle": "العقود المنشأة خلال هذه الفترة",
+      "contracts_unit": "عقود",
+      "categories_title": "الأقسام الأكثر طلبًا",
+      "categories_subtitle": "الأقسام الأكثر عقودًا خلال هذه الفترة",
+      "empty": "لا توجد بيانات خلال هذه الفترة",
+      "error": "تعذر تحميل البيانات. ستتم إعادة المحاولة قريبًا."
     },
-    "status": {
-      "pending": "مورد",
-      "confirmed": "طالب مستوحي"
+    "attention": {
+      "title": "بحاجة إلى متابعة",
+      "subtitle": "بانتظار إجراء من الإدارة الآن",
+      "pending_provider_requests": "طلبات انضمام مقدمي الخدمات",
+      "open_complaints": "الشكاوى المفتوحة",
+      "cancellation_requests": "طلبات الإلغاء",
+      "disputed_contracts": "العقود المتنازع عليها",
+      "all_clear": "لا توجد عناصر معلقة",
+      "nothing_to_show": "لا يوجد ما يُعرض حسب صلاحياتك",
+      "termination_requests": "طلبات فسخ العقود الإلكترونية"
     }
   },
   "contract_status": {
@@ -2106,7 +2192,9 @@
     "terminatedByAdmin": "تم الإنهاء من قبل المسؤول",
     "terminatedByUser": "تم الإنهاء من قبل المستخدم",
     "terminatedByProvider": "تم الإنهاء من قبل مقدم الخدمة",
-    "waitingForResigning": "في انتظار الاستقالة"
+    "waitingForResigning": "في انتظار الاستقالة",
+    "terminationRequested": "طلب فسخ",
+    "label": "حالة العقد"
   },
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك",
@@ -2145,5 +2233,193 @@
     },
     "serviceProviderData": "بيانات مقدم الخدمة",
     "contactProvider": "المحادثة و إظهار البيانات"
+  },
+  "comments_page": {
+    "summary": {
+      "title": "إجمالي التعليقات",
+      "subTitle": "تعليق"
+    },
+    "columns": {
+      "index": "#",
+      "customer": "اسم العميل",
+      "mobile": "جوال العميل",
+      "status": "الحالة",
+      "contract": "رقم الصفقة",
+      "listing": "اسم الإعلان",
+      "provider": "الاسم التجاري",
+      "rating": "التقييم",
+      "comment": "التعليق",
+      "date": "تاريخ التعليق",
+      "action": "الإجراءات"
+    },
+    "status": {
+      "PUBLISHED": "منشور",
+      "HIDDEN": "مخفي"
+    },
+    "actions": {
+      "publish": "نشر",
+      "hide": "إخفاء"
+    },
+    "confirm": {
+      "publish": {
+        "title": "نشر التعليق",
+        "description": "سيظهر التعليق على المنصة وسيُحتسب تقييمه ضمن متوسط تقييم الإعلان ومقدم الخدمة.",
+        "action": "نشر"
+      },
+      "hide": {
+        "title": "إخفاء التعليق",
+        "description": "سيتم إخفاء التعليق وتقييمه من المنصة واستبعادهما من متوسط تقييم الإعلان ومقدم الخدمة.",
+        "action": "إخفاء"
+      }
+    },
+    "messages": {
+      "published": "تم نشر التعليق",
+      "hidden": "تم إخفاء التعليق"
+    },
+    "empty": "لا توجد تعليقات"
+  },
+  "badges_page": {
+    "title": "إدارة الأوسمة",
+    "description": "تُمنح الأوسمة تلقائياً في اليوم الأول من كل شهر بناءً على متوسط تقييم مقدم الخدمة. تبقى جميع الأوسمة معطلة حتى تقوم بتفعيلها.",
+    "save": "حفظ",
+    "tiers": {
+      "TRUST": "وسام الثقة",
+      "DILIGENCE": "وسام الاجتهاد",
+      "UNDER_IMPROVEMENT": "لقب قيد التحسن"
+    },
+    "labels": {
+      "max": "الحد الأعلى",
+      "min": "الحد الأدنى",
+      "status": "الحالة",
+      "enabled": "تفعيل",
+      "disabled": "تعطيل"
+    },
+    "placeholders": {
+      "select": "اختر"
+    },
+    "bounds": {
+      "EQ_5": "= 5 نجوم",
+      "EQ_4": "= 4 نجوم",
+      "LT_4": "< 4 نجوم",
+      "EQ_3": "= 3 نجوم",
+      "LT_3": "< 3 نجوم",
+      "EQ_2": "= 2 نجمة",
+      "LT_2": "< 2 نجمة",
+      "EQ_1": "= 1 نجمة",
+      "LT_1": "< 1 نجمة",
+      "ZERO": "صفر نجوم"
+    },
+    "messages": {
+      "saved": "تم حفظ إعدادات الأوسمة",
+      "bounds_required": "يرجى اختيار الحد الأعلى والحد الأدنى لكل وسام مفعّل"
+    },
+    "last_run": {
+      "title": "آخر توزيع شهري",
+      "subtitle": "يظهر هنا مقدمو الخدمة الذين تم حذفهم أو تجاوزهم في التوزيع.",
+      "never": "لم يتم توزيع الأوسمة بعد. يتم أول توزيع في اليوم الأول من الشهر القادم.",
+      "ran_at": "وقت التنفيذ",
+      "trust": "حاملو وسام الثقة",
+      "diligence": "حاملو وسام الاجتهاد",
+      "under_improvement": "حاملو لقب قيد التحسن",
+      "changed": "مقدمو خدمة تغيّر وسامهم",
+      "deleted": "مقدمو الخدمة المحذوفون",
+      "skipped": "تم تجاوزهم (تعاقدات غير منتهية)",
+      "none": "لا يوجد"
+    }
+  },
+  "admin_notifications": {
+    "empty": "لا توجد إشعارات لديك",
+    "mark_all_read": "تحديد الكل كمقروء"
+  },
+  "charity_page": {
+    "title": "وصال الخير (قائمة الصدقات)",
+    "description": "التعاقدات التي تكون عمولتها مساوية أو أقل من الحد الأدنى للقسم. تُخصم العمولة من مقدم الخدمة كالمعتاد، لكنها تُخصّص للتبرع عبر منصة إحسان بدلاً من احتفاظ المنصة بها، وتقوم الإدارة بالتبرع يدوياً.",
+    "summary": {
+      "contracts": "تعاقدات الصدقات",
+      "completed": "تعاقدات الصدقات المنتهية",
+      "total": "إجمالي مبلغ التبرع (المنتهية)"
+    },
+    "filters": {
+      "status": "الحالة",
+      "category": "القسم"
+    },
+    "columns": {
+      "index": "#",
+      "contract": "رقم التعاقد",
+      "customer": "اسم العميل",
+      "customer_mobile": "جوال العميل",
+      "provider": "الاسم التجاري",
+      "provider_mobile": "جوال مقدم الخدمة",
+      "category": "القسم",
+      "status": "الحالة",
+      "amount": "عمولة مخصصة للتبرع"
+    },
+    "empty": "لا توجد تعاقدات صدقات حالياً"
+  },
+  "category_contract_settings": {
+    "max_execution_hours": "الحد الأقصى لمدة التنفيذ (ساعات)",
+    "max_termination_hours": "حد الإنهاء (ساعات)",
+    "section_title": "التعاقد والرسوم والمدد",
+    "enabled": "مفعّل",
+    "disabled": "معطّل",
+    "commission_percent": "العمولة (%)",
+    "min_commission_amount": "الحد الأدنى للعمولة (ريال)",
+    "deposit_percent": "العربون (%)",
+    "customer_conversation_fee": "رسوم المحادثة للعميل (ريال)",
+    "provider_conversation_fee": "رسوم المحادثة لمقدم الخدمة (ريال)",
+    "contract_document": "نص التعاقد الملزم للطرفين",
+    "undertaking": "تعهد العميل",
+    "undertaking_ar": "تعهد العميل (عربي)",
+    "undertaking_en": "تعهد العميل (إنجليزي)",
+    "refund_policy": "سياسة الاسترجاع",
+    "refund_policy_ar": "سياسة الاسترجاع (عربي)",
+    "refund_policy_en": "سياسة الاسترجاع (إنجليزي)",
+    "placeholder_hint": "استخدم هذه الرموز في المكان الذي تظهر فيه عمولة القسم والحد الأدنى. تحفظ التعاقدات النص بعد التعبئة:",
+    "preview": "معاينة بالقيم الحالية",
+    "validation": {
+      "value_required": "أدخل رقماً صحيحاً لا يقل عن 1، أو عطّل الحقل.",
+      "min_commission_required": "أدخل رقماً صحيحاً (0 أو أكثر)، أو عطّل الحقل.",
+      "percent_max": "يجب ألا تزيد القيمة عن 100.",
+      "text_required": "أدخل النص، أو عطّله."
+    },
+    "settings": {
+      "title": "القيم الافتراضية لتعاقدات الأقسام",
+      "hint": "تبدأ الأقسام الجديدة بهذه القيم، ولا يتغير القسم الموجود عند تعديلها.",
+      "save": "حفظ القيم الافتراضية",
+      "saved": "تم حفظ القيم الافتراضية لتعاقدات الأقسام."
+    }
+  },
+  "invoice_seller_settings": {
+    "title": "بيانات الفاتورة",
+    "hint": "تظهر كبيانات البائع في الفواتير الضريبية. اترك الحقل فارغاً لإخفائه.",
+    "legal_name_ar": "الاسم القانوني (عربي)",
+    "legal_name_en": "الاسم القانوني (إنجليزي)",
+    "vat_number": "الرقم الضريبي",
+    "cr_number": "رقم السجل التجاري",
+    "address": "العنوان",
+    "save": "حفظ بيانات الفاتورة",
+    "saved": "تم حفظ بيانات الفاتورة."
+  },
+  "installment_limits": {
+    "title": "حدود الدفع بالتقسيط",
+    "hint": "يُعرض تابي وتمارا لدفع التعاقد فقط إذا كان إجماليه ضمن هذه الحدود (ر.س). اترك الحقل فارغاً لعدم وضع حد.",
+    "tabby_min": "الحد الأدنى لتابي",
+    "tabby_max": "الحد الأعلى لتابي",
+    "tamara_min": "الحد الأدنى لتمارا",
+    "tamara_max": "الحد الأعلى لتمارا",
+    "no_limit": "بدون حد",
+    "min_above_max": "لا يمكن أن يكون الحد الأدنى أكبر من الحد الأعلى.",
+    "save": "حفظ حدود التقسيط",
+    "saved": "تم حفظ حدود التقسيط."
+  },
+  "summary_cards": {
+    "contracts": "إجمالي التعاقدات",
+    "contracts_unit": "تعاقد",
+    "conversations": "إجمالي المحادثات",
+    "conversations_unit": "محادثة",
+    "complaints": "إجمالي الشكاوى",
+    "complaints_unit": "شكوى",
+    "reports": "إجمالي التقارير",
+    "reports_unit": "تقرير"
   }
 }

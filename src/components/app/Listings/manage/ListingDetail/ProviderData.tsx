@@ -12,7 +12,7 @@ export const ProviderData = ({
 }) => {
   const dict = useDict();
   return (
-    <div className="grid grid-cols-1 gap-6 rounded-[20px] bg-white p-5">
+    <div className="grid grid-cols-1 gap-6 rounded-[20px] p-0">
       <p>{dict.listingDetail.serviceProviderData}</p>
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
         <div className="relative size-14 rounded-full">
@@ -24,14 +24,14 @@ export const ProviderData = ({
           />
         </div>
         <div className="grid grid-cols-1 items-center gap-2">
-          <p className="text-lg leading-5.25 font-medium text-[#1A1A1A]">
+          <p className="text-primary text-lg leading-5.25 font-medium dark:text-white">
             {provider.name}
           </p>
           <Ratings
             rating={ratingStatistics?.averageRating ?? 0}
             classNames={{
               rating: "size-4",
-              info: "text-sm text-gray",
+              info: "text-sm text-subTitle dark:text-dark-subTitle",
             }}
           />
         </div>

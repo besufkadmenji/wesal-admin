@@ -36,6 +36,8 @@ export const useCategoryById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
+    isPending,
   } = useQuery({
     queryKey: ["category", id],
     queryFn: () => CategoryService.category(id!),
@@ -47,5 +49,7 @@ export const useCategoryById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
+    isPending,
   };
 };

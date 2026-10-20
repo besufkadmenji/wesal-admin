@@ -4,9 +4,15 @@ import {
   ProviderQuery,
   ProvidersQuery,
   AdminReactivateProviderMutation,
+  ApproveProviderContractTerminationMutation,
+  RejectProviderContractTerminationMutation,
 } from "@/gql/graphql";
 import { ACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/activateProvider";
 import { ADMIN_REACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/adminReactivateProvider";
+import {
+  APPROVE_CONTRACT_TERMINATION_MUTATION,
+  REJECT_CONTRACT_TERMINATION_MUTATION,
+} from "@/graphql/provider/contractTermination";
 import { TERMINATE_CONTRACT_MUTATION } from "@/graphql/provider/adminTerminateContract";
 import { DEACTIVATE_PROVIDER_MUTATION } from "@/graphql/provider/deactivateProvider";
 import { PROVIDER_QUERY } from "@/graphql/provider/provider";
@@ -17,6 +23,7 @@ import client from "@/utils/apollo.client";
 import axiosClient from "@/utils/axios.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class ProviderService {
   static providers = async (
@@ -47,9 +54,9 @@ class ProviderService {
       });
       return providerResult.data?.provider ?? null;
     } catch (e) {
-      console.error("providerResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static activateProvider = async (activateProviderId: string) => {
@@ -138,6 +145,45 @@ class ProviderService {
       // Parse and throw the error with a readable message
       const errorMessage = parseGraphQLError(error);
       throw new Error(errorMessage);
+    }
+  };
+
+  /** S4-58: approve a termination request; the account is deleted. */
+  static approveContractTermination = async (providerId: string) => {
+    try {
+      const result =
+        await client().mutate<ApproveProviderContractTerminationMutation>({
+          mutation: APPROVE_CONTRACT_TERMINATION_MUTATION,
+          variables: { providerId },
+        });
+      return requireOperationField(
+        result,
+        "approveProviderContractTermination",
+        "Approve contract termination",
+      );
+    } catch (error) {
+      throw new Error(parseGraphQLError(error));
+    }
+  };
+
+  /** S4-58: reject a termination request; the contract is active again. */
+  static rejectContractTermination = async (
+    providerId: string,
+    reason: string,
+  ) => {
+    try {
+      const result =
+        await client().mutate<RejectProviderContractTerminationMutation>({
+          mutation: REJECT_CONTRACT_TERMINATION_MUTATION,
+          variables: { input: { providerId, reason } },
+        });
+      return requireOperationField(
+        result,
+        "rejectProviderContractTermination",
+        "Reject contract termination",
+      );
+    } catch (error) {
+      throw new Error(parseGraphQLError(error));
     }
   };
 

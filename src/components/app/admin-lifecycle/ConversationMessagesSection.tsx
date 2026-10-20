@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import {
   ConversationMessage,
   conversationDetailCopy,
@@ -14,9 +15,8 @@ export const ConversationMessagesSection = ({
   const copy = conversationDetailCopy(lang);
   const items = messages ?? [];
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.messages}</h2>
-      <div className="bg-gray-background/40 flex max-h-[32rem] flex-col gap-4 overflow-y-auto rounded-2xl p-4 md:p-6">
+    <DetailCard title={copy.messages}>
+      <div className="bg-gray-background/40 flex max-h-[32rem] flex-col gap-4 overflow-y-auto rounded-2xl p-4 md:p-6 dark:bg-white/5">
         {items.map((message) => (
           <ConversationMessageBubble
             key={message.id}
@@ -28,6 +28,6 @@ export const ConversationMessagesSection = ({
           <p className="text-gray py-8 text-center">{copy.noMessages}</p>
         )}
       </div>
-    </section>
+    </DetailCard>
   );
 };

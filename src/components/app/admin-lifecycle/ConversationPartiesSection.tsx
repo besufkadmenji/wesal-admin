@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
   ConversationDetail,
@@ -13,8 +14,7 @@ export const ConversationPartiesSection = ({
 }) => {
   const copy = conversationDetailCopy(lang);
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.parties}</h2>
+    <DetailCard title={copy.parties}>
       <div className="grid gap-4 md:grid-cols-2">
         <LifecycleDetailField
           label={copy.customerName}
@@ -40,6 +40,6 @@ export const ConversationPartiesSection = ({
           className="md:col-span-2"
         />
       </div>
-    </section>
+    </DetailCard>
   );
 };

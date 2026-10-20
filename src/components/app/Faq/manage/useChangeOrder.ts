@@ -2,7 +2,7 @@ import { Faq } from "@/gql/graphql";
 import FaqService from "@/services/faq.service";
 import { useDict } from "@/hooks/useDict";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useFaqs } from "@/components/app/Faq/useFaq";
 import { queryClient } from "@/utils/query.client";
 
@@ -11,12 +11,12 @@ export const useChangeOrder = () => {
   const [busy, setBusy] = useState(false);
   const { data } = useFaqs();
   const [faqItems, setFaqItems] = useState<Faq[]>(data || []);
-  useEffect(() => {
-    if (data) {
-      setFaqItems(data);
-    }
-    return () => {};
-  }, [data]);
+  // Re-sync local ordering when the server list changes (render-time update, no effect).
+  const [syncedData, setSyncedData] = useState(data);
+  if (data && data !== syncedData) {
+    setSyncedData(data);
+    setFaqItems(data);
+  }
 
   const handleSaveOrder = useCallback(async () => {
     setBusy(true);

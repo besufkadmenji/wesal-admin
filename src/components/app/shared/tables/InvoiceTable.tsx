@@ -83,7 +83,7 @@ export const InvoiceTable = ({
           {dict.common.fields.total}
         </h3>
         <h3
-          className={`text-xs leading-4 flex items-center gap-1.5 font-bold text-[#8394f3] ${inter.className}`}
+          className={`text-xs leading-4 flex items-center gap-1.5 font-bold text-app-link ${inter.className}`}
         >
           {total.toLocaleString("en-US", {
             maximumFractionDigits: 2,

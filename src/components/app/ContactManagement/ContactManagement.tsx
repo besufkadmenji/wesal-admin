@@ -1,6 +1,6 @@
 "use client";
-import AddIcon from "@/assets/icons/app/add.svg";
-import DeleteIcon from "@/assets/icons/app/trash.svg";
+import { Plus as AddIcon } from "lucide-react";
+import { Trash2 as DeleteIcon } from "lucide-react";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
@@ -107,10 +107,11 @@ export const ContactManagement = () => {
                         phones: updatedPhones,
                       });
                     }}
-                    className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
+                    className="text-danger h-12 w-14 self-start bg-red-50 p-0 dark:bg-red-500/15 dark:text-red-300"
                     isIconOnly
+                    aria-label={dict.common.actions.delete}
                   >
-                    <DeleteIcon className="size-5.5" />
+                    <DeleteIcon aria-hidden className="size-5.5" />
                   </PrimaryButton>
                 </div>
               ))}
@@ -149,14 +150,14 @@ export const ContactManagement = () => {
         </FormSection>
         <FormSection title={""}>
           <div className="grid grid-cols-1 gap-1">
-            <p className="text-lg leading-7 font-bold tracking-tight text-[#1A1C21]">
+            <p className="text-primary text-lg leading-7 font-bold tracking-tight dark:text-white">
               {dict.contact_settings.social_media.title}
             </p>
-            <p className="text-xs text-[#9FA2B4]">
+            <p className="text-subTitle dark:text-dark-subTitle text-xs">
               {dict.contact_settings.social_media.description}
             </p>
           </div>
-          <p className="text-lg leading-7 font-medium tracking-tight text-[#1A1C21]">
+          <p className="text-primary text-lg leading-7 font-medium tracking-tight dark:text-white">
             {dict.contact_settings.social_media.section_title}
           </p>
           <div className="grid grid-cols-1 gap-4">
@@ -210,7 +211,7 @@ export const ContactManagement = () => {
                       clearError(`socialMedia_link_${index}`);
                     }}
                     classNames={{
-                      inputWrapper: "bg-white shadow-none",
+                      inputWrapper: "bg-white shadow-none dark:bg-dark-gray-2",
                     }}
                     errorMessage={errors[`socialMedia_link_${index}`]}
                   />
@@ -222,10 +223,11 @@ export const ContactManagement = () => {
                         socialMediaLinks: updatedSocialMediaLinks,
                       });
                     }}
-                    className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
+                    className="text-danger h-12 w-14 self-end bg-red-50 p-0 dark:bg-red-500/15 dark:text-red-300"
                     isIconOnly
+                    aria-label={dict.common.actions.delete}
                   >
-                    <DeleteIcon className="size-5.5" />
+                    <DeleteIcon aria-hidden className="size-5.5" />
                   </PrimaryButton>
                 </div>
               ))}

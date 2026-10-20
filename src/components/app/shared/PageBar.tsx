@@ -13,8 +13,13 @@ export const PageBar = ({
   className?: string;
 }) => {
   return (
-    <div className={twMerge("flex items-center justify-between", className)}>
-      <h1 className="text-dashboard-title dark:text-dark-dashboard-title text-lg leading-9 font-bold tracking-tight md:text-2xl">
+    <div
+      className={twMerge(
+        "flex flex-wrap items-center justify-between gap-4",
+        className,
+      )}
+    >
+      <h1 className="text-primary dark:text-dark-dashboard-title text-xl leading-9 font-semibold tracking-tight md:text-2xl">
         {title}
       </h1>
       <div className="flex items-center gap-4">{children}</div>

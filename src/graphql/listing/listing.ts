@@ -24,6 +24,8 @@ export const LISTING_QUERY: TypedDocumentNode<
         cityId
         commercialName
         commercialRegistrationFilename
+        ratingAverage
+        ratingCount
         commercialRegistrationNumber
         countryId
         createdAt
@@ -46,6 +48,7 @@ export const LISTING_QUERY: TypedDocumentNode<
         status
         publicId
         phoneVerified
+        isNewlyAdded
       }
       story {
         filename

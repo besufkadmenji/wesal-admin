@@ -1,7 +1,8 @@
-import { GlobIcon } from "@/assets/icons/app/header";
+import { Globe as GlobIcon } from "lucide-react";
 import EnFlag from "@/assets/svgs/gb.svg";
 import ArFlag from "@/assets/svgs/sa.svg";
 import { changeLang } from "@/config/i18n/changeLang";
+import { useDict } from "@/hooks/useDict";
 import {
   Button,
   Dropdown,
@@ -26,6 +27,7 @@ const langMap: {
 export const SelectLanguage = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const a11y = useDict().common.a11y;
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -33,12 +35,13 @@ export const SelectLanguage = () => {
           variant="flat"
           className="bg-white text-xs text-neutral-800 dark:bg-black dark:text-white"
           isIconOnly
+          aria-label={a11y.language}
         >
-          <GlobIcon className="size-5" />
+          <GlobIcon aria-hidden className="size-5" />
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Select Language"
+        aria-label={a11y.language}
         onAction={(k) => {
           if (!k) return;
           changeLang(

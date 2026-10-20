@@ -1,5 +1,7 @@
 "use client";
 
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
+
 import { ComplaintStatus } from "@/gql/graphql";
 import { Select, SelectItem } from "@heroui/react";
 import { LifecycleDetailField } from "./LifecycleDetailField";
@@ -26,7 +28,7 @@ export const ComplaintDetailSummary = ({
   const copy = complaintDetailCopy(lang);
   const terminal = isTerminalComplaintStatus(complaint.status);
   return (
-    <section className="grid gap-4 rounded-2xl bg-white p-6 md:grid-cols-3 dark:bg-black">
+    <DetailCard className="grid gap-4 md:grid-cols-3">
       <LifecycleDetailField
         label={copy.transactionNumber}
         value={complaint.publicId ?? copy.empty}
@@ -60,6 +62,6 @@ export const ComplaintDetailSummary = ({
           )}
         </div>
       </div>
-    </section>
+    </DetailCard>
   );
 };

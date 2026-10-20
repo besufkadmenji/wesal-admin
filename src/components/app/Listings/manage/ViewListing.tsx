@@ -1,25 +1,32 @@
 "use client";
 
+import { DETAIL_CARD_SURFACE } from "@/components/app/shared/detail/DetailCard";
+
 import { ListingDetail } from "@/components/app/Listings/manage/ListingDetail/ListingDetail";
-import {
-  AppForm,
-  FormType
-} from "@/components/app/shared/forms/AppForm";
+import { AppForm, FormType } from "@/components/app/shared/forms/AppForm";
 import { useDict } from "@/hooks/useDict";
-import { AppLoading } from "../../shared/AppLoading";
+import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { useListingById } from "../useListings";
 
 export const ViewListing = ({ id }: { id: string }) => {
-  const { listing } = useListingById(id);
+  const { listing, isPending, error, refetch } = useListingById(id);
   const dict = useDict();
 
-  return !listing ? (
-    <AppLoading className="h-[84vh]" />
-  ) : (
-    <div className="grid grid-cols-1 bg-white p-6 rounded-2xl">
-      <AppForm type={FormType.Listings} action="view">
-        <ListingDetail />
-      </AppForm>
-    </div>
+  return (
+    <DetailGate
+      isLoading={isPending}
+      data={listing}
+      error={error}
+      onRetry={() => void refetch()}
+      backHref="/listings"
+    >
+      {() => (
+        <div className={`${DETAIL_CARD_SURFACE} grid grid-cols-1 p-6`}>
+          <AppForm type={FormType.Listings} action="view">
+            <ListingDetail />
+          </AppForm>
+        </div>
+      )}
+    </DetailGate>
   );
 };

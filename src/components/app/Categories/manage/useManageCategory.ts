@@ -42,7 +42,9 @@ export const useManageCategory = () => {
       resetForm();
     } catch (error) {
       showErrorMessage(
-        error instanceof Error ? error.message : "An error occurred.",
+        error instanceof Error
+          ? error.message
+          : dict.categories_page.messages.genericError,
       );
     } finally {
       setBusy(false);
@@ -73,7 +75,9 @@ export const useManageCategory = () => {
       }
     } catch (error) {
       showErrorMessage(
-        error instanceof Error ? error.message : "An error occurred.",
+        error instanceof Error
+          ? error.message
+          : dict.categories_page.messages.genericError,
       );
     } finally {
       setBusy(false);
@@ -94,12 +98,14 @@ export const useManageCategory = () => {
         });
         router.push("/categories");
       } else {
-        showErrorMessage("Failed to delete category.");
+        showErrorMessage(dict.categories_page.messages.deleteFailed);
       }
     } catch (error) {
       console.error("Delete category error:", error);
       showErrorMessage(
-        error instanceof Error ? error.message : "An error occurred.",
+        error instanceof Error
+          ? error.message
+          : dict.categories_page.messages.genericError,
       );
     } finally {
       setBusy(false);
@@ -117,12 +123,14 @@ export const useManageCategory = () => {
         queryClient.invalidateQueries({ queryKey: ["category", id] });
         setActivateCategory(null);
       } else {
-        showErrorMessage("Failed to activate category.");
+        showErrorMessage(dict.categories_page.messages.activateFailed);
       }
     } catch (error) {
       console.error("Activate category error:", error);
       showErrorMessage(
-        error instanceof Error ? error.message : "An error occurred.",
+        error instanceof Error
+          ? error.message
+          : dict.categories_page.messages.genericError,
       );
     } finally {
       setBusy(false);
@@ -139,12 +147,14 @@ export const useManageCategory = () => {
         queryClient.invalidateQueries({ queryKey: ["category", id] });
         setDeactivateCategory(null);
       } else {
-        showErrorMessage("Failed to deactivate category.");
+        showErrorMessage(dict.categories_page.messages.deactivateFailed);
       }
     } catch (error) {
       console.error("Deactivate category error:", error);
       showErrorMessage(
-        error instanceof Error ? error.message : "An error occurred.",
+        error instanceof Error
+          ? error.message
+          : dict.categories_page.messages.genericError,
       );
     } finally {
       setBusy(false);

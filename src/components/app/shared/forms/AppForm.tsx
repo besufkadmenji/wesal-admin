@@ -1,3 +1,4 @@
+import { DETAIL_CARD_SURFACE } from "@/components/app/shared/detail/DetailCard";
 import { FormTitle } from "@/components/app/shared/forms/FormTitle";
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
@@ -93,7 +94,8 @@ export const FormSection = ({
   return (
     <div
       className={twMerge(
-        "dark:bg-dark-black grid grid-cols-1 gap-4 rounded-lg bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]",
+        DETAIL_CARD_SURFACE,
+        "grid grid-cols-1 gap-4 p-6",
         className,
       )}
     >

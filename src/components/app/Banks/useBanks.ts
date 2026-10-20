@@ -39,6 +39,8 @@ export const useBankById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
+    isPending,
   } = useQuery({
     queryKey: ["bank", id],
     queryFn: () => BankService.bank(id!),
@@ -50,5 +52,7 @@ export const useBankById = (id: string | null) => {
     isLoading,
     isError,
     error,
+    refetch,
+    isPending,
   };
 };

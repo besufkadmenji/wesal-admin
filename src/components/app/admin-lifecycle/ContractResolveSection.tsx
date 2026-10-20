@@ -1,5 +1,7 @@
 "use client";
 
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
+
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { ContractResolution } from "@/gql/graphql";
 import { Button, Select, SelectItem } from "@heroui/react";
@@ -16,13 +18,14 @@ export const ContractResolveSection = ({
   disputed: boolean;
   lang: string;
   isPending: boolean;
-  onResolve: (input: { resolution: ContractResolution; reason: string }) => void;
+  onResolve: (input: {
+    resolution: ContractResolution;
+    reason: string;
+  }) => void;
 }) => {
   const copy = contractDetailCopy(lang);
   const [resolution, setResolution] = useState<ContractResolution>(
-    disputed
-      ? ContractResolution.RefundCustomer
-      : ContractResolution.Complete,
+    disputed ? ContractResolution.RefundCustomer : ContractResolution.Complete,
   );
   const [reason, setReason] = useState("");
   const selected =
@@ -40,8 +43,7 @@ export const ContractResolveSection = ({
         : resolution;
 
   return (
-    <section className="grid gap-4 rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="text-lg font-bold">{copy.resolve}</h2>
+    <DetailCard title={copy.resolve} className="gap-4">
       <Select
         label={copy.resolveOutcome}
         selectedKeys={[selected]}
@@ -83,6 +85,6 @@ export const ContractResolveSection = ({
       >
         {copy.resolveSubmit}
       </Button>
-    </section>
+    </DetailCard>
   );
 };

@@ -1,50 +1,44 @@
-import { RatingPaginationInput, RatingStatistics } from "@/gql/graphql";
+import {
+  AdminRatingsQuery,
+  RatingPaginationInput,
+  RatingStatistics,
+  RatingStatus,
+} from "@/gql/graphql";
+import { ADMIN_RATINGS_QUERY } from "@/graphql/rating/adminRatings";
+import { ADMIN_SET_RATING_STATUS_MUTATION } from "@/graphql/rating/adminSetRatingStatus";
 import { RATING_STATISTICS_QUERY } from "@/graphql/rating/ratingStatistics";
-import { RATINGS_QUERY } from "@/graphql/rating/ratings";
 import client from "@/utils/apollo.client";
 
-export type ListingRating = {
-  id: string;
-  rating: number;
-  comment?: string | null;
-  createdAt: string;
-  user?: {
-    id: string;
-    name?: string | null;
-    avatarFilename?: string | null;
-  } | null;
-};
-
-type ListingRatingsResponse = {
-  items: ListingRating[];
-  meta: {
-    hasNext: boolean;
-    hasPrevious: boolean;
-    limit: number;
-    page: number;
-    total: number;
-    totalPages: number;
-  };
-};
+export type AdminRating = AdminRatingsQuery["adminRatings"]["items"][number];
+export type AdminRatingsResponse = AdminRatingsQuery["adminRatings"];
 
 class RatingService {
-  static ratings = async (
+  static adminRatings = async (
     input: RatingPaginationInput,
-  ): Promise<ListingRatingsResponse | null> => {
+  ): Promise<AdminRatingsResponse | null> => {
     try {
-      const ratingsResult = await client().query<{
-        ratings: ListingRatingsResponse;
-      }>({
-        query: RATINGS_QUERY,
-        variables: {
-          input,
-        },
+      const result = await client().query<AdminRatingsQuery>({
+        query: ADMIN_RATINGS_QUERY,
+        variables: { input },
+        fetchPolicy: "network-only",
       });
-      return ratingsResult.data?.ratings ?? null;
+      return result.data?.adminRatings ?? null;
     } catch (e) {
-      console.error("ratingsResult", e);
+      console.error("adminRatingsResult", e);
     }
     return null;
+  };
+
+  /** Publish or hide a comment; throws so callers can surface the error. */
+  static setStatus = async (id: string, status: RatingStatus) => {
+    const result = await client().mutate<{
+      adminSetRatingStatus: { id: string; status: RatingStatus };
+    }>({
+      mutation: ADMIN_SET_RATING_STATUS_MUTATION,
+      variables: { id, status },
+    });
+    if (result.error) throw result.error;
+    return result.data?.adminSetRatingStatus ?? null;
   };
 
   static ratingStatistics = async (

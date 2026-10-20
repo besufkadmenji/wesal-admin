@@ -3,14 +3,14 @@ import type { ListingDetails } from "@/graphql/listing/types";
 import Image from "next/image";
 import { useState } from "react";
 import { dataUrl } from "@/config/url";
-import ViewAllIcon from "@/assets/icons/view.all.svg";
+import { Images as ViewAllIcon } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 export const ListingImages = ({ listing }: { listing: ListingDetails }) => {
   const [image, setImage] = useState(0);
   const [showAll, setShowAll] = useState(false);
   const images = listing.photos || [];
   return (
-    <div className="grid grid-cols-1 gap-3 rounded-[20px] bg-white">
+    <div className="grid grid-cols-1 gap-3 rounded-[20px]">
       <div className="relative aspect-584/468 w-full overflow-hidden rounded-[24px]">
         <Image
           src={`${dataUrl}/files/${images[image].filename}`}
@@ -68,7 +68,7 @@ const ImageItem = ({
       {!isActive && <div className="absolute h-full w-full bg-[#00000099]" />}
       {showViewAll && (
         <div className="absolute m-auto grid justify-items-center gap-2">
-          <ViewAllIcon className="size-6" />
+          <ViewAllIcon aria-hidden className="size-6 text-white" />
           <p className="text-sm leading-6 font-medium text-white">
             {dict.listingDetail.viewAll}
           </p>

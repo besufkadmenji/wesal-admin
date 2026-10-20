@@ -17,6 +17,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class DeliveryCompanyService {
   static deliveryCompanies = async (
@@ -47,9 +48,9 @@ class DeliveryCompanyService {
       });
       return deliveryCompanyResult.data?.deliveryCompany ?? null;
     } catch (e) {
-      console.error("deliveryCompanyResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
     }
-    return null;
   };
 
   static createDeliveryCompany = async (input: CreateDeliveryCompanyInput) => {

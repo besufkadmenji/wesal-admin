@@ -1,7 +1,7 @@
 import { RatingStatistics } from "@/gql/graphql";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
-import { ListingRating } from "@/services/rating.service";
+import { AdminRating } from "@/services/rating.service";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
@@ -12,14 +12,14 @@ export const Reviews = ({
   ratingStatistics,
   isLoading,
 }: {
-  ratings: ListingRating[];
+  ratings: AdminRating[];
   ratingStatistics?: RatingStatistics | null;
   isLoading: boolean;
 }) => {
   const dict = useDict();
   const lang = useLang();
   return (
-    <div className="grid grid-cols-1 gap-6 rounded-[20px] bg-white p-5">
+    <div className="grid grid-cols-1 gap-6 rounded-[20px] p-0">
       <div className={twMerge("grid grid-cols-1 items-center")}>
         <div className="grid grid-cols-1 gap-1">
           <p>{dict.listingDetail.reviews.title}</p>
@@ -31,11 +31,11 @@ export const Reviews = ({
       </div>
       <div className="grid grid-cols-1 gap-6">
         {isLoading ? (
-          <p className="text-gray text-sm leading-6">
+          <p className="text-subTitle dark:text-dark-subTitle text-sm leading-6">
             {dict.common.actions.search}...
           </p>
         ) : ratings.length === 0 ? (
-          <p className="text-gray text-sm leading-6">
+          <p className="text-subTitle dark:text-dark-subTitle text-sm leading-6">
             {lang === "ar" ? "لا توجد تعليقات" : "No comments found"}
           </p>
         ) : (
@@ -48,19 +48,19 @@ export const Reviews = ({
   );
 };
 
-const ReviewCard = ({ review }: { review: ListingRating }) => {
+const ReviewCard = ({ review }: { review: AdminRating }) => {
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-b-[#F2F2F2] pb-6">
+    <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-[#22283a]/[0.07] pb-6 dark:border-white/8">
       <div className="relative size-14 rounded-full">
         <Image src={"/images/reviewer.png"} alt="reviewer" fill />
       </div>
       <div className="grid grid-cols-1 gap-3">
         <div className="grid grid-cols-[1fr_auto] gap-2.5">
           <div className="grid grid-cols-1 gap-2">
-            <p className="text-lg font-medium text-[#1A1A1A]">
+            <p className="text-primary text-lg font-medium dark:text-white">
               {review.user?.name ?? "-"}
             </p>
-            <p className="text-gray text-sm">
+            <p className="text-subTitle dark:text-dark-subTitle text-sm">
               {DateTimeHelpers.formatDate(review.createdAt)}
             </p>
           </div>
@@ -73,7 +73,7 @@ const ReviewCard = ({ review }: { review: ListingRating }) => {
           />
         </div>
         {review.comment ? (
-          <p className="text-gray text-sm leading-6 font-medium">
+          <p className="text-subTitle dark:text-dark-subTitle text-sm leading-6 font-medium">
             {review.comment}
           </p>
         ) : null}

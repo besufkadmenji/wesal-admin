@@ -1,6 +1,6 @@
 "use client";
 
-import AddIcon from "@/assets/icons/app/add.svg";
+import { Plus as AddIcon } from "lucide-react";
 import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
 import { useDict } from "@/hooks/useDict";
 export enum AddButtonType {

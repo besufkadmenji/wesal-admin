@@ -19,6 +19,8 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       downPayment
       commissionPercent
       commissionAmount
+      isCharity
+      charityAmount
       vatRate
       vatAmount
       totalPayable
@@ -27,7 +29,8 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       providerAddress
       deliveryCompanyNameAr
       deliveryCompanyNameEn
-      deliveryEstimateDays
+      executionHours
+      deliveryHours
       confirmationDeadlineAt
       cancellationReason
       disputeReason
@@ -42,6 +45,7 @@ export const ADMIN_CONTRACT_QUERY: TypedDocumentNode<
       providerCompletedAt
       deliveryStartedAt
       completedAt
+      resolvedAt
       cancelledAt
       client {
         name

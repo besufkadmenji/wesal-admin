@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
   ContractDetail,
@@ -6,6 +7,7 @@ import {
   showAcceptanceDate,
   showCancellationDetails,
   showCompletionDate,
+  showResolutionDate,
   showDisputeReason,
 } from "./contract-detail-helpers";
 
@@ -20,13 +22,13 @@ export const ContractDatesSection = ({
   const acceptance = showAcceptanceDate(contract.status);
   const cancellation = showCancellationDetails(contract.status);
   const completion = showCompletionDate(contract.status);
+  const resolution = showResolutionDate(contract.status);
   const disputed = showDisputeReason(contract.status);
-  if (!acceptance && !cancellation && !completion && !disputed) {
+  if (!acceptance && !cancellation && !completion && !resolution && !disputed) {
     return null;
   }
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.dates}</h2>
+    <DetailCard title={copy.dates}>
       <div className="grid gap-4 md:grid-cols-2">
         {acceptance && (
           <LifecycleDetailField
@@ -55,6 +57,12 @@ export const ContractDatesSection = ({
             value={formatContractDate(contract.completedAt, lang) ?? copy.empty}
           />
         )}
+        {resolution && (
+          <LifecycleDetailField
+            label={copy.resolutionDate}
+            value={formatContractDate(contract.resolvedAt, lang) ?? copy.empty}
+          />
+        )}
         {disputed && (
           <LifecycleDetailField
             label={copy.disputeReason}
@@ -63,6 +71,6 @@ export const ContractDatesSection = ({
           />
         )}
       </div>
-    </section>
+    </DetailCard>
   );
 };

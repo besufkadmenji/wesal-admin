@@ -1,10 +1,10 @@
-import UploadIcon from "@/assets/icons/app/upload.alt.svg";
-import UploadButtonIcon from "@/assets/icons/app/upload.svg";
+import { Upload as UploadButtonIcon } from "lucide-react";
+import { CloudUpload } from "lucide-react";
 import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
 import { FileIcon, defaultStyles } from "react-file-icon";
-import TrashIcon from "@/assets/icons/app/trash.svg";
+import { Trash2 as TrashIcon } from "lucide-react";
 import { Button } from "@heroui/react";
 import { SelectedFile } from "./SelectedFile";
 
@@ -38,7 +38,7 @@ export const MultipleUploadInput = ({
         {({ getRootProps, getInputProps }) => (
           <div
             className={
-              "bg-gray-background relative grid min-h-41.5 w-full cursor-pointer grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
+              "bg-gray-background dark:bg-dark-border dark:border-dark-gray relative grid min-h-41.5 w-full cursor-pointer grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
               (hasError ? " ring-danger-500 ring-2" : "")
             }
             {...getRootProps()}
@@ -46,7 +46,11 @@ export const MultipleUploadInput = ({
             <input {...getInputProps()} />
 
             <div className="relative z-10 grid h-full auto-rows-max grid-cols-1 content-center justify-items-center gap-4">
-              <UploadIcon className="size-10" />
+              <CloudUpload
+                aria-hidden
+                className="text-primary size-10 dark:text-white"
+                strokeWidth={1.5}
+              />
               <div className="grid justify-items-center gap-2">
                 <p className="text-secondary text-sm leading-5 font-normal">
                   {dict.common.documents.attachDocuments}

@@ -34,11 +34,24 @@ const client = (token?: string, url?: string) => {
   const wsLink =
     typeof window !== "undefined"
       ? new GraphQLWsLink(
-          createClient(
-            {
-              url: process.env.NEXT_PUBLIC_SOCKET ?? "",
-            } as Parameters<typeof createClient>[0],
-          ),
+          createClient({
+            url: process.env.NEXT_PUBLIC_SOCKET ?? "",
+            lazy: true,
+            retryAttempts: Infinity,
+            shouldRetry: () => true,
+            // Admin-only subscriptions authenticate with the admin token.
+            connectionParams: () => {
+              const currentToken = token ?? Cookies.get("token");
+              return currentToken
+                ? { Authorization: `Bearer ${currentToken}` }
+                : {};
+            },
+            on: {
+              connected: () => {
+                window.dispatchEvent(new Event("wesal:graphql-reconnected"));
+              },
+            },
+          }),
         )
       : authLink.concat(httpLink);
 

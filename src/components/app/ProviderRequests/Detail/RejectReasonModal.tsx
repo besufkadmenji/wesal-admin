@@ -1,12 +1,11 @@
+import { ReasonDialog } from "@/components/app/shared/dialogs/ReasonDialog";
 import { Provider } from "@/gql/graphql";
-import { useAppRouter } from "@/hooks/useAppRouter";
 import { useDict } from "@/hooks/useDict";
-import { Modal, ModalContent } from "@heroui/react";
+import { UserX } from "lucide-react";
 import { useQueryState } from "nuqs";
-import { useState } from "react";
-import { PrimaryButton } from "../../shared/button/PrimaryButton";
-import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { useManageProvider } from "./useManageProvider";
+
+/** Opens with `?showRejectModal`; the hook closes it after a rejection. */
 export const RejectReasonModal = ({
   request,
 }: {
@@ -15,46 +14,25 @@ export const RejectReasonModal = ({
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
-  const router = useAppRouter();
-  const [reason, setReason] = useState("");
   const { rejectProvider, busy } = useManageProvider();
+  const copy = dict.reject_subscription_form;
 
   return (
-    <Modal
+    <ReasonDialog
       isOpen={!!showRejectModal}
-      onClose={() => {
-        router.push(`/subscribers/requests`);
+      // UI-8: closing used to navigate to a missing /subscribers/requests.
+      onClose={() => setShowRejectModal(null)}
+      onConfirm={(reason) => {
+        rejectProvider(request.id, reason);
       }}
-      hideCloseButton
-      size="md"
-      isDismissable={true}
-    >
-      <ModalContent className="p-6">
-        <div className="grid grid-cols-1 justify-items-center gap-6">
-          <h1 className="text-center text-lg leading-6 font-bold text-[#1E1E1E]">
-            {dict.reject_subscription_form.title}
-          </h1>
-          <FormAreaInput
-            label={dict.reject_subscription_form.labels.reason}
-            placeholder={dict.reject_subscription_form.placeholders.reason}
-            value={reason}
-            onChange={(value: string): void => {
-              setReason(value);
-            }}
-            className="w-full"
-          />
-          <PrimaryButton
-            className="w-full"
-            isDisabled={!reason.trim() || busy}
-            isLoading={busy}
-            onPress={() => {
-              rejectProvider(request.id, reason);
-            }}
-          >
-            {dict.reject_subscription_form.buttons.send}
-          </PrimaryButton>
-        </div>
-      </ModalContent>
-    </Modal>
+      busy={busy}
+      autoClose={false}
+      tone="danger"
+      icon={UserX}
+      title={copy.title}
+      reasonLabel={copy.labels.reason}
+      reasonPlaceholder={copy.placeholders.reason}
+      confirmLabel={copy.buttons.send}
+    />
   );
 };

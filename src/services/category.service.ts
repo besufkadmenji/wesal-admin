@@ -1,12 +1,14 @@
 import {
   CategoriesQuery,
   CategoryPaginationInput,
+  CategoryContractDefaultsQuery,
   CategoryQuery,
   CreateCategoryInput,
   UpdateCategoryInput,
 } from "@/gql/graphql";
 import { CATEGORIES_QUERY } from "@/graphql/category/categories";
 import { CATEGORY_QUERY } from "@/graphql/category/category";
+import { CATEGORY_CONTRACT_DEFAULTS_QUERY } from "@/graphql/category/categoryContractDefaults";
 import { ACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/activateCategory";
 import { DEACTIVATE_CATEGORY_MUTATION } from "@/graphql/category/deactivateCategory";
 import { CREATE_CATEGORY_MUTATION } from "@/graphql/category/createCategory";
@@ -16,6 +18,7 @@ import client from "@/utils/apollo.client";
 import { parseGraphQLError } from "@/utils/parse-graphql-error";
 import { requireOperationField } from "@/utils/apollo.result";
 import axiosClient from "@/utils/axios.client";
+import { nullIfNotFound } from "@/utils/detail.error";
 
 class CategoryService {
   static categories = async (
@@ -46,7 +49,22 @@ class CategoryService {
       });
       return categoryResult.data?.category ?? null;
     } catch (e) {
-      console.error("categoryResult", e);
+      // H-33: only a missing record is null; other failures reach React Query.
+      return nullIfNotFound(e);
+    }
+  };
+
+  static contractDefaults = async (): Promise<
+    CategoryContractDefaultsQuery["categoryContractDefaults"] | null
+  > => {
+    try {
+      const result = await client().query({
+        query: CATEGORY_CONTRACT_DEFAULTS_QUERY,
+        fetchPolicy: "network-only",
+      });
+      return result.data?.categoryContractDefaults ?? null;
+    } catch (e) {
+      console.error("contractDefaults", e);
     }
     return null;
   };

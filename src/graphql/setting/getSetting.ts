@@ -29,6 +29,22 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       premiumAdFee
       premiumAdDurationDays
       premiumAdEnabled
+      defaultCommissionPercent
+      defaultMinCommissionAmount
+      defaultMaxExecutionHours
+      defaultMaxTerminationHours
+      defaultDepositPercent
+      defaultCustomerConversationFee
+      defaultProviderConversationFee
+      sellerLegalNameAr
+      sellerLegalNameEn
+      sellerVatNumber
+      sellerCrNumber
+      sellerAddress
+      tabbyMinAmount
+      tabbyMaxAmount
+      tamaraMinAmount
+      tamaraMaxAmount
     }
   }
 `;

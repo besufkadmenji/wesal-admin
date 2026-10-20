@@ -1,5 +1,4 @@
-import ChevronLeftIcon from "@/assets/icons/app/chevron.left.svg";
-import ChevronRightIcon from "@/assets/icons/app/chevron.right.svg";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   cn,
   Pagination,
@@ -35,11 +34,11 @@ export const AppPagination = ({
           key={key}
           className={cn(
             className,
-            "text-app-primary size-8 min-w-8 bg-[#5DD5C412]",
+            "text-app-link bg-accent-soft size-8 min-w-8 rounded-lg",
           )}
           onClick={onNext}
         >
-          <ChevronRightIcon className="size-5 rtl:rotate-180" />
+          <ChevronRight className="size-4 rtl:rotate-180" strokeWidth={2} />
         </button>
       ) : (
         <div key="next" />
@@ -52,11 +51,11 @@ export const AppPagination = ({
           key={key}
           className={cn(
             className,
-            "text-app-primary size-8 min-w-8 bg-[#5DD5C412]",
+            "text-app-link bg-accent-soft size-8 min-w-8 rounded-lg",
           )}
           onClick={onPrevious}
         >
-          <ChevronLeftIcon className="size-5 rtl:rotate-180" />
+          <ChevronLeft className="size-4 rtl:rotate-180" strokeWidth={2} />
         </button>
       ) : (
         <div key="prev" />
@@ -90,12 +89,12 @@ export const AppPagination = ({
       onChange={pagination.onChange}
       renderItem={renderItem}
       showControls
-      className="mx-2 my-3"
+      className="mx-2 my-3 justify-self-center"
       classNames={{
         cursor:
           "bg-app-primary rounded-lg text-sm font-semibold leading-5 tracking-tight size-8",
-        item: "rounded-lg bg-[#5DD5C412] text-app-primary size-8 text-sm font-semibold leading-5 tracking-tight",
-        prev: "size-8 bg-[#5DD5C412] text-app-primary",
+        item: "rounded-lg bg-transparent text-subTitle hover:bg-accent-soft hover:text-app-link size-8 text-sm font-semibold leading-5 tracking-tight dark:text-dark-subTitle",
+        prev: "size-8 bg-accent-soft text-app-link",
         wrapper: "gap-2",
       }}
     />

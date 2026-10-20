@@ -1,8 +1,9 @@
-import CalendarIcon from "@/assets/icons/app/calendar.svg";
+import { CalendarDays as CalendarIcon } from "lucide-react";
 import { cn, DatePicker, DateValue } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 import { ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { FIELD_INPUT_TEXT_CLASS, FIELD_LABEL_CLASS } from "./formClassNames";
 
 export const FormDatePicker = ({
   label,
@@ -52,21 +53,19 @@ export const FormDatePicker = ({
       }}
       isDisabled={readOnly}
       classNames={{
-        label:
-          "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
+        label: FIELD_LABEL_CLASS,
         selectorButton: "p-2",
         selectorIcon: "text-[#53545C] dark:text-white",
         inputWrapper: cn(
           "h-10 rounded-lg bg-gray-border border dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt hover:border-app-primary focus-within:border-app-primary focus-within:hover:border-app-primary ",
           classNames?.inputWrapper,
         ),
-        input:
-          "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
+        input: FIELD_INPUT_TEXT_CLASS,
       }}
       calendarProps={{
         classNames: {
           cellButton:
-            "data-[selected=true]:text-white data-[selected=true]:bg-app-primary data-[hover=true]:text-app-primary data-[selected=true]:data-[hover=true]:bg-app-primary data-[selected=true]:data-[hover=true]:text-white",
+            "data-[selected=true]:text-white data-[selected=true]:bg-app-primary data-[hover=true]:text-app-link data-[selected=true]:data-[hover=true]:bg-app-primary data-[selected=true]:data-[hover=true]:text-white",
         },
       }}
       errorMessage={errorMessage}

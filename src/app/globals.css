@@ -3,9 +3,45 @@
 @source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * S4-48: user text (broadcasts, names) uses dir="auto" so English reads
+ * correctly inside RTL pages; this keeps it on the page's side.
+ */
+@utility text-page-start {
+  [dir="rtl"] & {
+    text-align: right;
+  }
+  [dir="ltr"] & {
+    text-align: left;
+  }
+}
+
+/*
+ * UI-1 (2026-10-20): one Wesal brand palette, shared with the customer web.
+ * The accent is the brand navy; in dark mode it lifts to a lighter navy so
+ * text and buttons keep their contrast.
+ */
+:root {
+  --app-accent: #22283a;
+  /* UI-13: text links; lifts more than the accent in dark mode (~6:1). */
+  --app-link: #22283a;
+  --app-accent-soft: #eff1f6;
+  --app-surface-tint: #f4f6fa;
+}
+.dark {
+  --app-accent: #6474a6;
+  --app-link: #8d9bd0;
+  --app-accent-soft: #2b3040;
+  --app-surface-tint: #1f1f1f;
+}
+
 @theme inline {
   --color-dark-main: #0f0428;
   --color-primary: #22283a;
+  --color-accent-soft: var(--app-accent-soft);
+  --color-success: #389441;
+  --color-warning: #b54708;
+  --color-danger: #d92d20;
 
   --color-title: #333843;
   --color-subTitle: #667085;
@@ -24,11 +60,12 @@
   --color-gray-2: #d9d9d9;
   --color-gray-3: #c5c7cd;
   --color-gray-4: #545454;
-  --color-green-main: #1eb564;
+  --color-green-main: #389441;
   --color-light-gray: #a5a7a5;
 
-  --color-app-primary: #2563eb;
-  --color-app-background: #f8f7fc;
+  --color-app-primary: var(--app-accent);
+  --color-app-link: var(--app-link);
+  --color-app-background: var(--app-surface-tint);
   --shadow-hero: 0 0 120px 100px rgba(237, 222, 171, 0.2);
 
   --color-dashboard-title: #001543;
@@ -54,6 +91,71 @@
 
   --color-dark-dashboard-title: #ffffff;
   --color-dark-dashboard-border: #3a3a3a;
+}
+
+/*
+ * Motion tokens (UI-3 auth brand art). Curves: strong ease-out for entrances,
+ * strong ease-in-out for ambient on-screen movement, linear for rotation.
+ */
+@theme {
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --animate-auth-rise: auth-rise 700ms var(--ease-out-strong) both;
+  --animate-auth-float: auth-float 7s var(--ease-in-out-strong) infinite
+    alternate;
+  --animate-auth-drift: auth-drift 22s var(--ease-in-out-strong) infinite
+    alternate;
+  --animate-auth-spin: auth-spin 80s linear infinite;
+}
+
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes auth-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+@keyframes auth-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(48px, -36px, 0) scale(1.1);
+  }
+}
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion: keep the gentle fade-in, drop all movement. */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes auth-rise {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .animate-auth-float,
+  .animate-auth-drift,
+  .animate-auth-spin {
+    animation: none;
+  }
 }
 
 * {
@@ -85,9 +187,8 @@
   }
 } */
 
-.sr-only {
-  display: none;
-}
+/* UI-13: a custom sr-only rule that set display to none used to live here, hiding
+   screen-reader text from screen readers too; Tailwind's sr-only applies. */
 
 .rdp-nav {
   display: none;

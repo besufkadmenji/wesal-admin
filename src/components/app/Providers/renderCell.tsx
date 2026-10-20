@@ -15,7 +15,7 @@ export const renderCell = (
   },
 ) => {
   if (column === "number") {
-    return <p className="text-primary font-semibold">{row.number}</p>;
+    return <p className="text-primary font-semibold dark:text-white">{row.number}</p>;
   } else if (column === "action") {
     return (
       <ActionsCell
@@ -36,7 +36,7 @@ export const renderCell = (
     );
   } else if (column === "sku") {
     return (
-      <p className="text-app-primary dark:text-app-primary text-xs leading-8 tracking-tight">
+      <p className="text-app-link dark:text-app-link text-xs leading-8 tracking-tight">
         {row.sku}
       </p>
     );

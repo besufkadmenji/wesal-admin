@@ -9,6 +9,8 @@ export const PROVIDER_QUERY: TypedDocumentNode<
     provider(id: $providerId) {
       address
       avatarFilename
+      badge
+      isNewlyAdded
       bankName
       categories {
         createdAt

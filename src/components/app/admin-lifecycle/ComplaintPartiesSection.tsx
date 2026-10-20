@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import { LifecycleDetailField } from "./LifecycleDetailField";
 import {
   ComplaintDetail,
@@ -13,8 +14,7 @@ export const ComplaintPartiesSection = ({
 }) => {
   const copy = complaintDetailCopy(lang);
   return (
-    <section className="rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="mb-4 text-lg font-bold">{copy.parties}</h2>
+    <DetailCard title={copy.parties}>
       <div className="grid gap-4 md:grid-cols-2">
         <LifecycleDetailField
           label={copy.customerName}
@@ -43,6 +43,6 @@ export const ComplaintPartiesSection = ({
           value={complaint.reviewer?.fullName ?? copy.unassigned}
         />
       </div>
-    </section>
+    </DetailCard>
   );
 };

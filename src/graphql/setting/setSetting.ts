@@ -24,6 +24,22 @@ export const SET_SETTING_MUTATION: TypedDocumentNode<
       rulesEn
       platformManagerName
       platformManagerSignature
+      defaultCommissionPercent
+      defaultMinCommissionAmount
+      defaultMaxExecutionHours
+      defaultMaxTerminationHours
+      defaultDepositPercent
+      defaultCustomerConversationFee
+      defaultProviderConversationFee
+      sellerLegalNameAr
+      sellerLegalNameEn
+      sellerVatNumber
+      sellerCrNumber
+      sellerAddress
+      tabbyMinAmount
+      tabbyMaxAmount
+      tamaraMinAmount
+      tamaraMaxAmount
     }
   }
 `;

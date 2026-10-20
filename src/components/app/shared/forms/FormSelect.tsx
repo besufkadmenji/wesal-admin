@@ -1,4 +1,5 @@
 import { Select, SelectItem } from "@heroui/react";
+import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const FormSelect = ({
@@ -20,15 +21,21 @@ export const FormSelect = ({
   errorMessage?: string;
   readOnly?: boolean;
 }) => {
+  // UI-8: the visible label names the select (it used to be unlinked).
+  const labelId = useId();
   return (
     <div className="grid grid-cols-1 gap-2">
       {label && (
-        <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
+        <p
+          id={labelId}
+          className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70"
+        >
           {label}
         </p>
       )}
       <Select
-        aria-label={label}
+        aria-labelledby={label ? labelId : undefined}
+        aria-label={label ? undefined : placeholder}
         placeholder={placeholder}
         selectedKeys={[value]}
         selectionMode="single"
@@ -72,14 +79,17 @@ export const FormSelectMultiple = ({
   errorMessage?: string;
   readOnly?: boolean;
 }) => {
+  const labelId = useId();
   return (
     <div className="grid grid-cols-1 gap-2">
-      <p className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70">
+      <p
+        id={labelId}
+        className="after:text-subTitle text-sm! leading-5 font-semibold! tracking-tight text-[#4D5464]! subpixel-antialiased after:ms-1 after:text-sm after:font-normal dark:text-white! dark:after:text-white/70"
+      >
         {label}
       </p>
       <Select
-        // labelPlacement="outside"
-        aria-label={label}
+        aria-labelledby={labelId}
         placeholder={placeholder}
         selectedKeys={values}
         selectionMode="multiple"

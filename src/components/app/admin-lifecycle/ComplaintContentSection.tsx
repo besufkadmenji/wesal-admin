@@ -1,3 +1,4 @@
+import { DetailCard } from "@/components/app/shared/detail/DetailCard";
 import {
   ComplaintDetail,
   attachmentSource,
@@ -15,8 +16,7 @@ export const ComplaintContentSection = ({
   const copy = complaintDetailCopy(lang);
   const attachments = normalizeComplaintAttachments(complaint.attachments);
   return (
-    <section className="grid gap-4 rounded-2xl bg-white p-6 dark:bg-black">
-      <h2 className="text-lg font-bold">{copy.content}</h2>
+    <DetailCard title={copy.content} className="gap-4">
       <div>
         <span className="text-gray text-sm">{copy.title}</span>
         <p className="mt-1 text-lg font-semibold">{complaint.title}</p>
@@ -53,6 +53,6 @@ export const ComplaintContentSection = ({
           <p className="text-gray mt-1">{copy.noAttachments}</p>
         )}
       </div>
-    </section>
+    </DetailCard>
   );
 };
