@@ -315,7 +315,9 @@ export const LifecycleListPage = ({ kind }: { kind: Kind }) => {
               subTitle={summarySubTitle}
             />
           )}
-          <section className="grid grid-cols-2 items-center gap-4 lg:flex">
+          {/* Wraps so the date range and "Clear filters" never go off-screen
+              (ClickUp 869fn07mu, 869fmnz1d). */}
+          <section className="grid grid-cols-2 items-center gap-4 lg:flex lg:flex-wrap">
             <SearchInput
               key={search}
               className="w-full md:w-max"

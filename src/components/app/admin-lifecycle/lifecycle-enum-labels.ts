@@ -5,7 +5,9 @@ const labels: Record<string, { en: string; ar: string }> = {
   IN_DELIVERY: { en: "In delivery", ar: "جاري التوصيل" },
   DRAFT: { en: "Draft", ar: "مسودة" },
   PENDING: { en: "Pending", ar: "قيد الانتظار" },
-  ACCEPTED: { en: "Accepted", ar: "مقبول" },
+  // An accepted contract is the one awaiting payment (S4-1); the website
+  // labels it the same way (ClickUp 869fn07mu).
+  ACCEPTED: { en: "Pending payment", ar: "بانتظار الدفع" },
   IN_PROGRESS: { en: "In progress", ar: "قيد التنفيذ" },
   AWAITING_CUSTOMER_CONFIRMATION: {
     en: "Awaiting customer confirmation",
