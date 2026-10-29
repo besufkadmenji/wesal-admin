@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
+import { ProviderLocationMap } from "@/components/app/Providers/Detail/ProviderLocationMap";
 import { useProvider } from "../useProvider";
 import { DocumentDisplay } from "./DocumentDisplay";
 import { dataUrl } from "@/config/url";
@@ -130,24 +131,37 @@ export const RequestDetail = ({ id }: { id: string }) => {
                     onChange={(value: string): void => {}}
                     readOnly
                   />
-                  {request.bankName && (
-                    <FormInput
-                      label={lng === "ar" ? "اسم البنك" : "Bank Name"}
-                      placeholder={lng === "ar" ? "اسم البنك" : "Bank Name"}
-                      value={request.bankName}
-                      onChange={(value: string): void => {}}
-                      readOnly
-                    />
-                  )}
-                  {request.ibanNumber && (
-                    <FormInput
-                      label={lng === "ar" ? "رقم الآيبان" : "IBAN Number"}
-                      placeholder={lng === "ar" ? "رقم الآيبان" : "IBAN Number"}
-                      value={request.ibanNumber}
-                      onChange={(value: string): void => {}}
-                      readOnly
-                    />
-                  )}
+                  {/* Registration requires these; show them even when empty
+                      (ClickUp 869c9e0m0). */}
+                  <FormInput
+                    label={dict.view_provider_form.labels.bank_name}
+                    placeholder={dict.view_provider_form.labels.bank_name}
+                    value={request.bankName || "-"}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+                  <FormInput
+                    label={dict.view_provider_form.labels.iban_number}
+                    placeholder={dict.view_provider_form.labels.iban_number}
+                    value={request.ibanNumber || "-"}
+                    onChange={(value: string): void => {}}
+                    readOnly
+                  />
+                  <div className="col-span-2 grid gap-2">
+                    <p className="text-sm font-medium text-black dark:text-white">
+                      {dict.contract.locationOnMap}
+                    </p>
+                    {request.latitude && request.longitude ? (
+                      <div className="grid h-40 grid-cols-1 overflow-hidden rounded-xl">
+                        <ProviderLocationMap
+                          latitude={request.latitude}
+                          longitude={request.longitude}
+                        />
+                      </div>
+                    ) : (
+                      <p>-</p>
+                    )}
+                  </div>
                   {request.categories && request.categories.length > 0 && (
                     <div className="col-span-2 grid gap-2">
                       <p className="text-sm font-medium text-black">
