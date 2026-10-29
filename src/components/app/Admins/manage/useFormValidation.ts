@@ -3,9 +3,8 @@ import { useDict } from "@/hooks/useDict";
 import { useCallback, useMemo, useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^[0-9\-+\s()]+$/;
-const PHONE_MIN_LENGTH = 7;
-const PHONE_MAX_LENGTH = 20;
+// Same rule as the API's admin DTOs: 05 followed by 8 digits (ClickUp 869fmnnb3).
+const SAUDI_MOBILE_REGEX = /^05\d{8}$/;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9@$!%*?&]{8,}$/;
 
@@ -54,14 +53,8 @@ export const useFormValidation = (
       if (!value || value.trim() === "") {
         return dict.add_new_admin_form.validation.phoneNumberRequired;
       }
-      if (!PHONE_REGEX.test(value)) {
-        return dict.add_new_admin_form.validation.phoneNumberInvalid;
-      }
-      if (value.replace(/\D/g, "").length < PHONE_MIN_LENGTH) {
-        return dict.add_new_admin_form.validation.phoneNumberTooShort;
-      }
-      if (value.replace(/\D/g, "").length > PHONE_MAX_LENGTH) {
-        return dict.add_new_admin_form.validation.phoneNumberTooLong;
+      if (!SAUDI_MOBILE_REGEX.test(value)) {
+        return dict.add_new_admin_form.validation.phoneNumberInvalidSaudi;
       }
       return null;
     },
