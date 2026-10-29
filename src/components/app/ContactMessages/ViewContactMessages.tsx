@@ -1,5 +1,6 @@
 "use client";
 
+import { formatPhone } from "@/utils/phone";
 import {
   AppForm,
   FormType,
@@ -91,7 +92,7 @@ export const ViewContactMessages = ({ id }: { id: string }) => {
                 <FormInput
                   label={dict.contact_message_page.table_headers.phone}
                   placeholder={dict.contact_message_page.table_headers.phone}
-                  value={`${data.dialCode}${data.phone}`}
+                  value={formatPhone(data.dialCode, data.phone)}
                   onChange={(value: string): void => {}}
                   readOnly
                 />

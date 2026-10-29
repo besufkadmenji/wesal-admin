@@ -1,6 +1,7 @@
 "use client";
 
 import { RejectReasonModal } from "@/components/app/ProviderRequests/Detail/RejectReasonModal";
+import { formatPhone } from "@/utils/phone";
 import { RequestAction } from "@/components/app/ProviderRequests/Detail/RequestAction";
 import { SuccessModal } from "@/components/app/ProviderRequests/Detail/SuccessModal";
 import { ProviderStatus } from "@/gql/graphql";
@@ -68,7 +69,7 @@ export const RequestDetail = ({ id }: { id: string }) => {
                     placeholder={
                       dict.subscription_request_detail_page.labels.phone_number
                     }
-                    value={`${request.dialCode ?? ""} ${request.phone}`.trim()}
+                    value={formatPhone(request.dialCode, request.phone)}
                     onChange={(value: string): void => {}}
                     readOnly
                   />
