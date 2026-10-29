@@ -1,4 +1,5 @@
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
+import { formatPhone } from "@/utils/phone";
 
 import {
   DeleteWarning,
@@ -82,7 +83,7 @@ export const ContactMessagesList = () => {
           key: contactMessage.id,
           name: contactMessage.name ?? "-",
           email: contactMessage.email,
-          phone: `${contactMessage.dialCode}${contactMessage.phone}`,
+          phone: formatPhone(contactMessage.dialCode, contactMessage.phone),
           senderType: contactMessage.senderType,
           messageType: contactMessage.messageType,
           messageContent: contactMessage.messageContent,
