@@ -12,8 +12,14 @@ export const adminNotificationHref = (
       return id ? `/providers/requests/${id}` : "/providers/requests";
     case "user":
       return id ? `/users/${id}` : "/users";
+    // Contact messages live under /content (ClickUp 869fmny3z: the old
+    // /contact-messages link was a 404).
     case "contact_message":
-      return "/contact-messages";
+      return id
+        ? `/content/contact-messages/${id}`
+        : "/content/contact-messages";
+    case "signed_contract":
+      return id ? `/providers/e-contracts/${id}` : "/providers/e-contracts";
     case "complaint":
       return id ? `/complaints/${id}` : "/complaints";
     case "badge":
@@ -33,5 +39,7 @@ export const localizedCopy = (
     | null
     | undefined;
   const translated = lang === "ar" ? undefined : translations?.[lang];
-  return translated ?? { title: notification.title, message: notification.message };
+  return (
+    translated ?? { title: notification.title, message: notification.message }
+  );
 };
