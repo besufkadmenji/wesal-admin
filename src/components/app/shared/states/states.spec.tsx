@@ -10,6 +10,7 @@ import { Inbox } from "lucide-react";
 import { describe, expect, it, vi } from "vitest";
 import { DetailGate } from "./DetailGate";
 import { EmptyState } from "./EmptyState";
+import { PageNotFound } from "./PageNotFound";
 
 const copy = en.common.states;
 
@@ -115,5 +116,15 @@ describe("Admin states (UI-10)", () => {
     expect(screen.getByText("No records")).toBeInTheDocument();
     expect(screen.getByText("Try another filter")).toBeInTheDocument();
     expect(screen.getByText(ar.noData.cities)).toBeInTheDocument();
+  });
+
+  it("shows an unknown URL inside the app with a way back (ClickUp 869fmny3z)", async () => {
+    const user = userEvent.setup();
+    renderPage(<PageNotFound />);
+    expect(screen.getByText(copy.page_not_found_title)).toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: copy.back_to_dashboard }),
+    );
+    expect(testNavigation.router.push).toHaveBeenCalledWith("/dashboard");
   });
 });

@@ -1,7 +1,6 @@
 "use client";
 import { formatDate } from "@/utils/date.time.helpers";
 
-import DefaultMarkerIcon from "@/assets/icons/user.marker.svg";
 import { ActivateProvider } from "@/components/app/Providers/ActivateProvider";
 import { DeactivateProvider } from "@/components/app/Providers/DeactivateProvider";
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
@@ -10,9 +9,9 @@ import { Tag } from "@/components/app/shared/Tag";
 import { useDict } from "@/hooks/useDict";
 import { StatusChip } from "@/components/app/shared/StatusChip";
 import { SIGNED_CONTRACT_TONES } from "@/components/app/SignedContracts/signedContractStatus";
+import { ProviderLocationMap } from "./ProviderLocationMap";
 import { ProviderSignature } from "./ProviderSignature";
 import { useLang } from "@/hooks/useLang";
-import GoogleMapReact from "google-map-react";
 import { useQueryState } from "nuqs";
 import { DetailGate } from "@/components/app/shared/states/DetailGate";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
@@ -22,16 +21,6 @@ import { useAppRouter } from "@/hooks/useAppRouter";
 import { DocumentDisplay } from "@/components/app/ProviderRequests/Detail/DocumentDisplay";
 import { dataUrl } from "@/config/url";
 
-const Marker = ({}: { lat: number; lng: number }) => (
-  <DefaultMarkerIcon className="size-16 origin-center -translate-y-[80%] ltr:-translate-x-1/2 rtl:translate-x-1/2" />
-);
-const defaultProps = {
-  center: {
-    lat: 21.636981,
-    lng: 39.181078,
-  },
-  zoom: 11,
-};
 // Provider-page wording for each e-contract status (dict.contract_status).
 const CONTRACT_STATUS_KEYS = {
   [SignedContractStatus.Active]: "active",
@@ -190,33 +179,10 @@ export const ProviderDetail = ({ id }: { id: string }) => {
                     </div>
                   )}
                   <div className="col-span-2 grid h-40 grid-cols-1">
-                    <GoogleMapReact
-                      bootstrapURLKeys={{
-                        key: process.env.NEXT_PUBLIC_MAPS_API_KEY || "",
-                      }}
-                      center={{
-                        lat: provider.latitude ?? defaultProps.center.lat,
-                        lng: provider.longitude ?? defaultProps.center.lng,
-                      }}
-                      zoom={defaultProps.zoom}
-                      options={{
-                        fullscreenControl: false, // disables the fullscreen button
-                        mapTypeControl: false, // optional: removes the map/satellite switch
-                        streetViewControl: false, // optional
-                        zoomControl: false, // optional
-                        disableDefaultUI: true,
-                        draggable: false,
-                      }}
-                      yesIWantToUseGoogleMapApiInternals
-                      onGoogleApiLoaded={({ map, maps }) => {}}
-                    >
-                      {provider.latitude && provider.longitude && (
-                        <Marker
-                          lat={provider.latitude}
-                          lng={provider.longitude}
-                        />
-                      )}
-                    </GoogleMapReact>
+                    <ProviderLocationMap
+                      latitude={provider.latitude}
+                      longitude={provider.longitude}
+                    />
                   </div>
                   <div className="grid grid-cols-1 gap-2">
                     <p className="text-primary font-medium dark:text-white">

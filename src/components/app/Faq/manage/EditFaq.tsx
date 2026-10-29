@@ -60,7 +60,7 @@ export const EditFaq = ({ id }: { id: string }) => {
                     setForm({ questionAr: value });
                     clearError("questionAr");
                   }}
-                  errorMessage={errors.nameAr}
+                  errorMessage={errors.questionAr}
                 />
                 <FormAreaInput
                   label={dict.add_new_faq_form.labels.questionEn}
@@ -70,7 +70,7 @@ export const EditFaq = ({ id }: { id: string }) => {
                     setForm({ questionEn: value });
                     clearError("questionEn");
                   }}
-                  errorMessage={errors.nameEn}
+                  errorMessage={errors.questionEn}
                 />
                 <FormAreaInput
                   label={dict.add_new_faq_form.labels.answerAr}
@@ -80,7 +80,7 @@ export const EditFaq = ({ id }: { id: string }) => {
                     setForm({ answerAr: value });
                     clearError("answerAr");
                   }}
-                  errorMessage={errors.descriptionAr}
+                  errorMessage={errors.answerAr}
                 />
                 <FormAreaInput
                   label={dict.add_new_faq_form.labels.answerEn}
@@ -90,7 +90,7 @@ export const EditFaq = ({ id }: { id: string }) => {
                     setForm({ answerEn: value });
                     clearError("answerEn");
                   }}
-                  errorMessage={errors.descriptionEn}
+                  errorMessage={errors.answerEn}
                 />
               </div>
             </FormSection>

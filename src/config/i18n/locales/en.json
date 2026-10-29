@@ -139,10 +139,18 @@
       "not_found_message": "This item doesn't exist or was removed.",
       "retry": "Try again",
       "back_to_list": "Back to the list",
+      "page_not_found_title": "Page not found",
+      "page_not_found_message": "This link is broken or the page has moved.",
+      "back_to_dashboard": "Back to the dashboard",
       "forbidden_title": "No access",
       "forbidden_message": "Your permissions don't include this page. Ask a super admin if you need it.",
       "failed_title": "Couldn't load this page",
       "failed_message": "Something went wrong while loading. Check your connection and try again."
+    },
+    "upload": {
+      "session_expired": "Your session has expired. Please sign in again.",
+      "too_large": "The image is too large. Please choose a smaller one.",
+      "failed": "Couldn't upload the image. Please try again."
     },
     "a11y": {
       "show_password": "Show password",
@@ -700,9 +708,7 @@
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
       "phoneNumberRequired": "Phone number is required",
-      "phoneNumberInvalid": "Phone number format is invalid",
-      "phoneNumberTooShort": "Phone number must be at least 7 digits",
-      "phoneNumberTooLong": "Phone number must not exceed 20 digits",
+      "phoneNumberInvalidSaudi": "Enter a Saudi mobile number: 05 followed by 8 digits (e.g. 0512345678).",
       "countryCodeRequired": "Country code is required",
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 8 characters long",

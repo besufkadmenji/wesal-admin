@@ -31,7 +31,7 @@ export const DateRangeFilter = ({
         <Button
           startContent={<CalendarIcon className="text-app-link size-4" />}
           variant="bordered"
-          className="border-gray-border-alt data-[hover=true]:border-app-primary dark:border-dark-border dark:bg-dark-black border bg-white"
+          className="border-gray-border-alt data-[hover=true]:border-app-primary dark:border-dark-border dark:bg-dark-black shrink-0 border bg-white whitespace-nowrap"
         >
           {localDateFrom
             ? moment(localDateFrom).format("MMM D, YYYY")
