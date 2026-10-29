@@ -9,6 +9,8 @@ import { AuthLayout } from "@/components/auth/AuthLayout";
 export const VerifyCode = () => {
   const dict = useDict();
   const [code, setCode] = useState("");
+  // ClickUp 869fmnh8j: an incomplete code used to be ignored silently.
+  const [invalid, setInvalid] = useState(false);
   const { verifyResetCode, busy, resendCode, startTimer, resetSeconds } =
     useForgotPassword();
   useEffect(() => {
@@ -26,13 +28,18 @@ export const VerifyCode = () => {
         onSubmit={(event) => {
           event.preventDefault();
           if (code.length === 4) verifyResetCode(code);
+          else setInvalid(true);
         }}
       >
         <div dir="ltr" className="grid justify-items-center">
           <InputOtp
             length={4}
             value={code}
-            onValueChange={setCode}
+            onValueChange={(value) => {
+              setCode(value);
+              setInvalid(false);
+            }}
+            isInvalid={invalid}
             size="lg"
             classNames={{
               wrapper: "justify-center",
