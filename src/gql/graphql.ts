@@ -396,7 +396,8 @@ export enum ContractStatusGroup {
   InDelivery = 'IN_DELIVERY',
   InProgress = 'IN_PROGRESS',
   PendingAcceptance = 'PENDING_ACCEPTANCE',
-  PendingPayment = 'PENDING_PAYMENT'
+  PendingPayment = 'PENDING_PAYMENT',
+  Rejected = 'REJECTED'
 }
 
 export type ConversationPaginationInput = {
@@ -608,6 +609,7 @@ export type ListingPaginationInput = {
   limit?: number;
   maxPrice?: number | null | undefined;
   minPrice?: number | null | undefined;
+  minRating?: number | null | undefined;
   /** Page number (1-based) */
   page?: number;
   search?: string | null | undefined;

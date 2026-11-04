@@ -923,7 +923,8 @@ export enum ContractStatusGroup {
   InDelivery = 'IN_DELIVERY',
   InProgress = 'IN_PROGRESS',
   PendingAcceptance = 'PENDING_ACCEPTANCE',
-  PendingPayment = 'PENDING_PAYMENT'
+  PendingPayment = 'PENDING_PAYMENT',
+  Rejected = 'REJECTED'
 }
 
 export type Conversation = {
@@ -1457,6 +1458,7 @@ export type ListingPaginationInput = {
   limit?: Scalars['Int']['input'];
   maxPrice?: InputMaybe<Scalars['Float']['input']>;
   minPrice?: InputMaybe<Scalars['Float']['input']>;
+  minRating?: InputMaybe<Scalars['Int']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
   search?: InputMaybe<Scalars['String']['input']>;
