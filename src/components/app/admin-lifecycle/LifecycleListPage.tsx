@@ -174,6 +174,8 @@ const statuses: Record<Kind, string[]> = {
     ContractStatusGroup.InDelivery,
     ContractStatusGroup.Completed,
     ContractStatusGroup.Cancelled,
+    // ClickUp 869fnv1ud: rejected contracts have their own tab.
+    ContractStatusGroup.Rejected,
     ...contractReviewStatuses,
   ],
   conversations: ["ACTIVE", "CLOSED"],
