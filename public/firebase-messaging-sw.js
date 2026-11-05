@@ -19,7 +19,6 @@ const readPayload = (event) => {
 
 self.addEventListener("push", (event) => {
   const data = readPayload(event);
-  const group = data.group || "";
   event.waitUntil(
     (async () => {
       const windows = await self.clients.matchAll({
@@ -38,14 +37,8 @@ self.addEventListener("push", (event) => {
         dir: data.lang === "ar" ? "rtl" : "ltr",
         lang: data.lang || "ar",
         tag,
-        data: { link: data.link || "", lang: data.lang || "ar", group },
+        data: { link: data.link || "", lang: data.lang || "ar" },
       });
-      if (!group) return;
-      // Keep one notification per chat: close the older ones.
-      const shown = await self.registration.getNotifications();
-      shown
-        .filter((n) => n.data?.group === group && n.tag !== tag)
-        .forEach((n) => n.close());
     })(),
   );
 });
