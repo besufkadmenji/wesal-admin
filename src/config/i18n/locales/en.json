@@ -2335,7 +2335,16 @@
   },
   "admin_notifications": {
     "empty": "You have no notifications",
-    "mark_all_read": "Mark all as read"
+    "mark_all_read": "Mark all as read",
+    "view": "View",
+    "push": {
+      "prompt": "Get notified even when the admin panel is closed",
+      "enable": "Enable",
+      "not_now": "Not now",
+      "enable_browser": "Enable browser notifications",
+      "enabled": "Browser notifications are on",
+      "denied": "Notifications are blocked in your browser settings"
+    }
   },
   "charity_page": {
     "title": "Wesal Al-Khair (charity list)",

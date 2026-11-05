@@ -3,6 +3,7 @@ import AdminService from "@/services/admin.service";
 import { useAdminPermissionStore } from "@/store/adminPermissionStore";
 import { useQuery } from "@tanstack/react-query";
 import Cookie from "js-cookie";
+import { disablePush } from "@/utils/push";
 import { useEffect } from "react";
 
 export const useMe = (): {
@@ -37,6 +38,8 @@ export const useMe = (): {
 
   const logout = async (): Promise<void> => {
     clearPermissions();
+    // ClickUp 869fp1jmt: stop push to this browser while still signed in.
+    await disablePush();
     Cookie.remove("token");
     window.location.reload();
   };

@@ -1,13 +1,25 @@
 import { AdminNotificationsQuery } from "@/gql/graphql";
 import AdminNotificationService from "@/services/admin-notification.service";
+import { useAppRouter } from "@/hooks/useAppRouter";
+import { useDict } from "@/hooks/useDict";
+import { useLang } from "@/hooks/useLang";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { showAdminNotificationToast } from "./adminNotificationToast";
 
 const KEY = ["admin-notifications"] as const;
 
 /** Header bell feed: initial page, live pushes, read state. */
 export const useAdminNotifications = (enabled: boolean) => {
   const queryClient = useQueryClient();
+  // Read through a ref so a language switch doesn't reopen the socket.
+  const dict = useDict();
+  const lang = useLang();
+  const router = useAppRouter();
+  const toastContextRef = useRef({ dict, lang, router });
+  useEffect(() => {
+    toastContextRef.current = { dict, lang, router };
+  }, [dict, lang, router]);
   const query = useQuery({
     queryKey: KEY,
     queryFn: () => AdminNotificationService.list(),
@@ -20,6 +32,22 @@ export const useAdminNotifications = (enabled: boolean) => {
       next: (payload) => {
         const added = payload.data?.adminNotificationAdded;
         if (!added) return;
+        const known = queryClient
+          .getQueryData<AdminNotificationsQuery | null>(KEY)
+          ?.adminNotifications.items.some((n) => n.id === added.id);
+        if (!known && !added.isRead) {
+          const { dict, lang, router } = toastContextRef.current;
+          showAdminNotificationToast(added, {
+            lang,
+            viewLabel: dict.admin_notifications.view,
+            onView: (href) => {
+              void AdminNotificationService.markRead(added.id).finally(() =>
+                queryClient.invalidateQueries({ queryKey: KEY }),
+              );
+              router.push(`/${lang}${href}`);
+            },
+          });
+        }
         queryClient.setQueryData<AdminNotificationsQuery | null>(
           KEY,
           (current) => {
