@@ -48,6 +48,7 @@ export const conversationDetailCopy = (lang: string) => {
     none: ar ? "لا يوجد" : "None",
     messages: ar ? "سجل المحادثة" : "Conversation log",
     noMessages: ar ? "لا توجد رسائل" : "No messages",
+    openPhoto: ar ? "فتح الصورة" : "Open photo",
     viewContract: ar ? "عرض التعاقد" : "View contract",
     viewComplaint: ar ? "عرض الشكوى" : "View complaint",
     empty: "—",
