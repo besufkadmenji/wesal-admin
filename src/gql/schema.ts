@@ -1198,7 +1198,8 @@ export type CreateListingMediaInput = {
 };
 
 export type CreateMessageInput = {
-  content: Scalars['String']['input'];
+  attachment?: InputMaybe<MessageAttachmentInput>;
+  content?: Scalars['String']['input'];
   conversationId: Scalars['String']['input'];
 };
 
@@ -1461,6 +1462,7 @@ export type ListingPaginationInput = {
   minRating?: InputMaybe<Scalars['Int']['input']>;
   /** Page number (1-based) */
   page?: Scalars['Int']['input'];
+  providerId?: InputMaybe<Scalars['String']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
   /** Sort field name */
   sortBy?: InputMaybe<ListingSortField>;
@@ -1538,6 +1540,12 @@ export type Message = {
   senderId?: Maybe<Scalars['ID']['output']>;
   senderType: ConversationSenderType;
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type MessageAttachmentInput = {
+  filename: Scalars['String']['input'];
+  originalFilename: Scalars['String']['input'];
+  size: Scalars['Int']['input'];
 };
 
 /** User text or a typed system event in a conversation */
@@ -1709,8 +1717,12 @@ export type Mutation = {
   refuseContractDelivery: Contract;
   /** Register a new user and send verification OTPs */
   register: User;
+  /** Registers this admin browser for FCM push notifications */
+  registerAdminPushDevice: Scalars['Boolean']['output'];
   /** Register a new provider and send verification OTPs */
   registerProvider: Provider;
+  /** Registers this browser for FCM push notifications */
+  registerPushDevice: Scalars['Boolean']['output'];
   /** Provider rejects a pending contract */
   rejectContract: Contract;
   /** Admin rejects a provider's e-contract termination request; the contract is active again (S4-58) */
@@ -1772,6 +1784,10 @@ export type Mutation = {
   /** Provider asks the administration to terminate their e-contract (S4-58); refused while customer contracts are unfinished */
   terminateProviderContract: Provider;
   trackAction: Tracking;
+  /** Stops FCM push notifications to this admin browser */
+  unregisterAdminPushDevice: Scalars['Boolean']['output'];
+  /** Stops FCM push notifications to this browser */
+  unregisterPushDevice: Scalars['Boolean']['output'];
   updateAdmin: Admin;
   updateBadgeSettings: Array<BadgeSetting>;
   updateBank: Bank;
@@ -2212,8 +2228,18 @@ export type MutationRegisterArgs = {
 };
 
 
+export type MutationRegisterAdminPushDeviceArgs = {
+  input: RegisterPushDeviceInput;
+};
+
+
 export type MutationRegisterProviderArgs = {
   input: RegisterProviderInput;
+};
+
+
+export type MutationRegisterPushDeviceArgs = {
+  input: RegisterPushDeviceInput;
 };
 
 
@@ -2390,6 +2416,16 @@ export type MutationTerminateProviderContractArgs = {
 
 export type MutationTrackActionArgs = {
   input: TrackActionInput;
+};
+
+
+export type MutationUnregisterAdminPushDeviceArgs = {
+  token: Scalars['String']['input'];
+};
+
+
+export type MutationUnregisterPushDeviceArgs = {
+  token: Scalars['String']['input'];
 };
 
 
@@ -2952,6 +2988,8 @@ export type Provider = {
   commercialName?: Maybe<Scalars['String']['output']>;
   commercialRegistrationFilename?: Maybe<Scalars['String']['output']>;
   commercialRegistrationNumber?: Maybe<Scalars['String']['output']>;
+  /** Completed contracts, for the public provider page */
+  contractsCount?: Maybe<Scalars['Int']['output']>;
   country?: Maybe<Country>;
   countryId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -2968,6 +3006,8 @@ export type Provider = {
   isNewlyAdded: Scalars['Boolean']['output'];
   languageCode?: Maybe<Scalars['String']['output']>;
   latitude?: Maybe<Scalars['Float']['output']>;
+  /** Published ads, for the public provider page */
+  listingsCount?: Maybe<Scalars['Int']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   phone: Scalars['String']['output'];
@@ -3634,6 +3674,11 @@ export type RegisterProviderInput = {
   password: Scalars['String']['input'];
   phone: Scalars['String']['input'];
   withAbsher?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type RegisterPushDeviceInput = {
+  language: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 };
 
 export type RejectContractInput = {
