@@ -19,24 +19,34 @@ const readPayload = (event) => {
 
 self.addEventListener("push", (event) => {
   const data = readPayload(event);
-  if (!data.title) return;
+  const group = data.group || "";
   event.waitUntil(
-    self.clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((windows) => {
-        // A focused tab shows the in-app pop-up instead. Only "focused"
-        // counts: Chrome accepts a push that shows nothing only then, and
-        // otherwise puts up its own "updated in the background" notice.
-        if (windows.some((w) => w.focused)) return;
-        return self.registration.showNotification(data.title, {
-          body: data.body || "",
-          icon: "/images/logo.pdf.png",
-          dir: data.lang === "ar" ? "rtl" : "ltr",
-          lang: data.lang || "ar",
-          tag: data.notificationId || undefined,
-          data: { link: data.link || "", lang: data.lang || "ar" },
-        });
-      }),
+    (async () => {
+      const windows = await self.clients.matchAll({
+        type: "window",
+        includeUncontrolled: true,
+      });
+      // A focused admin tab shows the in-app pop-up instead. Only "focused"
+      // counts: Chrome accepts a push that shows nothing only then, and
+      // otherwise puts up its own "updated in the background" notice.
+      if (windows.some((w) => w.focused)) return;
+      const tag = data.notificationId || undefined;
+      // Never show nothing here, even for an unexpected payload.
+      await self.registration.showNotification(data.title || "Wesal", {
+        body: data.body || "",
+        icon: "/images/logo.pdf.png",
+        dir: data.lang === "ar" ? "rtl" : "ltr",
+        lang: data.lang || "ar",
+        tag,
+        data: { link: data.link || "", lang: data.lang || "ar", group },
+      });
+      if (!group) return;
+      // Keep one notification per chat: close the older ones.
+      const shown = await self.registration.getNotifications();
+      shown
+        .filter((n) => n.data?.group === group && n.tag !== tag)
+        .forEach((n) => n.close());
+    })(),
   );
 });
 
