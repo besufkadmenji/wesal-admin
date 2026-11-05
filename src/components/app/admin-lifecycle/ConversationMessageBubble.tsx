@@ -1,8 +1,11 @@
 import { ConversationSenderType, MessageKind } from "@/gql/graphql";
+import Image from "next/image";
 import { twMerge } from "tailwind-merge";
+import { conversationPhoto, conversationPhotoUrl } from "./conversation-photo";
 import { lifecycleEnumLabel } from "./lifecycle-enum-labels";
 import {
   ConversationMessage,
+  conversationDetailCopy,
   formatConversationDate,
 } from "./conversation-detail-helpers";
 
@@ -37,6 +40,7 @@ export const ConversationMessageBubble = ({
   }
 
   const isProvider = message.senderType === ConversationSenderType.Provider;
+  const photo = conversationPhoto(message.metadata);
 
   return (
     <div
@@ -57,9 +61,28 @@ export const ConversationMessageBubble = ({
           <strong>{lifecycleEnumLabel(message.senderType, lang)}</strong>
           <time className="text-subTitle dark:text-dark-subTitle shrink-0">{time}</time>
         </div>
-        <p className="text-sm leading-6 wrap-break-word whitespace-pre-wrap">
-          {message.content}
-        </p>
+        {photo && (
+          <a
+            href={conversationPhotoUrl(photo.filename)}
+            target="_blank"
+            rel="noreferrer"
+            className="mb-2 block overflow-hidden rounded-xl"
+            aria-label={conversationDetailCopy(lang).openPhoto}
+          >
+            <Image
+              src={conversationPhotoUrl(photo.filename)}
+              alt={photo.originalFilename}
+              width={240}
+              height={240}
+              className="h-auto max-h-72 w-60 max-w-full object-cover"
+            />
+          </a>
+        )}
+        {message.content?.trim() ? (
+          <p className="text-sm leading-6 wrap-break-word whitespace-pre-wrap">
+            {message.content}
+          </p>
+        ) : null}
       </div>
     </div>
   );

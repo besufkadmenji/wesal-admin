@@ -35,6 +35,7 @@ export const ADMIN_CONVERSATION_QUERY: TypedDocumentNode<
         senderType
         content
         kind
+        metadata
         createdAt
       }
     }
