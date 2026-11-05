@@ -42,9 +42,15 @@ const client = (token?: string, url?: string) => {
             // Admin-only subscriptions authenticate with the admin token.
             connectionParams: () => {
               const currentToken = token ?? Cookies.get("token");
-              return currentToken
-                ? { Authorization: `Bearer ${currentToken}` }
-                : {};
+              // Live notifications are sent in this language, like HTTP
+              // requests (ClickUp 869fp1jmt: pop-ups were in English).
+              const language = Cookies.get("lang") || "ar";
+              return {
+                ...(currentToken
+                  ? { Authorization: `Bearer ${currentToken}` }
+                  : {}),
+                "accept-language": language,
+              };
             },
             on: {
               connected: () => {
