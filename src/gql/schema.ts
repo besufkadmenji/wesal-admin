@@ -1422,6 +1422,8 @@ export type Listing = {
   createdAt: Scalars['DateTime']['output'];
   deactivationReason?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
+  /** When a free ad expires (S4-59). Null: featured, a Trust provider, or not active. */
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
   featuredEndsAt?: Maybe<Scalars['DateTime']['output']>;
   featuredStartsAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
@@ -1500,6 +1502,7 @@ export enum ListingSortField {
 /** Listing publication status */
 export enum ListingStatus {
   Active = 'ACTIVE',
+  Expired = 'EXPIRED',
   Inactive = 'INACTIVE',
   PendingPayment = 'PENDING_PAYMENT'
 }
@@ -1675,6 +1678,8 @@ export type Mutation = {
   /** Delete all notifications for a user */
   deleteAllNotificationsForUser: Scalars['Boolean']['output'];
   deleteSignedContract: SignedContract;
+  /** S4-PAY-REFEATURE: ask to feature an active free ad; then pay through the PREMIUM_AD checkout */
+  featureListing: Listing;
   /** Request password reset OTP */
   forgotPassword: Scalars['Boolean']['output'];
   /** Request password reset OTP for provider */
@@ -1754,6 +1759,8 @@ export type Mutation = {
   removeUser: User;
   /** Reply to contact message (admin only) */
   replyToContactMessage: ContactMessage;
+  /** S4-62: re-publish an expired ad for a new free period; featured=true then needs the PREMIUM_AD checkout */
+  republishListing: Listing;
   /** Customer requests cancellation before final completion */
   requestContractCancellation: Contract;
   /** Customer resends a rejected contract as a new version */
@@ -2123,6 +2130,11 @@ export type MutationDeleteSignedContractArgs = {
 };
 
 
+export type MutationFeatureListingArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationForgotPasswordArgs = {
   input: ForgotPasswordInput;
 };
@@ -2334,6 +2346,12 @@ export type MutationRemoveUserArgs = {
 export type MutationReplyToContactMessageArgs = {
   id: Scalars['ID']['input'];
   message: Scalars['String']['input'];
+};
+
+
+export type MutationRepublishListingArgs = {
+  featured?: Scalars['Boolean']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -2633,6 +2651,7 @@ export enum NotificationType {
   ContractUpdate = 'CONTRACT_UPDATE',
   EcontractTerminationRejected = 'ECONTRACT_TERMINATION_REJECTED',
   ListingApproved = 'LISTING_APPROVED',
+  ListingExpired = 'LISTING_EXPIRED',
   ListingFeatured = 'LISTING_FEATURED',
   ListingFeaturedExpired = 'LISTING_FEATURED_EXPIRED',
   ListingRejected = 'LISTING_REJECTED',
@@ -3759,6 +3778,8 @@ export type Setting = {
   /** Provider chat fee (SAR) for new categories */
   defaultProviderConversationFee: Scalars['Int']['output'];
   email: Scalars['String']['output'];
+  /** Days a free ad stays published before it expires (S4-60). Applies to new and re-published ads. */
+  freeAdValidityDays: Scalars['Int']['output'];
   phones: Array<Scalars['String']['output']>;
   platformManagerName?: Maybe<Scalars['String']['output']>;
   platformManagerSignature?: Maybe<Scalars['String']['output']>;
@@ -3806,6 +3827,7 @@ export type SettingInput = {
   defaultMinCommissionAmount?: InputMaybe<Scalars['Int']['input']>;
   defaultProviderConversationFee?: InputMaybe<Scalars['Int']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
+  freeAdValidityDays?: InputMaybe<Scalars['Int']['input']>;
   phones?: InputMaybe<Array<Scalars['String']['input']>>;
   platformManagerName?: InputMaybe<Scalars['String']['input']>;
   platformManagerSignature?: InputMaybe<Scalars['String']['input']>;

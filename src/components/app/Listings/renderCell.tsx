@@ -11,6 +11,7 @@ export const statusMap = (
 } => ({
   ACTIVE: dict.common.statuses.ACTIVE,
   INACTIVE: dict.common.statuses.INACTIVE,
+  EXPIRED: dict.common.statuses.EXPIRED,
 });
 
 export const renderCell = (
@@ -33,14 +34,22 @@ export const renderCell = (
   if (column === "action") {
     return <ActionsCell onView={action.onView} onDelete={action.onDelete} />;
   } else if (column === "status") {
-    console.log("row status:", row.status);
+    // S4-59: an expired ad reads "Expired"; switching it on re-activates it
+    // for a fresh free period.
     return (
-      <AppSwitch
-        isSelected={row.status === "ACTIVE"}
-        onValueChange={(checked) => {
-          action.onActivate(checked);
-        }}
-      />
+      <div className="flex w-max items-center gap-2">
+        <AppSwitch
+          isSelected={row.status === "ACTIVE"}
+          onValueChange={(checked) => {
+            action.onActivate(checked);
+          }}
+        />
+        {row.status === "EXPIRED" && (
+          <span className="rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
+            {statusMap(dict).EXPIRED}
+          </span>
+        )}
+      </div>
     );
   }
   return <p className="w-max">{row[column as string]}</p>;

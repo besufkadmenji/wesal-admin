@@ -29,6 +29,7 @@ export const GET_SETTING_QUERY: TypedDocumentNode<GetSettingQuery> = gql`
       premiumAdFee
       premiumAdDurationDays
       premiumAdEnabled
+      freeAdValidityDays
       defaultCommissionPercent
       defaultMinCommissionAmount
       defaultMaxExecutionHours

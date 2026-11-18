@@ -19,6 +19,7 @@ type LifecycleSettings = {
   premiumAdFee: number;
   premiumAdDurationDays: number;
   premiumAdEnabled: boolean;
+  freeAdValidityDays: number;
 };
 
 export const LifecycleSettingsSection = () => {
@@ -41,6 +42,7 @@ export const LifecycleSettingsSection = () => {
         premiumAdFee: query.data.premiumAdFee,
         premiumAdDurationDays: query.data.premiumAdDurationDays,
         premiumAdEnabled: query.data.premiumAdEnabled,
+        freeAdValidityDays: query.data.freeAdValidityDays,
         ...overrides,
       }
     : null;
@@ -130,6 +132,13 @@ export const LifecycleSettingsSection = () => {
         >
           {copy.premium_enabled}
         </Switch>
+        <FormInput
+          label={copy.free_ad_validity}
+          placeholder={copy.days}
+          type="number"
+          value={String(form.freeAdValidityDays)}
+          onChange={(value) => setNumber("freeAdValidityDays", value)}
+        />
         <Button
           color="primary"
           isLoading={save.isPending}

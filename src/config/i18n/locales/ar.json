@@ -101,7 +101,8 @@
       "NOT_REPLIED": "لم يتم الرد",
       "REPLIED": "تم الرد",
       "paid": "مدفوع بالكامل",
-      "partialReceived": "استلام جزئي"
+      "partialReceived": "استلام جزئي",
+      "EXPIRED": "منتهي"
     },
     "roles": {
       "ADMINISTRATOR": "مدير",
@@ -1332,6 +1333,7 @@
       "fee": "الرسوم",
       "premium_duration": "مدة الإعلان المميز (أيام)",
       "premium_enabled": "تفعيل الإعلانات المميزة",
+      "free_ad_validity": "مدة صلاحية الإعلان المجاني (أيام)",
       "save": "حفظ إعدادات التعاقدات والرسوم"
     }
   },

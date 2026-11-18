@@ -16,6 +16,7 @@ export const ListingsFilter = () => {
   const listingStatusMap = {
     ACTIVE: dict.common.statuses.ACTIVE,
     INACTIVE: dict.common.statuses.INACTIVE,
+    EXPIRED: dict.common.statuses.EXPIRED,
   };
   const listingStatusOptions = Object.keys(listingStatusMap).map((key) => ({
     label: listingStatusMap[key as keyof typeof listingStatusMap],

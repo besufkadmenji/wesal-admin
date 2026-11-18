@@ -101,7 +101,8 @@
       "SUSPENDED": "Suspended",
       "PENDING_APPROVAL": "Pending Approval",
       "NOT_REPLIED": "Not Replied",
-      "REPLIED": "Replied"
+      "REPLIED": "Replied",
+      "EXPIRED": "Expired"
     },
     "roles": {
       "ADMINISTRATOR": "Administrator",
@@ -1332,6 +1333,7 @@
       "fee": "Fee",
       "premium_duration": "Premium-ad duration (days)",
       "premium_enabled": "Premium ads enabled",
+      "free_ad_validity": "Free-ad validity (days)",
       "save": "Save contract and fee settings"
     }
   },
