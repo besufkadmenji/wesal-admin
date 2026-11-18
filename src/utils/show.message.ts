@@ -1,7 +1,11 @@
 import { addToast } from "@heroui/react";
+import { localizeNetworkError } from "@/utils/network-error";
 export const showErrorMessage = (message: string | Error) => {
+  // Never show the browser's English "Failed to fetch" on an Arabic page.
   addToast({
-    description: message instanceof Error ? message.message : message,
+    description: localizeNetworkError(
+      message instanceof Error ? message.message : message,
+    ),
     color: "danger",
 
     classNames: {
