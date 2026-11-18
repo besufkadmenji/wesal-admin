@@ -70,7 +70,14 @@ export const AdminPushGate = ({ adminId }: { adminId: string }) => {
             >
               {copy.enable}
             </Button>
-            <Button size="sm" variant="light" onPress={close}>
+            {/* The primary toast stays light in dark mode, so the button
+                takes the toast's colour instead of the theme's foreground. */}
+            <Button
+              size="sm"
+              color="primary"
+              variant="light"
+              onPress={close}
+            >
               {copy.not_now}
             </Button>
           </div>
