@@ -101,7 +101,8 @@
       "SUSPENDED": "Suspended",
       "PENDING_APPROVAL": "Pending Approval",
       "NOT_REPLIED": "Not Replied",
-      "REPLIED": "Replied"
+      "REPLIED": "Replied",
+      "EXPIRED": "Expired"
     },
     "roles": {
       "ADMINISTRATOR": "Administrator",
@@ -1328,10 +1329,12 @@
       "hours": "Hours",
       "acceptance_enabled": "Acceptance deadline enabled",
       "confirmation_grace": "Customer confirmation grace (hours)",
+      "chat_close_after_completion": "Close chat after completion (hours)",
       "premium_fee": "Premium-ad fee",
       "fee": "Fee",
       "premium_duration": "Premium-ad duration (days)",
       "premium_enabled": "Premium ads enabled",
+      "free_ad_validity": "Free-ad validity (days)",
       "save": "Save contract and fee settings"
     }
   },

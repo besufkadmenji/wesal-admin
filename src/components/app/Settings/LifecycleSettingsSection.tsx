@@ -16,9 +16,11 @@ type LifecycleSettings = {
   contractAcceptanceWindowDays: number;
   contractAcceptanceWindowEnabled: boolean;
   completionConfirmationGraceHours: number;
+  chatCloseAfterCompletionHours: number;
   premiumAdFee: number;
   premiumAdDurationDays: number;
   premiumAdEnabled: boolean;
+  freeAdValidityDays: number;
 };
 
 export const LifecycleSettingsSection = () => {
@@ -38,9 +40,12 @@ export const LifecycleSettingsSection = () => {
           query.data.contractAcceptanceWindowEnabled,
         completionConfirmationGraceHours:
           query.data.completionConfirmationGraceHours,
+        chatCloseAfterCompletionHours:
+          query.data.chatCloseAfterCompletionHours,
         premiumAdFee: query.data.premiumAdFee,
         premiumAdDurationDays: query.data.premiumAdDurationDays,
         premiumAdEnabled: query.data.premiumAdEnabled,
+        freeAdValidityDays: query.data.freeAdValidityDays,
         ...overrides,
       }
     : null;
@@ -109,6 +114,15 @@ export const LifecycleSettingsSection = () => {
           }
         />
         <FormInput
+          label={copy.chat_close_after_completion}
+          placeholder={copy.hours}
+          type="number"
+          value={String(form.chatCloseAfterCompletionHours)}
+          onChange={(value) =>
+            setNumber("chatCloseAfterCompletionHours", value)
+          }
+        />
+        <FormInput
           label={copy.premium_fee}
           placeholder={copy.fee}
           type="number"
@@ -130,6 +144,13 @@ export const LifecycleSettingsSection = () => {
         >
           {copy.premium_enabled}
         </Switch>
+        <FormInput
+          label={copy.free_ad_validity}
+          placeholder={copy.days}
+          type="number"
+          value={String(form.freeAdValidityDays)}
+          onChange={(value) => setNumber("freeAdValidityDays", value)}
+        />
         <Button
           color="primary"
           isLoading={save.isPending}

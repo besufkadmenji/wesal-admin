@@ -32,7 +32,8 @@ export const ContractTextField = ({
             : dict.category_contract_settings.disabled}
         </Switch>
       </div>
-      {hint ? <p className="text-default-500 text-sm">{hint}</p> : null}
+      {/* H-54: a div, since callers pass hints that hold their own <p>. */}
+      {hint ? <div className="text-default-500 text-sm">{hint}</div> : null}
       {children}
     </div>
   );
