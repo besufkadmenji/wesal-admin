@@ -162,7 +162,8 @@
       "light_mode": "Light mode",
       "theme": "Theme",
       "language": "Language"
-    }
+    },
+    "networkError": "Couldn't reach the server. Check your connection and try again."
   },
   "auth": {
     "welcome_back": "Welcome back again",

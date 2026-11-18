@@ -17,6 +17,7 @@ import { useState } from "react";
 import { adminNotificationHref } from "./adminNotificationHref";
 import { AdminNotificationItem } from "./AdminNotificationItem";
 import { AdminPushEnableButton } from "./AdminPushEnableButton";
+import { AdminLanguageSync } from "./AdminLanguageSync";
 import { AdminPushGate } from "./AdminPushGate";
 import { useAdminNotifications } from "./useAdminNotifications";
 
@@ -34,6 +35,7 @@ export const AdminNotificationBell = () => {
   return (
     <>
       <AdminPushGate adminId={me.id} />
+      <AdminLanguageSync />
       <Popover
         placement="bottom"
         showArrow
