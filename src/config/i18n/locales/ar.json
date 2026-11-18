@@ -1329,6 +1329,7 @@
       "hours": "ساعات",
       "acceptance_enabled": "تفعيل مهلة القبول",
       "confirmation_grace": "مهلة تأكيد العميل (ساعات)",
+      "chat_close_after_completion": "إغلاق المحادثة بعد اكتمال التعاقد (ساعات)",
       "premium_fee": "رسوم الإعلان المميز",
       "fee": "الرسوم",
       "premium_duration": "مدة الإعلان المميز (أيام)",

@@ -16,6 +16,7 @@ type LifecycleSettings = {
   contractAcceptanceWindowDays: number;
   contractAcceptanceWindowEnabled: boolean;
   completionConfirmationGraceHours: number;
+  chatCloseAfterCompletionHours: number;
   premiumAdFee: number;
   premiumAdDurationDays: number;
   premiumAdEnabled: boolean;
@@ -39,6 +40,8 @@ export const LifecycleSettingsSection = () => {
           query.data.contractAcceptanceWindowEnabled,
         completionConfirmationGraceHours:
           query.data.completionConfirmationGraceHours,
+        chatCloseAfterCompletionHours:
+          query.data.chatCloseAfterCompletionHours,
         premiumAdFee: query.data.premiumAdFee,
         premiumAdDurationDays: query.data.premiumAdDurationDays,
         premiumAdEnabled: query.data.premiumAdEnabled,
@@ -108,6 +111,15 @@ export const LifecycleSettingsSection = () => {
           value={String(form.completionConfirmationGraceHours)}
           onChange={(value) =>
             setNumber("completionConfirmationGraceHours", value)
+          }
+        />
+        <FormInput
+          label={copy.chat_close_after_completion}
+          placeholder={copy.hours}
+          type="number"
+          value={String(form.chatCloseAfterCompletionHours)}
+          onChange={(value) =>
+            setNumber("chatCloseAfterCompletionHours", value)
           }
         />
         <FormInput
