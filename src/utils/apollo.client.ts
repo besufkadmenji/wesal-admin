@@ -8,8 +8,42 @@ import { SetContextLink } from "@apollo/client/link/context";
 import { RemoveTypenameFromVariablesLink } from "@apollo/client/link/remove-typename";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { createClient } from "graphql-ws";
+import { createClient, type Client as WsClient } from "graphql-ws";
 import Cookies from "js-cookie";
+import { fallbackLng, languages } from "@/config/i18n/settings";
+
+/** The page's language: the URL segment first, then the `lang` cookie. */
+const pageLanguage = () => {
+  const segment =
+    typeof window !== "undefined"
+      ? window.location.pathname.split("/")[1]
+      : undefined;
+  if (segment && languages.includes(segment)) return segment;
+  return Cookies.get("lang") || fallbackLng;
+};
+
+// Live sockets that are connected right now, with the language each sent.
+// Each client() call builds its own socket client; only connected ones
+// need restarting.
+const connectedSockets = new Map<WsClient, string>();
+
+/**
+ * Q-30: a socket sends the page language only when it connects, and the
+ * language menu switches pages without a reload. Sockets whose language no
+ * longer matches the page are terminated: graphql-ws reconnects (not
+ * fatal) with the current language and resubscribes, so live pop-ups
+ * follow the switch. Returns whether any socket restarted.
+ */
+export const syncRealtimeLanguage = (language: string): boolean => {
+  let restarted = false;
+  for (const [socket, socketLanguage] of connectedSockets) {
+    if (socketLanguage === language) continue;
+    connectedSockets.delete(socket);
+    socket.terminate();
+    restarted = true;
+  }
+  return restarted;
+};
 
 const removeTypenameLink = new RemoveTypenameFromVariablesLink();
 
@@ -31,10 +65,12 @@ const client = (token?: string, url?: string) => {
     };
   });
 
+  let socket: WsClient | null = null;
+  let socketLanguage = fallbackLng;
   const wsLink =
     typeof window !== "undefined"
       ? new GraphQLWsLink(
-          createClient({
+          (socket = createClient({
             url: process.env.NEXT_PUBLIC_SOCKET ?? "",
             lazy: true,
             retryAttempts: Infinity,
@@ -44,7 +80,8 @@ const client = (token?: string, url?: string) => {
               const currentToken = token ?? Cookies.get("token");
               // Live notifications are sent in this language, like HTTP
               // requests (ClickUp 869fp1jmt: pop-ups were in English).
-              const language = Cookies.get("lang") || "ar";
+              const language = pageLanguage();
+              socketLanguage = language;
               return {
                 ...(currentToken
                   ? { Authorization: `Bearer ${currentToken}` }
@@ -54,10 +91,14 @@ const client = (token?: string, url?: string) => {
             },
             on: {
               connected: () => {
+                if (socket) connectedSockets.set(socket, socketLanguage);
                 window.dispatchEvent(new Event("wesal:graphql-reconnected"));
               },
+              closed: () => {
+                if (socket) connectedSockets.delete(socket);
+              },
             },
-          }),
+          })),
         )
       : authLink.concat(httpLink);
 
