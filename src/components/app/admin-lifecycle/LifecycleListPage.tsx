@@ -145,7 +145,7 @@ const arabicLabels: Record<Kind, { title: string; columns: string[] }> = {
     ],
   },
   complaints: {
-    title: "قسم الشكاوى",
+    title: "إدارة الشكاوى",
     columns: [
       "الرقم",
       "العنوان",

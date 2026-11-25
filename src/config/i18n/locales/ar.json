@@ -204,7 +204,7 @@
   "navigation": {
     "home": "الرئيسية",
     "system_managers": "إدارة مديري النظام",
-    "categories": "ادارة الإقسام",
+    "categories": "إدارة الأقسام",
     "cities": "إدارة المدن",
     "users": "إدارة المستخدمين",
     "providers": "إدارة مزودي الخدمات",
@@ -233,7 +233,7 @@
     "ads": "إدارة الإعلانات",
     "contracts": "إدارة التعاقدات",
     "conversations": "إدارة المحادثات",
-    "complaints": "قسم الشكاوى",
+    "complaints": "إدارة الشكاوى",
     "contract_financial_report": "التقرير المالي للتعاقدات",
     "conversation_fee_report": "التقرير المالي لرسوم المحادثات",
     "premium_ad_report": "التقرير المالي للإعلانات المميزة",
